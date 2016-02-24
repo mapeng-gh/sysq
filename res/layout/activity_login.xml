@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:background="#E6E6E6"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="#0096DC"
+            android:orientation="vertical">
+            
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/app_title"
+                android:textColor="#FFF"
+                android:textSize="25sp"/>
+            
+        </LinearLayout>
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="#FFF"
+            android:orientation="vertical">
+            
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/login_name"
+                    android:textColor="#A2A2A2"
+                    android:textSize="15sp"/>
+                
+                <EditText 
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="20dp"
+                    android:background="@null"
+                    android:singleLine="true"/>
+                
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/login_password"
+                    android:textColor="#A2A2A2"
+                    android:textSize="15sp"/>
+                
+                <EditText 
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="20dp"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:password="true"/>
+                
+            </LinearLayout>
+            
+        </LinearLayout>
+        
+         <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+         </LinearLayout>
+         
+         <Button 
+             android:layout_width="250dp"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_horizontal"
+             android:text="@string/login"
+             android:background="#0096DC"
+             android:textColor="#FFF"/>
+         
+        
+    </LinearLayout>
+    
+
+</RelativeLayout>

@@ -1,5 +1,11 @@
 <resources>
 
     <string name="app_name">SysQ</string>
+    
+    <string name="app_title">抑郁症的病例对照研究</string>
+    
+    <string name="login_name">帐号</string>
+    <string name="login_password">密码</string>
+    <string name="login">登录</string>
 
 </resources>
