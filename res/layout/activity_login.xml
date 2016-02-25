@@ -57,7 +57,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="20dp"
                     android:background="@null"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:text="admin"/>
                 
             </LinearLayout>
             
@@ -86,7 +87,8 @@
                     android:layout_marginRight="20dp"
                     android:background="@null"
                     android:singleLine="true"
-                    android:password="true"/>
+                    android:password="true"
+                    android:text="admin"/>
                 
             </LinearLayout>
             

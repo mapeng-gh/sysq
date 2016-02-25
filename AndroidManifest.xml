@@ -23,6 +23,8 @@
             </intent-filter>
         </activity>
         
+        <activity android:name="com.huasheng.sysq.activity.IndexActivity"></activity>
+        
     </application>
 
 </manifest>

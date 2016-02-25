@@ -1,12 +1,7 @@
 package com.huasheng.sysq.activity;
 
-import com.huasheng.sysq.R;
-import com.huasheng.sysq.db.InterviewerDB;
-import com.huasheng.sysq.model.Interviewer;
-import com.huasheng.sysq.service.LoginService;
-import com.huasheng.sysq.util.MyApplication;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +10,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.huasheng.sysq.R;
+import com.huasheng.sysq.service.LoginService;
+import com.huasheng.sysq.util.MyApplication;
 
 public class LoginActivity extends Activity implements OnClickListener{
 	
@@ -44,7 +43,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 			String password = pwdET.getText().toString();
 			
 			if(LoginService.login(loginName, password)){
-				Log.d("LoginActivity", "jump to index");
+				Intent intent = new Intent(MyApplication.getContext(), IndexActivity.class);
+				startActivity(intent);
 			}else{
 				Toast.makeText(MyApplication.getContext(), "帐号或密码不正确", Toast.LENGTH_SHORT).show();
 			}
