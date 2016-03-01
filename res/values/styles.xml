@@ -16,5 +16,11 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-
+		
+     <style name="appCommonTheme">
+        <item name="android:layout_width">300dp</item>
+         <item name="android:layout_height">500dp</item>
+          <item name="android:background">#E6E6E6</item>
+    </style>
+    
 </resources>

@@ -1,0 +1,41 @@
+[33mcommit 77c541060b8c7747b99196996a10b09ef6d2fa4e[m
+Author: mapeng <mapeng3@55tuan.com>
+Date:   Tue Mar 1 21:36:36 2016 +0800
+
+    添加首页绑定事件
+
+[33mcommit b2e08c61ca86cd6ccc4d7b0990a6a28fa076ec83[m
+Author: mapeng <mapeng3@55tuan.com>
+Date:   Fri Feb 26 01:28:08 2016 +0800
+
+    添加首页
+
+[33mcommit 27ec749e7bab087dffaba9d360ead8a328579d98[m
+Author: mapeng <mapeng3@55tuan.com>
+Date:   Fri Feb 26 00:05:45 2016 +0800
+
+    初始化数据库；添加登录验证
+
+[33mcommit a9fb7f71ff5ac2022858e233eac6b4e10c1c385d[m
+Author: mapeng <mapeng3@55tuan.com>
+Date:   Thu Feb 25 00:26:46 2016 +0800
+
+    添加用户数据接口
+
+[33mcommit a2d40dca0daff613579cff66ed2de3f74c8feda5[m
+Author: mapeng <mapeng3@55tuan.com>
+Date:   Wed Feb 24 23:23:39 2016 +0800
+
+    添加登录界面
+
+[33mcommit bd08442950ab0f21cdb93a3aa9b2306169970070[m
+Author: mapeng <mapeng3@55tuan.com>
+Date:   Wed Feb 24 01:23:11 2016 +0800
+
+    搭建项目目录
+
+[33mcommit d40537fd6fd1e21f6293a29958785eb936cc50bd[m
+Author: mapeng-gh <mapeng_wy@163.com>
+Date:   Wed Feb 24 01:20:46 2016 +0800
+
+    Initial commit
