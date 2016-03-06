@@ -26,6 +26,10 @@
         <activity android:name="com.huasheng.sysq.activity.IndexActivity"></activity>
         
          <activity android:name="com.huasheng.sysq.activity.reservation.ReservationAddActivity"></activity>
+         <activity 
+             android:name="com.huasheng.sysq.activity.reservation.ReservationListActivity"
+             android:screenOrientation="landscape">
+         </activity>
         
     </application>
 

@@ -9,7 +9,7 @@ public class Page<T> {
 	private int pageSize;
 	private int totalPages;
 	
-	public static int PAGE_SIZE = 20;
+	public static int PAGE_SIZE = 2;
 
 	public List<T> getData() {
 		return data;

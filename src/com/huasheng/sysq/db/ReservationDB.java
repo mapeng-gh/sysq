@@ -1,7 +1,5 @@
 package com.huasheng.sysq.db;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +15,7 @@ import com.huasheng.sysq.util.Constants;
 
 public class ReservationDB {
 
-	public static List<Reservation> search(Reservation reservation,String searchType,Integer offset,Integer limit) throws ParseException{
+	public static List<Reservation> search(Reservation reservation,String searchType,Integer offset,Integer limit){
 		
 		//处理过滤条件
 		String selection = (String)whereSql(reservation,searchType).get("selection");
@@ -66,7 +64,7 @@ public class ReservationDB {
 		SysQOpenHelper.getDatabase().insert(Constants.TABLE_RESERVATION, null, values);
 	}
 	
-	private static Reservation fill(Cursor cursor) throws ParseException{
+	private static Reservation fill(Cursor cursor){
 		Reservation reservation = new Reservation();
 		
 		reservation.setId(cursor.getInt(cursor.getColumnIndex("id")));

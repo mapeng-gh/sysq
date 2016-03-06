@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,13 +17,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.db.ReservationDB;
 import com.huasheng.sysq.model.Reservation;
 import com.huasheng.sysq.util.DateTimeUtils;
-import com.huasheng.sysq.util.MyApplication;
 
 public class ReservationAddActivity extends Activity implements OnClickListener{
 	
@@ -109,6 +108,7 @@ public class ReservationAddActivity extends Activity implements OnClickListener{
 			reservation.setStatus(Reservation.STATUS_BOOKING);
 			
 			ReservationDB.save(reservation);
+			startActivity(new Intent(this,ReservationListActivity.class));
 		}
 	}
 }

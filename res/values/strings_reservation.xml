@@ -1,0 +1,42 @@
+<resources>
+
+  <!-- add -->
+    <string name="reservation_add_username_text">姓名：</string>
+    <string name="reservation_add_username_hint">2-10个中文字</string>
+    
+    <string name="reservation_add_identity_card_text">身份证：</string>
+    <string name="reservation_add_identity_card_hint">18位</string>
+    
+    <string name="reservation_add_mobile_text">联系电话：</string>
+    <string name="reservation_add_mobile_hint">6-20位数字</string>
+    
+    <string name="reservation_add_family_mobile_text">亲属联系电话：</string>
+    <string name="reservation_add_family_mobile_hint">6-20位数字</string>
+    
+    <string name="reservation_add_type_text">问卷类型</string>
+    <string name="reservation_add_type_case_text">病例</string>
+    <string name="reservation_add_type_contrast_text">对照</string>
+    
+    <string name="reservation_add_book_date_text">预约日期</string>
+    <string name="reservation_add_date_select_text">选择</string>
+    
+    <string name="reservation_add_submit_text">确定</string>
+    
+    <!-- list -->
+    <string name="reservation_list_id">条码</string>
+    <string name="reservation_list_username">姓名</string>
+    <string name="reservation_list_mobile">电话</string>
+    <string name="reservation_list_type">类型</string>
+    <string name="reservation_list_book_date">预约日期</string>
+    <string name="reservation_list_operation">操作</string>
+    
+    <string name="reservation_list_id_weight">1</string>
+    <string name="reservation_list_username_weight">1</string>
+    <string name="reservation_list_mobile_weight">2</string>
+    <string name="reservation_list_type_weight">1</string>
+    <string name="reservation_list_book_date_weight">2</string>
+    <string name="reservation_list_operation_weight">2</string>
+    
+    <string name="reservation_list_no_data_text">暂无预约信息</string>
+
+</resources>

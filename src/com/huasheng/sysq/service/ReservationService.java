@@ -19,7 +19,7 @@ public class ReservationService {
 		return data;
 	}
 
-	public static Page<Reservation> searchReservation(String searchStr,Integer pageNo,Integer pageSize) throws ParseException{
+	public static Page<Reservation> searchReservation(String searchStr,Integer pageNo,Integer pageSize){
 		
 		Reservation reservation = new Reservation();
 		reservation.setUsername(searchStr);

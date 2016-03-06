@@ -25,7 +25,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 			"id integer primary key autoincrement," +
 			Constants.TABLE_RESERVATION_COLUMN_NAME + " varchar," +
 			Constants.TABLE_RESERVATION_COLUMN_IDENTITY_CARD + " varchar," +
-			Constants.TABLE_RESERVATION_COLUMN_MOBILE + "mobile varchar," +
+			Constants.TABLE_RESERVATION_COLUMN_MOBILE + " varchar," +
 			Constants.TABLE_RESERVATION_COLUMN_TYPE + " integer," +
 			Constants.TABLE_RESERVATION_COLUMN_BOOK_DATE + " varchar," +
 			Constants.TABLE_RESERVATION_COLUMN_FAMILY_MOBILE + " varchar," +
@@ -34,7 +34,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	public static final String DB_NAME = "sysq.db";
 	public static final int VERSION = 1;
 	
-	private SysQOpenHelper(Context context, String name, CursorFactory factory,
+	public SysQOpenHelper(Context context, String name, CursorFactory factory,
 			int version) {
 		super(context, name, factory, version);
 	}
