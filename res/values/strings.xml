@@ -1,13 +1,16 @@
 <resources>
 
+    <!-- app -->
     <string name="app_name">SysQ</string>
     
     <string name="app_title">抑郁症的病例对照研究</string>
     
+    <!-- login -->
     <string name="login_name">帐号</string>
     <string name="login_password">密码</string>
     <string name="login">登录</string>
     
+    <!-- index -->
     <string name="index_reservation">预约管理</string>
     <string name="index_statics">数据统计</string>
     <string name="index_update">系统更新</string>
@@ -18,5 +21,27 @@
     <string name="index_search">受访者查询</string>
     <string name="index_upload">上传数据</string>
     <string name="index_help">帮助</string>
+    
+    <!-- reservation -->
+    <string name="reservation_add_username_text">姓名：</string>
+    <string name="reservation_add_username_hint">2-10个中文字</string>
+    
+    <string name="reservation_add_identity_card_text">身份证：</string>
+    <string name="reservation_add_identity_card_hint">18位</string>
+    
+    <string name="reservation_add_mobile_text">联系电话：</string>
+    <string name="reservation_add_mobile_hint">6-20位数字</string>
+    
+    <string name="reservation_add_family_mobile_text">亲属联系电话：</string>
+    <string name="reservation_add_family_mobile_hint">6-20位数字</string>
+    
+    <string name="reservation_add_type_text">问卷类型</string>
+    <string name="reservation_add_type_case_text">病例</string>
+    <string name="reservation_add_type_contrast_text">对照</string>
+    
+    <string name="reservation_add_book_date_text">预约日期</string>
+    <string name="reservation_add_date_select_text">选择</string>
+    
+    <string name="reservation_add_submit_text">确定</string>
 
 </resources>

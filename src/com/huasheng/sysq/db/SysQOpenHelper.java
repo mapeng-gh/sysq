@@ -1,5 +1,6 @@
 package com.huasheng.sysq.db;
 
+import com.huasheng.sysq.util.Constants;
 import com.huasheng.sysq.util.MyApplication;
 
 import android.content.ContentValues;
@@ -12,7 +13,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	
 	private static SQLiteDatabase db;
 	
-	public static final String CREATE_INTERVIEWER = "create table interviewer (" +
+	public static final String CREATE_INTERVIEWER = "create table " + Constants.TABLE_INTERVIEWER + " (" +
 			"id integer primary key autoincrement," +
 			"login_name varchar," +
 			"password varchar," +
@@ -20,6 +21,15 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 			"mobile varchar," +
 			"email varchar," +
 			"working_place varchar)";
+	public static final String CRETE_RESERVATION = "create table " + Constants.TABLE_RESERVATION + " (" +
+			"id integer primary key autoincrement," +
+			Constants.TABLE_RESERVATION_COLUMN_NAME + " varchar," +
+			Constants.TABLE_RESERVATION_COLUMN_IDENTITY_CARD + " varchar," +
+			Constants.TABLE_RESERVATION_COLUMN_MOBILE + "mobile varchar," +
+			Constants.TABLE_RESERVATION_COLUMN_TYPE + " integer," +
+			Constants.TABLE_RESERVATION_COLUMN_BOOK_DATE + " varchar," +
+			Constants.TABLE_RESERVATION_COLUMN_FAMILY_MOBILE + " varchar," +
+			Constants.TABLE_RESERVATION_COLUMN_STATUS + " integer )";
 	
 	public static final String DB_NAME = "sysq.db";
 	public static final int VERSION = 1;
@@ -32,6 +42,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_INTERVIEWER);
+		db.execSQL(CRETE_RESERVATION);
 		this.initData(db);
 	}
 

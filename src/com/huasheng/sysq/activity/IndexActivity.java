@@ -1,6 +1,7 @@
 package com.huasheng.sysq.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -8,6 +9,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.activity.reservation.ReservationAddActivity;
 
 public class IndexActivity extends Activity implements OnClickListener{
 	
@@ -55,6 +57,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View view) {
 		if(view.getId() == R.id.reservation_admin){
+			startActivity(new Intent(this,ReservationAddActivity.class));
 		}else if(view.getId() == R.id.data_statics){
 			
 		}else if(view.getId() == R.id.system_update){
