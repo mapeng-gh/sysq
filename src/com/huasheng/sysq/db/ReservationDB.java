@@ -14,6 +14,10 @@ import com.huasheng.sysq.model.Reservation;
 import com.huasheng.sysq.util.Constants;
 
 public class ReservationDB {
+	
+	public static void delete(int reservationId){
+		SysQOpenHelper.getDatabase().delete(Constants.TABLE_RESERVATION, "id = ?", new String[]{reservationId+""});
+	}
 
 	public static List<Reservation> search(Reservation reservation,String searchType,Integer offset,Integer limit){
 		

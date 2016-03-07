@@ -9,6 +9,10 @@ import com.huasheng.sysq.model.Reservation;
 
 public class ReservationService {
 	
+	public static void removeReservation(int reservationId){
+		ReservationDB.delete(reservationId);
+	}
+	
 	public static List<Reservation> listReservation(String searchStr) throws ParseException{
 		
 		Reservation reservation = new Reservation();

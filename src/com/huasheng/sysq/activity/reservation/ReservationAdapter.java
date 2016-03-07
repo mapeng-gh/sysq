@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huasheng.sysq.R;
@@ -16,10 +18,12 @@ import com.huasheng.sysq.util.MyApplication;
 public class ReservationAdapter extends ArrayAdapter<Reservation>{
 	
 	private int resource;
+	private ReservationListActivity activity;
 
-	public ReservationAdapter(Context context, int resource,List<Reservation> objects) {
+	public ReservationAdapter(Context context, int resource,List<Reservation> objects,ReservationListActivity activity) {
 		super(context, resource, objects);
 		this.resource = resource;
+		this.activity = activity;
 	}
 
 	@Override
@@ -49,9 +53,11 @@ public class ReservationAdapter extends ArrayAdapter<Reservation>{
 		}
 		bookDateTV.setText(reservation.getBookDate());
 		
+		ImageButton delImgBtn = (ImageButton)reservationView.findViewWithTag("reservation_del");
+		delImgBtn.setOnClickListener(this.activity);
+		((LinearLayout)delImgBtn.getParent().getParent().getParent()).setId(reservation.getId());
+		
 		return reservationView;
 	}
-	
-	
 
 }

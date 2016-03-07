@@ -38,5 +38,7 @@
     <string name="reservation_list_operation_weight">3</string>
     
     <string name="reservation_list_no_data_text">暂无预约信息</string>
+    
+    <string name="reservation_del_prompt">确定删除该预约吗？</string>
 
 </resources>
