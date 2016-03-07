@@ -32,7 +32,7 @@ public class ReservationDB {
 		}
 		
 		//±éÀúÊý¾Ý
-		Cursor cursor = SysQOpenHelper.getDatabase().query(Constants.TABLE_RESERVATION, null, selection, selectionArgs, null, null, null,limitStr);
+		Cursor cursor = SysQOpenHelper.getDatabase().query(Constants.TABLE_RESERVATION, null, selection, selectionArgs, null, null,"book_date desc",limitStr);
 		List<Reservation> data = new ArrayList<Reservation>();
 		if(cursor.moveToFirst()){
 			do{

@@ -1,8 +1,11 @@
 package com.huasheng.sysq.activity.reservation;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,19 +41,22 @@ public class ReservationAdapter extends ArrayAdapter<Reservation>{
 		}
 		
 		TextView idTV = (TextView)reservationView.findViewById(R.id.reservation_list_id);
-		TextView usernameTV = (TextView)reservationView.findViewById(R.id.reservation_list_username);
-		TextView mobileTV = (TextView)reservationView.findViewById(R.id.reservation_list_mobile);
-		TextView typeTV = (TextView)reservationView.findViewById(R.id.reservation_list_type);
-		TextView bookDateTV = (TextView)reservationView.findViewById(R.id.reservation_list_book_date);
-		
 		idTV.setText(reservation.getId()+"");
+		
+		TextView usernameTV = (TextView)reservationView.findViewById(R.id.reservation_list_username);
 		usernameTV.setText(reservation.getUsername());
+		
+		TextView mobileTV = (TextView)reservationView.findViewById(R.id.reservation_list_mobile);
 		mobileTV.setText(reservation.getMobile());
+		
+		TextView typeTV = (TextView)reservationView.findViewById(R.id.reservation_list_type);
 		if(reservation.getType() == Reservation.TYPE_CASE){
 			typeTV.setText(MyApplication.getContext().getString(R.string.reservation_add_type_case_text));
 		}else if(reservation.getType() == Reservation.TYPE_CONTRAST){
 			typeTV.setText(MyApplication.getContext().getString(R.string.reservation_add_type_contrast_text));
 		}
+		
+		TextView bookDateTV = (TextView)reservationView.findViewById(R.id.reservation_list_book_date);
 		bookDateTV.setText(reservation.getBookDate());
 		
 		ImageButton delImgBtn = (ImageButton)reservationView.findViewWithTag("reservation_del");
