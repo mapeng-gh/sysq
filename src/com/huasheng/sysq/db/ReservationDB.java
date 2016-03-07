@@ -98,7 +98,7 @@ public class ReservationDB {
 		String username = reservation.getUsername();
 		if(username != null && !username.equals("") && !username.trim().equals("")){
 			selectionList.add(Constants.TABLE_RESERVATION_COLUMN_NAME + " like ?");
-			selectionArgsList.add(username);
+			selectionArgsList.add("%"+username+"%");
 		}
 		
 		if(selectionList.size() > 0){
