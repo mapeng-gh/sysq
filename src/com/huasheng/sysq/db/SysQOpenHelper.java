@@ -28,8 +28,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 			Constants.TABLE_RESERVATION_COLUMN_MOBILE + " varchar," +
 			Constants.TABLE_RESERVATION_COLUMN_TYPE + " integer," +
 			Constants.TABLE_RESERVATION_COLUMN_BOOK_DATE + " varchar," +
-			Constants.TABLE_RESERVATION_COLUMN_FAMILY_MOBILE + " varchar," +
-			Constants.TABLE_RESERVATION_COLUMN_STATUS + " integer )";
+			Constants.TABLE_RESERVATION_COLUMN_FAMILY_MOBILE + " varchar)";
 	
 	public static final String DB_NAME = "sysq.db";
 	public static final int VERSION = 1;

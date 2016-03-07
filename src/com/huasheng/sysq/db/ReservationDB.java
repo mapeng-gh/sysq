@@ -63,7 +63,6 @@ public class ReservationDB {
 		values.put(Constants.TABLE_RESERVATION_COLUMN_FAMILY_MOBILE, reservation.getFamilyMobile());
 		values.put(Constants.TABLE_RESERVATION_COLUMN_TYPE, reservation.getType());
 		values.put(Constants.TABLE_RESERVATION_COLUMN_BOOK_DATE, reservation.getBookDate());
-		values.put(Constants.TABLE_RESERVATION_COLUMN_STATUS, reservation.getStatus());
 		
 		SysQOpenHelper.getDatabase().insert(Constants.TABLE_RESERVATION, null, values);
 	}
@@ -78,7 +77,6 @@ public class ReservationDB {
 		reservation.setFamilyMobile(cursor.getString(cursor.getColumnIndex(Constants.TABLE_RESERVATION_COLUMN_FAMILY_MOBILE)));
 		reservation.setType(cursor.getInt(cursor.getColumnIndex(Constants.TABLE_RESERVATION_COLUMN_TYPE)));
 		reservation.setBookDate(cursor.getString(cursor.getColumnIndex("book_date")));
-		reservation.setStatus(cursor.getInt(cursor.getColumnIndex(Constants.TABLE_RESERVATION_COLUMN_STATUS)));
 		
 		return reservation;
 	}

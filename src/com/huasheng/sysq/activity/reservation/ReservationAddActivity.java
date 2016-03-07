@@ -105,7 +105,6 @@ public class ReservationAddActivity extends Activity implements OnClickListener{
 			reservation.setFamilyMobile(familyMobile);
 			reservation.setType(type);
 			reservation.setBookDate(bookDate);
-			reservation.setStatus(Reservation.STATUS_BOOKING);
 			
 			ReservationDB.save(reservation);
 			startActivity(new Intent(this,ReservationListActivity.class));

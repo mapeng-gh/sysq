@@ -1,6 +1,5 @@
 package com.huasheng.sysq.model;
 
-import java.util.Date;
 
 /**
  * ԤԼ
@@ -16,14 +15,10 @@ public class Reservation {
 	private Integer type;
 	private String bookDate;
 	private String familyMobile;
-	private Integer status;
 	
 	public static final Integer TYPE_CASE = 1;
 	public static final Integer TYPE_CONTRAST = 2;
 	
-	public static final Integer STATUS_BOOKING = 1;	
-	public static final Integer STATUS_FINISHED = 2;
-	public static final Integer STATUS_CANCELLED = 3;
 	public Integer getId() {
 		return id;
 	}
@@ -66,11 +61,4 @@ public class Reservation {
 	public void setFamilyMobile(String familyMobile) {
 		this.familyMobile = familyMobile;
 	}
-	public Integer getStatus() {
-		return status;
-	}
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-	
 }
