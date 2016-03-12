@@ -1,4 +1,7 @@
 <resources>
+    
+    <string name="login_title_up">抑郁症</string>
+    <string name="login_title_down">的病例对照研究</string>
 
     <string name="login_name">帐号</string>
     <string name="login_password">密码</string>
