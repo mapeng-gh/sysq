@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:padding="50dp">
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="@string/interview_interviewer_basic_title"
+        android:textColor="#0000FF"
+        android:gravity="center"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView 
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/interview_interviewer_basic_username"
+            android:textColor="#666666"/>
+        <EditText 
+            android:id="@+id/interviewer_interviewer_basic_username_et"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_border"
+            android:singleLine="true"/>
+         <TextView 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/interview_interviewer_basic_username_hint"
+            android:textColor="#FF0000"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+</LinearLayout>

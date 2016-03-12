@@ -94,6 +94,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 				TableConstants.COLUMN_INTERVIEW_POST_CODE + " varchar," +
 				TableConstants.COLUMN_INTERVIEW_FAMILY_MOBILE + " varchar," +
 				TableConstants.COLUMN_INTERVIEW_FAMILY_ADDRESS + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_REMARK + " varchar," +
 				TableConstants.COLUMN_INTERVIEW_DNA + " varchar," +
 				TableConstants.COLUMN_INTERVIEW_INTERVIEWER_ID + " integer," +
 				TableConstants.COLUMN_INTERVIEW_TYPE + " integer," +

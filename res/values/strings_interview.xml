@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- interviewer_basic -->
+    <string name="interview_interviewer_basic_title">请输入受访者个人信息，单击“确定”按钮，进入DNA样本采集页面</string>
+    
+    <string name="interview_interviewer_basic_username">姓名：</string>
+    <string name="interview_interviewer_basic_username_hint">2-10个中文字</string>
+    <string name="interview_interviewer_basic_identity_card">身份证号码：</string>
+    <string name="interview_interviewer_basic_identity_card_hint">18位，按GB11643-1999;15位，按GB11643-1989</string>
+    <string name="interview_interviewer_basic_province">省/自治区/直辖市：</string>
+    <string name="interview_interviewer_basic_city">市/县/区：</string>
+    <string name="interview_interviewer_basic_city_hint">2-10个中文字</string>
+    <string name="interview_interviewer_basic_address">联系地址：</string>
+    <string name="interview_interviewer_basic_address_hint">5-50个中文字</string>
+    <string name="interview_interviewer_basic_post_code">邮政编码：</string>
+    <string name="interview_interviewer_basic_post_code_hint">6位数字</string>
+    <string name="interview_interviewer_basic_mobile">本地联系电话：</string>
+    <string name="interview_interviewer_basic_mobile_hint">6-20位数字</string>
+    <string name="interview_interviewer_basic_family_address">本地亲属联系地址：</string>
+    <string name="interview_interviewer_basic_family_mobile">本地亲属联系电话：</string>
+    <string name="interview_interviewer_basic_remark">备注：</string>
+    <string name="interview_interviewer_basic_remark_hint">病例卡号、住院卡号</string>
+    
+</resources>

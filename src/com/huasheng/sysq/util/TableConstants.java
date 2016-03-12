@@ -96,6 +96,7 @@ public class TableConstants {
 	public static final String COLUMN_INTERVIEW_POST_CODE = "post_code";
 	public static final String COLUMN_INTERVIEW_FAMILY_MOBILE = "family_mobile";
 	public static final String COLUMN_INTERVIEW_FAMILY_ADDRESS = "family_address";
+	public static final String COLUMN_INTERVIEW_REMARK = "remark";
 	public static final String COLUMN_INTERVIEW_DNA = "dna";
 	public static final String COLUMN_INTERVIEW_INTERVIEWER_ID = "interviewer_id";
 	public static final String COLUMN_INTERVIEW_TYPE = "type";

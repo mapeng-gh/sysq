@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.activity.interview.InterviewerBasicActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 
 public class IndexActivity extends Activity implements OnClickListener{
@@ -62,8 +63,9 @@ public class IndexActivity extends Activity implements OnClickListener{
 			
 		}else if(view.getId() == R.id.system_update){
 			
-		}else if(view.getId() == R.id.interview_start){
-			
+		}else if(view.getId() == R.id.interview_start){//¿ªÊ¼·ÃÌ¸
+			Intent intent = new Intent(this,InterviewerBasicActivity.class);
+			startActivity(intent);
 		}else if(view.getId() == R.id.user_center){
 			
 		}else if(view.getId() == R.id.interviewer_search){

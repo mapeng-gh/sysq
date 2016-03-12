@@ -5,7 +5,7 @@ package com.huasheng.sysq.model;
  * @author map
  *
  */
-public class InterviewRecord {
+public class Interview {
 
 	private int id;
 	private String username;
@@ -17,6 +17,7 @@ public class InterviewRecord {
 	private String postCode;
 	private String familyMobile;
 	private String familyAddress;
+	private String remark;
 	private String dna;
 	private int interviewerId;
 	private int type;
@@ -87,6 +88,12 @@ public class InterviewRecord {
 	}
 	public void setFamilyAddress(String familyAddress) {
 		this.familyAddress = familyAddress;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	public String getDna() {
 		return dna;
