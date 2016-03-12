@@ -1,6 +1,6 @@
 package com.huasheng.sysq.db;
 
-import com.huasheng.sysq.util.Constants;
+import com.huasheng.sysq.util.TableConstants;
 import com.huasheng.sysq.util.MyApplication;
 
 import android.content.ContentValues;
@@ -13,22 +13,105 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	
 	private static SQLiteDatabase db;
 	
-	public static final String CREATE_INTERVIEWER = "create table " + Constants.TABLE_INTERVIEWER + " (" +
-			"id integer primary key autoincrement," +
-			"login_name varchar," +
-			"password varchar," +
-			"username varchar," +
-			"mobile varchar," +
-			"email varchar," +
-			"working_place varchar)";
-	public static final String CRETE_RESERVATION = "create table " + Constants.TABLE_RESERVATION + " (" +
-			"id integer primary key autoincrement," +
-			Constants.TABLE_RESERVATION_COLUMN_NAME + " varchar," +
-			Constants.TABLE_RESERVATION_COLUMN_IDENTITY_CARD + " varchar," +
-			Constants.TABLE_RESERVATION_COLUMN_MOBILE + " varchar," +
-			Constants.TABLE_RESERVATION_COLUMN_TYPE + " integer," +
-			Constants.TABLE_RESERVATION_COLUMN_BOOK_DATE + " varchar," +
-			Constants.TABLE_RESERVATION_COLUMN_FAMILY_MOBILE + " varchar)";
+	public static final String CREATE_INTERVIEWER = "create table " + TableConstants.TABLE_INTERVIEWER + 
+			"(" +
+				"id integer primary key autoincrement," +
+				TableConstants.COLUMN_INTERVIEWER_LOGIN_NAME + " varchar," +
+				TableConstants.COLUMN_INTERVIEWER_PASSWORD + " varchar," +
+				TableConstants.COLUMN_INTERVIEWER_USERNAME + " varchar," +
+				TableConstants.COLUMN_INTERVIEWER_MOBILE + " varchar," +
+				TableConstants.COLUMN_INTERVIEWER_EMAIL + " varchar," +
+				TableConstants.COLUMN_INTERVIEWER_WORKING_PLACE + " varchar" +
+			")";
+	public static final String CRETE_RESERVATION = "create table " + TableConstants.TABLE_RESERVATION + 
+			"(" +
+				"id integer primary key autoincrement," +
+				TableConstants.COLUMN_RESERVATION_USERNAME + " varchar," +
+				TableConstants.COLUMN_RESERVATION_IDENTITY_CARD + " varchar," +
+				TableConstants.COLUMN_RESERVATION_MOBILE + " varchar," +
+				TableConstants.COLUMN_RESERVATION_TYPE + " integer," +
+				TableConstants.COLUMN_RESERVATION_BOOK_DATE + " varchar," +
+				TableConstants.COLUMN_RESERVATION_FAMILY_MOBILE + " varchar" +
+			")";
+	public static final String CREATE_VERSION = "create table " + TableConstants.TABLE_VERSION +
+			"(" +
+				"id integer primary key autoincrement," +
+				TableConstants.COLUMN_VERSION_NAME + " varchar," +
+				TableConstants.COLUMN_VERSION_PUBLISH_DATE + " varchar," +
+				TableConstants.COLUMN_VERSION_REMARK + " varchar," +
+				TableConstants.COLUMN_VERSION_IS_CURRENT + " integer" +
+			")";
+	public static final String CREATE_QUESTIONAIRE = "create table " + TableConstants.TABLE_QUESTIONAIRE +
+			"(" +
+				"id integer primary key autoincrement," +
+				TableConstants.COLUMN_QUESTIONAIRE_CODE + " varchar," +
+				TableConstants.COLUMN_QUESTIONAIRE_TITLE + " varchar," +
+				TableConstants.COLUMN_QUESTIONAIRE_INTRODUCTION + " varchar," +
+				TableConstants.COLUMN_QUESTIONAIRE_REMARK + " varchar," +
+				TableConstants.COLUMN_QUESTIONAIRE_TYPE + " integer," +
+				TableConstants.COLUMN_QUESTIONAIRE_SEQ_NUM + " integer," +
+				TableConstants.COLUMN_QUESTIONAIRE_VERSION_ID + " integer" +
+			")";
+	public static final String CREATE_QUESTION = "create table " + TableConstants.TABLE_QUESTION + 
+			"(" +
+				"id integer primary key autoincrement," +
+				TableConstants.COLUMN_QUESTION_CODE + " varchar," +
+				TableConstants.COLUMN_QUESTION_DESCRIPTION + " varchar," +
+				TableConstants.COLUMN_QUESTION_REMARK + " varchar," +
+				TableConstants.COLUMN_QUESTION_TYPE + " varchar," +
+				TableConstants.COLUMN_QUESTION_SHOW_TYPE + " varchar," +
+				TableConstants.COLUMN_QUESTION_IS_END + " integer," +
+				TableConstants.COLUMN_QUESTION_SEQ_NUM + " integer," +
+				TableConstants.COLUMN_QUESTION_QUESTIONAIRE_CODE + " varchar," +
+				TableConstants.COLUMN_QUESTION_P_QUESTION_CODE + " varchar," +
+				TableConstants.COLUMN_QUESTION_ENTRY_LOGIC + " varchar," +
+				TableConstants.COLUMN_QUESTION_EXIT_LOGIC + " varchar," +
+				TableConstants.COLUMN_QUESTION_VERSION_ID + " integer" +
+			")";
+	public static final String CREATE_ANSWER = "create table " + TableConstants.TABLE_ANSWER +
+			"(" +
+				"id integer primary key autoincrement," +
+				TableConstants.COLUMN_ANSWER_CODE + " varchar," +
+				TableConstants.COLUMN_ANSWER_LABEL + " varchar," +
+				TableConstants.COLUMN_ANSWER_TYPE + " varchar," +
+				TableConstants.COLUMN_ANSWER_EXTRA + " varchar," +
+				TableConstants.COLUMN_ANSWER_IS_SHOW + " integer," +
+				TableConstants.COLUMN_ANSWER_EVENT_TYPE + " varchar," +
+				TableConstants.COLUMN_ANSWER_EVENT_EXECUTE + " varchar," +
+				TableConstants.COLUMN_ANSWER_SEQ_NUM + " integer," +
+				TableConstants.COLUMN_ANSWER_QUESTION_CODE + " varchar," +
+				TableConstants.COLUMN_ANSWER_VERSION_ID + " integer" +
+			")";
+	public static final String CREATE_INTERVIEW = "create table " + TableConstants.TABLE_INTERVIEW +
+			"(" +
+				"id integer primary key autoincrement," +
+				TableConstants.COLUMN_INTERVIEW_USERNAME + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_IDENTITY_CARD + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_MOBILE + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_PROVINCE + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_CITY + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_ADDRESS + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_POST_CODE + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_FAMILY_MOBILE + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_FAMILY_ADDRESS + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_DNA + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_INTERVIEWER_ID + " integer," +
+				TableConstants.COLUMN_INTERVIEW_TYPE + " integer," +
+				TableConstants.COLUMN_INTERVIEW_IS_TEST + " integer," +
+				TableConstants.COLUMN_INTERVIEW_START_TIME + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_STATUS + " integer," +
+				TableConstants.COLUMN_INTERVIEW_CUR_QUESTIONAIRE_CODE + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_NEXT_QUESTION_CODE + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_END_TIME + " varchar," +
+				TableConstants.COLUMN_INTERVIEW_VERSION_ID + " integer" +
+			")";
+	public static final String CREATE_RESULT = "create table " + TableConstants.TABLE_RESULT +
+			"("+
+				"id integer primary key autoincrement," +
+				TableConstants.COLUMN_RESULT_INTERVIEW_ID + " integer," +
+				TableConstants.COLUMN_RESULT_INTERVIEW_QUESTION_CODE + " varchar," +
+				TableConstants.COLUMN_RESULT_INTERVIEW_QUESTION_VALUE + " varchar" +
+			")";
 	
 	public static final String DB_NAME = "sysq.db";
 	public static final int VERSION = 1;
@@ -42,6 +125,12 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_INTERVIEWER);
 		db.execSQL(CRETE_RESERVATION);
+		db.execSQL(CREATE_VERSION);
+		db.execSQL(CREATE_QUESTIONAIRE);
+		db.execSQL(CREATE_QUESTION);
+		db.execSQL(CREATE_ANSWER);
+		db.execSQL(CREATE_INTERVIEW);
+		db.execSQL(CREATE_RESULT);
 		this.initData(db);
 	}
 
