@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:paddingLeft="100dp"
+    android:paddingRight="100dp"
+    android:paddingTop="250dp"
+    android:paddingBottom="250dp"
+    android:background="#FFF">
     
     <LinearLayout 
-        android:layout_width="300dp"
-        android:layout_height="500dp"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:background="#E6E6E6">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         
-        <LinearLayout 
+         <LinearLayout 
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -39,7 +45,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/index_reservation"/>
+                    android:text="@string/index_reservation"
+                    android:textSize="@dimen/index_title_text_size"/>
                     
                 </LinearLayout>
             	
@@ -68,7 +75,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/index_statics"/>
+                    android:text="@string/index_statics"
+                    android:textSize="@dimen/index_title_text_size"/>
                     
                 </LinearLayout>
                 
@@ -96,7 +104,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/index_update"/>
+                    android:text="@string/index_update"
+                    android:textSize="@dimen/index_title_text_size"/>
                     
                 </LinearLayout>
                 
@@ -133,7 +142,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/index_interview"/>
+                    android:text="@string/index_interview"
+                    android:textSize="@dimen/index_title_text_size"/>
                     
                 </LinearLayout>
                 
@@ -161,7 +171,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/index_usercenter"/>
+                    android:text="@string/index_usercenter"
+                    android:textSize="@dimen/index_title_text_size"/>
                     
                 </LinearLayout>
                 
@@ -198,7 +209,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/index_search"/>
+                    android:text="@string/index_search"
+                    android:textSize="@dimen/index_title_text_size"/>
                     
                 </LinearLayout>
             	
@@ -227,7 +239,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/index_upload"/>
+                    android:text="@string/index_upload"
+                    android:textSize="@dimen/index_title_text_size"/>
                     
                 </LinearLayout>
                 
@@ -255,7 +268,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/index_help"/>
+                    android:text="@string/index_help"
+                    android:textSize="@dimen/index_title_text_size"/>
                     
                 </LinearLayout>
                 
@@ -265,8 +279,4 @@
         
     </LinearLayout>
     
-    
-</RelativeLayout>
-    
-    
-
+</LinearLayout>

@@ -25,7 +25,10 @@
         </activity>
         
         <!-- index -->
-        <activity android:name=".activity.IndexActivity"></activity>
+        <activity 
+            android:name=".activity.IndexActivity"
+             android:screenOrientation="portrait">
+        </activity>
         
         <!-- reservation -->
          <activity android:name=".activity.reservation.ReservationAddActivity"></activity>

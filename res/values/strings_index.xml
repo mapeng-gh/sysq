@@ -1,6 +1,5 @@
 <resources>
 
-    <!-- index -->
     <string name="index_reservation">预约管理</string>
     <string name="index_statics">数据统计</string>
     <string name="index_update">系统更新</string>
@@ -12,5 +11,6 @@
     <string name="index_upload">上传数据</string>
     <string name="index_help">帮助</string>
     
+    <dimen name="index_title_text_size">20sp</dimen>
     
 </resources>
