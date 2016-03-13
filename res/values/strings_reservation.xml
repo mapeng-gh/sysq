@@ -55,7 +55,23 @@
     <string name="reservation_list_operation_weight">3</string>
     
     <string name="reservation_list_no_data_text">暂无预约信息</string>
+    <string name="reservation_list_item_del_prompt">确定删除该预约吗？</string>
     
-    <string name="reservation_del_prompt">确定删除该预约吗？</string>
+    <string name="reservation_list_page_previous">上一页</string>
+    <string name="reservation_list_page_seperator">/</string>
+    <string name="reservation_list_page_next">下一页</string>
+    
+    <style name="reservation_list_head">
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">#338EE7</item>
+	     <item name="android:textColor">#FFFFFF</item>
+	     <item name="android:gravity">center</item>
+	     <item name="android:paddingTop">5dp</item>
+	     <item name="android:paddingBottom">5dp</item>
+    </style>
+    
+    <style name="reservation_list_body">
+        <item name="android:textSize">17sp</item>
+    </style>
 
 </resources>

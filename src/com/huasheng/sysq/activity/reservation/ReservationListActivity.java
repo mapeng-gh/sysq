@@ -100,7 +100,7 @@ public class ReservationListActivity extends Activity implements OnClickListener
 		}else if(view.getId() == R.id.reservation_list_del){
 			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 			dialogBuilder.setIcon(R.drawable.reservation_del);
-			dialogBuilder.setTitle(this.getString(R.string.reservation_del_prompt));
+			dialogBuilder.setTitle(this.getString(R.string.reservation_list_item_del_prompt));
 			dialogBuilder.setPositiveButton(this.getString(R.string.alert_dialog_ok),new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {

@@ -10,35 +10,40 @@
         android:layout_width="0dp"
         android:layout_weight="@string/reservation_list_id_weight"
         android:layout_height="match_parent"
-        android:gravity="center"/>
+        android:gravity="center"
+        style="@style/reservation_list_body"/>"
     <View style="@style/list_item_cell_seperator"/>
     <TextView 
         android:id="@+id/reservation_list_username"
         android:layout_width="0dp"
         android:layout_weight="@string/reservation_list_username_weight"
         android:layout_height="match_parent"
-        android:gravity="center"/>
+        android:gravity="center"
+        style="@style/reservation_list_body"/>
     <View style="@style/list_item_cell_seperator"/>
     <TextView 
         android:id="@+id/reservation_list_mobile"
         android:layout_width="0dp"
         android:layout_weight="@string/reservation_list_mobile_weight"
         android:layout_height="match_parent"
-        android:gravity="center"/>
+        android:gravity="center"
+        style="@style/reservation_list_body"/>
     <View style="@style/list_item_cell_seperator"/>
     <TextView 
         android:id="@+id/reservation_list_type"
         android:layout_width="0dp"
         android:layout_weight="@string/reservation_list_type_weight"
         android:layout_height="match_parent"
-        android:gravity="center"/>
+        android:gravity="center"
+        style="@style/reservation_list_body"/>
     <View style="@style/list_item_cell_seperator"/>
     <TextView 
         android:id="@+id/reservation_list_book_date"
         android:layout_width="0dp"
         android:layout_weight="@string/reservation_list_book_date_weight"
         android:layout_height="match_parent"
-        android:gravity="center"/>
+        android:gravity="center"
+        style="@style/reservation_list_body"/>
     <View style="@style/list_item_cell_seperator"/>
     <RelativeLayout 
         android:layout_width="0dp"
