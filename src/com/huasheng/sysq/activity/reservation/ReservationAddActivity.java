@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
 
@@ -25,7 +26,7 @@ import com.huasheng.sysq.util.DateTimeUtils;
 
 public class ReservationAddActivity extends Activity implements OnClickListener{
 	
-	private Button selectDateBtn;
+	private ImageButton selectDateBtn;
 	private EditText bookDateET;
 	
 	private Button submitBtn;
@@ -44,7 +45,7 @@ public class ReservationAddActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_reservation_add);
 		
 		bookDateET = (EditText)findViewById(R.id.reservation_add_book_date_et);
-		selectDateBtn = (Button)findViewById(R.id.reservation_add_select_date_btn);
+		selectDateBtn = (ImageButton)findViewById(R.id.reservation_add_select_date_btn);
 		selectDateBtn.setOnClickListener(this);
 		
 		submitBtn = (Button)findViewById(R.id.reservation_add_submit);

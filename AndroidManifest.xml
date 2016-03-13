@@ -31,7 +31,10 @@
         </activity>
         
         <!-- reservation -->
-         <activity android:name=".activity.reservation.ReservationAddActivity"></activity>
+         <activity 
+             android:name=".activity.reservation.ReservationAddActivity"
+             android:screenOrientation="portrait">
+         </activity>
          <activity 
              android:name=".activity.reservation.ReservationListActivity"
              android:screenOrientation="landscape">

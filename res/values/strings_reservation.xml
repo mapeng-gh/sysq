@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- add -->
     <string name="reservation_add_username_text">姓名：</string>
@@ -13,14 +13,31 @@
     <string name="reservation_add_family_mobile_text">亲属联系电话：</string>
     <string name="reservation_add_family_mobile_hint">6-20位数字</string>
     
-    <string name="reservation_add_type_text">问卷类型</string>
+    <string name="reservation_add_type_text">问卷类型：</string>
     <string name="reservation_add_type_case_text">病例</string>
     <string name="reservation_add_type_contrast_text">对照</string>
     
-    <string name="reservation_add_book_date_text">预约日期</string>
+    <string name="reservation_add_book_date_text">预约日期：</string>
     <string name="reservation_add_date_select_text">选择</string>
     
     <string name="reservation_add_submit_text">确定</string>
+
+    <style name="reservation_add_label">
+        <item name="android:layout_width">170dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    
+    <style name="reservation_add_edittext">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_width">250dp</item>
+    </style>
+    
+    <style name="reservation_add_hint">
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:textColor">#FF0000</item>
+        <item name="android:textSize">15sp</item>
+    </style>
     
     <!-- list -->
     <string name="reservation_list_id">条码</string>
