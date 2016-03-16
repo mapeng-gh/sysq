@@ -5,21 +5,42 @@
     <string name="interview_interviewer_basic_title">请输入受访者个人信息，单击“确定”按钮，进入DNA样本采集页面</string>
     
     <string name="interview_interviewer_basic_username">姓名：</string>
-    <string name="interview_interviewer_basic_username_hint">2-10个中文字</string>
     <string name="interview_interviewer_basic_identity_card">身份证号码：</string>
-    <string name="interview_interviewer_basic_identity_card_hint">18位，按GB11643-1999;15位，按GB11643-1989</string>
     <string name="interview_interviewer_basic_province">省/自治区/直辖市：</string>
     <string name="interview_interviewer_basic_city">市/县/区：</string>
-    <string name="interview_interviewer_basic_city_hint">2-10个中文字</string>
     <string name="interview_interviewer_basic_address">联系地址：</string>
-    <string name="interview_interviewer_basic_address_hint">5-50个中文字</string>
     <string name="interview_interviewer_basic_post_code">邮政编码：</string>
-    <string name="interview_interviewer_basic_post_code_hint">6位数字</string>
-    <string name="interview_interviewer_basic_mobile">本地联系电话：</string>
-    <string name="interview_interviewer_basic_mobile_hint">6-20位数字</string>
-    <string name="interview_interviewer_basic_family_address">本地亲属联系地址：</string>
-    <string name="interview_interviewer_basic_family_mobile">本地亲属联系电话：</string>
+    <string name="interview_interviewer_basic_mobile">联系电话：</string>
+    <string name="interview_interviewer_basic_family_address">亲属联系地址：</string>
+    <string name="interview_interviewer_basic_family_mobile">亲属联系电话：</string>
     <string name="interview_interviewer_basic_remark">备注：</string>
+    
+    <string name="interview_interviewer_basic_username_hint">2-10个中文字</string>
+    <string name="interview_interviewer_basic_identity_card_hint">18位，按GB11643-1999;15位，按GB11643-1989</string>
+    <string name="interview_interviewer_basic_city_hint">2-10个中文字</string>
+    <string name="interview_interviewer_basic_address_hint">5-50个中文字</string>
+    <string name="interview_interviewer_basic_post_code_hint">6位数字</string>
+    <string name="interview_interviewer_basic_mobile_hint">6-20位数字</string>
     <string name="interview_interviewer_basic_remark_hint">病例卡号、住院卡号</string>
+    
+    <string name="interview_interviewer_basic_submit">确定</string>
+    
+     <style name="interview_interviewer_basic_label">
+        <item name="android:layout_width">170dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    
+    <style name="interview_interviewer_basic_edittext">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_width">250dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    
+    <style name="interview_interviewer_basic_hint">
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:textColor">#FF0000</item>
+        <item name="android:textSize">15sp</item>
+    </style>
     
 </resources>
