@@ -1,13 +1,20 @@
 package com.huasheng.sysq.db;
 
-import com.huasheng.sysq.util.TableConstants;
-import com.huasheng.sysq.util.MyApplication;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
-import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.huasheng.sysq.util.MyApplication;
+import com.huasheng.sysq.util.TableConstants;
 
 public class SysQOpenHelper extends SQLiteOpenHelper{
 	
@@ -148,11 +155,28 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	}
 
 	public void initData(SQLiteDatabase db){
-		ContentValues values = new ContentValues();
-		values.put("login_name", "admin");
-		values.put("password", "admin");
-		values.put("username", "admin");
-		db.insert("interviewer", null,values);
+		
+		AssetManager assetManager = MyApplication.getContext().getAssets();
+		BufferedReader reader = null;
+		try{
+			reader = new BufferedReader(new InputStreamReader(assetManager.open("data.txt"), "utf-8"));
+			String line;
+			while((line=reader.readLine())!=null){
+				db.execSQL(line);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			if(reader != null){
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
 	}
 
 }

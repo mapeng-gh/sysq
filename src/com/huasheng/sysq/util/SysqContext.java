@@ -1,11 +1,24 @@
 package com.huasheng.sysq.util;
 
-import com.huasheng.sysq.model.Question;
-import com.huasheng.sysq.model.Questionaire;
+import com.huasheng.sysq.model.Interviewer;
+import com.huasheng.sysq.model.Version;
 
 public class SysqContext {
 
-	public static int currentVersion;
-	public static Questionaire currentQuestionaire;
-	public static Question currentQuestion;
+	private static Interviewer interviewer;//访问者
+	public static Version currentVersion;//当前版本
+	
+	public static Interviewer getInterviewer() {
+		return interviewer;
+	}
+	public static void setInterviewer(Interviewer interviewer) {
+		SysqContext.interviewer = interviewer;
+	}
+	public static Version getCurrentVersion() {
+		return currentVersion;
+	}
+	public static void setCurrentVersion(Version currentVersion) {
+		SysqContext.currentVersion = currentVersion;
+	}
+	
 }

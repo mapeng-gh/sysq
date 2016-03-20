@@ -1,12 +1,16 @@
 package com.huasheng.sysq.model;
 
+import java.io.Serializable;
+
 /**
  * ·ÃÎÊ¼ÇÂ¼±í
  * @author map
  *
  */
-public class Interview {
+public class Interview implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private String username;
 	private String identityCard;
@@ -28,6 +32,13 @@ public class Interview {
 	private String nextQuestionCode;
 	private String endTime;
 	private int versionId;
+	
+	public static final int STATUS_DOING = 1;
+	public static final int STATUS_BREAK = 2;
+	public static final int STATUS_DONE = 3;
+	
+	public static final int TEST_YES = 1;
+	public static final int TEST_NO = 0;
 	
 	public int getId() {
 		return id;

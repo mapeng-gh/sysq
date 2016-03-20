@@ -2,7 +2,7 @@
 <resources>
     
     <!-- interviewer_basic -->
-    <string name="interview_interviewer_basic_title">请输入受访者个人信息，单击“确定”按钮，进入DNA样本采集页面</string>
+    <string name="interview_interviewer_basic_title">请输入受访者个人信息，单击“下一步”按钮，进入DNA样本采集页面</string>
     
     <string name="interview_interviewer_basic_username">姓名：</string>
     <string name="interview_interviewer_basic_identity_card">身份证号码：</string>
@@ -23,7 +23,7 @@
     <string name="interview_interviewer_basic_mobile_hint">6-20位数字</string>
     <string name="interview_interviewer_basic_remark_hint">病例卡号、住院卡号</string>
     
-    <string name="interview_interviewer_basic_submit">确定</string>
+    <string name="interview_interviewer_basic_submit">下一步</string>
     
      <style name="interview_interviewer_basic_label">
         <item name="android:layout_width">170dp</item>
@@ -41,6 +41,43 @@
         <item name="android:layout_marginLeft">15dp</item>
         <item name="android:textColor">#FF0000</item>
         <item name="android:textSize">15sp</item>
+    </style>
+    
+    <!-- interviewer_dna -->
+    <string name="interview_interviewer_dna_title">
+       \t\t\t\t请输入或扫描受访者DNA样本条形码，选择“病例”或“对照”，点击确定开始访谈，整个过程可能持续2-3小时，请耐心完成。\n
+       \t\t\t\t访谈类型“测试”，表示本次访谈只是一次测试，访谈记录不参与数据统计和研究。
+    </string>
+    
+    <string name="interview_interviewer_dna_sample1">样本1：</string>
+    <string name="interview_interviewer_dna_sample2">样本2：</string>
+    <string name="interview_interviewer_dna_sample3">样本3：</string>
+    <string name="interview_interviewer_dna_sample4">样本4：</string>
+    
+    <string name="interview_interviewer_dna_type">访谈类型：</string>
+    <string name="interview_interviewer_dna_type_true">真实访谈</string>
+    <string name="interview_interviewer_dna_type_test">测试</string>
+    
+     <string name="interview_interviewer_dna_questionaire_type">问卷类型：</string>
+    <string name="interview_interviewer_dna_questionaire_type_case">病例</string>
+    <string name="interview_interviewer_dna_questionaire_type_contrast">对照</string>
+    
+    <string name="interview_interviewer_dna_submit">确定</string>
+    
+    <style name="interview_interviewer_dna_label">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    
+    <style name="interview_interviewer_dna_edittext">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_width">250dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    
+    <style name="interview_interviewer_dna_layout_spacing">
+        <item name="android:layout_marginTop">40dp</item>
     </style>
     
 </resources>

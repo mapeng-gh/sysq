@@ -1,18 +1,84 @@
 package com.huasheng.sysq.activity.interview;
 
-import com.huasheng.sysq.R;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
-public class InterviewerDNAActivity extends Activity{
+import com.huasheng.sysq.R;
+import com.huasheng.sysq.model.Interview;
+import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.InterviewConstants;
+
+public class InterviewerDNAActivity extends Activity implements OnClickListener{
+	
+	private Button submitInterviewBtn;
+	private EditText sample1ET;
+	private EditText sample2ET;
+	private EditText sample3ET;
+	private EditText sample4ET;
+	private RadioButton testRB;
+	private RadioButton caseRB;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_interview_dna);
+		
+		sample1ET = (EditText)findViewById(R.id.interviewer_dna_sample1);
+		sample2ET = (EditText)findViewById(R.id.interviewer_dna_sample2);
+		sample3ET = (EditText)findViewById(R.id.interviewer_dna_sample3);
+		sample4ET = (EditText)findViewById(R.id.interviewer_dna_sample4);
+		testRB = (RadioButton)findViewById(R.id.interviewer_dna_type_test);
+		caseRB = (RadioButton)findViewById(R.id.interviewer_dna_questionaire_type_case);
+		
+		submitInterviewBtn = (Button)findViewById(R.id.interviewer_dna_submit_button);
+		submitInterviewBtn.setOnClickListener(this);
 	}
+
+
+	@Override
+	public void onClick(View view) {
+		if(view.getId() == R.id.interviewer_dna_submit_button){
+			Interview interview = (Interview)getIntent().getSerializableExtra("interview");
+			collectData(interview);
+			InterviewService.addInterview(interview);
+			Toast.makeText(this, "±£´æ³É¹¦ ", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	private void collectData(Interview interview){
+		List<String> dnaList = new ArrayList<String>();
+		if(sample1ET.getText().toString() != null && !sample1ET.getText().toString().equals("")){
+			dnaList.add(sample1ET.getText().toString());
+		}
+		if(sample2ET.getText().toString() != null && !sample2ET.getText().toString().equals("")){
+			dnaList.add(sample2ET.getText().toString());
+		}
+		if(sample3ET.getText().toString() != null && !sample3ET.getText().toString().equals("")){
+			dnaList.add(sample3ET.getText().toString());
+		}
+		if(sample4ET.getText().toString() != null && !sample4ET.getText().toString().equals("")){
+			dnaList.add(sample4ET.getText().toString());
+		}
+		if(dnaList.size() > 0){
+			interview.setDna(StringUtils.join(dnaList, ","));
+		}
+		interview.setIsTest(testRB.isChecked() ? Interview.TEST_YES : Interview.TEST_NO);
+		interview.setType(caseRB.isChecked() ? InterviewConstants.TYPE_CASE : InterviewConstants.TYPE_CONTRAST);
+	}
+	
+	
 
 }

@@ -2,7 +2,219 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingTop="50dp"
+    android:paddingBottom="50dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp">
     
-
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/interview_interviewer_dna_title"
+        android:textSize="25sp"
+        android:textColor="#0000FF"
+        android:lineSpacingExtra="10dp"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp">
+        
+	        <LinearLayout 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical"
+		        android:layout_gravity="center_horizontal">
+	        
+	        	<LinearLayout 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	            
+	            <TextView 
+	                android:layout_height="wrap_content"
+	                style="@style/interview_interviewer_dna_label"
+	                android:text="@string/interview_interviewer_dna_sample1"
+	                android:layout_gravity="center_vertical"/>
+	            <EditText 
+	                android:id="@+id/interviewer_dna_sample1"
+	               	style="@style/interview_interviewer_dna_edittext"
+	               	android:background="@drawable/edittext_border"
+	               	android:layout_gravity="center_vertical"/>
+	            <ImageButton 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:src="@drawable/interview_dna_scan"
+	                android:layout_gravity="center_vertical"
+	                android:layout_marginLeft="20dp"
+	                android:background="#00000000"/>
+	            
+	        </LinearLayout>
+	        
+	        <LinearLayout 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            style="@style/interview_interviewer_dna_layout_spacing">
+	            
+	            <TextView 
+	                android:layout_height="wrap_content"
+	                style="@style/interview_interviewer_dna_label"
+	                android:text="@string/interview_interviewer_dna_sample2"
+	                android:layout_gravity="center_vertical"/>
+	            <EditText 
+	                android:id="@+id/interviewer_dna_sample2"
+	               	style="@style/interview_interviewer_dna_edittext"
+	               	android:background="@drawable/edittext_border"
+	               	android:layout_gravity="center_vertical"/>
+	            <ImageButton 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:src="@drawable/interview_dna_scan"
+	                android:layout_gravity="center_vertical"
+	                android:layout_marginLeft="20dp"
+	                android:background="#00000000"/>
+	            
+	        </LinearLayout>
+        
+	        <LinearLayout 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            style="@style/interview_interviewer_dna_layout_spacing">
+	            
+	            <TextView 
+	                android:layout_height="wrap_content"
+	                style="@style/interview_interviewer_dna_label"
+	                android:text="@string/interview_interviewer_dna_sample2"
+	                android:layout_gravity="center_vertical"/>
+	            <EditText 
+	                android:id="@+id/interviewer_dna_sample3"
+	               	style="@style/interview_interviewer_dna_edittext"
+	               	android:background="@drawable/edittext_border"
+	               	android:layout_gravity="center_vertical"/>
+	            <ImageButton 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:src="@drawable/interview_dna_scan"
+	                android:layout_gravity="center_vertical"
+	                android:layout_marginLeft="20dp"
+	                android:background="#00000000"/>
+	            
+	        </LinearLayout>
+        
+	        <LinearLayout 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            style="@style/interview_interviewer_dna_layout_spacing">
+	            
+	            <TextView 
+	                android:layout_height="wrap_content"
+	                style="@style/interview_interviewer_dna_label"
+	                android:text="@string/interview_interviewer_dna_sample4"
+	                android:layout_gravity="center_vertical"/>
+	            <EditText 
+	                android:id="@+id/interviewer_dna_sample4"
+	               	style="@style/interview_interviewer_dna_edittext"
+	               	android:background="@drawable/edittext_border"
+	               	android:layout_gravity="center_vertical"/>
+	            <ImageButton 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:src="@drawable/interview_dna_scan"
+	                android:layout_gravity="center_vertical"
+	                android:layout_marginLeft="20dp"
+	                android:background="#00000000"/>
+	            
+	        </LinearLayout>
+        
+	        <LinearLayout 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            style="@style/interview_interviewer_dna_layout_spacing">
+	            
+	             <TextView 
+	                android:layout_height="wrap_content"
+	                style="@style/interview_interviewer_dna_label"
+	                android:text="@string/interview_interviewer_dna_type"
+	                android:layout_gravity="center_vertical"/>
+	            
+	            <RadioGroup 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:orientation="horizontal"
+	                android:layout_gravity="center_vertical">
+	                
+	                <RadioButton 
+	                    android:id="@+id/interviewer_dna_type_true"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:checked="true"
+	                    android:text="@string/interview_interviewer_dna_type_true"/>
+	                <RadioButton 
+	                    android:id="@+id/interviewer_dna_type_test"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="@string/interview_interviewer_dna_type_test"
+	                    android:layout_marginLeft="15dp"/>
+		                
+		        </RadioGroup>
+	            
+	        </LinearLayout>
+        
+	        <LinearLayout 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            style="@style/interview_interviewer_dna_layout_spacing">
+	            
+	            <TextView 
+	                android:layout_height="wrap_content"
+	                style="@style/interview_interviewer_dna_label"
+	                android:text="@string/interview_interviewer_dna_questionaire_type"
+	                android:layout_gravity="center_vertical"/>
+	            
+	            <RadioGroup 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:orientation="horizontal"
+	                android:layout_gravity="center_vertical">
+	                
+	                <RadioButton 
+	                    android:id="@+id/interviewer_dna_questionaire_type_case"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:checked="true"
+	                    android:text="@string/interview_interviewer_dna_questionaire_type_case"/>
+	                <RadioButton 
+	                    android:id="@+id/interviewer_dna_questionaire_type_contrast"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="@string/interview_interviewer_dna_questionaire_type_contrast"
+	                    android:layout_marginLeft="15dp"/>
+		                
+		        </RadioGroup>
+	            
+	        </LinearLayout>
+	        
+	        <Button
+	            android:id="@+id/interviewer_dna_submit_button"
+	            android:layout_width="350dp"
+	            android:layout_height="wrap_content"
+	            android:text="@string/interview_interviewer_dna_submit"
+	            android:background="#0096DC"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="100dp"/>
+        
+    	</LinearLayout>
+        
+        
+    </LinearLayout>
+    
 </LinearLayout>

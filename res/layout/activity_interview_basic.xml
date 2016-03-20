@@ -31,7 +31,7 @@
 	           	style="@style/interview_interviewer_basic_label"
 	           	android:layout_gravity="center_vertical"/>
            <EditText 
-               android:id="@+id/reservation_add_username"
+               android:id="@+id/interviewer_basic_username"
                style="@style/interview_interviewer_basic_edittext"
                android:background="@drawable/edittext_border"
                android:layout_gravity="center_vertical"/>
@@ -55,7 +55,7 @@
 	           	style="@style/interview_interviewer_basic_label"
 	           	android:layout_gravity="center_vertical"/>
            <EditText 
-               android:id="@+id/interviewer_basic_username"
+               android:id="@+id/interviewer_basic_identity_card"
                style="@style/interview_interviewer_basic_edittext"
                android:background="@drawable/edittext_border"
                android:layout_gravity="center_vertical"/>
