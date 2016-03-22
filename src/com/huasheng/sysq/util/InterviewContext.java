@@ -1,5 +1,7 @@
 package com.huasheng.sysq.util;
 
+import android.webkit.WebView;
+
 import com.huasheng.sysq.model.Interview;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.Questionaire;
@@ -7,8 +9,10 @@ import com.huasheng.sysq.model.Questionaire;
 public class InterviewContext {
 
 	private static Interview interview;//访问记录
-	public static Questionaire currentQuestionaire;//当前问卷
-	public static Question currentQuestion;//当前问题
+	private static Questionaire currentQuestionaire;//当前问卷
+	private static Question currentQuestion;//当前问题
+	
+	private static WebView webView;
 	
 	public static Interview getInterview() {
 		return interview;
@@ -27,5 +31,11 @@ public class InterviewContext {
 	}
 	public static void setCurrentQuestion(Question currentQuestion) {
 		InterviewContext.currentQuestion = currentQuestion;
+	}
+	public static WebView getWebView() {
+		return webView;
+	}
+	public static void setWebView(WebView webView) {
+		InterviewContext.webView = webView;
 	}
 }

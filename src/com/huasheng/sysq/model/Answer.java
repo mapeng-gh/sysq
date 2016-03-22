@@ -19,6 +19,9 @@ public class Answer {
 	private String questionCode;
 	private int versionId;
 	
+	public static final String TYPE_RADIOGROUP = "radiogroup";
+	public static final String TYPE_SLIDER = "slider";
+	
 	public int getId() {
 		return id;
 	}

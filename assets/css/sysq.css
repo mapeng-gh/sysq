@@ -1,0 +1,43 @@
+.page-content{
+	padding: 30px;
+}
+
+.header{
+	background-color: #338EE7;
+	padding: 5px 0 5px 5px;
+	color:#FFFFFF;
+	font-size:18px;
+	font-weight: bold;
+}
+
+.body{
+	margin-top: 20px;
+}
+
+.toolbar input{
+	margin-right: 20px;
+}
+
+.question{
+	margin-top: 20px;
+}
+
+.answer-list{
+	margin-top:20px;
+}
+
+.answer-list input.slider{
+	width:100%;
+}
+
+.footer{
+	margin-top:20px;
+	text-align:center;
+}
+.footer .start-btn{
+	font-size:16px;
+}
+
+.footer .next{
+	margin-left: 20px;
+}

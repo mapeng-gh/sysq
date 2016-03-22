@@ -14,7 +14,7 @@ public class QuestionaireDB {
 				null, 
 				"version_id = ? and ( type = ? or type = ?)",
 				new String[]{versionId+"",type+"",InterviewConstants.TYPE_COMMON+""},
-				null,null,"seq_num desc","1");
+				null,null,"seq_num asc","1");
 		Questionaire questionaire = null;
 		if(cursor.moveToNext()){
 			questionaire = new Questionaire();

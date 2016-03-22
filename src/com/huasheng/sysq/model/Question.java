@@ -11,15 +11,21 @@ public class Question {
 	private String code;
 	private String description;
 	private String remark;
-	private int type;
-	private int showType;
+	private String type;
+	private String showType;
 	private int isEnd;
 	private int seqNum;
-	private int questionaireCode;
-	private int parentQuesCode;
+	private String questionaireCode;
+	private String parentQuesCode;
 	private String entryLogic;
 	private String exitLogic;
 	private int versionId;
+	
+	public static final String TYPE_SIMPLE ="simple";
+	public static final String TYPE_COMPLEX = "complex";
+	
+	public static final String SHOW_LIST = "list";
+	public static final String SHOW_TABLE = "table";
 	
 	public int getId() {
 		return id;
@@ -45,16 +51,16 @@ public class Question {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public int getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
-	public int getShowType() {
+	public String getShowType() {
 		return showType;
 	}
-	public void setShowType(int showType) {
+	public void setShowType(String showType) {
 		this.showType = showType;
 	}
 	public int getIsEnd() {
@@ -69,16 +75,16 @@ public class Question {
 	public void setSeqNum(int seqNum) {
 		this.seqNum = seqNum;
 	}
-	public int getQuestionaireCode() {
+	public String getQuestionaireCode() {
 		return questionaireCode;
 	}
-	public void setQuestionaireCode(int questionaireCode) {
+	public void setQuestionaireCode(String questionaireCode) {
 		this.questionaireCode = questionaireCode;
 	}
-	public int getParentQuesCode() {
+	public String getParentQuesCode() {
 		return parentQuesCode;
 	}
-	public void setParentQuesCode(int parentQuesCode) {
+	public void setParentQuesCode(String parentQuesCode) {
 		this.parentQuesCode = parentQuesCode;
 	}
 	public String getEntryLogic() {

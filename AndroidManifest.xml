@@ -45,8 +45,10 @@
              android:name=".activity.interview.InterviewerBasicActivity"
              android:screenOrientation="portrait">
          </activity>
-         <activity android:name=".activity.interview.InterviewerDNAActivity"></activity>
+         <activity android:name=".activity.interview.InterviewerDNAActivity" android:screenOrientation="portrait"></activity>
         
+         <activity android:name=".activity.interview.InterviewActivity" android:screenOrientation="landscape"></activity>
+         
     </application>
 
 </manifest>

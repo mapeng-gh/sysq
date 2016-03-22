@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,6 +56,10 @@ public class InterviewerDNAActivity extends Activity implements OnClickListener{
 			collectData(interview);
 			InterviewService.addInterview(interview);
 			Toast.makeText(this, "保存成功 ", Toast.LENGTH_SHORT).show();
+			
+			//跳转问卷页
+			Intent intent = new Intent(this,InterviewActivity.class);
+			startActivity(intent);
 		}
 	}
 	
