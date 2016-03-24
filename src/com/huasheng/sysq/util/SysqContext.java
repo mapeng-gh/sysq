@@ -6,7 +6,7 @@ import com.huasheng.sysq.model.Version;
 public class SysqContext {
 
 	private static Interviewer interviewer;//访问者
-	public static Version currentVersion;//当前版本
+	private static Version currentVersion;//当前版本
 	
 	public static Interviewer getInterviewer() {
 		return interviewer;

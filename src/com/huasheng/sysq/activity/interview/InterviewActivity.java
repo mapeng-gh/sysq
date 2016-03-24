@@ -8,8 +8,9 @@ import android.webkit.WebViewClient;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.util.InterviewContext;
-import com.huasheng.sysq.util.JsonUtils;
-import com.huasheng.sysq.util.TemplateUtils;
+import com.huasheng.sysq.util.JSObject;
+import com.huasheng.sysq.util.RenderUtils;
+import com.huasheng.sysq.util.TemplateConstants;
 
 public class InterviewActivity extends Activity{
 	
@@ -30,9 +31,8 @@ public class InterviewActivity extends Activity{
 			@Override
 			public void onPageFinished(WebView view, String url) {//页面加载完成回调
 				
-				String tpl = TemplateUtils.loadTemplate("questionaire.tpl");
-				String data = JsonUtils.toJson(InterviewContext.getCurrentQuestionaire());
-				view.loadUrl("javascript:renderContent('"+tpl+"','"+data+"')");
+				String data = RenderUtils.toJson(InterviewContext.getCurrentQuestionaire(),null);
+				RenderUtils.render(TemplateConstants.QUESTIONAIRE, data);
 			}
 			
 		});

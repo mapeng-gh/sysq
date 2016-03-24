@@ -21,7 +21,7 @@
 		
 			{{each answerWrapList as answerWrap i}}
 			
-				<div class="answer">
+				<div class="answer" data-type="{{answerWrap.answer.type}}" data-code="{{answerWrap.answer.code}}">
 				
 					{{answerWrap.answer.label}} 
 			
@@ -60,5 +60,5 @@
 
 <div class="footer">
 	<input type="button" class="previous" value="上一题"/>
-	<input type="button" class="next" value="下一题"/>
+	<input type="button" class="next" value="下一题" onclick="{{question.exitLogic}}"/>
 </div>
