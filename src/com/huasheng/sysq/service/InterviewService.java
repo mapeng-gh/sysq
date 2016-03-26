@@ -1,20 +1,29 @@
 package com.huasheng.sysq.service;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.huasheng.sysq.db.AnswerDB;
 import com.huasheng.sysq.db.InterviewDB;
 import com.huasheng.sysq.db.QuestionDB;
 import com.huasheng.sysq.db.QuestionaireDB;
 import com.huasheng.sysq.model.Answer;
+import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.AnswerWrap;
 import com.huasheng.sysq.model.Interview;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
+import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqContext;
 
@@ -152,5 +161,63 @@ public class InterviewService {
 		}
 		
 		return questionWrap;
+	}
+	
+	public static ResultWrap getAnswerList(Map<String,AnswerValue> answerValueMap){
+		
+		ResultWrap resultWrap = new ResultWrap();
+		resultWrap.setQuestionaire(InterviewContext.getCurrentQuestionaire());//设置问卷
+		
+		List<Question> questionList = QuestionDB.getList(InterviewContext.getCurrentQuestionaire().getCode(), SysqContext.getCurrentVersion().getId());
+		resultWrap.setQuestionList(questionList);//设置所有问题
+		
+		Map<String,List<Question>> subQuesListMap = new HashMap<String,List<Question>>();
+		Map<String,String> answerMap = new HashMap<String,String>();
+		
+		for(Question question : questionList){
+			
+			if(question.getType().equals(Question.TYPE_SIMPLE)){//简单问题
+				
+				String questionCode = question.getCode();
+				String questionValue = getQuestionValue(answerValueMap, questionCode);
+				answerMap.put(questionCode,questionValue);
+				
+			}else if(question.getType().equals(Question.TYPE_COMPLEX)){//复杂问题
+				
+				List<Question> subQuesList = QuestionDB.getSubList(question.getCode(), SysqContext.getCurrentVersion().getId());
+				subQuesListMap.put(question.getCode(), subQuesList);
+				
+				for(Question subQuestion : subQuesList){
+					String subQuestionCode = subQuestion.getCode();
+					String subQuestionValue = getQuestionValue(answerValueMap, subQuestionCode);
+					answerMap.put(subQuestionCode, subQuestionValue);
+				}
+			}
+		}
+		
+		resultWrap.setSubQuesListMap(subQuesListMap);//设置子问题
+		resultWrap.setAnswerMap(answerMap);//设置答案
+		
+		return resultWrap;
+	}
+	
+	private static String getQuestionValue(Map<String,AnswerValue> answerValueMap,String questionCode){
+		String questionValue = "";
+		
+		List<Answer> answerList = AnswerDB.getList(questionCode, SysqContext.getCurrentVersion().getId());
+		if(answerList.size() == 1){
+			Answer answer = answerList.get(0);
+			AnswerValue answerValue = answerValueMap.get(answer.getCode());
+			questionValue = answerValue.getAnswerText();
+		}else{
+			List<String> answerValueList = new ArrayList<String>();
+			for(Answer answer : answerList){
+				AnswerValue answerValue = answerValueMap.get(answer.getCode());
+				answerValueList.add(answerValue.getAnswerLabel() + ":" + answerValue.getAnswerText());
+			}
+			questionValue = StringUtils.join(answerValueList,",");
+		}
+		
+		return questionValue;
 	}
 }

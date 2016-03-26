@@ -10,7 +10,7 @@
 	font-weight: bold;
 }
 
-.body{
+.toolbar{
 	margin-top: 20px;
 }
 
@@ -40,4 +40,26 @@
 
 .footer .next{
 	margin-left: 20px;
+}
+
+.results{
+	margin-top: 20px;
+}
+.results-content{
+	margin-top: 10px;
+}
+.results-content table{
+	width:100%;
+}
+.results-content table td{
+	padding:5px;
+}
+.result-content table td.seq{
+	width:10%;
+}
+.result-content table td.question-desc{
+	width:60%;
+}
+.result-content table td.seq{
+	width:30%;
 }

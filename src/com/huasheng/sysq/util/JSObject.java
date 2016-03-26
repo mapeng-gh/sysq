@@ -1,10 +1,18 @@
 package com.huasheng.sysq.util;
 
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
+
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.QuestionWrap;
+import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.service.InterviewService;
 
 public class JSObject {
@@ -28,7 +36,12 @@ public class JSObject {
 	
 	@JavascriptInterface
 	public void jumpToAnswerList(String answersJS){
-		Toast.makeText(MyApplication.getContext(), answersJS, Toast.LENGTH_LONG).show();
+		Type type = new TypeToken<Map<String,AnswerValue>>(){}.getType();
+		Gson gson = new Gson();
+		Map<String,AnswerValue> answerValueMap = gson.fromJson(answersJS, type);
+		
+		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueMap);
+		RenderUtils.render(TemplateConstants.ANSWERS, RenderUtils.toJson(resultWrap, null));
 	}
 	
 	@JavascriptInterface
