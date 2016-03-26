@@ -1,12 +1,10 @@
 package com.huasheng.sysq.util;
 
 import java.lang.reflect.Type;
-import java.util.List;
 import java.util.Map;
 
 import android.util.Log;
 import android.webkit.JavascriptInterface;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

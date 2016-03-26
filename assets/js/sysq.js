@@ -16,10 +16,13 @@ function onsliderchange(dom){
 var answers = {};//{"answerCode":{"answerCode":"","answerValue":"","answerText":"","answerLabel":""}}
 
 function saveToAnswers(){
-	$("div.answer").each(function(){
+	$("div.answer-list .answer").each(function(){
 		var $this = $(this);
 		var code = $this.data("code");
-		var label = $this.find("span.answer-label").html();
+		var label = ""; 
+		if($this.find("span.answer-label").length > 0){
+			label = $this.find("span.answer-label").html();
+		}
 		var value;
 		var text;
 		var type = $this.data("type");

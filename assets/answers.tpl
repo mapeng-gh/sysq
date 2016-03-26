@@ -18,24 +18,34 @@
 		
 		{{each questionList as question i}}
 		
-			<tr>
-				
-				<td class="seq">{{(i+1)}}</td>
-				<td class="question-desc">{{question.description}}</td>
-				
-				{{if question.type == "simple"}}
-				
+			{{if question.type == "simple"}} <!-- 简单问题 -->
+			
+				<tr>
+					<td class="seq">{{(i+1)}}</td>
+					<td class="question-desc">{{question.code}} {{question.description}}</td>
 					<td class="answer-value">{{answerMap[question.code]}}</td>
+				</tr>
+			
+			{{else if question.type == "complex"}}  <!-- 复杂问题   -->
+			
+				<tr>
+					<td class="seq">{{(i+1)}}</td>
+					<td class="question-desc">{{question.code}} {{question.description}}</td>
+					<td class="answer-value"></td>
+				</tr>
 				
-				{{else if question.type == "complex"}}
+				{{each subQuesListMap[question.code] as subQues i}}
 				
-					
+					<tr>
+						<td class="seq"></td>
+						<td class="question-desc">{{subQues.code}} {{subQues.description}}</td>
+						<td class="answer-value">{{answerMap[subQues.code]}}</td>
+					</tr>
 				
-				{{/if}}
-				
-				
-			</tr>
-		
+				{{/each}}
+			
+			{{/if}}
+			
 		{{/each}}
 		
 		</table>
