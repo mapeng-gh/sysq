@@ -96,7 +96,7 @@
 			
 			{{else}}  <!-- 多个答案 -->
 				
-				<table style="width:100%">
+				<table style="width:100%"> 
 				
 					<!-- 表头 -->
 					<tr>
