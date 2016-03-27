@@ -51,5 +51,6 @@ function jumpToAnswerList(){
 
 function saveQuestionaire(){
 	appservice.saveQuestionaire(JSON.stringify(answers));
+	answers = {};//Çå¿Õ´ð°¸
 }
 

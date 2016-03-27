@@ -1,9 +1,9 @@
-<div class="header">
+<div class="questionaire-header">
 	问卷名称：{{title}}
 </div>
-<div class="body">
+<div class="questionaire-desc">
 	{{introduction}}
 </div>
-<div class="footer">
+<div class="questionaire-footer">
 	<input type="button" class="start-btn" value="开始" onclick="appservice.getFirstQuestion()"/>
 </div>

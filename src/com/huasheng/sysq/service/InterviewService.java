@@ -102,9 +102,6 @@ public class InterviewService {
 		//包装成questionWrap
 		QuestionWrap questionWrap = wrap(nextQuestion);
 		
-		//保存当前题目到上下文
-		InterviewContext.setCurrentQuestion(nextQuestion);
-		
 		return questionWrap;
 	}
 	
@@ -244,6 +241,8 @@ public class InterviewService {
 	 * @param answerMap
 	 */
 	public static Questionaire saveQuestionaire(Map<String,AnswerValue> answerMap){
+		
+		//保存当前问卷答案
 		Collection<AnswerValue> answerValues = answerMap.values();
 		for(AnswerValue answerValue : answerValues){
 			Result result = new Result();
@@ -252,7 +251,23 @@ public class InterviewService {
 			result.setAnswerValue(answerValue.getAnswerValue());
 			ResultDB.save(result);
 		}
-		return null;
+		
+		//获取下一个问卷
+		Questionaire nextQuestionaire = null;
+		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
+		List<Questionaire> questionaireList = QuestionaireDB.getList(SysqContext.getCurrentVersion().getId(), InterviewContext.getInterview().getType());
+		for(int i = 0;i<questionaireList.size();i++){
+			Questionaire questionaire = questionaireList.get(0);
+			if(questionaire.getCode().equals(curQuestionaire.getCode())){
+				if(i == questionaireList.size()-1){
+					return null;
+				}
+				nextQuestionaire = questionaireList.get(i+1);
+				break;
+			}
+		}
+		
+		return nextQuestionaire;
 		
 	}
 }

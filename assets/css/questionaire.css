@@ -1,0 +1,17 @@
+div.questionaire-header{
+	background-color: #338EE7;
+	padding: 5px 0 5px 5px;
+	color:#FFFFFF;
+	font-size:18px;
+	font-weight: bold;
+}
+
+div.questionaire-desc{
+	margin-top: 20px;
+}
+
+div.questionaire-footer{
+	margin-top:20px;
+	text-align:center;
+}
+
