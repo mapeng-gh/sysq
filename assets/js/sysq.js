@@ -1,3 +1,8 @@
+/**
+ * 页面渲染
+ * @param tpl
+ * @param data
+ */
 function renderContent(tpl,data){
 	var render = template.compile(tpl);
 	appservice.showMsg("compile finished");
@@ -9,12 +14,19 @@ function renderContent(tpl,data){
 	$("#content").html(html);
 }
 
+/**
+ * 滑动块拖动触发函数
+ * @param dom
+ */
 function onsliderchange(dom){
 	$(dom).prev().children('.slider-value').html(dom.value);
 }
 
 var answers = {};//{"answerCode":{"answerCode":"","answerValue":"","answerText":"","answerLabel":""}}
 
+/**
+ * 暂存答案
+ */
 function saveToAnswers(){
 	$(".answer").each(function(){
 		var $this = $(this);
@@ -39,18 +51,47 @@ function saveToAnswers(){
 	});
 }
 
+/**
+ * 跳转第一个问题
+ */
+function jumpToFirstQuestion(){
+	appservice.getFirstQuestion();
+}
+
+
+/**
+ * 跳转下一题
+ */
 function jumpToNextQuestion(){
 	saveToAnswers();
 	appservice.jumpToNextQuestion();
 }
 
+/**
+ * 跳转答案列表
+ */
 function jumpToAnswerList(){
 	saveToAnswers();
 	appservice.jumpToAnswerList(JSON.stringify(answers));
 }
 
+/**
+ * 保存问卷
+ */
 function saveQuestionaire(){
 	appservice.saveQuestionaire(JSON.stringify(answers));
 	answers = {};//清空答案
+}
+
+/**
+ * 重做问卷
+ */
+function redoQuestionaire(){
+	answers = {};//清空答案
+	appservice.getFirstQuestion();
+}
+
+function quitInterview(){
+	appservice.quitInterview();
 }
 

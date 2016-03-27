@@ -3,8 +3,8 @@
 </div>
 
 <div class="answers-toolbar">
-	<input type="button" value="重做"/>
-	<input type="button" value="结束"/>
+	<input type="button" value="重做" onclick="redoQuestionaire()"/>
+	<input type="button" value="结束" onclick="quitInterview()"/>
 	<input type="button" value="保存" onclick="saveQuestionaire()"/>
 </div>
 

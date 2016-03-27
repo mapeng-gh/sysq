@@ -5,5 +5,5 @@
 	{{introduction}}
 </div>
 <div class="questionaire-footer">
-	<input type="button" class="start-btn" value="开始" onclick="appservice.getFirstQuestion()"/>
+	<input type="button" class="start-btn" value="开始" onclick="jumpToFirstQuestion()"/>
 </div>

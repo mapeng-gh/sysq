@@ -18,14 +18,14 @@ public class JSObject {
 
 	@JavascriptInterface
 	public void getFirstQuestion(){
-		QuestionWrap firstQuesWrap = InterviewService.getFirstQuestion(InterviewContext.getCurrentQuestionaire().getCode());
+		QuestionWrap firstQuesWrap = InterviewService.getFirstQuestion();
 		RenderUtils.render(TemplateConstants.QUESTION, firstQuesWrap,new String[]{"extra"});
+		InterviewContext.setCurrentQuestion(firstQuesWrap.getQuestion());
 	}
 	
 	@JavascriptInterface
 	public void jumpToNextQuestion(){
-		QuestionWrap nextQuestionWrap = InterviewService.getNextQuestion(InterviewContext.getCurrentQuestionaire().getCode(), 
-				InterviewContext.getCurrentQuestion().getCode());
+		QuestionWrap nextQuestionWrap = InterviewService.getNextQuestion();
 		
 		//保存当前题目到上下文
 		InterviewContext.setCurrentQuestion(nextQuestionWrap.getQuestion());
@@ -61,6 +61,14 @@ public class JSObject {
 		
 		//页面渲染
 		RenderUtils.render(TemplateConstants.QUESTIONAIRE, nextQuestionaire, null);
+	}
+	
+	@JavascriptInterface
+	public void quitInterview(){
+		Intent indexActivityIntent = new Intent(MyApplication.getContext(),IndexActivity.class);
+		indexActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		MyApplication.getContext().startActivity(indexActivityIntent);
+		return;
 	}
 	
 	@JavascriptInterface

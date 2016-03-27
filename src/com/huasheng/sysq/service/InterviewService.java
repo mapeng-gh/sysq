@@ -24,6 +24,7 @@ import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.model.Result;
 import com.huasheng.sysq.model.ResultWrap;
+import com.huasheng.sysq.model.Version;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqContext;
 
@@ -58,19 +59,20 @@ public class InterviewService {
 	 * @param questionaireCode
 	 * @return
 	 */
-	public static QuestionWrap getFirstQuestion(String questionaireCode){
+	public static QuestionWrap getFirstQuestion(){
 		
-		List<Question> questionList = QuestionDB.getList(questionaireCode,SysqContext.getCurrentVersion().getId());
+		//获取当前问卷
+		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
+		
+		//查询第一个问题
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),SysqContext.getCurrentVersion().getId());
 		if(questionList == null || questionList.size() <= 0){
-			throw new RuntimeException("问卷[" + questionaireCode + "]没有问题");
+			throw new RuntimeException("问卷[" + curQuestionaire.getCode() + "]没有问题");
 		}
+		Question firstQuestion = questionList.get(0);
 		
 		//包装成questionWrap
-		Question firstQuestion = questionList.get(0);
 		QuestionWrap questionWrap = wrap(firstQuestion);
-		
-		//保存当前题目到上下文
-		InterviewContext.setCurrentQuestion(firstQuestion);
 				
 		return questionWrap;
 	}
@@ -81,16 +83,21 @@ public class InterviewService {
 	 * @param questionCode
 	 * @return
 	 */
-	public static QuestionWrap getNextQuestion(String questionaireCode,String questionCode){
-		List<Question> questionList = QuestionDB.getList(questionaireCode,SysqContext.getCurrentVersion().getId());
-		if(questionList == null || questionList.size() <= 0){
-			throw new RuntimeException("问卷[" + questionaireCode + "]没有问题");
-		}
+	public static QuestionWrap getNextQuestion(){
+		
+		//获取当前问卷、当前问题
+		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
+		Question curQuestion = InterviewContext.getCurrentQuestion();
+		Version curVersion = SysqContext.getCurrentVersion();
 		
 		//获取下一个question
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId());
+		if(questionList == null || questionList.size() <= 0){
+			throw new RuntimeException("问卷[" + curQuestionaire.getCode() + "]没有问题");
+		}
 		Question nextQuestion = null;
 		for(int i=0;i<questionList.size();i++){
-			if(questionList.get(i).getCode().equals(questionCode)){
+			if(questionList.get(i).getCode().equals(curQuestion.getCode())){
 				if(i == questionList.size() - 1){
 					return null;
 				}
