@@ -16,7 +16,7 @@ function onsliderchange(dom){
 var answers = {};//{"answerCode":{"answerCode":"","answerValue":"","answerText":"","answerLabel":""}}
 
 function saveToAnswers(){
-	$("div.answer-list .answer").each(function(){
+	$(".answer").each(function(){
 		var $this = $(this);
 		var code = $this.data("code");
 		var label = ""; 

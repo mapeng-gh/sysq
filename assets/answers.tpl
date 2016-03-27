@@ -1,18 +1,18 @@
-<div class="header">
+<div class="answers-header">
 	问卷名称 - {{questionaire.title}}
 </div>
 
-<div class="toolbar">
+<div class="answers-toolbar">
 	<input type="button" value="重做"/>
 	<input type="button" value="结束"/>
 	<input type="button" value="保存" onclick="saveQuestionaire()"/>
 </div>
 
-<div class="results">
+<div class="answers-results">
 
-	<div class="results-title">答案列表</div>
+	<div class="title">答案列表</div>
 	
-	<div class="results-content">
+	<div class="content">
 	
 		<table>
 		

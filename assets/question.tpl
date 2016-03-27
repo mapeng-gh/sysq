@@ -1,19 +1,19 @@
-<div class="header">
+<div class="question-header">
 	问卷名称 - {{questionaire.title}}
 </div>
 
-<div class="toolbar">
+<div class="question-toolbar">
 	<input type="button" value="暂停"/>
 	<input type="button" value="重做"/>
 	<input type="button" value="结束"/>
 	<input type="button" value="答案"/>
 </div>
 	
-<div class="question">
+<div class="question-desc">
 	{{question.code}} - {{question.description}}
 </div>
 	
-<div class="answer-list">
+<div class="question-answer-list">
 	
 	{{if question.type == "simple"}}	<!-- 简单答案 -->
 	
@@ -36,7 +36,7 @@
 						<span class="slider-value">{{answerWrap.sliderOption.start}}</span>
 						<span style="float:right;">{{answerWrap.sliderOption.end}}</span>
 					</div>
-					<input name="{{answerWrap.answer.code}}" class="slider" type="range" min="{{answerWrap.sliderOption.start}}" max="{{answerWrap.sliderOption.end}}" step="{{answerWrap.sliderOption.step}}" value="{{answerWrap.sliderOption.start}}" onchange="onsliderchange(this)"/>
+					<input name="{{answerWrap.answer.code}}" style="width:100%;" class="slider" type="range" min="{{answerWrap.sliderOption.start}}" max="{{answerWrap.sliderOption.end}}" step="{{answerWrap.sliderOption.step}}" value="{{answerWrap.sliderOption.start}}" onchange="onsliderchange(this)"/>
 						
 				{{else if answerWrap.answer.type == "calendar"}}	<!-- 日期 -->
 				
@@ -154,7 +154,7 @@
 	
 </div>
 
-<div class="footer">
-	<input type="button" class="previous" value="上一题"/>
-	<input type="button" class="next" value="下一题" onclick="{{question.exitLogic}}"/>
+<div class="question-footer">
+	<input type="button" value="上一题"/>
+	<input type="button" value="下一题" onclick="{{question.exitLogic}}"/>
 </div>

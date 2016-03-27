@@ -15,3 +15,7 @@ div.questionaire-footer{
 	text-align:center;
 }
 
+div.questionaire-footer input{
+	font-size:16px;
+}
+

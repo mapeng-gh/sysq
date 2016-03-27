@@ -1,0 +1,39 @@
+/**头部**/
+div.question-header{
+	background-color: #338EE7;
+	padding: 5px 0 5px 5px;
+	color:#FFFFFF;
+	font-size:18px;
+	font-weight: bold;
+}
+
+/**工具栏**/
+div.question-toolbar{
+	margin-top: 20px;
+}
+div.question-toolbar input{
+	margin-right: 20px;
+}
+
+/**问题**/
+div.question-desc{
+	margin-top: 20px;
+}
+
+/**答案**/
+div.question-answer-list{
+	margin-top:20px;
+}
+
+/**底部**/
+div.question-footer{
+	margin-top:20px;
+	text-align:center;
+}
+div.question-footer input{
+	font-size:16px;
+	margin-right: 20px;
+}
+
+
+

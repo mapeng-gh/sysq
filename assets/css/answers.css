@@ -1,0 +1,40 @@
+/**头部**/
+div.answers-header{
+	background-color: #338EE7;
+	padding: 5px 0 5px 5px;
+	color:#FFFFFF;
+	font-size:18px;
+	font-weight: bold;
+}
+
+/**工具栏**/
+div.answers-toolbar{
+	margin-top: 20px;
+}
+div.answers-toolbar input{
+	margin-right: 20px;
+}
+
+/**答案**/
+div.answers-results{
+	margin-top: 20px;
+}
+div.answers-results div.content{
+	margin-top: 10px;
+}
+
+div.answers-results div.content table{
+	width:100%;
+}
+div.answers-results div.content table td{
+	padding:5px;
+}
+div.answers-results div.content table td.seq{
+	width:10%;
+}
+div.answers-results div.content table td.question-desc{
+	width:60%;
+}
+div.answers-results div.content table td.answer-value{
+	width:30%;
+}
