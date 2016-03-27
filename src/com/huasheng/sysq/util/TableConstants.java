@@ -112,7 +112,7 @@ public class TableConstants {
 	 * 结果表列名
 	 */
 	public static final String COLUMN_RESULT_INTERVIEW_ID = "interview_id";
-	public static final String COLUMN_RESULT_INTERVIEW_QUESTION_CODE = "question_code";
-	public static final String COLUMN_RESULT_INTERVIEW_QUESTION_VALUE = "question_value";
+	public static final String COLUMN_RESULT_INTERVIEW_ANSWER_CODE = "answer_code";
+	public static final String COLUMN_RESULT_INTERVIEW_ANSWER_VALUE = "answer_value";
 	
 }

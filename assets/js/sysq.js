@@ -48,3 +48,8 @@ function jumpToAnswerList(){
 	saveToAnswers();
 	appservice.jumpToAnswerList(JSON.stringify(answers));
 }
+
+function saveQuestionaire(){
+	appservice.saveQuestionaire(JSON.stringify(answers));
+}
+

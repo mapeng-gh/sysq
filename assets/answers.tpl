@@ -5,7 +5,7 @@
 <div class="toolbar">
 	<input type="button" value="重做"/>
 	<input type="button" value="结束"/>
-	<input type="button" value="保存"/>
+	<input type="button" value="保存" onclick="saveQuestionaire()"/>
 </div>
 
 <div class="results">

@@ -7,6 +7,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.model.Questionaire;
+import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.JSObject;
 import com.huasheng.sysq.util.RenderUtils;
@@ -30,11 +32,10 @@ public class InterviewActivity extends Activity{
 
 			@Override
 			public void onPageFinished(WebView view, String url) {//页面加载完成回调
-				
-				String data = RenderUtils.toJson(InterviewContext.getCurrentQuestionaire(),null);
-				RenderUtils.render(TemplateConstants.QUESTIONAIRE, data);
+				Questionaire firstQuestionaire = InterviewService.getFirstQuestionaire();
+				RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);
+				InterviewContext.setCurrentQuestionaire(firstQuestionaire);
 			}
-			
 		});
 		
 		InterviewContext.setWebView(interviewWV);//保存到上下文

@@ -1,11 +1,8 @@
 package com.huasheng.sysq.db;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -117,8 +114,8 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 			"("+
 				"id integer primary key autoincrement," +
 				TableConstants.COLUMN_RESULT_INTERVIEW_ID + " integer," +
-				TableConstants.COLUMN_RESULT_INTERVIEW_QUESTION_CODE + " varchar," +
-				TableConstants.COLUMN_RESULT_INTERVIEW_QUESTION_VALUE + " varchar" +
+				TableConstants.COLUMN_RESULT_INTERVIEW_ANSWER_CODE + " varchar," +
+				TableConstants.COLUMN_RESULT_INTERVIEW_ANSWER_VALUE + " varchar" +
 			")";
 	
 	public static final String DB_NAME = "sysq.db";

@@ -55,8 +55,15 @@ public class RenderUtils {
 		return gson.toJson(obj);
 	}
 	
-	public static void render(final String filename,final String data){
+	public static Object fromJson(String json,Type type){
+		Gson gson = new Gson();
+		return gson.fromJson(json, type);
+	}
+	
+	public static void render(final String filename,Object obj,String[] excludeFields){
 		final String tpl = loadTemplate(filename);
+		final String data = toJson(obj, excludeFields);
+		
 		InterviewContext.getWebView().post(new Runnable() {
 			@Override
 			public void run() {

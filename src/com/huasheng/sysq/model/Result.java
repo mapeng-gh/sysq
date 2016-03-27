@@ -9,8 +9,8 @@ public class Result {
 	
 	private int id;
 	private int interviewId;
-	private String questionCode;
-	private String questionValue;
+	private String answerCode;
+	private String answerValue;
 	
 	public int getId() {
 		return id;
@@ -24,17 +24,17 @@ public class Result {
 	public void setInterviewId(int interviewId) {
 		this.interviewId = interviewId;
 	}
-	public String getQuestionCode() {
-		return questionCode;
+	public String getAnswerCode() {
+		return answerCode;
 	}
-	public void setQuestionCode(String questionCode) {
-		this.questionCode = questionCode;
+	public void setAnswerCode(String answerCode) {
+		this.answerCode = answerCode;
 	}
-	public String getQuestionValue() {
-		return questionValue;
+	public String getAnswerValue() {
+		return answerValue;
 	}
-	public void setQuestionValue(String questionValue) {
-		this.questionValue = questionValue;
+	public void setAnswerValue(String answerValue) {
+		this.answerValue = answerValue;
 	}
 	
 }

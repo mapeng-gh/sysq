@@ -1,8 +1,8 @@
 package com.huasheng.sysq.service;
 
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,12 +10,11 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.huasheng.sysq.db.AnswerDB;
 import com.huasheng.sysq.db.InterviewDB;
 import com.huasheng.sysq.db.QuestionDB;
 import com.huasheng.sysq.db.QuestionaireDB;
+import com.huasheng.sysq.db.ResultDB;
 import com.huasheng.sysq.model.Answer;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.AnswerWrap;
@@ -23,6 +22,7 @@ import com.huasheng.sysq.model.Interview;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
+import com.huasheng.sysq.model.Result;
 import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqContext;
@@ -47,15 +47,10 @@ public class InterviewService {
 		//记录当前版本
 		interview.setVersionId(SysqContext.getCurrentVersion().getId());
 		
-		//记录第一个问卷
-		Questionaire firstQuestionaire = QuestionaireDB.getFirst(SysqContext.getCurrentVersion().getId(),interview.getType());
-		interview.setCurQuestionaireCode(firstQuestionaire.getCode());
-		
 		interview.setId((int)InterviewDB.save(interview));
 		
 		//保存到访谈上下文
 		InterviewContext.setInterview(interview);
-		InterviewContext.setCurrentQuestionaire(firstQuestionaire);
 	}
 	
 	/**
@@ -163,6 +158,11 @@ public class InterviewService {
 		return questionWrap;
 	}
 	
+	/**
+	 * 获取答案列表
+	 * @param answerValueMap
+	 * @return
+	 */
 	public static ResultWrap getAnswerList(Map<String,AnswerValue> answerValueMap){
 		
 		ResultWrap resultWrap = new ResultWrap();
@@ -219,5 +219,40 @@ public class InterviewService {
 		}
 		
 		return questionValue;
+	}
+	
+	/**
+	 * 获取第一个问卷
+	 * @return
+	 */
+	public static Questionaire getFirstQuestionaire(){
+		int type = InterviewContext.getInterview().getType();
+		int versionId = SysqContext.getCurrentVersion().getId();
+		
+		List<Questionaire> questionaireList = QuestionaireDB.getList(versionId, type);
+		
+		if(questionaireList == null || questionaireList.size() <= 0){
+			throw new RuntimeException("版本号：" + versionId + " 问卷类型：" + type + " 下没有问卷");
+		}
+		
+		Questionaire firstQuestionaire = questionaireList.get(0);
+		return firstQuestionaire;
+	}
+	
+	/**
+	 * 保存问卷
+	 * @param answerMap
+	 */
+	public static Questionaire saveQuestionaire(Map<String,AnswerValue> answerMap){
+		Collection<AnswerValue> answerValues = answerMap.values();
+		for(AnswerValue answerValue : answerValues){
+			Result result = new Result();
+			result.setInterviewId(InterviewContext.getInterview().getId());
+			result.setAnswerCode(answerValue.getAnswerCode());
+			result.setAnswerValue(answerValue.getAnswerValue());
+			ResultDB.save(result);
+		}
+		return null;
+		
 	}
 }
