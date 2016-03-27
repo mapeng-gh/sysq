@@ -18,10 +18,16 @@ import com.huasheng.sysq.service.InterviewService;
 public class JSObject {
 
 	@JavascriptInterface
-	public void getFirstQuestion(){
+	public void jumpToFirstQuestion(){
+		
+		//获取第一个问题
 		QuestionWrap firstQuesWrap = InterviewService.getFirstQuestion();
-		RenderUtils.render(TemplateConstants.QUESTION, firstQuesWrap,new String[]{"extra"});
+		
+		//设置上下文
 		InterviewContext.setCurrentQuestion(firstQuesWrap.getQuestion());
+		
+		//渲染页面
+		RenderUtils.render(TemplateConstants.QUESTION, firstQuesWrap,new String[]{"extra"});
 	}
 	
 	@JavascriptInterface
@@ -46,7 +52,10 @@ public class JSObject {
 		
 		//保存当前问卷答案
 		Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<Map<String,AnswerValue>>(){}.getType());
-		Questionaire nextQuestionaire = InterviewService.saveQuestionaire(answerValueMap);
+		InterviewService.saveAnswers(answerValueMap);
+		
+		//获取下一个问卷
+		Questionaire nextQuestionaire = InterviewService.getNextQuestionaire();
 		
 		//最后一个问卷
 		if(nextQuestionaire == null){
@@ -100,6 +109,25 @@ public class JSObject {
 		
 		//渲染页面
 		RenderUtils.render(TemplateConstants.QUESTION, previousQuestionWrap,new String[]{"extra"});
+	}
+	
+	@JavascriptInterface
+	public void pauseInterview(String answersJS){
+		
+		if(!answersJS.equals("{}")){
+			
+			//保存当前问卷答案
+			Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<Map<String,AnswerValue>>(){}.getType());
+			InterviewService.saveAnswers(answerValueMap);
+			
+			//记录当前位置
+			InterviewService.recordInterviewProgress();
+		}
+		
+		//跳转主页
+		Intent indexActivityIntent = new Intent(MyApplication.getContext(),IndexActivity.class);
+		indexActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		MyApplication.getContext().startActivity(indexActivityIntent);
 	}
 	
 	@JavascriptInterface

@@ -3,9 +3,9 @@
 </div>
 
 <div class="question-toolbar">
-	<input type="button" value="暂停"/>
-	<input type="button" value="重做"/>
-	<input type="button" value="结束"/>
+	<input type="button" value="暂停" onclick="pauseInterview()"/>
+	<input type="button" value="重做" onclick="redoQuestionaire()"/>
+	<input type="button" value="结束" onclick="quitInterview()"/>
 	<input type="button" value="答案"/>
 </div>
 	

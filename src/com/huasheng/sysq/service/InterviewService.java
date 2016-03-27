@@ -268,12 +268,11 @@ public class InterviewService {
 	}
 	
 	/**
-	 * 保存问卷
+	 * 保存答案
 	 * @param answerMap
 	 */
-	public static Questionaire saveQuestionaire(Map<String,AnswerValue> answerMap){
+	public static void saveAnswers(Map<String,AnswerValue> answerMap){
 		
-		//保存当前问卷答案
 		Collection<AnswerValue> answerValues = answerMap.values();
 		for(AnswerValue answerValue : answerValues){
 			Result result = new Result();
@@ -282,11 +281,22 @@ public class InterviewService {
 			result.setAnswerValue(answerValue.getAnswerValue());
 			ResultDB.save(result);
 		}
+	}
+	
+	/**
+	 * 获取下一个问卷
+	 * @return
+	 */
+	public static Questionaire getNextQuestionaire(){
+		
+		//获取当前访谈、当前问卷、当前版本
+		Interview curInterview = InterviewContext.getInterview();
+		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
+		Version curVersion = SysqContext.getCurrentVersion();
 		
 		//获取下一个问卷
 		Questionaire nextQuestionaire = null;
-		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
-		List<Questionaire> questionaireList = QuestionaireDB.getList(SysqContext.getCurrentVersion().getId(), InterviewContext.getInterview().getType());
+		List<Questionaire> questionaireList = QuestionaireDB.getList(curVersion.getId(),curInterview.getType());
 		for(int i = 0;i<questionaireList.size();i++){
 			Questionaire questionaire = questionaireList.get(0);
 			if(questionaire.getCode().equals(curQuestionaire.getCode())){
@@ -299,7 +309,6 @@ public class InterviewService {
 		}
 		
 		return nextQuestionaire;
-		
 	}
 	
 	/**
@@ -312,10 +321,29 @@ public class InterviewService {
 		InterviewDB.update(curInterview);
 	}
 	
+	/**
+	 * 完成访谈
+	 */
 	public static void finishInterview(){
 		Interview curInterview = InterviewContext.getInterview();
 		curInterview.setStatus(Interview.STATUS_DONE);
 		curInterview.setEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
+		InterviewDB.update(curInterview);
+	}
+	
+	/**
+	 * 记录访谈当前位置
+	 */
+	public static void recordInterviewProgress(){
+		
+		//获取当前问卷、当前问题
+		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
+		Question curQuestion = InterviewContext.getCurrentQuestion();
+		
+		//更新
+		Interview curInterview = InterviewContext.getInterview();
+		curInterview.setCurQuestionaireCode(curQuestionaire.getCode());
+		curInterview.setNextQuestionCode(curQuestion.getCode());
 		InterviewDB.update(curInterview);
 	}
 }

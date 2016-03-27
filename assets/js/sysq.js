@@ -52,10 +52,10 @@ function saveToAnswers(){
 }
 
 /**
- * 跳转第一个问题
+ * 开始访谈
  */
-function jumpToFirstQuestion(){
-	appservice.getFirstQuestion();
+function startInterview(){
+	appservice.jumpToFirstQuestion();
 }
 
 
@@ -88,7 +88,7 @@ function saveQuestionaire(){
  */
 function redoQuestionaire(){
 	answers = {};//清空答案
-	appservice.getFirstQuestion();
+	appservice.jumpToFirstQuestion();
 }
 
 /**
@@ -103,5 +103,12 @@ function quitInterview(){
  */
 function jumpToPreviousQuestion(){
 	appservice.jumpToPreviousQuestion();
+}
+
+/**
+ * 暂停访谈
+ */
+function pauseInterview(){
+	appservice.pauseInterview(JSON.stringify(answers));
 }
 
