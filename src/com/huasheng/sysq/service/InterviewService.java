@@ -91,11 +91,8 @@ public class InterviewService {
 		Version curVersion = SysqContext.getCurrentVersion();
 		
 		//获取下一个question
-		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId());
-		if(questionList == null || questionList.size() <= 0){
-			throw new RuntimeException("问卷[" + curQuestionaire.getCode() + "]没有问题");
-		}
 		Question nextQuestion = null;
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId());
 		for(int i=0;i<questionList.size();i++){
 			if(questionList.get(i).getCode().equals(curQuestion.getCode())){
 				if(i == questionList.size() - 1){
@@ -108,7 +105,34 @@ public class InterviewService {
 		
 		//包装成questionWrap
 		QuestionWrap questionWrap = wrap(nextQuestion);
+		return questionWrap;
+	}
+	
+	/**
+	 * 获取上一题
+	 * @return
+	 */
+	public static QuestionWrap getPreviousQuestion(){
+		//获取当前问卷、当前问题
+		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
+		Question curQuestion = InterviewContext.getCurrentQuestion();
+		Version curVersion = SysqContext.getCurrentVersion();
 		
+		//获取上一question
+		Question previousQuestion = null;
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId());
+		for(int i=0;i<questionList.size();i++){
+			if(questionList.get(i).getCode().equals(curQuestion.getCode())){
+				if(i == 0){
+					return null;
+				}
+				previousQuestion = questionList.get(i - 1);
+				break;
+			}
+		}
+		
+		//包装成questionWrap
+		QuestionWrap questionWrap = wrap(previousQuestion);
 		return questionWrap;
 	}
 	

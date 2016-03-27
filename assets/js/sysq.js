@@ -91,7 +91,17 @@ function redoQuestionaire(){
 	appservice.getFirstQuestion();
 }
 
+/**
+ * 退出访谈
+ */
 function quitInterview(){
 	appservice.quitInterview();
+}
+
+/**
+ * 跳转上一题
+ */
+function jumpToPreviousQuestion(){
+	appservice.jumpToPreviousQuestion();
 }
 

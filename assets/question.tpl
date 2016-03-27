@@ -155,6 +155,6 @@
 </div>
 
 <div class="question-footer">
-	<input type="button" value="上一题"/>
+	<input type="button" value="上一题" onclick="jumpToPreviousQuestion()"/>
 	<input type="button" value="下一题" onclick="{{question.exitLogic}}"/>
 </div>

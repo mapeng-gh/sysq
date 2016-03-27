@@ -5,6 +5,7 @@ import java.util.Map;
 import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.huasheng.sysq.activity.IndexActivity;
@@ -80,6 +81,25 @@ public class JSObject {
 		indexActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		MyApplication.getContext().startActivity(indexActivityIntent);
 		return;
+	}
+	
+	@JavascriptInterface
+	public void jumpToPreviousQuestion(){
+		
+		//查询上一个问题
+		QuestionWrap previousQuestionWrap = InterviewService.getPreviousQuestion();
+		
+		//已经为第一个题目
+		if(previousQuestionWrap == null){
+			Toast.makeText(MyApplication.getContext(), "已经是第一题", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		//保存当前题目到上下文
+		InterviewContext.setCurrentQuestion(previousQuestionWrap.getQuestion());
+		
+		//渲染页面
+		RenderUtils.render(TemplateConstants.QUESTION, previousQuestionWrap,new String[]{"extra"});
 	}
 	
 	@JavascriptInterface
