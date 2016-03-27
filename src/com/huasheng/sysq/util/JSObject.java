@@ -47,11 +47,17 @@ public class JSObject {
 		Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<Map<String,AnswerValue>>(){}.getType());
 		Questionaire nextQuestionaire = InterviewService.saveQuestionaire(answerValueMap);
 		
-		//最后一个问卷，跳转到首页
+		//最后一个问卷
 		if(nextQuestionaire == null){
+			
+			//更新访谈状态为完成
+			InterviewService.finishInterview();
+			
+			//跳转首页
 			Intent indexActivityIntent = new Intent(MyApplication.getContext(),IndexActivity.class);
 			indexActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			MyApplication.getContext().startActivity(indexActivityIntent);
+			
 			return;
 		}
 		
@@ -65,6 +71,11 @@ public class JSObject {
 	
 	@JavascriptInterface
 	public void quitInterview(){
+		
+		//更新访谈状态为结束
+		InterviewService.quitInterview();
+		
+		//跳转主页
 		Intent indexActivityIntent = new Intent(MyApplication.getContext(),IndexActivity.class);
 		indexActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		MyApplication.getContext().startActivity(indexActivityIntent);

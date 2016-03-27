@@ -277,4 +277,21 @@ public class InterviewService {
 		return nextQuestionaire;
 		
 	}
+	
+	/**
+	 * ÍË³ö·ÃÌ¸
+	 */
+	public static void quitInterview(){
+		Interview curInterview = InterviewContext.getInterview();
+		curInterview.setStatus(Interview.STATUS_BREAK);
+		curInterview.setEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
+		InterviewDB.update(curInterview);
+	}
+	
+	public static void finishInterview(){
+		Interview curInterview = InterviewContext.getInterview();
+		curInterview.setStatus(Interview.STATUS_DONE);
+		curInterview.setEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
+		InterviewDB.update(curInterview);
+	}
 }
