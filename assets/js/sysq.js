@@ -16,6 +16,15 @@ function renderContent(tpl,data){
 }
 
 /**
+ * 页面初始化
+ * @param entryLogic
+ */
+function entry(entryLogic){
+	eval(entryLogic);
+}
+
+
+/**
  * 滑动块拖动触发函数
  * @param dom
  */

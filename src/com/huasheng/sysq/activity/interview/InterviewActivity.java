@@ -33,16 +33,7 @@ public class InterviewActivity extends Activity{
 
 			@Override
 			public void onPageFinished(WebView view, String url) {//页面加载完成回调
-				Questionaire firstQuestionaire = InterviewService.getFirstQuestionaire();
-				InterviewContext.setCurrentQuestionaire(firstQuestionaire);
-				
-				if(firstQuestionaire.getIntroduction() == null || firstQuestionaire.getIntroduction().equals("")){//问卷没有介绍
-					QuestionWrap firstQuestionWrap = InterviewService.getFirstQuestion();
-					InterviewContext.pushStack(firstQuestionWrap.getQuestion());
-					RenderUtils.render(TemplateConstants.QUESTION, firstQuestionWrap,new String[]{"extra"});
-				}else{
-					RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);
-				}
+				JSObject.jumpToFirstQuestionaire();
 			}
 		});
 		
