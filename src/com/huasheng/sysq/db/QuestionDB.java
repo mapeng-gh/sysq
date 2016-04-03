@@ -26,26 +26,6 @@ public class QuestionDB {
 		return questionList;
 	}
 	
-	/*public static List<Question> getSubList(String questionCode,int versionId){
-		List<Question> subQuesList = new ArrayList<Question>();
-		
-		Cursor cursor = SysQOpenHelper.getDatabase().query(
-				TableConstants.TABLE_QUESTION,
-				null,
-				TableConstants.COLUMN_QUESTION_P_QUESTION_CODE + " = ? and " + TableConstants.COLUMN_QUESTION_VERSION_ID +" = ?",
-				new String[]{questionCode,versionId+""},
-				null,null,TableConstants.COLUMN_QUESTION_SEQ_NUM + " asc");
-		
-		while(cursor.moveToNext()){
-			Question question = fill(cursor);
-			subQuesList.add(question);
-		}
-		
-		cursor.close();
-		
-		return subQuesList;
-	}*/
-	
 	private static Question fill(Cursor cursor){
 		Question question = new Question();
 		question.setId(cursor.getInt(cursor.getColumnIndex("id")));

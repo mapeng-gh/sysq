@@ -139,6 +139,24 @@ public class JSObject {
 	
 	@JavascriptInterface
 	public void showMsg(String msg){
+		Toast.makeText(MyApplication.getContext(), msg, Toast.LENGTH_SHORT).show();
+	}
+	
+	@JavascriptInterface
+	public void jumpToSpecQuestion(String questionCode){
+		
+		//查询指定问题
+		QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
+		
+		//保存当前题目到上下文
+		InterviewContext.setCurrentQuestion(specQuestionWrap.getQuestion());
+		
+		//渲染数据
+		RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});
+	}
+	
+	@JavascriptInterface
+	public void debug(String msg){
 		Log.d("JSObject", msg);
 	}
 }

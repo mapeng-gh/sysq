@@ -5,12 +5,13 @@
  */
 function renderContent(tpl,data){
 	var render = template.compile(tpl);
-	appservice.showMsg("compile finished");
+	appservice.debug("compile finished");
+	appservice.debug(data);
 	data = JSON.parse(data);
-	appservice.showMsg("parse finished");
+	appservice.debug("parse finished");
 	var html = render(data);
-	appservice.showMsg("render finished");
-	appservice.showMsg(html);
+	appservice.debug("render finished");
+	appservice.debug(html);
 	$("#content").html(html);
 }
 
@@ -71,7 +72,7 @@ function saveToAnswers(){
 		
 		answers[code] = {"code":code,"label":label,"value":value,"text":text};
 		
-		appservice.showMsg("answers = " + JSON.stringify(answers));
+		appservice.debug("answers = " + JSON.stringify(answers));
 	});
 }
 
@@ -136,3 +137,29 @@ function pauseInterview(){
 	appservice.pauseInterview(JSON.stringify(answers));
 }
 
+/**
+ * 弹框提示
+ * @param msg
+ */
+function showMsg(msg){
+	appservice.showMsg(msg);
+}
+
+/**
+ * 获取答案值
+ * @param answerCode
+ */
+function getAnswerValue(answerCode){
+	saveToAnswers();
+	var answerValue = answers[answerCode];
+	return answerValue["value"];
+}
+
+/**
+ * 跳转指定问题
+ * @param questionCode
+ */
+function jumpToSpecQuestion(questionCode){
+	saveToAnswers();
+	appservice.jumpToSpecQuestion(questionCode);
+}
