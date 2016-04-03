@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
 import com.huasheng.sysq.activity.IndexActivity;
 import com.huasheng.sysq.model.AnswerValue;
+import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.model.ResultWrap;
@@ -24,7 +25,7 @@ public class JSObject {
 		QuestionWrap firstQuesWrap = InterviewService.getFirstQuestion();
 		
 		//设置上下文
-		InterviewContext.setCurrentQuestion(firstQuesWrap.getQuestion());
+		InterviewContext.pushStack(firstQuesWrap.getQuestion());
 		
 		//渲染页面
 		RenderUtils.render(TemplateConstants.QUESTION, firstQuesWrap,new String[]{"extra"});
@@ -35,7 +36,7 @@ public class JSObject {
 		QuestionWrap nextQuestionWrap = InterviewService.getNextQuestion();
 		
 		//保存当前题目到上下文
-		InterviewContext.setCurrentQuestion(nextQuestionWrap.getQuestion());
+		InterviewContext.pushStack(nextQuestionWrap.getQuestion());
 		
 		RenderUtils.render(TemplateConstants.QUESTION, nextQuestionWrap,new String[]{"extra"});
 	}
@@ -73,12 +74,12 @@ public class JSObject {
 		
 		//保存到访谈上下文
 		InterviewContext.setCurrentQuestionaire(nextQuestionaire);
-		InterviewContext.setCurrentQuestion(null);
+		InterviewContext.clearStack();
 		
 		//页面渲染
 		if(nextQuestionaire.getIntroduction() == null || nextQuestionaire.getIntroduction().equals("")){//问卷没有介绍
 			QuestionWrap firstQuestionWrap = InterviewService.getFirstQuestion();
-			InterviewContext.setCurrentQuestion(firstQuestionWrap.getQuestion());
+			InterviewContext.pushStack(firstQuestionWrap.getQuestion());
 			RenderUtils.render(TemplateConstants.QUESTION, firstQuestionWrap, new String[]{"extra"});
 		}else{
 			RenderUtils.render(TemplateConstants.QUESTIONAIRE, nextQuestionaire, null);
@@ -102,20 +103,23 @@ public class JSObject {
 	@JavascriptInterface
 	public void jumpToPreviousQuestion(){
 		
-		//查询上一个问题
-		QuestionWrap previousQuestionWrap = InterviewService.getPreviousQuestion();
+		//从返回栈获取上一个问题
+		Question prevQuestion = InterviewContext.getPrevQuestion();
 		
 		//已经为第一个题目
-		if(previousQuestionWrap == null){
+		if(prevQuestion == null){
 			Toast.makeText(MyApplication.getContext(), "已经是第一题", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
-		//保存当前题目到上下文
-		InterviewContext.setCurrentQuestion(previousQuestionWrap.getQuestion());
+		//查询上一个问题
+		QuestionWrap prevQuestionWrap = InterviewService.wrap(prevQuestion);
+		
+		//更新问题返回栈
+		InterviewContext.popStack();
 		
 		//渲染页面
-		RenderUtils.render(TemplateConstants.QUESTION, previousQuestionWrap,new String[]{"extra"});
+		RenderUtils.render(TemplateConstants.QUESTION, prevQuestionWrap,new String[]{"extra"});
 	}
 	
 	@JavascriptInterface
@@ -149,7 +153,7 @@ public class JSObject {
 		QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
 		
 		//保存当前题目到上下文
-		InterviewContext.setCurrentQuestion(specQuestionWrap.getQuestion());
+		InterviewContext.pushStack(specQuestionWrap.getQuestion());
 		
 		//渲染数据
 		RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});

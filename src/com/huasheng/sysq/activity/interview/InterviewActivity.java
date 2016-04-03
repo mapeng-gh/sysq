@@ -38,7 +38,7 @@ public class InterviewActivity extends Activity{
 				
 				if(firstQuestionaire.getIntroduction() == null || firstQuestionaire.getIntroduction().equals("")){//Œ æÌ√ª”–ΩÈ…‹
 					QuestionWrap firstQuestionWrap = InterviewService.getFirstQuestion();
-					InterviewContext.setCurrentQuestion(firstQuestionWrap.getQuestion());
+					InterviewContext.pushStack(firstQuestionWrap.getQuestion());
 					RenderUtils.render(TemplateConstants.QUESTION, firstQuestionWrap,new String[]{"extra"});
 				}else{
 					RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);

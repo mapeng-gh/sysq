@@ -166,7 +166,7 @@ public class InterviewService {
 		return questionWrap;
 	}
 	
-	private static QuestionWrap wrap(Question question){
+	public static QuestionWrap wrap(Question question){
 		QuestionWrap questionWrap = new QuestionWrap();
 		questionWrap.setQuestionaire(InterviewContext.getCurrentQuestionaire());//…Ë÷√Œ æÌ
 		

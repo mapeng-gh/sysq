@@ -1,5 +1,8 @@
 package com.huasheng.sysq.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.webkit.WebView;
 
 import com.huasheng.sysq.model.Interview;
@@ -10,10 +13,28 @@ public class InterviewContext {
 
 	private static Interview interview;//访问记录
 	private static Questionaire currentQuestionaire;//当前问卷
-	private static Question currentQuestion;//当前问题
+	private static List<Question> questionStack = new ArrayList<Question>();
 	
 	private static WebView webView;
 	
+	public static void pushStack(Question question){
+		questionStack.add(question);
+	}
+	public static Question getCurrentQuestion() {
+		return questionStack.get(questionStack.size()-1);
+	}
+	public static Question getPrevQuestion(){
+		if(questionStack.size() <= 1){
+			return null;
+		}
+		return questionStack.get(questionStack.size()-2);
+	}
+	public static void popStack(){
+		questionStack.remove(questionStack.size()-1);
+	}
+	public static void clearStack(){
+		questionStack.clear();
+	}
 	public static Interview getInterview() {
 		return interview;
 	}
@@ -25,12 +46,6 @@ public class InterviewContext {
 	}
 	public static void setCurrentQuestionaire(Questionaire currentQuestionaire) {
 		InterviewContext.currentQuestionaire = currentQuestionaire;
-	}
-	public static Question getCurrentQuestion() {
-		return currentQuestion;
-	}
-	public static void setCurrentQuestion(Question currentQuestion) {
-		InterviewContext.currentQuestion = currentQuestion;
 	}
 	public static WebView getWebView() {
 		return webView;
