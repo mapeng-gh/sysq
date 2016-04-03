@@ -1,4 +1,4 @@
-div.questionaire-header{
+div.questionaire div.header{
 	background-color: #338EE7;
 	padding: 5px 0 5px 5px;
 	color:#FFFFFF;
@@ -6,16 +6,12 @@ div.questionaire-header{
 	font-weight: bold;
 }
 
-div.questionaire-desc{
+div.questionaire div.description{
 	margin-top: 20px;
 }
 
-div.questionaire-footer{
+div.questionaire div.footer{
 	margin-top:20px;
 	text-align:center;
-}
-
-div.questionaire-footer input{
-	font-size:16px;
 }
 

@@ -11,21 +11,12 @@ public class Question {
 	private String code;
 	private String description;
 	private String remark;
-	private String type;
-	private String showType;
 	private int isEnd;
 	private int seqNum;
 	private String questionaireCode;
-	private String parentQuesCode;
 	private String entryLogic;
 	private String exitLogic;
 	private int versionId;
-	
-	public static final String TYPE_SIMPLE ="simple";
-	public static final String TYPE_COMPLEX = "complex";
-	
-	public static final String SHOW_LIST = "list";
-	public static final String SHOW_TABLE = "table";
 	
 	public int getId() {
 		return id;
@@ -51,18 +42,6 @@ public class Question {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getShowType() {
-		return showType;
-	}
-	public void setShowType(String showType) {
-		this.showType = showType;
-	}
 	public int getIsEnd() {
 		return isEnd;
 	}
@@ -80,12 +59,6 @@ public class Question {
 	}
 	public void setQuestionaireCode(String questionaireCode) {
 		this.questionaireCode = questionaireCode;
-	}
-	public String getParentQuesCode() {
-		return parentQuesCode;
-	}
-	public void setParentQuesCode(String parentQuesCode) {
-		this.parentQuesCode = parentQuesCode;
 	}
 	public String getEntryLogic() {
 		return entryLogic;

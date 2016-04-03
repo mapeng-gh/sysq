@@ -7,8 +7,7 @@ public class ResultWrap {
 
 	private Questionaire questionaire;
 	private List<Question> questionList;
-	private Map<String,List<Question>> subQuesListMap;
-	private Map<String,String> answerMap;
+	private Map<String,List<AnswerValue>> answerOfQuestionMap;
 	
 	public Questionaire getQuestionaire() {
 		return questionaire;
@@ -22,17 +21,11 @@ public class ResultWrap {
 	public void setQuestionList(List<Question> questionList) {
 		this.questionList = questionList;
 	}
-	public Map<String, List<Question>> getSubQuesListMap() {
-		return subQuesListMap;
+	public Map<String, List<AnswerValue>> getAnswerOfQuestionMap() {
+		return answerOfQuestionMap;
 	}
-	public void setSubQuesListMap(Map<String, List<Question>> subQuesListMap) {
-		this.subQuesListMap = subQuesListMap;
+	public void setAnswerOfQuestionMap(
+			Map<String, List<AnswerValue>> answerOfQuestionMap) {
+		this.answerOfQuestionMap = answerOfQuestionMap;
 	}
-	public Map<String, String> getAnswerMap() {
-		return answerMap;
-	}
-	public void setAnswerMap(Map<String, String> answerMap) {
-		this.answerMap = answerMap;
-	}
-	
 }

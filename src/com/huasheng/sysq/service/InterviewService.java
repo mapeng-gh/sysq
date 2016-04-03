@@ -142,46 +142,19 @@ public class InterviewService {
 		
 		questionWrap.setQuestion(question);//设置问题
 		
-		if(question.getType().equals(Question.TYPE_SIMPLE)){//简单问题
-			List<Answer> answerList = AnswerDB.getList(question.getCode(),SysqContext.getCurrentVersion().getId());
-			if(answerList == null || answerList.size() <= 0){
-				throw new RuntimeException("问题[" + question.getCode() + "]没有答案");
-			}
-			
-			List<AnswerWrap> answerWrapList = new ArrayList<AnswerWrap>();
-			for(Answer answer : answerList){
-				answerWrapList.add(new AnswerWrap(answer));
-			}
-			questionWrap.setAnswerWrapList(answerWrapList);//设置答案
-			
-		}else if(question.getType().equals(Question.TYPE_COMPLEX)){//复杂问题（包含子问题）
-			List<QuestionWrap> subQuesWrapList = new ArrayList<QuestionWrap>();
-			
-			List<Question> subQuesList = QuestionDB.getSubList(question.getCode(),SysqContext.getCurrentVersion().getId());
-			if(subQuesList == null || subQuesList.size() <= 0){
-				throw new RuntimeException("问题[" + question.getCode() + "]没有子问题");
-			}
-			
-			for(Question subQuestion : subQuesList){
-				QuestionWrap subQuesWrap = new QuestionWrap();
-				subQuesWrap.setQuestion(subQuestion);
-				
-				List<Answer> subAnswerList = AnswerDB.getList(subQuestion.getCode(),SysqContext.getCurrentVersion().getId());
-				if(subAnswerList == null || subAnswerList.size() <= 0){
-					throw new RuntimeException("子问题[" + subQuestion.getCode() + "]没有答案");
-				}
-				
-				List<AnswerWrap> subAnswerWrapList = new ArrayList<AnswerWrap>();
-				for(Answer subAnswer : subAnswerList){
-					subAnswerWrapList.add(new AnswerWrap(subAnswer));
-				}
-				subQuesWrap.setAnswerWrapList(subAnswerWrapList);
-				
-				subQuesWrapList.add(subQuesWrap);
-			}
-			
-			questionWrap.setSubQuesWrapList(subQuesWrapList);//设置子问题
+		/**
+		 * 设置答案
+		 */
+		List<Answer> answerList = AnswerDB.getList(question.getCode(),SysqContext.getCurrentVersion().getId());
+		if(answerList == null || answerList.size() <= 0){
+			throw new RuntimeException("问题[" + question.getCode() + "]没有答案");
 		}
+		
+		List<AnswerWrap> answerWrapList = new ArrayList<AnswerWrap>();
+		for(Answer answer : answerList){
+			answerWrapList.add(new AnswerWrap(answer));
+		}
+		questionWrap.setAnswerWrapList(answerWrapList);
 		
 		return questionWrap;
 	}
@@ -199,54 +172,24 @@ public class InterviewService {
 		List<Question> questionList = QuestionDB.getList(InterviewContext.getCurrentQuestionaire().getCode(), SysqContext.getCurrentVersion().getId());
 		resultWrap.setQuestionList(questionList);//设置所有问题
 		
-		Map<String,List<Question>> subQuesListMap = new HashMap<String,List<Question>>();
-		Map<String,String> answerMap = new HashMap<String,String>();
-		
+		/**
+		 * 设置答案
+		 */
+		Map<String,List<AnswerValue>> answerOfQuestionMap = new HashMap<String,List<AnswerValue>>();
 		for(Question question : questionList){
-			
-			if(question.getType().equals(Question.TYPE_SIMPLE)){//简单问题
-				
-				String questionCode = question.getCode();
-				String questionValue = getQuestionValue(answerValueMap, questionCode);
-				answerMap.put(questionCode,questionValue);
-				
-			}else if(question.getType().equals(Question.TYPE_COMPLEX)){//复杂问题
-				
-				List<Question> subQuesList = QuestionDB.getSubList(question.getCode(), SysqContext.getCurrentVersion().getId());
-				subQuesListMap.put(question.getCode(), subQuesList);
-				
-				for(Question subQuestion : subQuesList){
-					String subQuestionCode = subQuestion.getCode();
-					String subQuestionValue = getQuestionValue(answerValueMap, subQuestionCode);
-					answerMap.put(subQuestionCode, subQuestionValue);
-				}
+			String questionCode = question.getCode();
+			List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
+
+			List<Answer> answerList = AnswerDB.getList(questionCode, SysqContext.getCurrentVersion().getId());
+			for(Answer answer : answerList){
+				answerValueList.add(answerValueMap.get(answer.getCode()));
 			}
+			
+			answerOfQuestionMap.put(questionCode, answerValueList);
 		}
-		
-		resultWrap.setSubQuesListMap(subQuesListMap);//设置子问题
-		resultWrap.setAnswerMap(answerMap);//设置答案
+		resultWrap.setAnswerOfQuestionMap(answerOfQuestionMap);
 		
 		return resultWrap;
-	}
-	
-	private static String getQuestionValue(Map<String,AnswerValue> answerValueMap,String questionCode){
-		String questionValue = "";
-		
-		List<Answer> answerList = AnswerDB.getList(questionCode, SysqContext.getCurrentVersion().getId());
-		if(answerList.size() == 1){
-			Answer answer = answerList.get(0);
-			AnswerValue answerValue = answerValueMap.get(answer.getCode());
-			questionValue = answerValue.getAnswerText();
-		}else{
-			List<String> answerValueList = new ArrayList<String>();
-			for(Answer answer : answerList){
-				AnswerValue answerValue = answerValueMap.get(answer.getCode());
-				answerValueList.add(answerValue.getAnswerLabel() + ":" + answerValue.getAnswerText());
-			}
-			questionValue = StringUtils.join(answerValueList,",");
-		}
-		
-		return questionValue;
 	}
 	
 	/**

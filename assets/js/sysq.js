@@ -19,7 +19,7 @@ function renderContent(tpl,data){
  * @param dom
  */
 function onsliderchange(dom){
-	$(dom).prev().children('.slider-value').html(dom.value);
+	$(dom).parent().find('div.slider-value').html(dom.value);
 }
 
 var answers = {};//{"answerCode":{"answerCode":"","answerValue":"","answerText":"","answerLabel":""}}
@@ -28,34 +28,49 @@ var answers = {};//{"answerCode":{"answerCode":"","answerValue":"","answerText":
  * 暂存答案
  */
 function saveToAnswers(){
-	$(".answer").each(function(){
-		var $this = $(this);
-		var code = $this.data("code");
-		var label = ""; 
-		if($this.find("span.answer-label").length > 0){
-			label = $this.find("span.answer-label").html();
-		}
+	$("div.answer").each(function(){
+		var $answer = $(this);
 		
-		var value;
-		var text;
-		var type = $this.data("type");
-		if(type == "radiogroup"){
-			value = $this.find("input[type='radio']:checked").val();
-			text = $this.find("input[type='radio']:checked").next().html();
-		}else if(type == "slider"){
-			value = $this.find("input[type='range']").val();
-			text = value;
-		}else if(type == "dropdownlist"){
-			value = $this.find("select").val();
-			text = $this.find("select option:checked").text();
-		}else if(type == "text"){
-			value = $this.find("input[type='text']").val();
-			text = value;
-		}else if(type == "checkbox"){
+		//获取答案通用属性
+		var code = $answer.data("code");
+		var label = $answer.data("label");
+		var type = $answer.data("type");
+		
+		//获取值与文本
+		var value,text;
+		if(type == "radiogroup"){	//单选 
 			
+			var $selectedRadio = $answer.find("input[type='radio']:checked");
+			value = $selectedRadio.val();
+			text = $selectedRadio.next().text();
+			
+		}else if(type == "slider"){//滑动块
+			
+			var $range = $answer.find("input[type='range']");
+			value = $range.val();
+			text = value;
+			
+		}else if(type == "dropdownlist"){//下拉框
+			
+			var $select = $answer.find("select");
+			value = $select.val();
+			text = $select.find("option:checked").text();
+			
+		}else if(type == "text"){//文本域
+			
+			var $textarea = $answer.find("textarea");
+			value = $textarea.val();
+			text = value;
+			
+		}else if(type == "calendar"){//日历
+			
+			var $date = $answer.find("input[type='date']");
+			value = $date.val();
+			text = value;
 		}
 		
-		answers[code] = {"answerCode":code,"answerValue":value,"answerText":text,"answerLabel":label};
+		answers[code] = {"answerCode":code,"answerLabel":label,"answerValue":value,"answerText":text};
+		
 		appservice.showMsg("answers = " + JSON.stringify(answers));
 	});
 }

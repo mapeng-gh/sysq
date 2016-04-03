@@ -62,12 +62,9 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 				TableConstants.COLUMN_QUESTION_CODE + " varchar," +
 				TableConstants.COLUMN_QUESTION_DESCRIPTION + " varchar," +
 				TableConstants.COLUMN_QUESTION_REMARK + " varchar," +
-				TableConstants.COLUMN_QUESTION_TYPE + " varchar," +
-				TableConstants.COLUMN_QUESTION_SHOW_TYPE + " varchar," +
 				TableConstants.COLUMN_QUESTION_IS_END + " integer," +
 				TableConstants.COLUMN_QUESTION_SEQ_NUM + " integer," +
 				TableConstants.COLUMN_QUESTION_QUESTIONAIRE_CODE + " varchar," +
-				TableConstants.COLUMN_QUESTION_P_QUESTION_CODE + " varchar," +
 				TableConstants.COLUMN_QUESTION_ENTRY_LOGIC + " varchar," +
 				TableConstants.COLUMN_QUESTION_EXIT_LOGIC + " varchar," +
 				TableConstants.COLUMN_QUESTION_VERSION_ID + " integer" +
@@ -79,6 +76,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 				TableConstants.COLUMN_ANSWER_LABEL + " varchar," +
 				TableConstants.COLUMN_ANSWER_TYPE + " varchar," +
 				TableConstants.COLUMN_ANSWER_EXTRA + " varchar," +
+				TableConstants.COLUMN_ANSWER_SHOW_TYPE + " varchar," +
 				TableConstants.COLUMN_ANSWER_IS_SHOW + " integer," +
 				TableConstants.COLUMN_ANSWER_EVENT_TYPE + " varchar," +
 				TableConstants.COLUMN_ANSWER_EVENT_EXECUTE + " varchar," +

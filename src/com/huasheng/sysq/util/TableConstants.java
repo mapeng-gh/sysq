@@ -60,12 +60,9 @@ public class TableConstants {
 	public static final String COLUMN_QUESTION_CODE = "code";
 	public static final String COLUMN_QUESTION_DESCRIPTION = "description";
 	public static final String COLUMN_QUESTION_REMARK = "remark";
-	public static final String COLUMN_QUESTION_TYPE = "type";
-	public static final String COLUMN_QUESTION_SHOW_TYPE = "show_type";
 	public static final String COLUMN_QUESTION_IS_END = "is_end";
 	public static final String COLUMN_QUESTION_SEQ_NUM = "seq_num";
 	public static final String COLUMN_QUESTION_QUESTIONAIRE_CODE = "questionaire_code";
-	public static final String COLUMN_QUESTION_P_QUESTION_CODE = "p_question_code";
 	public static final String COLUMN_QUESTION_ENTRY_LOGIC = "entry_logic";
 	public static final String COLUMN_QUESTION_EXIT_LOGIC = "exit_logic";
 	public static final String COLUMN_QUESTION_VERSION_ID = "version_id";
@@ -77,6 +74,7 @@ public class TableConstants {
 	public static final String COLUMN_ANSWER_LABEL = "label";
 	public static final String COLUMN_ANSWER_TYPE = "type";
 	public static final String COLUMN_ANSWER_EXTRA = "extra";
+	public static final String COLUMN_ANSWER_SHOW_TYPE = "show_type";
 	public static final String COLUMN_ANSWER_IS_SHOW = "is_show";
 	public static final String COLUMN_ANSWER_EVENT_TYPE = "event_type";
 	public static final String COLUMN_ANSWER_EVENT_EXECUTE = "event_execute";

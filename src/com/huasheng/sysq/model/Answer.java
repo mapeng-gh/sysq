@@ -12,6 +12,7 @@ public class Answer {
 	private String label;
 	private String type;
 	private String extra;
+	private String showType;
 	private int isShow;
 	private String eventType;
 	private String eventExecute;
@@ -89,5 +90,11 @@ public class Answer {
 	}
 	public void setIsShow(int isShow) {
 		this.isShow = isShow;
+	}
+	public String getShowType() {
+		return showType;
+	}
+	public void setShowType(String showType) {
+		this.showType = showType;
 	}
 }

@@ -1,5 +1,5 @@
 /**头部**/
-div.question-header{
+div.question div.header{
 	background-color: #338EE7;
 	padding: 5px 0 5px 5px;
 	color:#FFFFFF;
@@ -8,29 +8,61 @@ div.question-header{
 }
 
 /**工具栏**/
-div.question-toolbar{
+div.question div.toolbar{
 	margin-top: 20px;
 }
-div.question-toolbar input{
+div.question div.toolbar input{
 	margin-right: 20px;
 }
 
 /**问题**/
-div.question-desc{
+div.question div.description{
 	margin-top: 20px;
 }
 
 /**答案**/
-div.question-answer-list{
+div.question div.answers{
+	margin-top:20px;
+}
+div.question div.answers div.answer{
+	margin-top:20px;
+}
+div.question div.answers div.answer div.content{
 	margin-top:20px;
 }
 
+	/**单选按钮**/
+div.content span.radio-option{
+	margin-right:10px;
+}
+div.content div.radio-option{
+	margin-top:10px;
+}
+	/**滑动块**/
+div.content div.slider-value{
+	text-align:center;
+}
+	/**日期**/
+div.content input[type='range']{
+	width:90%;
+}
+	/**文本域**/
+div.content textarea{
+	width:100%;
+	height:150px;
+	border-radius:5px;
+}
+	/**下拉框**/
+div.content select{
+	width:200px;
+}
+
 /**底部**/
-div.question-footer{
+div.question div.footer{
 	margin-top:20px;
 	text-align:center;
 }
-div.question-footer input{
+div.question div.footer input{
 	font-size:16px;
 	margin-right: 20px;
 }

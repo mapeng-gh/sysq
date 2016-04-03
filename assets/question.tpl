@@ -1,187 +1,94 @@
-<div class="question-header">
-	问卷名称 - {{questionaire.title}}
-</div>
+<div class="question">
 
-<div class="question-toolbar">
-	<input type="button" value="暂停" onclick="pauseInterview()"/>
-	<input type="button" value="重做" onclick="redoQuestionaire()"/>
-	<input type="button" value="结束" onclick="quitInterview()"/>
-	<input type="button" value="答案"/>
-</div>
+	<div class="header">
+		问卷名称 - {{questionaire.title}}
+	</div>
 	
-<div class="question-desc">
-	{{question.code}} - {{question.description}}
-</div>
-	
-<div class="question-answer-list">
-	
-	{{if question.type == "simple"}}	<!-- 简单答案 -->
-	
+	<div class="toolbar">
+		<input type="button" value="暂停" onclick="pauseInterview()"/>
+		<input type="button" value="重做" onclick="redoQuestionaire()"/>
+		<input type="button" value="结束" onclick="quitInterview()"/>
+		<input type="button" value="答案"/>
+	</div>
+		
+	<div class="description">
+		{{question.code}} - {{question.description}}
+	</div>
+		
+	<div class="answers">
+		
 		{{each answerWrapList as answerWrap i}}
 		
-			<div class="answer" data-type="{{answerWrap.answer.type}}" data-code="{{answerWrap.answer.code}}">
-			
-				<span class="answer-label">{{answerWrap.answer.label}}</span> 
+			<div class="answer" data-code="{{answerWrap.answer.code}}" data-type="{{answerWrap.answer.type}}" data-label="{{answerWrap.answer.label}}">
 		
-				{{if answerWrap.answer.type == "radiogroup"}}	<!-- 单选按钮 -->
-				
-					{{each answerWrap.radioOptions as radioOption j}}
+					<span class="label">{{answerWrap.answer.label}}</span>
 					
-						<input type="radio" name="{{answerWrap.answer.code}}" {{j == 0 ? checked="checked":""}} value="{{radioOption.value}}"/><span class="radio-text">{{radioOption.text}}</span>
-					
-					{{/each}}
-				
-				{{else if answerWrap.answer.type == "slider"}}	<!-- 滑动块 -->
-				
-					<div class="slider-tip" style="text-align:center;">
-						<span style="float:left;">{{answerWrap.sliderOption.start}}</span>
-						<span class="slider-value">{{answerWrap.sliderOption.start}}</span>
-						<span style="float:right;">{{answerWrap.sliderOption.end}}</span>
-					</div>
-					<input name="{{answerWrap.answer.code}}" style="width:100%;" class="slider" type="range" min="{{answerWrap.sliderOption.start}}" max="{{answerWrap.sliderOption.end}}" step="{{answerWrap.sliderOption.step}}" value="{{answerWrap.sliderOption.start}}" onchange="onsliderchange(this)"/>
+					<div class="content">
 						
-				{{else if answerWrap.answer.type == "calendar"}}	<!-- 日期 -->
-				
-					<input type="date"/>
-				
-				{{else if answerWrap.answer.type == "dropdownlist"}}	 <!-- 下拉框   -->
-				
-					<select name="{{answerWrap.answer.code}}">
-					
-					{{each answerWrap.dropDownListOptions as dropDownListOption i}}
-					
-						<option value="{{dropDownListOption.value}}">{{dropDownListOption.text}}</option>
-					
-					{{/each}}
-					
-					</select>
-					
-				{{else if answerWrap.answer.type == "text"}}		<!-- 文本框   -->
-				
-					<input type="text" style="width:150px;"/>
-					
-				{{else if answerWrap.answer.type == "checkbox"}}	<!-- 复选框  -->
-				
-					{{each answerWrap.checkboxOptions as checkboxOption i}}
-					
-						<input type="checkbox" value="{{checkboxOption.value}}"/>
-						<span>{{checkboxOption.text}}</span>
-					
-					{{/each}}
-				
-				{{/if}}
-			
-			</div>
-			
-		{{/each}}
-	
-	{{else if question.type == "complex"}}	<!-- 复杂问题  -->
-	
-		{{if question.showType == "table"}}	<!-- 表格显示 -->
-		
-			{{if subQuesWrapList[0]["answerWrapList"].length == 1}} <!-- 单一答案 -->
-			
-				<table style="width:100%">
-					
-						<!-- 生成表头  -->
-						<tr>
+						{{if answerWrap.answer.type == "radiogroup"}}	<!-- 单选按钮 -->
 						
-							<td style="width:{{100/(subQuesWrapList[0]["answerWrapList"][0].radioOptions.length+1)}}%"></td>
+							{{if answerWrap.answer.showType == "horizontal"}}  <!-- 横向   -->
 							
-							{{if subQuesWrapList[0]["answerWrapList"][0].answer.type == "radiogroup"}} <!-- 单选框  -->
+								{{each answerWrap.radioOptions as radioOption i}}
+									<span class="radio-option">
+										<input type="radio" name="{{answerWrap.answer.code}}" {{i == 0 ? checked="checked":""}} value="{{radioOption.value}}"/>
+										<span>{{radioOption.text}}</span>
+									</span>
+								{{/each}}	
+											
+							{{else}} 	<!-- 纵向  -->
 							
-								{{each subQuesWrapList[0]["answerWrapList"][0].radioOptions as radioOption i}}
-								
-									<td style="width:{{100/(subQuesWrapList[0]["answerWrapList"][0].radioOptions.length+1)}}%">{{radioOption.text}}</td>
-								
+								{{each answerWrap.radioOptions as radioOption i}}
+									<div class="radio-option">
+										<input type="radio" name="{{answerWrap.answer.code}}" {{i == 0 ? checked="checked":""}} value="{{radioOption.value}}"/>
+										<span>{{radioOption.text}}</span>
+									</div>
 								{{/each}}
-							
-							{{else}}
 							
 							{{/if}}
 						
-						</tr>
+						{{else if answerWrap.answer.type == "slider"}}	<!-- 滑动块 -->
 						
-						<!-- 生成表体 -->
-						{{each subQuesWrapList as subQuesWrap i}}
+							<div class="slider-value">
+								{{answerWrap.sliderOption.start}}
+							</div>
+							<span>{{answerWrap.sliderOption.start}}</span>
+							<input type="range"  min="{{answerWrap.sliderOption.start}}" max="{{answerWrap.sliderOption.end}}" step="{{answerWrap.sliderOption.step}}" onchange="onsliderchange(this)"/>
+							<span>{{answerWrap.sliderOption.end}}</span>
+								
+						{{else if answerWrap.answer.type == "calendar"}}	<!-- 日期 -->
 						
-							<tr class="answer" data-type="{{subQuesWrap.answerWrapList[0].answer.type}}" data-code="{{subQuesWrap.answerWrapList[0].answer.code}}">
-								
-								<td>{{subQuesWrap.question.code}} {{subQuesWrap.question.description}}</td>
-								
-								{{each subQuesWrap.answerWrapList[0].radioOptions as radioOption i}}
-								
-									<td><input type="radio" name={{subQuesWrap.answerWrapList[0].answer.code}} value="{{radioOption.value}}" {{i == 0 ? "checked":""}}/><span style="display:none;">{{radioOption.text}}</span></td>
-								
-								{{/each}}
-								
-							</tr>
+							<input type="date"/>
 						
-						{{/each}} 
-					
-				</table>
-			
-			{{else}}  <!-- 多个答案 -->
-				
-				<table style="width:100%"> 
-				
-					<!-- 表头 -->
-					<tr>
-						<td rowspan="2" style="width:{{100/(subQuesWrapList[0]["answerWrapList"].length+1)}}%"></td>
-						{{each subQuesWrapList[0]["answerWrapList"] as answerWrap i}}
-							<td colspan="{{answerWrap.radioOptions.length}}" style="text-align:center;width:{{100/(subQuesWrapList[0]["answerWrapList"].length+1)}}%">{{answerWrap.answer.label}}</td>
-						{{/each}}
-					</tr>
-					<tr>
-						{{each subQuesWrapList[0]["answerWrapList"] as answerWrap i}}
-							{{each answerWrap.radioOptions as radioOption i}}
-								<td style="text-align:center;width:{{(100/(subQuesWrapList[0]["answerWrapList"].length+1))/(radioOption.length)}}%">{{radioOption.text}}</td>
-							{{/each}}
-						{{/each}}
-					</tr>
-					
-					<!-- 表体 -->
-					{{each subQuesWrapList as subQuesWrap i}}
-					
-						<tr>
+						{{else if answerWrap.answer.type == "dropdownlist"}}	 <!-- 下拉框   -->
 						
-							<td>{{subQuesWrap.question.code}} {{subQuesWrap.question.description}}</td>
+							<select name="{{answerWrap.answer.code}}">
 							
-							{{each subQuesWrap.answerWrapList as answerWrap j}}
-									
-										<td class="answer" data-type="{{answerWrap.answer.type}}" data-code="{{answerWrap.answer.code}}" colspan="{{answerWrap.radioOptions.length}}">
-											
-											<span class="answer-label" style="display:none;">{{answerWrap.answer.label}}</span>
-											
-											{{each answerWrap.radioOptions as radioOption k}}
-												
-												<span style="text-align:center;display:inline-block;width:{{100/answerWrap.radioOptions.length}}%">
-													<input type="radio" name="{{answerWrap.answer.code}}" value="{{radioOption.value}}" {{k == 0 ? "checked":""}}/>
-													<span style="display:none;">{{radioOption.text}}</span>
-												</span>
-											{{/each}}
-										
-										</td>
-
+							{{each answerWrap.dropDownListOptions as dropDownListOption i}}
+							
+								<option value="{{dropDownListOption.value}}">{{dropDownListOption.text}}</option>
+							
 							{{/each}}
+							
+							</select>
+							
+						{{else if answerWrap.answer.type == "text"}}		<!-- 文本域   -->
 						
-						</tr>
+							<textarea></textarea>
+							
+						{{/if}}
 					
-					{{/each}}
-					
-				</table>
-			
-			{{/if}}
+					</div>
+				
+				</div>
+				
+		{{/each}}
 		
-		{{else if question.showType == "list"}}	<!-- 列表显示 -->
-		
-		{{/if}}
+	</div>
 	
-	{{/if}}
+	<div class="footer">
+		<input type="button" value="上一题" onclick="jumpToPreviousQuestion()"/>
+		<input type="button" value="下一题" onclick="{{question.exitLogic}}"/>
+	</div>
 	
-</div>
-
-<div class="question-footer">
-	<input type="button" value="上一题" onclick="jumpToPreviousQuestion()"/>
-	<input type="button" value="下一题" onclick="{{question.exitLogic}}"/>
 </div>
