@@ -76,7 +76,14 @@ public class JSObject {
 		InterviewContext.setCurrentQuestion(null);
 		
 		//页面渲染
-		RenderUtils.render(TemplateConstants.QUESTIONAIRE, nextQuestionaire, null);
+		if(nextQuestionaire.getIntroduction() == null || nextQuestionaire.getIntroduction().equals("")){//问卷没有介绍
+			QuestionWrap firstQuestionWrap = InterviewService.getFirstQuestion();
+			InterviewContext.setCurrentQuestion(firstQuestionWrap.getQuestion());
+			RenderUtils.render(TemplateConstants.QUESTION, firstQuestionWrap, new String[]{"extra"});
+		}else{
+			RenderUtils.render(TemplateConstants.QUESTIONAIRE, nextQuestionaire, null);
+		}
+		
 	}
 	
 	@JavascriptInterface

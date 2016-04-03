@@ -26,7 +26,9 @@
 				{{if answerWrap.answer.type == "radiogroup"}}	<!-- 单选按钮 -->
 				
 					{{each answerWrap.radioOptions as radioOption j}}
+					
 						<input type="radio" name="{{answerWrap.answer.code}}" {{j == 0 ? checked="checked":""}} value="{{radioOption.value}}"/><span class="radio-text">{{radioOption.text}}</span>
+					
 					{{/each}}
 				
 				{{else if answerWrap.answer.type == "slider"}}	<!-- 滑动块 -->
@@ -41,6 +43,31 @@
 				{{else if answerWrap.answer.type == "calendar"}}	<!-- 日期 -->
 				
 					<input type="date"/>
+				
+				{{else if answerWrap.answer.type == "dropdownlist"}}	 <!-- 下拉框   -->
+				
+					<select name="{{answerWrap.answer.code}}">
+					
+					{{each answerWrap.dropDownListOptions as dropDownListOption i}}
+					
+						<option value="{{dropDownListOption.value}}">{{dropDownListOption.text}}</option>
+					
+					{{/each}}
+					
+					</select>
+					
+				{{else if answerWrap.answer.type == "text"}}		<!-- 文本框   -->
+				
+					<input type="text" style="width:150px;"/>
+					
+				{{else if answerWrap.answer.type == "checkbox"}}	<!-- 复选框  -->
+				
+					{{each answerWrap.checkboxOptions as checkboxOption i}}
+					
+						<input type="checkbox" value="{{checkboxOption.value}}"/>
+						<span>{{checkboxOption.text}}</span>
+					
+					{{/each}}
 				
 				{{/if}}
 			

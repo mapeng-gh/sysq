@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.InterviewContext;
@@ -33,8 +34,15 @@ public class InterviewActivity extends Activity{
 			@Override
 			public void onPageFinished(WebView view, String url) {//页面加载完成回调
 				Questionaire firstQuestionaire = InterviewService.getFirstQuestionaire();
-				RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);
 				InterviewContext.setCurrentQuestionaire(firstQuestionaire);
+				
+				if(firstQuestionaire.getIntroduction() == null || firstQuestionaire.getIntroduction().equals("")){//问卷没有介绍
+					QuestionWrap firstQuestionWrap = InterviewService.getFirstQuestion();
+					InterviewContext.setCurrentQuestion(firstQuestionWrap.getQuestion());
+					RenderUtils.render(TemplateConstants.QUESTION, firstQuestionWrap,new String[]{"extra"});
+				}else{
+					RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);
+				}
 			}
 		});
 		

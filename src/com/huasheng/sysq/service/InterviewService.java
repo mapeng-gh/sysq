@@ -298,7 +298,7 @@ public class InterviewService {
 		Questionaire nextQuestionaire = null;
 		List<Questionaire> questionaireList = QuestionaireDB.getList(curVersion.getId(),curInterview.getType());
 		for(int i = 0;i<questionaireList.size();i++){
-			Questionaire questionaire = questionaireList.get(0);
+			Questionaire questionaire = questionaireList.get(i);
 			if(questionaire.getCode().equals(curQuestionaire.getCode())){
 				if(i == questionaireList.size()-1){
 					return null;

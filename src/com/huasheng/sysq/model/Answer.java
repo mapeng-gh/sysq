@@ -21,6 +21,8 @@ public class Answer {
 	
 	public static final String TYPE_RADIOGROUP = "radiogroup";
 	public static final String TYPE_SLIDER = "slider";
+	public static final String TYPE_DROPDOWNLIST = "dropdownlist";
+	public static final String TYPE_CHECKBOX = "checkbox";
 	
 	public int getId() {
 		return id;

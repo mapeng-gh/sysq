@@ -35,6 +35,7 @@ function saveToAnswers(){
 		if($this.find("span.answer-label").length > 0){
 			label = $this.find("span.answer-label").html();
 		}
+		
 		var value;
 		var text;
 		var type = $this.data("type");
@@ -44,6 +45,14 @@ function saveToAnswers(){
 		}else if(type == "slider"){
 			value = $this.find("input[type='range']").val();
 			text = value;
+		}else if(type == "dropdownlist"){
+			value = $this.find("select").val();
+			text = $this.find("select option:checked").text();
+		}else if(type == "text"){
+			value = $this.find("input[type='text']").val();
+			text = value;
+		}else if(type == "checkbox"){
+			
 		}
 		
 		answers[code] = {"answerCode":code,"answerValue":value,"answerText":text,"answerLabel":label};
