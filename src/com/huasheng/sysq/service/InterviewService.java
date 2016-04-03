@@ -220,8 +220,8 @@ public class InterviewService {
 		for(AnswerValue answerValue : answerValues){
 			Result result = new Result();
 			result.setInterviewId(InterviewContext.getInterview().getId());
-			result.setAnswerCode(answerValue.getAnswerCode());
-			result.setAnswerValue(answerValue.getAnswerValue());
+			result.setAnswerCode(answerValue.getCode());
+			result.setAnswerValue(answerValue.getValue());
 			ResultDB.save(result);
 		}
 	}

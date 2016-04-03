@@ -1,5 +1,5 @@
 /**头部**/
-div.answers-header{
+div.results div.header{
 	background-color: #338EE7;
 	padding: 5px 0 5px 5px;
 	color:#FFFFFF;
@@ -8,33 +8,40 @@ div.answers-header{
 }
 
 /**工具栏**/
-div.answers-toolbar{
+div.results div.toolbar{
 	margin-top: 20px;
 }
-div.answers-toolbar input{
+div.results div.toolbar input{
 	margin-right: 20px;
 }
 
-/**答案**/
-div.answers-results{
+/**主体**/
+div.results div.body{
 	margin-top: 20px;
 }
-div.answers-results div.content{
+div.results div.body div.content{
 	margin-top: 10px;
 }
-
-div.answers-results div.content table{
-	width:100%;
+div.results div.body div.content div.question{
+	margin-top: 10px;
+	border-bottom: 1px grey solid;
+	
 }
-div.answers-results div.content table td{
-	padding:5px;
+div.results div.body div.content div.answers{
+	margin-top:10px;
 }
-div.answers-results div.content table td.seq{
-	width:10%;
+div.results div.body div.content div.operations{
+	margin-top:10px;
+	margin-bottom:10px;
+	text-align:right;
 }
-div.answers-results div.content table td.question-desc{
-	width:60%;
+div.results div.body div.content div.answers div.answer{
+	margin-top:10px;
+	padding: 0 10 0 10px;
 }
-div.answers-results div.content table td.answer-value{
-	width:30%;
+div.results div.body div.content div.answers div.answer span.label{
+	float:left;
+}
+div.results div.body div.content div.answers div.answer span.text{
+	float:right;
 }

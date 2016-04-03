@@ -22,7 +22,7 @@ function onsliderchange(dom){
 	$(dom).parent().find('div.slider-value').html(dom.value);
 }
 
-var answers = {};//{"answerCode":{"answerCode":"","answerValue":"","answerText":"","answerLabel":""}}
+var answers = {};
 
 /**
  * ÔÝ´æ´ð°¸
@@ -69,7 +69,7 @@ function saveToAnswers(){
 			text = value;
 		}
 		
-		answers[code] = {"answerCode":code,"answerLabel":label,"answerValue":value,"answerText":text};
+		answers[code] = {"code":code,"label":label,"value":value,"text":text};
 		
 		appservice.showMsg("answers = " + JSON.stringify(answers));
 	});

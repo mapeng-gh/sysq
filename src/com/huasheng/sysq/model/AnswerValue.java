@@ -2,33 +2,34 @@ package com.huasheng.sysq.model;
 
 public class AnswerValue {
 
-	private String answerCode;//用于保存
-	private String answerLabel;//用于答案列表显示
-	private String answerText;//用于答案列表显示
-	private String answerValue;//用于保存
+	private String code;//用于保存
+	private String label;//用于答案列表显示
+	private String text;//用于答案列表显示
+	private String value;//用于保存
 	
-	public String getAnswerCode() {
-		return answerCode;
+	public String getCode() {
+		return code;
 	}
-	public void setAnswerCode(String answerCode) {
-		this.answerCode = answerCode;
+	public void setCode(String code) {
+		this.code = code;
 	}
-	public String getAnswerText() {
-		return answerText;
+	public String getLabel() {
+		return label;
 	}
-	public void setAnswerText(String answerText) {
-		this.answerText = answerText;
+	public void setLabel(String label) {
+		this.label = label;
 	}
-	public String getAnswerLabel() {
-		return answerLabel;
+	public String getText() {
+		return text;
 	}
-	public void setAnswerLabel(String answerLabel) {
-		this.answerLabel = answerLabel;
+	public void setText(String text) {
+		this.text = text;
 	}
-	public String getAnswerValue() {
-		return answerValue;
+	public String getValue() {
+		return value;
 	}
-	public void setAnswerValue(String answerValue) {
-		this.answerValue = answerValue;
+	public void setValue(String value) {
+		this.value = value;
 	}
+	
 }

@@ -53,7 +53,7 @@
 								{{answerWrap.sliderOption.start}}
 							</div>
 							<span>{{answerWrap.sliderOption.start}}</span>
-							<input type="range"  min="{{answerWrap.sliderOption.start}}" max="{{answerWrap.sliderOption.end}}" step="{{answerWrap.sliderOption.step}}" onchange="onsliderchange(this)"/>
+							<input type="range"  min="{{answerWrap.sliderOption.start}}" max="{{answerWrap.sliderOption.end}}" step="{{answerWrap.sliderOption.step}}" value="{{answerWrap.sliderOption.start}}" onchange="onsliderchange(this)"/>
 							<span>{{answerWrap.sliderOption.end}}</span>
 								
 						{{else if answerWrap.answer.type == "calendar"}}	<!-- 日期 -->
