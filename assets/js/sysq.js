@@ -35,9 +35,12 @@ function onsliderchange(dom){
 var answers = {};
 
 /**
- * 暂存答案
+ * 获取本题答案
  */
-function saveToAnswers(){
+function getLocalAnswerValue(){
+	
+	var localAnswers = {};
+	
 	$("div.answer").each(function(){
 		var $answer = $(this);
 		
@@ -79,10 +82,40 @@ function saveToAnswers(){
 			text = value;
 		}
 		
-		answers[code] = {"code":code,"label":label,"value":value,"text":text};
-		
-		appservice.debug("answers = " + JSON.stringify(answers));
+		localAnswers[code] = {"code":code,"label":label,"value":value,"text":text};
 	});
+	
+	return localAnswers;
+}
+
+/**
+ * 获取答案值
+ * @param answerCode
+ */
+function getAnswerValue(answerCode){
+	
+	var answerValue;
+	
+	var localAnswers = getLocalAnswerValue();
+	if(localAnswers[answerCode]){//本题检测
+		answerValue = localAnswers[answerCode];
+	}else{//已做过题目检测
+		answerValue = answers[answerCode];
+	}
+	
+	return answerValue["value"];
+}
+
+
+/**
+ * 暂存答案
+ */
+function saveToAnswers(){
+	
+	var localAnswers = getLocalAnswerValue();
+	$.extend(answers,localAnswers);
+	
+	appservice.debug("answers = " + JSON.stringify(answers));
 }
 
 /**
@@ -152,16 +185,6 @@ function pauseInterview(){
  */
 function showMsg(msg){
 	appservice.showMsg(msg);
-}
-
-/**
- * 获取答案值
- * @param answerCode
- */
-function getAnswerValue(answerCode){
-	saveToAnswers();
-	var answerValue = answers[answerCode];
-	return answerValue["value"];
 }
 
 /**

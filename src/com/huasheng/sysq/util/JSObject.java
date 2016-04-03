@@ -49,7 +49,7 @@ public class JSObject {
 		InterviewContext.pushStack(firstQuesWrap.getQuestion());
 		
 		//执行进入逻辑代码
-		if(StringUtils.isEmpty(StringUtils.trim(firstQuesWrap.getQuestion().getEntryLogic()))){
+		if(!StringUtils.isEmpty(StringUtils.trim(firstQuesWrap.getQuestion().getEntryLogic()))){
 			JSFuncInvokeUtils.invoke(firstQuesWrap.getQuestion().getEntryLogic());
 		}
 		
@@ -67,7 +67,7 @@ public class JSObject {
 		InterviewContext.pushStack(nextQuestionWrap.getQuestion());
 		
 		//执行进入逻辑代码
-		if(StringUtils.isEmpty(StringUtils.trim(nextQuestionWrap.getQuestion().getEntryLogic()))){
+		if(!StringUtils.isEmpty(StringUtils.trim(nextQuestionWrap.getQuestion().getEntryLogic()))){
 			JSFuncInvokeUtils.invoke(nextQuestionWrap.getQuestion().getEntryLogic());
 		}
 		
@@ -154,7 +154,7 @@ public class JSObject {
 		InterviewContext.popStack();
 		
 		//执行进入逻辑代码
-		if(StringUtils.isEmpty(StringUtils.trim(prevQuestionWrap.getQuestion().getEntryLogic()))){
+		if(!StringUtils.isEmpty(StringUtils.trim(prevQuestionWrap.getQuestion().getEntryLogic()))){
 			JSFuncInvokeUtils.invoke(prevQuestionWrap.getQuestion().getEntryLogic());
 		}
 		
@@ -196,7 +196,7 @@ public class JSObject {
 		InterviewContext.pushStack(specQuestionWrap.getQuestion());
 		
 		//执行进入逻辑代码
-		if(StringUtils.isEmpty(StringUtils.trim(specQuestionWrap.getQuestion().getEntryLogic()))){
+		if(!StringUtils.isEmpty(StringUtils.trim(specQuestionWrap.getQuestion().getEntryLogic()))){
 			JSFuncInvokeUtils.invoke(specQuestionWrap.getQuestion().getEntryLogic());
 		}
 		
