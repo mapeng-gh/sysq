@@ -44,6 +44,11 @@ function getLocalAnswerValue(){
 	$("div.answer").each(function(){
 		var $answer = $(this);
 		
+		//跳过隐藏答案
+		if($answer.hasClass("nodisplay")){
+			return;
+		}
+		
 		//获取答案通用属性
 		var code = $answer.data("code");
 		var label = $answer.data("label");
@@ -194,4 +199,26 @@ function showMsg(msg){
 function jumpToSpecQuestion(questionCode){
 	saveToAnswers();
 	appservice.jumpToSpecQuestion(questionCode);
+}
+
+/**
+ * 显示
+ * @param answerCode
+ */
+function showAnswer(answerCode){
+	var $answer = $("div.answer[data-code='"+answerCode+"']");
+	if($answer.hasClass("nodisplay")){
+		$answer.removeClass("nodisplay");
+	}
+}
+
+/**
+ * 隐藏
+ * @param answerCode
+ */
+function hideAnswer(answerCode){
+	var $answer = $("div.answer[data-code='"+answerCode+"']");
+	if(!$answer.hasClass("nodisplay")){
+		$answer.addClass("nodisplay");
+	}
 }

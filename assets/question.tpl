@@ -19,7 +19,7 @@
 		
 		{{each answerWrapList as answerWrap i}}
 		
-			<div class="answer" data-code="{{answerWrap.answer.code}}" data-type="{{answerWrap.answer.type}}" data-label="{{answerWrap.answer.label}}">
+			<div class="answer {{answerWrap.answer.isShow == 0 ? "nodisplay":""}}" data-code="{{answerWrap.answer.code}}" data-type="{{answerWrap.answer.type}}" data-label="{{answerWrap.answer.label}}">
 		
 					<span class="label">{{answerWrap.answer.label}}</span>
 					
@@ -31,7 +31,7 @@
 							
 								{{each answerWrap.radioOptions as radioOption i}}
 									<span class="radio-option">
-										<input type="radio" name="{{answerWrap.answer.code}}" {{i == 0 ? checked="checked":""}} value="{{radioOption.value}}"/>
+										<input type="radio" name="{{answerWrap.answer.code}}" {{i == 0 ? checked="checked":""}} value="{{radioOption.value}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
 										<span>{{radioOption.text}}</span>
 									</span>
 								{{/each}}	
@@ -40,7 +40,7 @@
 							
 								{{each answerWrap.radioOptions as radioOption i}}
 									<div class="radio-option">
-										<input type="radio" name="{{answerWrap.answer.code}}" {{i == 0 ? checked="checked":""}} value="{{radioOption.value}}"/>
+										<input type="radio" name="{{answerWrap.answer.code}}" {{i == 0 ? checked="checked":""}} value="{{radioOption.value}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
 										<span>{{radioOption.text}}</span>
 									</div>
 								{{/each}}
@@ -53,16 +53,16 @@
 								{{answerWrap.sliderOption.start}}
 							</div>
 							<span>{{answerWrap.sliderOption.start}}</span>
-							<input type="range"  min="{{answerWrap.sliderOption.start}}" max="{{answerWrap.sliderOption.end}}" step="{{answerWrap.sliderOption.step}}" value="{{answerWrap.sliderOption.start}}" onchange="onsliderchange(this)"/>
+							<input type="range"  min="{{answerWrap.sliderOption.start}}" max="{{answerWrap.sliderOption.end}}" step="{{answerWrap.sliderOption.step}}" value="{{answerWrap.sliderOption.start}}" onchange="onsliderchange(this)" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
 							<span>{{answerWrap.sliderOption.end}}</span>
 								
 						{{else if answerWrap.answer.type == "calendar"}}	<!-- 日期 -->
 						
-							<input type="date"/>
+							<input type="date" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
 						
 						{{else if answerWrap.answer.type == "dropdownlist"}}	 <!-- 下拉框   -->
 						
-							<select name="{{answerWrap.answer.code}}">
+							<select name="{{answerWrap.answer.code}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}>
 							
 							{{each answerWrap.dropDownListOptions as dropDownListOption i}}
 							
@@ -74,7 +74,7 @@
 							
 						{{else if answerWrap.answer.type == "text"}}		<!-- 文本域   -->
 						
-							<textarea></textarea>
+							<textarea {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}></textarea>
 							
 						{{/if}}
 					

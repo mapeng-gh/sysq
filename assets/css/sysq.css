@@ -2,6 +2,9 @@
 	margin:0px;
 	padding:0px;
 }
+.nodisplay{
+	display:none;
+}
 .page-content{
 	padding: 30px;
 }

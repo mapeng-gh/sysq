@@ -212,7 +212,9 @@ public class InterviewService {
 
 			List<Answer> answerList = AnswerDB.getList(questionCode, SysqContext.getCurrentVersion().getId());
 			for(Answer answer : answerList){
-				answerValueList.add(answerValueMap.get(answer.getCode()));
+				if(answerValueMap.containsKey(answer.getCode())){//answerValueMap²»°üº¬Òþ²Ø´ð°¸
+					answerValueList.add(answerValueMap.get(answer.getCode()));
+				}
 			}
 			
 			answerOfQuestionMap.put(questionCode, answerValueList);
