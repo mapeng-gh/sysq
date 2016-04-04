@@ -199,26 +199,29 @@ public class InterviewService {
 		ResultWrap resultWrap = new ResultWrap();
 		resultWrap.setQuestionaire(InterviewContext.getCurrentQuestionaire());//设置问卷
 		
-		List<Question> questionList = QuestionDB.getList(InterviewContext.getCurrentQuestionaire().getCode(), SysqContext.getCurrentVersion().getId());
-		resultWrap.setQuestionList(questionList);//设置所有问题
-		
-		/**
-		 * 设置答案
-		 */
+		//设置问题列表和对应的答案
+		List<Question> showQuestionList = new ArrayList<Question>();
 		Map<String,List<AnswerValue>> answerOfQuestionMap = new HashMap<String,List<AnswerValue>>();
+		
+		List<Question> questionList = QuestionDB.getList(InterviewContext.getCurrentQuestionaire().getCode(), SysqContext.getCurrentVersion().getId());
 		for(Question question : questionList){
-			String questionCode = question.getCode();
 			List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
-
-			List<Answer> answerList = AnswerDB.getList(questionCode, SysqContext.getCurrentVersion().getId());
+			
+			List<Answer> answerList = AnswerDB.getList(question.getCode(), SysqContext.getCurrentVersion().getId());
 			for(Answer answer : answerList){
 				if(answerValueMap.containsKey(answer.getCode())){//answerValueMap不包含隐藏答案
 					answerValueList.add(answerValueMap.get(answer.getCode()));
 				}
 			}
 			
-			answerOfQuestionMap.put(questionCode, answerValueList);
+			if(answerValueList.size() > 0){//跳过的问题不显示在答案列表
+				showQuestionList.add(question);
+				answerOfQuestionMap.put(question.getCode(), answerValueList);
+			}
+			
 		}
+		
+		resultWrap.setQuestionList(showQuestionList);
 		resultWrap.setAnswerOfQuestionMap(answerOfQuestionMap);
 		
 		return resultWrap;
