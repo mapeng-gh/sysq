@@ -2,16 +2,16 @@ div.questionaire div.header{
 	background-color: #338EE7;
 	padding: 5px 0 5px 5px;
 	color:#FFFFFF;
-	font-size:18px;
 	font-weight: bold;
 }
 
 div.questionaire div.description{
-	margin-top: 20px;
+	margin-top: 22px;
 }
 div.questionaire div.description p{
 	text-indent: 20px;
 	margin-bottom: 10px;
+	line-height: 150%;
 }
 
 div.questionaire div.footer{

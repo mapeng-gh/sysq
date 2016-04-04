@@ -3,16 +3,16 @@ div.results div.header{
 	background-color: #338EE7;
 	padding: 5px 0 5px 5px;
 	color:#FFFFFF;
-	font-size:18px;
 	font-weight: bold;
 }
 
 /**工具栏**/
 div.results div.toolbar{
 	margin-top: 20px;
+	text-align:right;
 }
 div.results div.toolbar input{
-	margin-right: 20px;
+	margin-left: 50px;
 }
 
 /**主体**/
@@ -22,13 +22,20 @@ div.results div.body{
 div.results div.body div.content{
 	margin-top: 10px;
 }
-div.results div.body div.content div.question{
+div.results div.body div.content div.ques{
 	margin-top: 10px;
 	border-bottom: 1px grey solid;
 	
 }
+div.results div.body div.content div.ques div.description p{
+	text-indent: 20px;
+	margin-top: 10px;
+	line-height: 150%;
+	font-size:20px;
+}
 div.results div.body div.content div.answers{
 	margin-top:10px;
+	padding-left:40px;
 }
 div.results div.body div.content div.operations{
 	margin-top:10px;

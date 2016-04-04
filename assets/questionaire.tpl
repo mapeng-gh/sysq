@@ -1,11 +1,11 @@
 <div class="questionaire">
-	<div class="header">
+	<div class="header size-title">
 		问卷名称：{{title}}
 	</div>
-	<div class="description">
+	<div class="description size-description">
 		{{introduction}}
 	</div>
 	<div class="footer">
-		<input type="button" value="开始" onclick="startInterview()"/>
+		<input type="button" value="开始" class="btn-switch" onclick="startInterview()"/>
 	</div>
 </div>

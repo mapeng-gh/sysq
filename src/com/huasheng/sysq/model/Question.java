@@ -18,6 +18,8 @@ public class Question {
 	private String exitLogic;
 	private int versionId;
 	
+	public static final int QUESTION_END = 1;
+	
 	public int getId() {
 		return id;
 	}

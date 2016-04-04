@@ -95,10 +95,10 @@ public class InterviewService {
 		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId());
 		for(int i=0;i<questionList.size();i++){
 			if(questionList.get(i).getCode().equals(curQuestion.getCode())){
-				if(i == questionList.size() - 1){
-					return null;
-				}
 				nextQuestion = questionList.get(i + 1);
+				if(nextQuestion.getIsEnd() == Question.QUESTION_END){//跳过结束问题
+					nextQuestion = questionList.get(i + 2);
+				}
 				break;
 			}
 		}

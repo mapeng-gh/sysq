@@ -8,3 +8,36 @@
 .page-content{
 	padding: 30px;
 }
+
+
+/** 文字样式 **/
+.size-title{
+	font-size:22px;
+}
+.size-description{
+	font-size:20px;
+}
+.size-answer-label{
+	font-size:20px;
+}
+.size-answer-text{
+	font-size:20px;
+}
+
+
+/** 按钮样式 **/
+.btn-toolbar{
+	font-size:18px;
+	border:1px solid #338EE7;
+	background-color: #FFF;
+	color:#338EE7;
+	padding:5px;
+}
+
+.btn-switch{
+	font-size:18px;
+	background-color: #338EE7;
+	color:#FFF;
+	padding:5px;
+	border: none;
+}

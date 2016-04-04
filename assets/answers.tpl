@@ -1,26 +1,26 @@
 <div class="results">
 
-	<div class="header">
+	<div class="header size-title">
 		问卷名称 - {{questionaire.title}}
 	</div>
 	
 	<div class="toolbar">
-		<input type="button" value="重做" onclick="redoQuestionaire()"/>
-		<input type="button" value="结束" onclick="quitInterview()"/>
-		<input type="button" value="保存" onclick="saveQuestionaire()"/>
+		<input type="button" value="重做" class="btn-toolbar" onclick="redoQuestionaire()"/>
+		<input type="button" value="结束" class="btn-toolbar" onclick="quitInterview()"/>
+		<input type="button" value="保存" class="btn-toolbar" onclick="saveQuestionaire()"/>
 	</div>
 	
 	<div class="body">
 	
-		<div class="title">答案列表</div>
+		<!--<div class="title">答案列表</div>-->
 		
 		<div class="content">
 		
 			{{each questionList as question i}}
 			
-				<div class="question">
+				<div class="ques">
 				
-					<div class="description">{{question.description}}</div>
+					<div class="description size-description">{{question.description}}</div>
 					
 					<div class="answers">
 					
@@ -28,8 +28,8 @@
 						
 							<div class="answer">
 							
-								<span class="label">{{answerValue.label}}</span>
-								<span class="text">{{answerValue.text}}</span>
+								<span class="label size-answer-label">{{answerValue.label}}</span>
+								<span class="text size-answer-text">{{answerValue.text}}</span>
 								
 							</div>
 							
