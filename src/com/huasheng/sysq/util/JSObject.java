@@ -75,11 +75,30 @@ public class JSObject {
 		RenderUtils.render(TemplateConstants.QUESTION, nextQuestionWrap,new String[]{"extra"});
 	}
 	
-	@JavascriptInterface
+	
 	public void jumpToAnswerList(String answersJS){
+		
+		//获取答案参数
 		Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<Map<String,AnswerValue>>(){}.getType());
+		
+		//获取答案列表
 		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueMap);
+		
+		//渲染页面
 		RenderUtils.render(TemplateConstants.ANSWERS, resultWrap,null);
+	}
+	
+	@JavascriptInterface
+	public void jumpToPartialAnswerList(String answersJS){
+		
+		//获取答案参数
+		Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<Map<String,AnswerValue>>(){}.getType());
+		
+		//获取答案列表
+		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueMap);
+		
+		//渲染页面
+		RenderUtils.render(TemplateConstants.ANSWERS_PARTIAL, resultWrap,null);
 	}
 	
 	@JavascriptInterface
@@ -202,6 +221,17 @@ public class JSObject {
 		
 		//渲染数据
 		RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});
+	}
+	
+	@JavascriptInterface
+	public void resumeQuestionaire(){
+		
+		//获取当前问题
+		Question curQuestion = InterviewContext.getCurrentQuestion();
+		QuestionWrap curQuestionWrap = InterviewService.wrap(curQuestion);
+		
+		//渲染页面
+		RenderUtils.render(TemplateConstants.QUESTION, curQuestionWrap,new String[]{"extra"});
 	}
 	
 	@JavascriptInterface

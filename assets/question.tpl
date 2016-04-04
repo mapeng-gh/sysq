@@ -8,7 +8,7 @@
 		<input type="button" value="暂停" onclick="pauseInterview()"/>
 		<input type="button" value="重做" onclick="redoQuestionaire()"/>
 		<input type="button" value="结束" onclick="quitInterview()"/>
-		<input type="button" value="答案"/>
+		<input type="button" value="答案" onclick="jumpToPartialAnswerList()"/>
 	</div>
 		
 	<div class="description">

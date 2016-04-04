@@ -148,6 +148,13 @@ function jumpToAnswerList(){
 }
 
 /**
+ * 中途跳转答案列表
+ */
+function jumpToPartialAnswerList(){
+	appservice.jumpToPartialAnswerList(JSON.stringify(answers));
+}
+
+/**
  * 保存问卷
  */
 function saveQuestionaire(){
@@ -221,4 +228,11 @@ function hideAnswer(answerCode){
 	if(!$answer.hasClass("nodisplay")){
 		$answer.addClass("nodisplay");
 	}
+}
+
+/**
+ * 继续访谈（中途跳转答案列表）
+ */
+function resumeQuestionaire(){
+	appservice.resumeQuestionaire();
 }
