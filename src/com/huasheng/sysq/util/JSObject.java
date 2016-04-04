@@ -1,5 +1,6 @@
 package com.huasheng.sysq.util;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +36,8 @@ public class JSObject {
 			
 		}else{
 			
+			//‰÷»æ“≥√Ê
+			firstQuestionaire.setIntroduction(RenderUtils.handlePara(firstQuestionaire.getIntroduction()));
 			RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);
 		}
 	}
@@ -54,6 +57,7 @@ public class JSObject {
 		}
 		
 		//‰÷»æ“≥√Ê
+		firstQuesWrap.getQuestion().setDescription(RenderUtils.handlePara(firstQuesWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, firstQuesWrap,new String[]{"extra"});
 	}
 	
@@ -72,10 +76,11 @@ public class JSObject {
 		}
 		
 		//“≥√Ê‰÷»æ
+		nextQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(nextQuestionWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, nextQuestionWrap,new String[]{"extra"});
 	}
 	
-	
+	@JavascriptInterface
 	public void jumpToAnswerList(String answersJS){
 		
 		//ªÒ»°¥∞∏≤Œ ˝
@@ -85,6 +90,10 @@ public class JSObject {
 		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueMap);
 		
 		//‰÷»æ“≥√Ê
+		List<Question> questionList = resultWrap.getQuestionList();
+		for(Question question : questionList){
+			question.setDescription(RenderUtils.handlePara(question.getDescription()));
+		}
 		RenderUtils.render(TemplateConstants.ANSWERS, resultWrap,null);
 	}
 	
@@ -98,6 +107,10 @@ public class JSObject {
 		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueMap);
 		
 		//‰÷»æ“≥√Ê
+		List<Question> questionList = resultWrap.getQuestionList();
+		for(Question question : questionList){
+			question.setDescription(RenderUtils.handlePara(question.getDescription()));
+		}
 		RenderUtils.render(TemplateConstants.ANSWERS_PARTIAL, resultWrap,null);
 	}
 	
@@ -136,6 +149,8 @@ public class JSObject {
 			JSObject.jumpToFirstQuestion();
 		
 		}else{
+			
+			nextQuestionaire.setIntroduction(RenderUtils.handlePara(nextQuestionaire.getIntroduction()));
 			RenderUtils.render(TemplateConstants.QUESTIONAIRE, nextQuestionaire, null);
 		}
 		
@@ -178,6 +193,7 @@ public class JSObject {
 		}
 		
 		//‰÷»æ“≥√Ê
+		prevQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(prevQuestionWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, prevQuestionWrap,new String[]{"extra"});
 	}
 	
@@ -220,6 +236,7 @@ public class JSObject {
 		}
 		
 		//‰÷»æ ˝æ›
+		specQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(specQuestionWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});
 	}
 	
@@ -231,6 +248,7 @@ public class JSObject {
 		QuestionWrap curQuestionWrap = InterviewService.wrap(curQuestion);
 		
 		//‰÷»æ“≥√Ê
+		curQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(curQuestionWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, curQuestionWrap,new String[]{"extra"});
 	}
 	

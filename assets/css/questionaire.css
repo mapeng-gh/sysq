@@ -9,6 +9,10 @@ div.questionaire div.header{
 div.questionaire div.description{
 	margin-top: 20px;
 }
+div.questionaire div.description p{
+	text-indent: 20px;
+	margin-bottom: 10px;
+}
 
 div.questionaire div.footer{
 	margin-top:20px;

@@ -12,7 +12,7 @@
 	</div>
 		
 	<div class="description">
-		{{question.code}} - {{question.description}}
+		{{question.description}}
 	</div>
 		
 	<div class="answers">

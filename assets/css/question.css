@@ -19,6 +19,10 @@ div.question div.toolbar input{
 div.question div.description{
 	margin-top: 20px;
 }
+div.question div.description p{
+	text-indent: 20px;
+	margin-top: 10px;
+}
 
 /**´ð°¸**/
 div.question div.answers{

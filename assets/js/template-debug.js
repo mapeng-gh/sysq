@@ -143,7 +143,7 @@ var escapeFn = function (s) {
 
 var escapeHTML = function (content) {
     return toString(content)
-    .replace(/&(?![\w#]+;)|[<>"']/g, escapeFn);
+    .replace(/&(?![\w#]+;)|["']/g, escapeFn);
 };
 
 
