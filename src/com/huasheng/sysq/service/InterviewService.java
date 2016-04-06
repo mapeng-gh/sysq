@@ -191,10 +191,12 @@ public class InterviewService {
 	 * @param answerValueMap
 	 * @return
 	 */
-	public static ResultWrap getAnswerList(Map<String,AnswerValue> answerValueMap){
+	public static ResultWrap getAnswerList(List<AnswerValue> answerValueListParam){
 		
 		ResultWrap resultWrap = new ResultWrap();
-		resultWrap.setQuestionaire(InterviewContext.getCurrentQuestionaire());//设置问卷
+		
+		//设置问卷
+		resultWrap.setQuestionaire(InterviewContext.getCurrentQuestionaire());
 		
 		//设置问题列表和对应的答案
 		List<Question> showQuestionList = new ArrayList<Question>();
@@ -202,16 +204,17 @@ public class InterviewService {
 		
 		List<Question> questionList = QuestionDB.getList(InterviewContext.getCurrentQuestionaire().getCode(), SysqContext.getCurrentVersion().getId(),Question.QUESTION_NOT_END);
 		for(Question question : questionList){
-			List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
 			
-			List<Answer> answerList = AnswerDB.getList(question.getCode(), SysqContext.getCurrentVersion().getId());
-			for(Answer answer : answerList){
-				if(answerValueMap.containsKey(answer.getCode())){//answerValueMap不包含隐藏答案
-					answerValueList.add(answerValueMap.get(answer.getCode()));
+			//挑出问题对应的所有答案
+			List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
+			for(AnswerValue answerValueParam : answerValueListParam){
+				if(answerValueParam.getQuestionCode().equals(question.getCode())){
+					answerValueList.add(answerValueParam);
 				}
 			}
 			
-			if(answerValueList.size() > 0){//跳过的问题不显示在答案列表
+			//跳过的问题不显示在答案列表
+			if(answerValueList.size() > 0){
 				showQuestionList.add(question);
 				answerOfQuestionMap.put(question.getCode(), answerValueList);
 			}
@@ -246,10 +249,9 @@ public class InterviewService {
 	 * 保存答案
 	 * @param answerMap
 	 */
-	public static void saveAnswers(Map<String,AnswerValue> answerMap){
+	public static void saveAnswers(List<AnswerValue> answerValueList){
 		
-		Collection<AnswerValue> answerValues = answerMap.values();
-		for(AnswerValue answerValue : answerValues){
+		for(AnswerValue answerValue : answerValueList){
 			Result result = new Result();
 			result.setInterviewId(InterviewContext.getInterview().getId());
 			result.setAnswerCode(answerValue.getCode());

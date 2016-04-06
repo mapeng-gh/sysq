@@ -32,6 +32,18 @@ public class InterviewContext {
 	public static void popStack(){
 		questionStack.remove(questionStack.size()-1);
 	}
+	public static Question findQuestion(String questionCode){
+		if(questionStack.size() <= 0){
+			return null;
+		}
+		for(Question question : questionStack){
+			if(question.getCode().equals(questionCode)){
+				return question;
+			}
+		}
+		return null;
+	}
+	
 	public static void clearStack(){
 		questionStack.clear();
 	}

@@ -32,14 +32,14 @@ function onsliderchange(dom){
 	$(dom).parent().find('div.slider-value').html(dom.value);
 }
 
-var answers = {};
+var answers = [];
 
 /**
  * 获取本题答案
  */
 function getLocalAnswerValue(){
 	
-	var localAnswers = {};
+	var localAnswers = [];
 	
 	$("div.answer").each(function(){
 		var $answer = $(this);
@@ -53,6 +53,7 @@ function getLocalAnswerValue(){
 		var code = $answer.data("code");
 		var label = $answer.data("label");
 		var type = $answer.data("type");
+		var questionCode = $answer.data("question-code");
 		
 		//获取值与文本
 		var value,text;
@@ -87,7 +88,7 @@ function getLocalAnswerValue(){
 			text = value;
 		}
 		
-		localAnswers[code] = {"code":code,"label":label,"value":value,"text":text};
+		localAnswers.push({"code":code,"label":label,"value":value,"text":text,"questionCode":questionCode});
 	});
 	
 	return localAnswers;
@@ -99,16 +100,20 @@ function getLocalAnswerValue(){
  */
 function getAnswerValue(answerCode){
 	
-	var answerValue;
-	
+	//从本题获取
 	var localAnswers = getLocalAnswerValue();
-	if(localAnswers[answerCode]){//本题检测
-		answerValue = localAnswers[answerCode];
-	}else{//已做过题目检测
-		answerValue = answers[answerCode];
+	for(var i=0;i<localAnswers.length;i++){
+		if(localAnswers[i].code == answerCode){
+			return localAnswers[i]["value"]; 
+		}
 	}
 	
-	return answerValue["value"];
+	//从已做题目获取
+	for(i=0;i<answers.length;i++){
+		if(answers[i].code == answerCode){
+			return answers[i]["value"];
+		}
+	}
 }
 
 
@@ -117,8 +122,24 @@ function getAnswerValue(answerCode){
  */
 function saveToAnswers(){
 	
+	//获取本题答案
 	var localAnswers = getLocalAnswerValue();
-	$.extend(answers,localAnswers);
+	
+	//如果已经存在答案，则更新
+	for(var i=0;i<localAnswers.length;i++){
+		var isExist = false;
+		for(var j=0;j<answers.length;j++){
+			if(localAnswers[i].code == answers[j].code){
+				isExist = true;
+				break;
+			}
+		}
+		if(isExist == true){
+			answers[j] = localAnswers[i];
+		}else{
+			answers.push(localAnswers[i]);
+		}
+	}
 	
 	appservice.debug("answers = " + JSON.stringify(answers));
 }
@@ -159,14 +180,14 @@ function jumpToPartialAnswerList(){
  */
 function saveQuestionaire(){
 	appservice.saveQuestionaire(JSON.stringify(answers));
-	answers = {};//清空答案
+	answers = [];//清空答案
 }
 
 /**
  * 重做问卷
  */
 function redoQuestionaire(){
-	answers = {};//清空答案
+	answers = [];//清空答案
 	appservice.jumpToFirstQuestion();
 }
 
@@ -205,6 +226,26 @@ function showMsg(msg){
  */
 function jumpToSpecQuestion(questionCode){
 	saveToAnswers();
+	appservice.jumpToSpecQuestion(questionCode);
+}
+
+/**
+ * 编辑问题（答案列表跳转）
+ * @param questionCode
+ */
+function editQuestion(questionCode){
+	
+	//清空该问题以及之后问题的所有答案
+	var index = -1;
+	for(var i=0;i<answers.length;i++){
+		if(answers[i]["questionCode"] == questionCode){
+			index = i;
+			break;
+		}
+	}
+	answers = answers.slice(0,i);
+	appservice.debug(JSON.stringify(answers));
+	
 	appservice.jumpToSpecQuestion(questionCode);
 }
 

@@ -18,7 +18,7 @@
 		
 			{{each questionList as question i}}
 			
-				<div class="ques">
+				<div class="ques" onclick="editQuestion(\'{{question.code}}\')">
 				
 					<div class="description size-description">{{question.description}}</div>
 					
@@ -41,11 +41,13 @@
 					
 					<div style="clear:both;"></div>
 					
+					<!--
 					<div class="operations">
 					
 						<input type="button" value="编辑"/>
 					
 					</div>
+					-->
 				
 				</div>
 			

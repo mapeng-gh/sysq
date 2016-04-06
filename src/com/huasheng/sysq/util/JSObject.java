@@ -81,13 +81,13 @@ public class JSObject {
 	}
 	
 	@JavascriptInterface
-	public void jumpToAnswerList(String answersJS){
+	public void jumpToAnswerList(String answersJA){
 		
 		//获取答案参数
-		Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<Map<String,AnswerValue>>(){}.getType());
+		List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
 		
 		//获取答案列表
-		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueMap);
+		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
 		
 		//渲染页面
 		List<Question> questionList = resultWrap.getQuestionList();
@@ -98,13 +98,13 @@ public class JSObject {
 	}
 	
 	@JavascriptInterface
-	public void jumpToPartialAnswerList(String answersJS){
+	public void jumpToPartialAnswerList(String answersJA){
 		
 		//获取答案参数
-		Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<Map<String,AnswerValue>>(){}.getType());
+		List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
 		
 		//获取答案列表
-		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueMap);
+		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
 		
 		//渲染页面
 		List<Question> questionList = resultWrap.getQuestionList();
@@ -118,7 +118,7 @@ public class JSObject {
 	public void saveQuestionaire(String answersJS){
 		
 		//保存当前问卷答案
-		Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<Map<String,AnswerValue>>(){}.getType());
+		List<AnswerValue> answerValueMap = (List<AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 		InterviewService.saveAnswers(answerValueMap);
 		
 		//获取下一个问卷
@@ -203,8 +203,8 @@ public class JSObject {
 		if(!answersJS.equals("{}")){
 			
 			//保存当前问卷答案
-			Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<Map<String,AnswerValue>>(){}.getType());
-			InterviewService.saveAnswers(answerValueMap);
+			List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+			InterviewService.saveAnswers(answerValueList);
 			
 			//记录当前位置
 			InterviewService.recordInterviewProgress();
@@ -224,11 +224,24 @@ public class JSObject {
 	@JavascriptInterface
 	public void jumpToSpecQuestion(String questionCode){
 		
-		//查询指定问题
-		QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
+		QuestionWrap specQuestionWrap = null;
 		
-		//保存当前题目到上下文
-		InterviewContext.pushStack(specQuestionWrap.getQuestion());
+		//检测跳转方向
+		Question specQuestion = InterviewContext.findQuestion(questionCode);
+		if(specQuestion == null){//往后
+			specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
+			
+			//保存当前题目到上下文
+			InterviewContext.pushStack(specQuestionWrap.getQuestion());
+			
+		}else{//往前（答案列表跳转）
+			specQuestionWrap = InterviewService.wrap(specQuestion);
+			
+			//更新栈顶
+			while(specQuestion != InterviewContext.getCurrentQuestion()){
+				InterviewContext.popStack();
+			}
+		}
 		
 		//执行进入逻辑代码
 		if(!StringUtils.isEmpty(StringUtils.trim(specQuestionWrap.getQuestion().getEntryLogic()))){
@@ -266,8 +279,8 @@ public class JSObject {
 	@JavascriptInterface
 	public void quitInterviewAndSave(String answers){
 		//保存当前问卷答案
-		Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answers, new TypeToken<Map<String,AnswerValue>>(){}.getType());
-		InterviewService.saveAnswers(answerValueMap);
+		List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answers, new TypeToken<List<AnswerValue>>(){}.getType());
+		InterviewService.saveAnswers(answerValueList);
 		
 		//结束访谈
 		this.quitInterview();

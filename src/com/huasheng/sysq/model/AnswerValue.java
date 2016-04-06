@@ -6,6 +6,7 @@ public class AnswerValue {
 	private String label;//用于答案列表显示
 	private String text;//用于答案列表显示
 	private String value;//用于保存
+	private String questionCode;//问题code
 	
 	public String getCode() {
 		return code;
@@ -30,6 +31,12 @@ public class AnswerValue {
 	}
 	public void setValue(String value) {
 		this.value = value;
+	}
+	public String getQuestionCode() {
+		return questionCode;
+	}
+	public void setQuestionCode(String questionCode) {
+		this.questionCode = questionCode;
 	}
 	
 }
