@@ -236,3 +236,18 @@ function hideAnswer(answerCode){
 function resumeQuestionaire(){
 	appservice.resumeQuestionaire();
 }
+
+/**
+ * 跳转结束问题
+ * @param endQuestionCode
+ */
+function jumpToEnd(endQuestionCode){
+	appservice.jumpToEnd(endQuestionCode);
+}
+
+/**
+ * 结束访谈（保存答案）
+ */
+function quitInterviewAndSave(){
+	appservice.quitInterviewAndSave(JSON.stringify(answers));
+}

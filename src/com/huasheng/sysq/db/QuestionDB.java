@@ -10,12 +10,12 @@ import com.huasheng.sysq.util.TableConstants;
 
 public class QuestionDB {
 
-	public static List<Question> getList(String questionaireCode,int versionId){
+	public static List<Question> getList(String questionaireCode,int versionId,int isEnd){
 		Cursor cursor = SysQOpenHelper.getDatabase().query(
 				TableConstants.TABLE_QUESTION,
 				null,
-				TableConstants.COLUMN_QUESTION_QUESTIONAIRE_CODE + " = ? and " +TableConstants.COLUMN_QUESTION_VERSION_ID + " = ?",
-				new String[]{questionaireCode,versionId+""},
+				TableConstants.COLUMN_QUESTION_QUESTIONAIRE_CODE + " = ? and " +TableConstants.COLUMN_QUESTION_VERSION_ID + " = ? and " + TableConstants.COLUMN_QUESTION_IS_END + " = ?",
+				new String[]{questionaireCode,versionId+"",isEnd+""},
 				null,null,TableConstants.COLUMN_QUESTION_SEQ_NUM + " asc");
 		List<Question> questionList = new ArrayList<Question>();
 		while(cursor.moveToNext()){

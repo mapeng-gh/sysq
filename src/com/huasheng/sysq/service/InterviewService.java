@@ -65,7 +65,7 @@ public class InterviewService {
 		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
 		
 		//查询第一个问题
-		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),SysqContext.getCurrentVersion().getId());
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),SysqContext.getCurrentVersion().getId(),Question.QUESTION_NOT_END);
 		if(questionList == null || questionList.size() <= 0){
 			throw new RuntimeException("问卷[" + curQuestionaire.getCode() + "]没有问题");
 		}
@@ -92,13 +92,10 @@ public class InterviewService {
 		
 		//获取下一个question
 		Question nextQuestion = null;
-		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId());
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId(),Question.QUESTION_NOT_END);
 		for(int i=0;i<questionList.size();i++){
 			if(questionList.get(i).getCode().equals(curQuestion.getCode())){
 				nextQuestion = questionList.get(i + 1);
-				if(nextQuestion.getIsEnd() == Question.QUESTION_END){//跳过结束问题
-					nextQuestion = questionList.get(i + 2);
-				}
 				break;
 			}
 		}
@@ -120,7 +117,7 @@ public class InterviewService {
 		
 		Question specQuestion = null;
 		
-		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId());
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId(),Question.QUESTION_NOT_END);
 		for(Question question : questionList){
 			if(question.getCode().equals(questionCode)){
 				specQuestion = question;
@@ -150,7 +147,7 @@ public class InterviewService {
 		
 		//获取上一question
 		Question previousQuestion = null;
-		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId());
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId(),Question.QUESTION_NOT_END);
 		for(int i=0;i<questionList.size();i++){
 			if(questionList.get(i).getCode().equals(curQuestion.getCode())){
 				if(i == 0){
@@ -203,7 +200,7 @@ public class InterviewService {
 		List<Question> showQuestionList = new ArrayList<Question>();
 		Map<String,List<AnswerValue>> answerOfQuestionMap = new HashMap<String,List<AnswerValue>>();
 		
-		List<Question> questionList = QuestionDB.getList(InterviewContext.getCurrentQuestionaire().getCode(), SysqContext.getCurrentVersion().getId());
+		List<Question> questionList = QuestionDB.getList(InterviewContext.getCurrentQuestionaire().getCode(), SysqContext.getCurrentVersion().getId(),Question.QUESTION_NOT_END);
 		for(Question question : questionList){
 			List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
 			
@@ -323,5 +320,37 @@ public class InterviewService {
 		curInterview.setCurQuestionaireCode(curQuestionaire.getCode());
 		curInterview.setNextQuestionCode(curQuestion.getCode());
 		InterviewDB.update(curInterview);
+	}
+	
+	/**
+	 * 获取结束问题
+	 * @param endQuestionCode
+	 * @return
+	 */
+	public static QuestionWrap getEndQuestion(String endQuestionCode){
+		
+		//获取当前版本和问卷
+		Version curVersion = SysqContext.getCurrentVersion();
+		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
+		
+		//查询结束问题
+		Question endQuestion = null;
+		List<Question> endQuestionList = QuestionDB.getList(curQuestionaire.getCode(), curVersion.getId(),Question.QUESTION_END);
+		if(endQuestionList == null || endQuestionList.size() <= 0){
+			throw new RuntimeException("问卷[" + curQuestionaire.getCode() + "]没有结束问题");
+		}
+		for(Question question : endQuestionList){
+			if(question.getCode().equals(endQuestionCode)){
+				endQuestion = question;
+				break;
+			}
+		}
+		
+		//包装问题
+		QuestionWrap endQuestionWrap = new QuestionWrap();
+		endQuestionWrap.setQuestionaire(curQuestionaire);
+		endQuestionWrap.setQuestion(endQuestion);
+		
+		return endQuestionWrap;
 	}
 }

@@ -19,6 +19,7 @@ public class Question {
 	private int versionId;
 	
 	public static final int QUESTION_END = 1;
+	public static final int QUESTION_NOT_END = 0;
 	
 	public int getId() {
 		return id;

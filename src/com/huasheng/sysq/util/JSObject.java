@@ -253,6 +253,27 @@ public class JSObject {
 	}
 	
 	@JavascriptInterface
+	public void jumpToEnd(String endQuestionCode){
+		
+		//获取结束问题
+		QuestionWrap endQuestionWrap = InterviewService.getEndQuestion(endQuestionCode);
+		
+		//渲染页面
+		endQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(endQuestionWrap.getQuestion().getDescription()));
+		RenderUtils.render(TemplateConstants.QUESTION_END, endQuestionWrap,new String[]{"extra"});
+	}
+	
+	@JavascriptInterface
+	public void quitInterviewAndSave(String answers){
+		//保存当前问卷答案
+		Map<String,AnswerValue> answerValueMap = (Map<String,AnswerValue>)RenderUtils.fromJson(answers, new TypeToken<Map<String,AnswerValue>>(){}.getType());
+		InterviewService.saveAnswers(answerValueMap);
+		
+		//结束访谈
+		this.quitInterview();
+	}
+	
+	@JavascriptInterface
 	public void debug(String msg){
 		Log.d("JSObject", msg);
 	}
