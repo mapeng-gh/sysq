@@ -41,3 +41,12 @@
 	padding:5px;
 	border: none;
 }
+
+.btn-big{
+	background-color: #338EE7;
+	color:#FFF;
+  	border:none;
+  	font-size:22px;
+ 	width:250px;
+ 	padding:10px 0px;
+}

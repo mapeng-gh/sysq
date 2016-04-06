@@ -6,6 +6,6 @@
 		{{introduction}}
 	</div>
 	<div class="footer">
-		<input type="button" value="开始" class="btn-switch" onclick="startInterview()"/>
+		<input type="button" value="开始" class="btn-big" onclick="startInterview()"/>
 	</div>
 </div>

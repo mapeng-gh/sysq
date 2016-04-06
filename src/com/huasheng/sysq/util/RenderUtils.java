@@ -1,5 +1,6 @@
 package com.huasheng.sysq.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
@@ -14,11 +15,13 @@ import com.google.gson.GsonBuilder;
 
 public class RenderUtils {
 
+	public static final String TEMPLATE_DIR = "tpl";
+	
 	private static String loadTemplate(String filename){
 		String tpl = "";
 		InputStream is = null;
 		try{
-			is = MyApplication.getContext().getAssets().open(filename);
+			is = MyApplication.getContext().getAssets().open(TEMPLATE_DIR + File.separator + filename);
 			tpl = IOUtils.toString(is,"utf-8");
 		}catch(Exception e){
 			throw new RuntimeException("º”‘ÿƒ£∞Ê ß∞‹", e);

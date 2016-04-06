@@ -1,9 +1,9 @@
 eclipse.preferences.version=1
-encoding//assets/answers.tpl=UTF-8
-encoding//assets/answers_partial.tpl=UTF-8
 encoding//assets/data.txt=UTF-8
 encoding//assets/data_test.txt=UTF-8
 encoding//assets/js/template-debug.js=UTF-8
-encoding//assets/question.tpl=UTF-8
-encoding//assets/question_end.tpl=UTF-8
-encoding//assets/questionaire.tpl=UTF-8
+encoding//assets/tpl/answers.tpl=UTF-8
+encoding//assets/tpl/answers_partial.tpl=UTF-8
+encoding//assets/tpl/question.tpl=UTF-8
+encoding//assets/tpl/question_end.tpl=UTF-8
+encoding//assets/tpl/questionaire.tpl=UTF-8
