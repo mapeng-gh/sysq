@@ -17,6 +17,13 @@ public class InterviewContext {
 	
 	private static WebView webView;
 	
+	public static void clearContext(){
+		interview = null;
+		currentQuestionaire = null;
+		webView = null;
+		questionStack.clear();
+	}
+	
 	public static void pushStack(Question question){
 		questionStack.add(question);
 	}

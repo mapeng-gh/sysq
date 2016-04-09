@@ -2,19 +2,17 @@ package com.huasheng.sysq.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
 
 import com.huasheng.sysq.db.AnswerDB;
 import com.huasheng.sysq.db.InterviewDB;
 import com.huasheng.sysq.db.QuestionDB;
 import com.huasheng.sysq.db.QuestionaireDB;
 import com.huasheng.sysq.db.ResultDB;
+import com.huasheng.sysq.db.VersionDB;
 import com.huasheng.sysq.model.Answer;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.AnswerWrap;
@@ -354,5 +352,13 @@ public class InterviewService {
 		endQuestionWrap.setQuestion(endQuestion);
 		
 		return endQuestionWrap;
+	}
+	
+	/**
+	 * 获取系统问卷当前版本号
+	 * @return
+	 */
+	public static Version getCurrentVersion(){
+		return VersionDB.getCurVersion();
 	}
 }

@@ -1,6 +1,9 @@
 package com.huasheng.sysq.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.UserCenterService;
+import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.MyApplication;
 import com.huasheng.sysq.util.SysqContext;
 
@@ -60,10 +64,36 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 			this.loadNewUserPage();
 			
 		}else if(view.getId() == R.id.ll_usercenter_logout){//退出
+			this.logout();
 			
 		}else if(view.getId() == R.id.btn_usercenter_userinfo_submit){//保存个人信息
 			this.modifyUserInfo();
 		}
+	}
+	
+	private void logout(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("确定退出系统吗？");
+		builder.setIcon(android.R.drawable.ic_dialog_info);
+		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+				//清除上下文
+				SysqContext.clearContext();
+				InterviewContext.clearContext();
+				
+				//跳转登录
+				Intent loginIntent = new Intent(UserCenterActivity.this,LoginActivity.class);
+				UserCenterActivity.this.startActivity(loginIntent);
+			}
+		});
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			};
+		});
+		builder.show();
 	}
 	
 	private void modifyUserInfo(){

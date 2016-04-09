@@ -7,13 +7,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.huasheng.sysq.R;
-import com.huasheng.sysq.model.QuestionWrap;
-import com.huasheng.sysq.model.Questionaire;
-import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.JSObject;
-import com.huasheng.sysq.util.RenderUtils;
-import com.huasheng.sysq.util.TemplateConstants;
 
 public class InterviewActivity extends Activity{
 	

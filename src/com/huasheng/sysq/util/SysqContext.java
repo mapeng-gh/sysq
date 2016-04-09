@@ -21,4 +21,9 @@ public class SysqContext {
 		SysqContext.currentVersion = currentVersion;
 	}
 	
+	public static void clearContext(){
+		interviewer = null;
+		currentVersion = null;
+	}
+	
 }
