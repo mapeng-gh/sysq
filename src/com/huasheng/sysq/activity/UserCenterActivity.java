@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -150,7 +151,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		
 		//äÖÈ¾
 		this.containerLL.removeAllViews();
-		this.containerLL.addView(view);
+		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		
 		//°ó¶¨ÊÂ¼þ
 		Button submitBtn = (Button)findViewById(R.id.btn_usercenter_userinfo_submit);
@@ -162,7 +163,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		View view = inflater.inflate(R.layout.usercenter_modify_password, null);
 		
 		this.containerLL.removeAllViews();
-		this.containerLL.addView(view);
+		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 	}
 	
 	private void loadNewUserPage(){

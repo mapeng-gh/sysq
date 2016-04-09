@@ -2,103 +2,111 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal">
     
     <LinearLayout 
-       style="@style/usercenter_userinfo_layout">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+        
+        <LinearLayout 
+       		style="@style/usercenter_userinfo_layout">
        
-       <TextView 
-           style="@style/usercenter_userinfo_label"
-           android:text="@string/usercenter_userinfo_login_name_label"/>
-       <TextView 
-           android:id="@+id/tv_usercenter_userinfo_login_name"
-           style="@style/usercenter_userinfo_label"/>
+	       <TextView 
+	           style="@style/usercenter_userinfo_label"
+	           android:text="@string/usercenter_userinfo_login_name_label"/>
+	       <TextView 
+	           android:id="@+id/tv_usercenter_userinfo_login_name"
+	           style="@style/usercenter_userinfo_label"/>
        
-   </LinearLayout>
+   		</LinearLayout>
     
-   <LinearLayout 
-       style="@style/usercenter_userinfo_layout">
-       
-       <TextView 
-           style="@style/usercenter_userinfo_label"
-           android:text="@string/usercenter_userinfo_username_label"/>
-       <EditText 
-           android:id="@+id/et_usercenter_userinfo_username"
-           style="@style/usercenter_userinfo_edittext"/>
-       
-   </LinearLayout>
+	   <LinearLayout 
+	       style="@style/usercenter_userinfo_layout">
+	       
+	       <TextView 
+	           style="@style/usercenter_userinfo_label"
+	           android:text="@string/usercenter_userinfo_username_label"/>
+	       <EditText 
+	           android:id="@+id/et_usercenter_userinfo_username"
+	           style="@style/usercenter_userinfo_edittext"/>
+	       
+	   </LinearLayout>
    
-   <LinearLayout 
-       style="@style/usercenter_userinfo_layout">
-       
-       <TextView 
-           style="@style/usercenter_userinfo_label"
-           android:text="@string/usercenter_userinfo_email_label"/>
-       <EditText 
-           android:id="@+id/et_usercenter_userinfo_email"
-           style="@style/usercenter_userinfo_edittext"/>
-       <TextView 
-           style="@style/usercenter_userinfo_hint"
-           android:text="@string/usercenter_userinfo_email_hint"/>
-       
-   </LinearLayout>
-   
-   <LinearLayout 
-       style="@style/usercenter_userinfo_layout">
-       
-       <TextView 
-           style="@style/usercenter_userinfo_label"
-           android:text="@string/usercenter_userinfo_mobile_label"/>
-       <EditText 
-           android:id="@+id/et_usercenter_userinfo_mobile"
-           style="@style/usercenter_userinfo_edittext"/>
-       <TextView 
-           style="@style/usercenter_userinfo_hint"
-           android:text="@string/usercenter_userinfo_mobile_hint"/>
-       
-   </LinearLayout>
-   
-   <LinearLayout 
-       style="@style/usercenter_userinfo_layout">
-       
-       <TextView 
-           style="@style/usercenter_userinfo_label"
-           android:text="@string/usercenter_userinfo_working_place_label"/>
-       <RadioGroup 
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:layout_gravity="center_vertical">
-              
-              <RadioButton 
-                  android:id="@+id/rb_usercenter_userinfo_working_place_uk"
-                  style="@style/usercenter_userinfo_radio"
-                  android:text="@string/usercenter_userinfo_working_place_option_uk"/>
-              <RadioButton 
-                  android:id="@+id/rb_usercenter_userinfo_working_place_china"
-                   style="@style/usercenter_userinfo_radio"
-                  android:text="@string/usercenter_userinfo_working_place_option_china"/>
-	                
-	   </RadioGroup>
-       
-   </LinearLayout>
-   
-   <LinearLayout 
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="100dp"
-       android:orientation="vertical">
-       
-        <Button
-            android:id="@+id/btn_usercenter_userinfo_submit"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:text="@string/usercenter_userinfo_submit"
-            android:background="#0096DC"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"
-            android:layout_gravity="center_horizontal"/>
-       
-   </LinearLayout>
-
+	   <LinearLayout 
+	       style="@style/usercenter_userinfo_layout">
+	       
+	       <TextView 
+	           style="@style/usercenter_userinfo_label"
+	           android:text="@string/usercenter_userinfo_email_label"/>
+	       <EditText 
+	           android:id="@+id/et_usercenter_userinfo_email"
+	           style="@style/usercenter_userinfo_edittext"/>
+	       <TextView 
+	           style="@style/usercenter_userinfo_hint"
+	           android:text="@string/usercenter_userinfo_email_hint"/>
+	       
+	   </LinearLayout>
+	   
+	   <LinearLayout 
+	       style="@style/usercenter_userinfo_layout">
+	       
+	       <TextView 
+	           style="@style/usercenter_userinfo_label"
+	           android:text="@string/usercenter_userinfo_mobile_label"/>
+	       <EditText 
+	           android:id="@+id/et_usercenter_userinfo_mobile"
+	           style="@style/usercenter_userinfo_edittext"/>
+	       <TextView 
+	           style="@style/usercenter_userinfo_hint"
+	           android:text="@string/usercenter_userinfo_mobile_hint"/>
+	       
+	   </LinearLayout>
+	   
+	   <LinearLayout 
+	       style="@style/usercenter_userinfo_layout">
+	       
+	       <TextView 
+	           style="@style/usercenter_userinfo_label"
+	           android:text="@string/usercenter_userinfo_working_place_label"/>
+	       <RadioGroup 
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:orientation="horizontal"
+	              android:layout_gravity="center_vertical">
+	              
+	              <RadioButton 
+	                  android:id="@+id/rb_usercenter_userinfo_working_place_uk"
+	                  style="@style/usercenter_userinfo_radio"
+	                  android:text="@string/usercenter_userinfo_working_place_option_uk"/>
+	              <RadioButton 
+	                  android:id="@+id/rb_usercenter_userinfo_working_place_china"
+	                   style="@style/usercenter_userinfo_radio"
+	                  android:text="@string/usercenter_userinfo_working_place_option_china"/>
+		                
+		   </RadioGroup>
+	       
+	   </LinearLayout>
+	   
+	   <LinearLayout 
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content"
+	       android:layout_marginTop="100dp"
+	       android:orientation="vertical">
+	       
+	        <Button
+	            android:id="@+id/btn_usercenter_userinfo_submit"
+	            android:layout_width="350dp"
+	            android:layout_height="wrap_content"
+	            android:text="@string/usercenter_userinfo_submit"
+	            android:background="#0096DC"
+	            android:textColor="#FFFFFF"
+	            android:textSize="25sp"
+	            android:layout_gravity="center_horizontal"/>
+	       
+	   </LinearLayout>
+        
+    </LinearLayout>
+    
 </LinearLayout>
