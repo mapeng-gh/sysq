@@ -49,6 +49,8 @@
         
          <activity android:name=".activity.interview.InterviewActivity" android:screenOrientation="landscape"></activity>
          
+         <activity android:name=".activity.UserCenterActivity" android:screenOrientation="portrait"></activity>
+         
     </application>
 
 </manifest>

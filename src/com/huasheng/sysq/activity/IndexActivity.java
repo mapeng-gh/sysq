@@ -57,7 +57,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View view) {
-		if(view.getId() == R.id.reservation_admin){
+		if(view.getId() == R.id.reservation_admin){//预约管理
 			startActivity(new Intent(this,ReservationListActivity.class));
 		}else if(view.getId() == R.id.data_statics){
 			
@@ -66,8 +66,9 @@ public class IndexActivity extends Activity implements OnClickListener{
 		}else if(view.getId() == R.id.interview_start){//开始访谈
 			Intent intent = new Intent(this,InterviewerBasicActivity.class);
 			startActivity(intent);
-		}else if(view.getId() == R.id.user_center){
-			
+		}else if(view.getId() == R.id.user_center){//个人中心
+			Intent intent = new Intent(this,UserCenterActivity.class);
+			startActivity(intent);
 		}else if(view.getId() == R.id.interviewer_search){
 			
 		}else if(view.getId() == R.id.data_upload){

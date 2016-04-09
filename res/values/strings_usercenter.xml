@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="usercenter_userinfo">个人信息</string>
+    <string name="usercenter_modify_password">修改密码</string>
+    <string name="usercenter_new_user">注册用户</string>
+    <string name="usercenter_logout">登出</string>
+    
+    <!-- userinfo -->
+    <string name="usercenter_userinfo_login_name_label">帐号：</string>
+    <string name="usercenter_userinfo_username_label">名字：</string>
+    <string name="usercenter_userinfo_email_label">电子邮件：</string>
+    <string name="usercenter_userinfo_email_hint">请输入以方便管理员与您联系，谢谢！</string>
+    <string name="usercenter_userinfo_mobile_label">联系电话：</string>
+    <string name="usercenter_userinfo_mobile_hint">请输入以方便管理员与您联系，谢谢！</string>
+    <string name="usercenter_userinfo_working_place_label">工作地点：</string>
+    <string name="usercenter_userinfo_working_place_option_uk">UK</string>
+    <string name="usercenter_userinfo_working_place_option_china">中国</string>
+    <string name="usercenter_userinfo_submit">保存</string>
+    
+</resources>
