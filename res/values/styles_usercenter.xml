@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <style name="usercenter_userinfo_layout">
+    <style name="usercenter_layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
@@ -9,20 +9,20 @@
     </style>
     
     <!-- userinfo -->
-    <style name="usercenter_userinfo_label">
+    <style name="usercenter_label">
         <item name="android:layout_width">170dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
-    <style name="usercenter_userinfo_edittext">
+    <style name="usercenter_edittext">
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">250dp</item>
         <item name="android:padding">10dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/edittext_border</item>
     </style>
-    <style name="usercenter_userinfo_hint">
+    <style name="usercenter_hint">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
@@ -31,7 +31,7 @@
         <item name="android:textSize">15sp</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
-    <style name="usercenter_userinfo_radio">
+    <style name="usercenter_radio">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginRight">15dp</item>

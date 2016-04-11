@@ -69,7 +69,34 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 			
 		}else if(view.getId() == R.id.btn_usercenter_userinfo_submit){//保存个人信息
 			this.modifyUserInfo();
+		}else if(view.getId() == R.id.btn_usercenter_password_submit){//修改密码
+			this.modifyPassword();
 		}
+	}
+	
+	private void modifyPassword(){
+		//获取输入数据
+		EditText oldPasswordET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_password_old);
+		EditText newPasswordET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_password_new);
+		EditText newAgainPasswordET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_password_new_again);
+		
+		//当前密码输入不正确
+		if(!SysqContext.getInterviewer().getPassword().equals(oldPasswordET.getText().toString())){
+			Toast.makeText(MyApplication.getContext(), "当前密码不正确", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		//两次输入新密码不正确
+		if(!newPasswordET.getText().toString().equals(newAgainPasswordET.getText().toString())){
+			Toast.makeText(MyApplication.getContext(),"新密码两次输入不同",Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		Interviewer curUser = SysqContext.getInterviewer();
+		curUser.setPassword(newPasswordET.getText().toString());
+		UserCenterService.modifyUserInfo(curUser);
+		
+		Toast.makeText(MyApplication.getContext(), "密码修改成功", Toast.LENGTH_SHORT).show();
 	}
 	
 	private void logout(){
@@ -154,7 +181,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		
 		//绑定事件
-		Button submitBtn = (Button)findViewById(R.id.btn_usercenter_userinfo_submit);
+		Button submitBtn = (Button)view.findViewById(R.id.btn_usercenter_userinfo_submit);
 		submitBtn.setOnClickListener(this);
 	}
 	
@@ -164,6 +191,10 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		
 		this.containerLL.removeAllViews();
 		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+		
+		//绑定事件
+		Button submitBtn = (Button)view.findViewById(R.id.btn_usercenter_password_submit);
+		submitBtn.setOnClickListener(this);
 	}
 	
 	private void loadNewUserPage(){

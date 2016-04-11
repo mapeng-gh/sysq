@@ -18,4 +18,12 @@
     <string name="usercenter_userinfo_working_place_option_china">中国</string>
     <string name="usercenter_userinfo_submit">保存</string>
     
+    <!-- password -->
+    <string name="usercenter_password_old_label">当前密码：</string>
+    <string name="usercenter_password_old_hint">请输入以核实您的身份</string>
+    <string name="usercenter_password_new_label">新密码：</string>
+    <string name="usercenter_password_new_hint">密码至少6位</string>
+    <string name="usercenter_password_new_again_label">确认新密码</string>
+    <string name="usercenter_password_submit">确认修改</string>
+    
 </resources>

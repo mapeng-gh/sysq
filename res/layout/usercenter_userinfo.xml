@@ -11,64 +11,64 @@
         android:orientation="vertical">
         
         <LinearLayout 
-       		style="@style/usercenter_userinfo_layout">
+       		style="@style/usercenter_layout">
        
 	       <TextView 
-	           style="@style/usercenter_userinfo_label"
+	           style="@style/usercenter_label"
 	           android:text="@string/usercenter_userinfo_login_name_label"/>
 	       <TextView 
 	           android:id="@+id/tv_usercenter_userinfo_login_name"
-	           style="@style/usercenter_userinfo_label"/>
+	           style="@style/usercenter_label"/>
        
    		</LinearLayout>
     
 	   <LinearLayout 
-	       style="@style/usercenter_userinfo_layout">
+	       style="@style/usercenter_layout">
 	       
 	       <TextView 
-	           style="@style/usercenter_userinfo_label"
+	           style="@style/usercenter_label"
 	           android:text="@string/usercenter_userinfo_username_label"/>
 	       <EditText 
 	           android:id="@+id/et_usercenter_userinfo_username"
-	           style="@style/usercenter_userinfo_edittext"/>
+	           style="@style/usercenter_edittext"/>
 	       
 	   </LinearLayout>
    
 	   <LinearLayout 
-	       style="@style/usercenter_userinfo_layout">
+	       style="@style/usercenter_layout">
 	       
 	       <TextView 
-	           style="@style/usercenter_userinfo_label"
+	           style="@style/usercenter_label"
 	           android:text="@string/usercenter_userinfo_email_label"/>
 	       <EditText 
 	           android:id="@+id/et_usercenter_userinfo_email"
-	           style="@style/usercenter_userinfo_edittext"/>
+	           style="@style/usercenter_edittext"/>
 	       <TextView 
-	           style="@style/usercenter_userinfo_hint"
+	           style="@style/usercenter_hint"
 	           android:text="@string/usercenter_userinfo_email_hint"/>
 	       
 	   </LinearLayout>
 	   
 	   <LinearLayout 
-	       style="@style/usercenter_userinfo_layout">
+	       style="@style/usercenter_layout">
 	       
 	       <TextView 
-	           style="@style/usercenter_userinfo_label"
+	           style="@style/usercenter_label"
 	           android:text="@string/usercenter_userinfo_mobile_label"/>
 	       <EditText 
 	           android:id="@+id/et_usercenter_userinfo_mobile"
-	           style="@style/usercenter_userinfo_edittext"/>
+	           style="@style/usercenter_edittext"/>
 	       <TextView 
-	           style="@style/usercenter_userinfo_hint"
+	           style="@style/usercenter_hint"
 	           android:text="@string/usercenter_userinfo_mobile_hint"/>
 	       
 	   </LinearLayout>
 	   
 	   <LinearLayout 
-	       style="@style/usercenter_userinfo_layout">
+	       style="@style/usercenter_layout">
 	       
 	       <TextView 
-	           style="@style/usercenter_userinfo_label"
+	           style="@style/usercenter_label"
 	           android:text="@string/usercenter_userinfo_working_place_label"/>
 	       <RadioGroup 
 	              android:layout_width="wrap_content"
@@ -78,11 +78,11 @@
 	              
 	              <RadioButton 
 	                  android:id="@+id/rb_usercenter_userinfo_working_place_uk"
-	                  style="@style/usercenter_userinfo_radio"
+	                  style="@style/usercenter_radio"
 	                  android:text="@string/usercenter_userinfo_working_place_option_uk"/>
 	              <RadioButton 
 	                  android:id="@+id/rb_usercenter_userinfo_working_place_china"
-	                   style="@style/usercenter_userinfo_radio"
+	                   style="@style/usercenter_radio"
 	                  android:text="@string/usercenter_userinfo_working_place_option_china"/>
 		                
 		   </RadioGroup>
