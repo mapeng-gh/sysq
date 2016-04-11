@@ -1,5 +1,7 @@
 package com.huasheng.sysq.activity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -71,7 +73,56 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 			this.modifyUserInfo();
 		}else if(view.getId() == R.id.btn_usercenter_password_submit){//修改密码
 			this.modifyPassword();
+		}else if(view.getId() == R.id.btn_usercenter_new_submit){//注册用户
+			this.newUser();
 		}
+	}
+	
+	private void newUser(){
+		//获取输入数据
+		EditText loginNameET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_new_loginname);
+		EditText passwordET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_new_password);
+		EditText passwordAgainET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_new_password_again);
+		EditText validatePasswordET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_new_validate_password);
+		
+		//用户名是否为空
+		if(StringUtils.isEmpty(StringUtils.trim(loginNameET.getText().toString()))){
+			Toast.makeText(MyApplication.getContext(), "用户名不能为空", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		//校验用户是否存在
+		Interviewer user = UserCenterService.getUser(loginNameET.getText().toString());
+		if(user != null){
+			Toast.makeText(MyApplication.getContext(), "用户已存在", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		//新密码不能为空
+		if(StringUtils.isEmpty(StringUtils.trim(passwordET.getText().toString())) || StringUtils.isEmpty(StringUtils.trim(passwordAgainET.getText().toString()))){
+			Toast.makeText(MyApplication.getContext(), "新密码不能为空", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		//两次输入密码不一致
+		if(!passwordET.getText().toString().equals(passwordAgainET.getText().toString())){
+			Toast.makeText(MyApplication.getContext(), "两次密码输入不一致", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		//管理员密码不正确
+		if(!SysqContext.getInterviewer().getPassword().equals(validatePasswordET.getText().toString())){
+			Toast.makeText(MyApplication.getContext(), "您当前密码不正确", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		//添加用户
+		Interviewer newUser = new Interviewer();
+		newUser.setLoginName(loginNameET.getText().toString());
+		newUser.setPassword(passwordET.getText().toString());
+		UserCenterService.addUser(newUser);
+		
+		Toast.makeText(MyApplication.getContext(), "用户添加成功", Toast.LENGTH_SHORT).show();
 	}
 	
 	private void modifyPassword(){
@@ -88,13 +139,13 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		
 		//两次输入新密码不正确
 		if(!newPasswordET.getText().toString().equals(newAgainPasswordET.getText().toString())){
-			Toast.makeText(MyApplication.getContext(),"新密码两次输入不同",Toast.LENGTH_SHORT).show();
+			Toast.makeText(MyApplication.getContext(),"新密码两次输入不一致",Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
 		Interviewer curUser = SysqContext.getInterviewer();
 		curUser.setPassword(newPasswordET.getText().toString());
-		UserCenterService.modifyUserInfo(curUser);
+		UserCenterService.modifyUser(curUser);
 		
 		Toast.makeText(MyApplication.getContext(), "密码修改成功", Toast.LENGTH_SHORT).show();
 	}
@@ -143,7 +194,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		}else if(workingPlaceChinaRB.isChecked()){
 			loginUser.setWorkingPlace(workingPlaceChinaRB.getText().toString());
 		}
-		UserCenterService.modifyUserInfo(loginUser);
+		UserCenterService.modifyUser(loginUser);
 		
 		Toast.makeText(MyApplication.getContext(), "修改成功", Toast.LENGTH_SHORT).show();
 		
@@ -202,6 +253,10 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		View view = inflater.inflate(R.layout.usercenter_new_user, null);
 		
 		this.containerLL.removeAllViews();
-		this.containerLL.addView(view);
+		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+		
+		//绑定事件
+		Button submitBtn = (Button)view.findViewById(R.id.btn_usercenter_new_submit);
+		submitBtn.setOnClickListener(this);
 	}
 }

@@ -26,4 +26,14 @@
     <string name="usercenter_password_new_again_label">确认新密码</string>
     <string name="usercenter_password_submit">确认修改</string>
     
+    <!-- new user -->
+     <string name="usercenter_new_loginname_label">新用户名：</string>
+     <string name="usercenter_new_loginname_hint">建议使用您姓名的拼音</string>
+     <string name="usercenter_new_password_label">新密码：</string>
+     <string name="usercenter_new_password_hint">密码至少6位：</string>
+     <string name="usercenter_new_password_again_label">重复新密码：</string>
+     <string name="usercenter_new_validate_password_label">您的密码：</string>
+     <string name="usercenter_new_validate_password_hint">请输入以核实您的身份：</string>
+     <string name="usercenter_new_submit">添加</string>
+    
 </resources>

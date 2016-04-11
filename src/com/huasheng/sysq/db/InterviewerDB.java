@@ -26,6 +26,11 @@ public class InterviewerDB {
 		SysQOpenHelper.getDatabase().update(TableConstants.TABLE_INTERVIEWER, values,"id = ?",new String[]{interviewer.getId()+""});
 	}
 	
+	public static void insert(Interviewer interviewer){
+		ContentValues values = fillDBFromObject(interviewer);
+		SysQOpenHelper.getDatabase().insert(TableConstants.TABLE_INTERVIEWER, null, values);
+	}
+	
 	private static ContentValues fillDBFromObject(Interviewer interviewer){
 		ContentValues values = new ContentValues();
 		values.put(TableConstants.COLUMN_INTERVIEWER_LOGIN_NAME, interviewer.getLoginName());
