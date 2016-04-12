@@ -292,3 +292,14 @@ function jumpToEnd(endQuestionCode){
 function quitInterviewAndSave(){
 	appservice.quitInterviewAndSave(JSON.stringify(answers));
 }
+
+/**
+ * º∆À„ƒÍ¡‰
+ * @param dateStr  1988-07-03
+ */
+function calculateAge(dateStr){
+	var year = dateStr.split("-")[0];
+	var curDate = new Date();
+	var curYear = curDate.getFullYear();
+	return curYear - parseInt(year);
+}
