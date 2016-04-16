@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.huasheng.sysq.R;
-import com.huasheng.sysq.model.Interview;
+import com.huasheng.sysq.model.InterviewBasic;
 
 public class InterviewerBasicActivity extends Activity implements OnClickListener{
 	
@@ -53,14 +53,14 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 	public void onClick(View view) {
 		if(view.getId() == R.id.interviewer_basic_submit_button){
 			Intent intent = new Intent(this,InterviewerDNAActivity.class);
-			Interview interview= collectData();
+			InterviewBasic interview= collectData();
 			intent.putExtra("interview", interview);
 			startActivity(intent);
 		}
 	}
 	
-	private Interview collectData(){
-		Interview interview = new Interview();
+	private InterviewBasic collectData(){
+		InterviewBasic interview = new InterviewBasic();
 		interview.setUsername(userET.getText().toString());
 		interview.setIdentityCard(identityCardET.getText().toString());
 		interview.setProvince(provinceET.getText().toString());

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.activity.interview.InterviewerBasicActivity;
+import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 
 public class IndexActivity extends Activity implements OnClickListener{
@@ -69,8 +70,9 @@ public class IndexActivity extends Activity implements OnClickListener{
 		}else if(view.getId() == R.id.user_center){//个人中心
 			Intent intent = new Intent(this,UserCenterActivity.class);
 			startActivity(intent);
-		}else if(view.getId() == R.id.interviewer_search){
-			
+		}else if(view.getId() == R.id.interviewer_search){//受访者一览
+			Intent intent = new Intent(this,IntervieweeActivity.class);
+			startActivity(intent);
 		}else if(view.getId() == R.id.data_upload){
 			
 		}else if(view.getId() == R.id.help){

@@ -4,184 +4,59 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.huasheng.sysq.db.AnswerDB;
-import com.huasheng.sysq.db.InterviewDB;
+import com.huasheng.sysq.db.InterviewAnswerDB;
+import com.huasheng.sysq.db.InterviewBasicDB;
+import com.huasheng.sysq.db.InterviewQuestionDB;
+import com.huasheng.sysq.db.InterviewQuestionaireDB;
 import com.huasheng.sysq.db.QuestionDB;
 import com.huasheng.sysq.db.QuestionaireDB;
-import com.huasheng.sysq.db.ResultDB;
 import com.huasheng.sysq.db.VersionDB;
 import com.huasheng.sysq.model.Answer;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.AnswerWrap;
-import com.huasheng.sysq.model.Interview;
+import com.huasheng.sysq.model.InterviewAnswer;
+import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewQuestion;
+import com.huasheng.sysq.model.InterviewQuestionaire;
+import com.huasheng.sysq.model.Page;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
-import com.huasheng.sysq.model.Result;
 import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.model.Version;
+import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqContext;
 
 public class InterviewService {
 
 	/**
-	 * 保存访问
+	 * 保存访问基本信息
 	 * @param interview
 	 */
-	public static void addInterview(Interview interview){
+	public static void addInterviewBasic(InterviewBasic interviewBasic){
 		
 		//记录访问者Id
-		interview.setInterviewerId(SysqContext.getInterviewer().getId());
+		interviewBasic.setInterviewerId(SysqContext.getInterviewer().getId());
 		
 		//记录开始时间
-		interview.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
+		interviewBasic.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
 		
 		//记录访谈状态
-		interview.setStatus(Interview.STATUS_DOING);
+		interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
 		
 		//记录当前版本
-		interview.setVersionId(SysqContext.getCurrentVersion().getId());
+		interviewBasic.setVersionId(SysqContext.getCurrentVersion().getId());
 		
-		interview.setId((int)InterviewDB.save(interview));
-		
-		//保存到访谈上下文
-		InterviewContext.setInterview(interview);
-	}
-	
-	/**
-	 * 获取第一个问题
-	 * @param questionaireCode
-	 * @return
-	 */
-	public static QuestionWrap getFirstQuestion(){
-		
-		//获取当前问卷
-		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
-		
-		//查询第一个问题
-		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),SysqContext.getCurrentVersion().getId(),Question.QUESTION_NOT_END);
-		if(questionList == null || questionList.size() <= 0){
-			throw new RuntimeException("问卷[" + curQuestionaire.getCode() + "]没有问题");
-		}
-		Question firstQuestion = questionList.get(0);
-		
-		//包装成questionWrap
-		QuestionWrap questionWrap = wrap(firstQuestion);
-				
-		return questionWrap;
-	}
-	
-	/**
-	 * 获取下一个问题
-	 * @param questionaireCode
-	 * @param questionCode
-	 * @return
-	 */
-	public static QuestionWrap getNextQuestion(){
-		
-		//获取当前问卷、当前问题
-		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
-		Question curQuestion = InterviewContext.getCurrentQuestion();
-		Version curVersion = SysqContext.getCurrentVersion();
-		
-		//获取下一个question
-		Question nextQuestion = null;
-		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId(),Question.QUESTION_NOT_END);
-		for(int i=0;i<questionList.size();i++){
-			if(questionList.get(i).getCode().equals(curQuestion.getCode())){
-				nextQuestion = questionList.get(i + 1);
-				break;
-			}
-		}
-		
-		//包装成questionWrap
-		QuestionWrap questionWrap = wrap(nextQuestion);
-		return questionWrap;
-	}
-	
-	/**
-	 * 获取指定问题
-	 * @param questionCode
-	 * @return
-	 */
-	public static QuestionWrap getSpecQuestion(String questionCode){
-		//获取当前问卷、当前版本
-		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
-		Version curVersion = SysqContext.getCurrentVersion();
-		
-		Question specQuestion = null;
-		
-		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId(),Question.QUESTION_NOT_END);
-		for(Question question : questionList){
-			if(question.getCode().equals(questionCode)){
-				specQuestion = question;
-				break;
-			}
-		}
-		
-		if(specQuestion == null){//指定问题不存在
-			throw new RuntimeException("问题[" + questionCode + "]不存在");
-		}
-		
-		//包装成questionWrap
-		QuestionWrap questionWrap = wrap(specQuestion);
-		return questionWrap;
-		
-	}
-	
-	/**
-	 * 获取上一题
-	 * @return
-	 */
-	public static QuestionWrap getPreviousQuestion(){
-		//获取当前问卷、当前问题
-		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
-		Question curQuestion = InterviewContext.getCurrentQuestion();
-		Version curVersion = SysqContext.getCurrentVersion();
-		
-		//获取上一question
-		Question previousQuestion = null;
-		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId(),Question.QUESTION_NOT_END);
-		for(int i=0;i<questionList.size();i++){
-			if(questionList.get(i).getCode().equals(curQuestion.getCode())){
-				if(i == 0){
-					return null;
-				}
-				previousQuestion = questionList.get(i - 1);
-				break;
-			}
-		}
-		
-		//包装成questionWrap
-		QuestionWrap questionWrap = wrap(previousQuestion);
-		return questionWrap;
-	}
-	
-	public static QuestionWrap wrap(Question question){
-		QuestionWrap questionWrap = new QuestionWrap();
-		questionWrap.setQuestionaire(InterviewContext.getCurrentQuestionaire());//设置问卷
-		
-		questionWrap.setQuestion(question);//设置问题
-		
-		/**
-		 * 设置答案
-		 */
-		List<Answer> answerList = AnswerDB.getList(question.getCode(),SysqContext.getCurrentVersion().getId());
-		if(answerList == null || answerList.size() <= 0){
-			throw new RuntimeException("问题[" + question.getCode() + "]没有答案");
-		}
-		
-		List<AnswerWrap> answerWrapList = new ArrayList<AnswerWrap>();
-		for(Answer answer : answerList){
-			answerWrapList.add(new AnswerWrap(answer));
-		}
-		questionWrap.setAnswerWrapList(answerWrapList);
-		
-		return questionWrap;
+		interviewBasic.setId((int)InterviewBasicDB.save(interviewBasic));
 	}
 	
 	/**
@@ -194,13 +69,13 @@ public class InterviewService {
 		ResultWrap resultWrap = new ResultWrap();
 		
 		//设置问卷
-		resultWrap.setQuestionaire(InterviewContext.getCurrentQuestionaire());
+		resultWrap.setQuestionaire(InterviewContext.getCurQuestionaire());
 		
 		//设置问题列表和对应的答案
 		List<Question> showQuestionList = new ArrayList<Question>();
 		Map<String,List<AnswerValue>> answerOfQuestionMap = new HashMap<String,List<AnswerValue>>();
 		
-		List<Question> questionList = QuestionDB.getList(InterviewContext.getCurrentQuestionaire().getCode(), SysqContext.getCurrentVersion().getId(),Question.QUESTION_NOT_END);
+		List<Question> questionList = QuestionDB.getList(InterviewContext.getCurQuestionaire().getCode(), SysqContext.getCurrentVersion().getId(),Question.QUESTION_NOT_END);
 		for(Question question : questionList){
 			
 			//挑出问题对应的所有答案
@@ -226,11 +101,184 @@ public class InterviewService {
 	}
 	
 	/**
+	 * 保存访问问卷
+	 * @param answerMap
+	 */
+	public static void saveInterviewQuestionaire(List<AnswerValue> answerValueList){
+		
+		//保存interviewQuestionaire（主要记录时间）
+		InterviewQuestionaire interviewQuestionaire = new InterviewQuestionaire();
+		interviewQuestionaire.setInterviewBasicId(InterviewContext.getInterviewBasic().getId());
+		interviewQuestionaire.setQuestionaireCode(InterviewContext.getCurQuestionaire().getCode());
+		interviewQuestionaire.setStartTime(InterviewContext.getQuestionaireStartTime());
+		interviewQuestionaire.setEndTime(DateTimeUtils.getCurTime());
+		interviewQuestionaire.setVersionId(SysqContext.getCurrentVersion().getId());
+		InterviewQuestionaireDB.insert(interviewQuestionaire);
+		
+		//保存interviewQuestion（主要记录访谈的问题）
+		Set<String> questionCodeSet = new HashSet<String>();
+		for(AnswerValue answerValue : answerValueList){
+			questionCodeSet.add(answerValue.getQuestionCode());
+		}
+		for(String questionCode : questionCodeSet){
+			InterviewQuestion interviewQuestion = new InterviewQuestion();
+			interviewQuestion.setInterviewBasicId(InterviewContext.getInterviewBasic().getId());
+			interviewQuestion.setQuestionaireCode(InterviewContext.getCurQuestionaire().getCode());
+			interviewQuestion.setQuestionCode(questionCode);
+			interviewQuestion.setVersionId(SysqContext.getCurrentVersion().getId());
+			InterviewQuestionDB.insert(interviewQuestion);
+		}
+		
+		//保存interviewAnswer
+		for(AnswerValue answerValue : answerValueList){
+			InterviewAnswer interviewAnswer = new InterviewAnswer();
+			interviewAnswer.setInterviewBasicId(InterviewContext.getInterviewBasic().getId());
+			interviewAnswer.setQuestionCode(answerValue.getQuestionCode());
+			interviewAnswer.setAnswerCode(answerValue.getCode());
+			interviewAnswer.setAnswerValue(answerValue.getValue());
+			InterviewAnswerDB.insert(interviewAnswer);
+		}
+	}
+	
+	/**
+	 * 获取第一个问题
+	 * @param questionaireCode
+	 * @return
+	 */
+	public static QuestionWrap getFirstQuestion(){
+		
+		//获取当前问卷
+		Questionaire curQuestionaire = InterviewContext.getCurQuestionaire();
+		
+		//查询第一个问题
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),SysqContext.getCurrentVersion().getId(),Question.QUESTION_NOT_END);
+		if(questionList == null || questionList.size() <= 0){
+			throw new RuntimeException("问卷[" + curQuestionaire.getCode() + "]没有问题");
+		}
+		Question firstQuestion = questionList.get(0);
+		
+		//包装成questionWrap
+		QuestionWrap questionWrap = wrap(firstQuestion);
+				
+		return questionWrap;
+	}
+	
+	/**
+	 * 获取上一题
+	 * @return
+	 */
+	public static QuestionWrap getPreviousQuestion(){
+		
+		//获取当前问卷、当前版本、当前问题
+		Questionaire curQuestionaire = InterviewContext.getCurQuestionaire();
+		Version curVersion = SysqContext.getCurrentVersion();
+		Question curQuestion = InterviewContext.getCurQuestion();
+		
+		//获取上一question
+		Question previousQuestion = null;
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId(),Question.QUESTION_NOT_END);
+		for(int i=0;i<questionList.size();i++){
+			if(questionList.get(i).getCode().equals(curQuestion.getCode())){
+				if(i == 0){
+					return null;
+				}
+				previousQuestion = questionList.get(i - 1);
+				break;
+			}
+		}
+		
+		//包装成questionWrap
+		QuestionWrap questionWrap = wrap(previousQuestion);
+		return questionWrap;
+	}
+	
+	/**
+	 * 获取下一个问题
+	 * @param questionaireCode
+	 * @param questionCode
+	 * @return
+	 */
+	public static QuestionWrap getNextQuestion(){
+		
+		//获取当前问卷、当前问题
+		Questionaire curQuestionaire = InterviewContext.getCurQuestionaire();
+		Version curVersion = SysqContext.getCurrentVersion();
+		Question curQuestion = InterviewContext.getCurQuestion();
+		
+		//获取下一个question
+		Question nextQuestion = null;
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId(),Question.QUESTION_NOT_END);
+		for(int i=0;i<questionList.size();i++){
+			if(questionList.get(i).getCode().equals(curQuestion.getCode())){
+				nextQuestion = questionList.get(i + 1);
+				break;
+			}
+		}
+		
+		//包装成questionWrap
+		QuestionWrap questionWrap = wrap(nextQuestion);
+		return questionWrap;
+	}
+	
+	/**
+	 * 获取指定问题
+	 * @param questionCode
+	 * @return
+	 */
+	public static QuestionWrap getSpecQuestion(String questionCode){
+		
+		//获取当前问卷、当前版本
+		Questionaire curQuestionaire = InterviewContext.getCurQuestionaire();
+		Version curVersion = SysqContext.getCurrentVersion();
+		
+		Question specQuestion = null;
+		
+		List<Question> questionList = QuestionDB.getList(curQuestionaire.getCode(),curVersion.getId(),Question.QUESTION_NOT_END);
+		for(Question question : questionList){
+			if(question.getCode().equals(questionCode)){
+				specQuestion = question;
+				break;
+			}
+		}
+		
+		if(specQuestion == null){//指定问题不存在
+			throw new RuntimeException("问题[" + questionCode + "]不存在");
+		}
+		
+		//包装成questionWrap
+		QuestionWrap questionWrap = wrap(specQuestion);
+		return questionWrap;
+		
+	}
+	
+	public static QuestionWrap wrap(Question question){
+		
+		//设置问卷
+		QuestionWrap questionWrap = new QuestionWrap();
+		questionWrap.setQuestionaire(InterviewContext.getCurQuestionaire());
+		
+		//设置问题
+		questionWrap.setQuestion(question);
+		
+		//设置答案
+		List<AnswerWrap> answerWrapList = new ArrayList<AnswerWrap>();
+		List<Answer> answerList = AnswerDB.getList(question.getCode(),SysqContext.getCurrentVersion().getId());
+		for(Answer answer : answerList){
+			answerWrapList.add(new AnswerWrap(answer));
+		}
+		questionWrap.setAnswerWrapList(answerWrapList);
+		
+		return questionWrap;
+	}
+	
+	
+	
+	/**
 	 * 获取第一个问卷
 	 * @return
 	 */
 	public static Questionaire getFirstQuestionaire(){
-		int type = InterviewContext.getInterview().getType();
+		int type = InterviewContext.getInterviewBasic().getType();
 		int versionId = SysqContext.getCurrentVersion().getId();
 		
 		List<Questionaire> questionaireList = QuestionaireDB.getList(versionId, type);
@@ -244,29 +292,14 @@ public class InterviewService {
 	}
 	
 	/**
-	 * 保存答案
-	 * @param answerMap
-	 */
-	public static void saveAnswers(List<AnswerValue> answerValueList){
-		
-		for(AnswerValue answerValue : answerValueList){
-			Result result = new Result();
-			result.setInterviewId(InterviewContext.getInterview().getId());
-			result.setAnswerCode(answerValue.getCode());
-			result.setAnswerValue(answerValue.getValue());
-			ResultDB.save(result);
-		}
-	}
-	
-	/**
 	 * 获取下一个问卷
 	 * @return
 	 */
 	public static Questionaire getNextQuestionaire(){
 		
 		//获取当前访谈、当前问卷、当前版本
-		Interview curInterview = InterviewContext.getInterview();
-		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
+		InterviewBasic curInterview = InterviewContext.getInterviewBasic();
+		Questionaire curQuestionaire = InterviewContext.getCurQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
 		
 		//获取下一个问卷
@@ -287,71 +320,31 @@ public class InterviewService {
 	}
 	
 	/**
-	 * 退出访谈
+	 * 更新访谈状态
+	 * @param interviewStatus
 	 */
-	public static void quitInterview(){
-		Interview curInterview = InterviewContext.getInterview();
-		curInterview.setStatus(Interview.STATUS_BREAK);
-		curInterview.setEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
-		InterviewDB.update(curInterview);
-	}
-	
-	/**
-	 * 完成访谈
-	 */
-	public static void finishInterview(){
-		Interview curInterview = InterviewContext.getInterview();
-		curInterview.setStatus(Interview.STATUS_DONE);
-		curInterview.setEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
-		InterviewDB.update(curInterview);
+	public static void updateInterviewStatus(Integer interviewStatus){
+		InterviewBasic curInterview = InterviewContext.getInterviewBasic();
+		curInterview.setStatus(interviewStatus);
+		curInterview.setLastModifiedTime(DateTimeUtils.getCurTime());
+		InterviewBasicDB.update(curInterview);
 	}
 	
 	/**
 	 * 记录访谈当前位置
+	 * @param questionaireCode
+	 * @param questionCode
 	 */
-	public static void recordInterviewProgress(){
-		
-		//获取当前问卷、当前问题
-		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
-		Question curQuestion = InterviewContext.getCurrentQuestion();
-		
-		//更新
-		Interview curInterview = InterviewContext.getInterview();
-		curInterview.setCurQuestionaireCode(curQuestionaire.getCode());
-		curInterview.setNextQuestionCode(curQuestion.getCode());
-		InterviewDB.update(curInterview);
-	}
-	
-	/**
-	 * 获取结束问题
-	 * @param endQuestionCode
-	 * @return
-	 */
-	public static QuestionWrap getEndQuestion(String endQuestionCode){
-		
-		//获取当前版本和问卷
-		Version curVersion = SysqContext.getCurrentVersion();
-		Questionaire curQuestionaire = InterviewContext.getCurrentQuestionaire();
-		
-		//查询结束问题
-		Question endQuestion = null;
-		List<Question> endQuestionList = QuestionDB.getList(curQuestionaire.getCode(), curVersion.getId(),Question.QUESTION_END);
-		if(endQuestionList == null || endQuestionList.size() <= 0){
-			throw new RuntimeException("问卷[" + curQuestionaire.getCode() + "]没有结束问题");
+	public static void updateInterviewPosition(String questionaireCode,String questionCode){
+		InterviewBasic curInterview = InterviewContext.getInterviewBasic();
+		if(!StringUtils.isEmpty(questionaireCode)){
+			curInterview.setCurQuestionaireCode(questionaireCode);
 		}
-		for(Question question : endQuestionList){
-			if(question.getCode().equals(endQuestionCode)){
-				endQuestion = question;
-				break;
-			}
+		curInterview.setCurQuestionaireCode(questionaireCode);
+		if(!StringUtils.isEmpty(questionCode)){
+			curInterview.setNextQuestionCode(questionCode);
 		}
-		
-		//包装问题
-		QuestionWrap endQuestionWrap = new QuestionWrap();
-		endQuestionWrap.setQuestionaire(curQuestionaire);
-		endQuestionWrap.setQuestion(endQuestion);
-		
-		return endQuestionWrap;
+		InterviewBasicDB.update(curInterview);
 	}
 	
 	/**
@@ -360,5 +353,41 @@ public class InterviewService {
 	 */
 	public static Version getCurrentVersion(){
 		return VersionDB.getCurVersion();
+	}
+	
+	/**
+	 * 搜索访谈记录
+	 * @param searchStr
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public static Page<InterviewBasic> searchInterview(String searchStr,Integer pageNo,Integer pageSize){
+		
+		//构造搜索对象
+		InterviewBasic interview = new InterviewBasic();
+		interview.setUsername(searchStr);
+		interview.setDna(searchStr);
+		
+		//分页计算
+		Integer offset = null;
+		Integer limit = pageSize;
+		offset = (pageNo - 1) * pageSize;
+		
+		//数据查询
+		List<InterviewBasic> data = InterviewBasicDB.search(interview, "or", offset, limit);
+		
+		//构造page
+		Page<InterviewBasic> page = new Page<InterviewBasic>();
+		page.setData(data);
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		
+		//计算总页数
+		int size = InterviewBasicDB.size(interview, "or");
+		int totalPages = size % pageSize == 0 ? size / pageSize : size / pageSize + 1;
+		page.setTotalPages(totalPages);
+		
+		return page;
 	}
 }

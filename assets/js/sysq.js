@@ -4,14 +4,19 @@
  * @param data
  */
 function renderContent(tpl,data){
+	
+	appservice.debug("renderContent",tpl);
 	var render = template.compile(tpl);
-	appservice.debug("compile finished");
-	appservice.debug(data);
+	appservice.debug("renderContent","template compile success");
+	
+	appservice.debug("renderContent",data);
 	data = JSON.parse(data);
-	appservice.debug("parse finished");
+	appservice.debug("renderContent","data parse success");
+	
 	var html = render(data);
-	appservice.debug("render finished");
-	appservice.debug(html);
+	appservice.debug("renderContent","template render success");
+	appservice.debug("renderContent",html);
+	
 	$("#content").html(html);
 }
 
@@ -141,7 +146,7 @@ function saveToAnswers(){
 		}
 	}
 	
-	appservice.debug("answers = " + JSON.stringify(answers));
+	appservice.debug("saveToAnswers","answers = " + JSON.stringify(answers));
 }
 
 /**
@@ -188,14 +193,16 @@ function saveQuestionaire(){
  */
 function redoQuestionaire(){
 	answers = [];//清空答案
-	appservice.jumpToFirstQuestion();
+	appservice.redoQuestionaire();
 }
 
 /**
  * 退出访谈
  */
 function quitInterview(){
-	appservice.quitInterview();
+	if(answers.length > 0){
+		appservice.quitInterview(JSON.stringify(answers));
+	}
 }
 
 /**
@@ -209,7 +216,9 @@ function jumpToPreviousQuestion(){
  * 暂停访谈
  */
 function pauseInterview(){
-	appservice.pauseInterview(JSON.stringify(answers));
+	if(answers.length > 0){
+		appservice.pauseInterview(JSON.stringify(answers));
+	}
 }
 
 /**
@@ -244,7 +253,7 @@ function editQuestion(questionCode){
 		}
 	}
 	answers = answers.slice(0,i);
-	appservice.debug(JSON.stringify(answers));
+	appservice.debug("editQuestion",JSON.stringify(answers));
 	
 	appservice.jumpToSpecQuestion(questionCode);
 }
@@ -283,14 +292,7 @@ function resumeQuestionaire(){
  * @param endQuestionCode
  */
 function jumpToEnd(endQuestionCode){
-	appservice.jumpToEnd(endQuestionCode);
-}
-
-/**
- * 结束访谈（保存答案）
- */
-function quitInterviewAndSave(){
-	appservice.quitInterviewAndSave(JSON.stringify(answers));
+	appservice.jumpToEndQuestion(endQuestionCode);
 }
 
 /**

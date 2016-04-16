@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <style name="interviewee_list_head">
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">#338EE7</item>
+	     <item name="android:textColor">#FFFFFF</item>
+	     <item name="android:gravity">center</item>
+	     <item name="android:paddingTop">5dp</item>
+	     <item name="android:paddingBottom">5dp</item>
+    </style>
+    
+    <style name="interviewee_list_body">
+        <item name="android:textSize">20sp</item>
+	     <item name="android:gravity">center</item>
+    </style>
+    
+</resources>

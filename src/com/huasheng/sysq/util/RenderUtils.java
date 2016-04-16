@@ -21,7 +21,7 @@ public class RenderUtils {
 		String tpl = "";
 		InputStream is = null;
 		try{
-			is = MyApplication.getContext().getAssets().open(TEMPLATE_DIR + File.separator + filename);
+			is = SysqApplication.getContext().getAssets().open(TEMPLATE_DIR + File.separator + filename);
 			tpl = IOUtils.toString(is,"utf-8");
 		}catch(Exception e){
 			throw new RuntimeException("º”‘ÿƒ£∞Ê ß∞‹", e);

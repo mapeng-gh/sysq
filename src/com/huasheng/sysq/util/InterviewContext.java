@@ -5,45 +5,65 @@ import java.util.List;
 
 import android.webkit.WebView;
 
-import com.huasheng.sysq.model.Interview;
+import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.Questionaire;
 
 public class InterviewContext {
 
-	private static Interview interview;//访问记录
-	private static Questionaire currentQuestionaire;//当前问卷
-	private static List<Question> questionStack = new ArrayList<Question>();
+	private static InterviewBasic interviewBasic;//访问记录
+	private static Questionaire curQuestionaire;//当前问卷
+	private static String questionaireStartTime;//问卷开始时间
+	private static List<Question> questionBackStack = new ArrayList<Question>();
 	
 	private static WebView webView;
 	
-	public static void clearContext(){
-		interview = null;
-		currentQuestionaire = null;
+	/**
+	 * ================清空上下文信息===================
+	 */
+	public static void clearInterviewContext(){
+		interviewBasic = null;
+		curQuestionaire = null;
+		questionBackStack.clear();
+		questionaireStartTime = null;
 		webView = null;
-		questionStack.clear();
+	}
+	public static void clearQuestionaireContext(){
+		curQuestionaire = null;
+		questionBackStack.clear();
+		questionaireStartTime = null;
 	}
 	
-	public static void pushStack(Question question){
-		questionStack.add(question);
+	/**
+	 * ================问题返回栈操作===================
+	 */
+	public static void pushQuestion(Question question){
+		questionBackStack.add(question);
 	}
-	public static Question getCurrentQuestion() {
-		return questionStack.get(questionStack.size()-1);
+	public static void popQuestion(){
+		questionBackStack.remove(questionBackStack.size()-1);
+	}
+	public static void clearQuestionStack(){
+		questionBackStack.clear();
+	}
+	public static Question getCurQuestion() {
+		if(questionBackStack.size() <= 0){
+			return null;
+		}
+		return questionBackStack.get(questionBackStack.size()-1);
 	}
 	public static Question getPrevQuestion(){
-		if(questionStack.size() <= 1){
+		if(questionBackStack.size() <= 1){
 			return null;
 		}
-		return questionStack.get(questionStack.size()-2);
+		return questionBackStack.get(questionBackStack.size()-2);
 	}
-	public static void popStack(){
-		questionStack.remove(questionStack.size()-1);
-	}
+	
 	public static Question findQuestion(String questionCode){
-		if(questionStack.size() <= 0){
+		if(questionBackStack.size() <= 0){
 			return null;
 		}
-		for(Question question : questionStack){
+		for(Question question : questionBackStack){
 			if(question.getCode().equals(questionCode)){
 				return question;
 			}
@@ -51,25 +71,34 @@ public class InterviewContext {
 		return null;
 	}
 	
-	public static void clearStack(){
-		questionStack.clear();
+	/**
+	 * ================设置/获取上下文===================
+	 */
+	public static InterviewBasic getInterviewBasic() {
+		return interviewBasic;
 	}
-	public static Interview getInterview() {
-		return interview;
+	public static void setInterview(InterviewBasic interviewBasic) {
+		InterviewContext.interviewBasic = interviewBasic;
 	}
-	public static void setInterview(Interview interview) {
-		InterviewContext.interview = interview;
+	
+	public static Questionaire getCurQuestionaire() {
+		return curQuestionaire;
 	}
-	public static Questionaire getCurrentQuestionaire() {
-		return currentQuestionaire;
-	}
-	public static void setCurrentQuestionaire(Questionaire currentQuestionaire) {
-		InterviewContext.currentQuestionaire = currentQuestionaire;
+	public static void setCurQuestionaire(Questionaire curQuestionaire) {
+		InterviewContext.curQuestionaire = curQuestionaire;
 	}
 	public static WebView getWebView() {
 		return webView;
 	}
 	public static void setWebView(WebView webView) {
 		InterviewContext.webView = webView;
+	}
+
+	public static String getQuestionaireStartTime() {
+		return questionaireStartTime;
+	}
+
+	public static void setQuestionaireStartTime(String questionaireStartTime) {
+		InterviewContext.questionaireStartTime = questionaireStartTime;
 	}
 }

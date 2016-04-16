@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author map
  *
  */
-public class Interview implements Serializable{
+public class InterviewBasic implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -30,7 +30,7 @@ public class Interview implements Serializable{
 	private int status;
 	private String curQuestionaireCode;
 	private String nextQuestionCode;
-	private String endTime;
+	private String lastModifiedTime;
 	private int versionId;
 	
 	public static final int STATUS_DOING = 1;
@@ -109,6 +109,12 @@ public class Interview implements Serializable{
 	public String getDna() {
 		return dna;
 	}
+	public String getLastModifiedTime() {
+		return lastModifiedTime;
+	}
+	public void setLastModifiedTime(String lastModifiedTime) {
+		this.lastModifiedTime = lastModifiedTime;
+	}
 	public void setDna(String dna) {
 		this.dna = dna;
 	}
@@ -159,12 +165,6 @@ public class Interview implements Serializable{
 	}
 	public void setNextQuestionCode(String nextQuestionCode) {
 		this.nextQuestionCode = nextQuestionCode;
-	}
-	public String getEndTime() {
-		return endTime;
-	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
 	}
 	
 }

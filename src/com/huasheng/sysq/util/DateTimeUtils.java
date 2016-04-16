@@ -1,5 +1,8 @@
 package com.huasheng.sysq.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DateTimeUtils {
 	
 	public static String showDoubleNumber(int singleNumber){
@@ -7,5 +10,15 @@ public class DateTimeUtils {
 			return "0" + singleNumber;
 		}
 		return "" + singleNumber;
+	}
+	
+	/**
+	 * 获取当前时间（yyyy-MM-dd hh:mm）
+	 * @return
+	 */
+	public static String getCurTime(){
+		Date curDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		return dateFormat.format(curDate);
 	}
 }

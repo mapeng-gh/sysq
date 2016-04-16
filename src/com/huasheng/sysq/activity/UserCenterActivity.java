@@ -23,7 +23,7 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.UserCenterService;
 import com.huasheng.sysq.util.InterviewContext;
-import com.huasheng.sysq.util.MyApplication;
+import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 
 public class UserCenterActivity extends Activity implements OnClickListener{
@@ -87,32 +87,32 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		
 		//用户名是否为空
 		if(StringUtils.isEmpty(StringUtils.trim(loginNameET.getText().toString()))){
-			Toast.makeText(MyApplication.getContext(), "用户名不能为空", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "用户名不能为空", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
 		//校验用户是否存在
 		Interviewer user = UserCenterService.getUser(loginNameET.getText().toString());
 		if(user != null){
-			Toast.makeText(MyApplication.getContext(), "用户已存在", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "用户已存在", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
 		//新密码不能为空
 		if(StringUtils.isEmpty(StringUtils.trim(passwordET.getText().toString())) || StringUtils.isEmpty(StringUtils.trim(passwordAgainET.getText().toString()))){
-			Toast.makeText(MyApplication.getContext(), "新密码不能为空", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "新密码不能为空", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
 		//两次输入密码不一致
 		if(!passwordET.getText().toString().equals(passwordAgainET.getText().toString())){
-			Toast.makeText(MyApplication.getContext(), "两次密码输入不一致", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "两次密码输入不一致", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
 		//管理员密码不正确
 		if(!SysqContext.getInterviewer().getPassword().equals(validatePasswordET.getText().toString())){
-			Toast.makeText(MyApplication.getContext(), "您当前密码不正确", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "您当前密码不正确", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
@@ -122,7 +122,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		newUser.setPassword(passwordET.getText().toString());
 		UserCenterService.addUser(newUser);
 		
-		Toast.makeText(MyApplication.getContext(), "用户添加成功", Toast.LENGTH_SHORT).show();
+		Toast.makeText(SysqApplication.getContext(), "用户添加成功", Toast.LENGTH_SHORT).show();
 	}
 	
 	private void modifyPassword(){
@@ -133,13 +133,13 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		
 		//当前密码输入不正确
 		if(!SysqContext.getInterviewer().getPassword().equals(oldPasswordET.getText().toString())){
-			Toast.makeText(MyApplication.getContext(), "当前密码不正确", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "当前密码不正确", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
 		//两次输入新密码不正确
 		if(!newPasswordET.getText().toString().equals(newAgainPasswordET.getText().toString())){
-			Toast.makeText(MyApplication.getContext(),"新密码两次输入不一致",Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(),"新密码两次输入不一致",Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
@@ -147,7 +147,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		curUser.setPassword(newPasswordET.getText().toString());
 		UserCenterService.modifyUser(curUser);
 		
-		Toast.makeText(MyApplication.getContext(), "密码修改成功", Toast.LENGTH_SHORT).show();
+		Toast.makeText(SysqApplication.getContext(), "密码修改成功", Toast.LENGTH_SHORT).show();
 	}
 	
 	private void logout(){
@@ -160,7 +160,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 				
 				//清除上下文
 				SysqContext.clearContext();
-				InterviewContext.clearContext();
+				InterviewContext.clearInterviewContext();
 				
 				//跳转登录
 				Intent loginIntent = new Intent(UserCenterActivity.this,LoginActivity.class);
@@ -196,7 +196,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		}
 		UserCenterService.modifyUser(loginUser);
 		
-		Toast.makeText(MyApplication.getContext(), "修改成功", Toast.LENGTH_SHORT).show();
+		Toast.makeText(SysqApplication.getContext(), "修改成功", Toast.LENGTH_SHORT).show();
 		
 	}
 	

@@ -17,9 +17,10 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.huasheng.sysq.R;
-import com.huasheng.sysq.model.Interview;
+import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.InterviewConstants;
+import com.huasheng.sysq.util.InterviewContext;
 
 public class InterviewerDNAActivity extends Activity implements OnClickListener{
 	
@@ -52,10 +53,15 @@ public class InterviewerDNAActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View view) {
 		if(view.getId() == R.id.interviewer_dna_submit_button){
-			Interview interview = (Interview)getIntent().getSerializableExtra("interview");
-			collectData(interview);
-			InterviewService.addInterview(interview);
+			
+			//保存访谈信息
+			InterviewBasic interviewBasic = (InterviewBasic)getIntent().getSerializableExtra("interview");
+			collectData(interviewBasic);
+			InterviewService.addInterviewBasic(interviewBasic);
 			Toast.makeText(this, "保存成功 ", Toast.LENGTH_SHORT).show();
+			
+			//保存到访谈上下文
+			InterviewContext.setInterview(interviewBasic);
 			
 			//跳转问卷页
 			Intent intent = new Intent(this,InterviewActivity.class);
@@ -63,7 +69,7 @@ public class InterviewerDNAActivity extends Activity implements OnClickListener{
 		}
 	}
 	
-	private void collectData(Interview interview){
+	private void collectData(InterviewBasic interview){
 		List<String> dnaList = new ArrayList<String>();
 		if(sample1ET.getText().toString() != null && !sample1ET.getText().toString().equals("")){
 			dnaList.add(sample1ET.getText().toString());
@@ -80,7 +86,7 @@ public class InterviewerDNAActivity extends Activity implements OnClickListener{
 		if(dnaList.size() > 0){
 			interview.setDna(StringUtils.join(dnaList, ","));
 		}
-		interview.setIsTest(testRB.isChecked() ? Interview.TEST_YES : Interview.TEST_NO);
+		interview.setIsTest(testRB.isChecked() ? InterviewBasic.TEST_YES : InterviewBasic.TEST_NO);
 		interview.setType(caseRB.isChecked() ? InterviewConstants.TYPE_CASE : InterviewConstants.TYPE_CONTRAST);
 	}
 	

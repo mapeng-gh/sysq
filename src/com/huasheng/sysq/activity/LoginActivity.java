@@ -16,7 +16,7 @@ import com.huasheng.sysq.db.VersionDB;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.service.LoginService;
-import com.huasheng.sysq.util.MyApplication;
+import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 
 public class LoginActivity extends Activity implements OnClickListener{
@@ -51,14 +51,14 @@ public class LoginActivity extends Activity implements OnClickListener{
 			Interviewer interviewer = LoginService.login(loginName, password);
 			
 			if(interviewer == null){
-				Toast.makeText(MyApplication.getContext(), "帐号或密码不正确", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SysqApplication.getContext(), "帐号或密码不正确", Toast.LENGTH_SHORT).show();
 			}else{
 				
 				//保存上下文（当前用户、版本号）
 				SysqContext.setInterviewer(interviewer);
 				SysqContext.setCurrentVersion(InterviewService.getCurrentVersion());
 				
-				Intent intent = new Intent(MyApplication.getContext(), IndexActivity.class);
+				Intent intent = new Intent(SysqApplication.getContext(), IndexActivity.class);
 				startActivity(intent);
 			}
 		}

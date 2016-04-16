@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Reservation;
-import com.huasheng.sysq.util.MyApplication;
+import com.huasheng.sysq.util.SysqApplication;
 
 public class ReservationAdapter extends ArrayAdapter<Reservation>{
 	
@@ -48,9 +48,9 @@ public class ReservationAdapter extends ArrayAdapter<Reservation>{
 		
 		TextView typeTV = (TextView)reservationView.findViewById(R.id.reservation_list_type);
 		if(reservation.getType() == Reservation.TYPE_CASE){
-			typeTV.setText(MyApplication.getContext().getString(R.string.reservation_add_type_case_text));
+			typeTV.setText(SysqApplication.getContext().getString(R.string.reservation_add_type_case_text));
 		}else if(reservation.getType() == Reservation.TYPE_CONTRAST){
-			typeTV.setText(MyApplication.getContext().getString(R.string.reservation_add_type_contrast_text));
+			typeTV.setText(SysqApplication.getContext().getString(R.string.reservation_add_type_contrast_text));
 		}
 		
 		TextView bookDateTV = (TextView)reservationView.findViewById(R.id.reservation_list_book_date);

@@ -6,6 +6,7 @@ import java.util.List;
 import android.database.Cursor;
 
 import com.huasheng.sysq.model.Questionaire;
+import com.huasheng.sysq.util.ColumnConstants;
 import com.huasheng.sysq.util.InterviewConstants;
 import com.huasheng.sysq.util.TableConstants;
 
@@ -23,13 +24,13 @@ public class QuestionaireDB {
 		while(cursor.moveToNext()){
 			Questionaire questionaire = new Questionaire();
 			questionaire.setId(cursor.getInt(cursor.getColumnIndex("id")));
-			questionaire.setCode(cursor.getString(cursor.getColumnIndex(TableConstants.COLUMN_QUESTIONAIRE_CODE)));
-			questionaire.setTitle(cursor.getString(cursor.getColumnIndex(TableConstants.COLUMN_QUESTIONAIRE_TITLE)));
-			questionaire.setIntroduction(cursor.getString(cursor.getColumnIndex(TableConstants.COLUMN_QUESTIONAIRE_INTRODUCTION)));
-			questionaire.setRemark(cursor.getString(cursor.getColumnIndex(TableConstants.COLUMN_QUESTIONAIRE_REMARK)));
-			questionaire.setType(cursor.getInt(cursor.getColumnIndex(TableConstants.COLUMN_QUESTIONAIRE_TYPE)));
-			questionaire.setSeqNum(cursor.getInt(cursor.getColumnIndex(TableConstants.COLUMN_QUESTIONAIRE_SEQ_NUM)));
-			questionaire.setVersionId(cursor.getInt(cursor.getColumnIndex(TableConstants.COLUMN_QUESTIONAIRE_VERSION_ID)));
+			questionaire.setCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_CODE)));
+			questionaire.setTitle(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_TITLE)));
+			questionaire.setIntroduction(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_INTRODUCTION)));
+			questionaire.setRemark(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_REMARK)));
+			questionaire.setType(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_TYPE)));
+			questionaire.setSeqNum(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_SEQ_NUM)));
+			questionaire.setVersionId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_VERSION_ID)));
 			questionaireList.add(questionaire);
 		}
 		
