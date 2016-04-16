@@ -29,7 +29,7 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
 		//获取数据
-		InterviewBasic interview = getItem(position);
+		InterviewBasic interviewBasic = getItem(position);
 		
 		//实例化一个view
 		View interviewView;
@@ -41,28 +41,44 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 		
 		//绑定数据
 		TextView idTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_id);
-		idTV.setText(interview.getId()+"");
+		idTV.setText(interviewBasic.getId()+"");
 		
 		TextView usernameTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_username);
-		usernameTV.setText(interview.getUsername());
+		usernameTV.setText(interviewBasic.getUsername());
 		
 		TextView addressTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_address);
-		addressTV.setText(interview.getAddress());
+		addressTV.setText(interviewBasic.getAddress());
 		
 		TextView mobileTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_mobile);
-		mobileTV.setText(interview.getMobile());
+		mobileTV.setText(interviewBasic.getMobile());
 		
 		TextView typeTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_type);
-		if(interview.getType() == InterviewConstants.TYPE_CASE){
+		if(interviewBasic.getType() == InterviewConstants.TYPE_CASE){
 			typeTV.setText("病例");
-		}else if(interview.getType() == InterviewConstants.TYPE_CONTRAST){
+		}else if(interviewBasic.getType() == InterviewConstants.TYPE_CONTRAST){
 			typeTV.setText("对照");
 		}
 		
+		TextView statusTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_status);
+		if(interviewBasic.getStatus() == InterviewBasic.STATUS_DOING){
+			statusTV.setText("正在进行");
+		}else if(interviewBasic.getStatus() == InterviewBasic.STATUS_BREAK){
+			statusTV.setText("已结束");
+		}else if(interviewBasic.getStatus() == InterviewBasic.STATUS_DONE){
+			statusTV.setText("已完成");
+		}
+		
 		//绑定事件
-		TextView viewTV = (TextView)interviewView.findViewWithTag("view");
+		TextView viewTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_view);
 		viewTV.setOnClickListener(this.activity);
-		((LinearLayout)viewTV.getParent().getParent().getParent()).setId(interview.getId());
+		viewTV.setTag(interviewBasic.getId());
+		
+		if(interviewBasic.getStatus() == InterviewBasic.STATUS_DOING){//正在进行显示“继续”
+			TextView continueTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_continue);
+			continueTV.setVisibility(View.VISIBLE);
+			continueTV.setOnClickListener(this.activity);
+			continueTV.setTag(interviewBasic.getId());
+		}
 		
 		return interviewView;
 	}

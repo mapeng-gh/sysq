@@ -51,6 +51,15 @@
     
     <View style="@style/list_item_cell_seperator"/>
     
+    <TextView 
+        android:id="@+id/tv_interviewee_list_item_status"
+        android:layout_width="0dp"
+        android:layout_weight="@string/interviewee_list_head_status_weight"
+        android:layout_height="match_parent"
+        style="@style/interviewee_list_body"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
     <RelativeLayout 
         android:layout_width="0dp"
         android:layout_weight="@string/interviewee_list_head_operation_weight"
@@ -69,8 +78,17 @@
                 android:layout_height="wrap_content"
                 android:text="查看"
                 android:textColor="#338EE7"
+                android:textSize="17sp"/>
+            
+            <TextView 
+                android:id="@+id/tv_interviewee_item_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="继续"
+                android:textColor="#338EE7"
                 android:textSize="17sp"
-                android:tag="view"/>
+                android:layout_marginLeft="15dp"
+                android:visibility="gone"/>
             
         </LinearLayout>
         

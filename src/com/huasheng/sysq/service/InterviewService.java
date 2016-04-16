@@ -362,7 +362,7 @@ public class InterviewService {
 	 * @param pageSize
 	 * @return
 	 */
-	public static Page<InterviewBasic> searchInterview(String searchStr,Integer pageNo,Integer pageSize){
+	public static Page<InterviewBasic> searchInterviewBasic(String searchStr,Integer pageNo,Integer pageSize){
 		
 		//构造搜索对象
 		InterviewBasic interview = new InterviewBasic();

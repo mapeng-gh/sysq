@@ -53,30 +53,30 @@ public class InterviewBasicDB {
 	
 	private static InterviewBasic fillObjectFromDB(Cursor cursor){
 		
-		InterviewBasic interview = new InterviewBasic();
-		interview.setId(cursor.getInt(cursor.getColumnIndex("id")));
-		interview.setUsername(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_USERNAME)));
-		interview.setIdentityCard(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_IDENTITY_CARD)));
-		interview.setMobile(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_MOBILE)));
-		interview.setProvince(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_PROVINCE)));
-		interview.setCity(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_CITY)));
-		interview.setAddress(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_ADDRESS)));
-		interview.setPostCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_POST_CODE)));
-		interview.setFamilyMobile(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_FAMILY_MOBILE)));
-		interview.setFamilyAddress(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_FAMILY_ADDRESS)));
-		interview.setDna(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_DNA)));
-		interview.setRemark(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_REMARK)));
-		interview.setInterviewerId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID)));
-		interview.setType(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE)));
-		interview.setIsTest(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_IS_TEST)));
-		interview.setStartTime(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_START_TIME)));
-		interview.setStatus(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_STATUS)));
-		interview.setCurQuestionaireCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_CUR_QUESTIONAIRE_CODE)));
-		interview.setNextQuestionCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_NEXT_QUESTION_CODE)));
-		interview.setLastModifiedTime(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_LAST_MODIFYED_TIME)));
-		interview.setVersionId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_VERSION_ID)));
+		InterviewBasic interviewBasic = new InterviewBasic();
+		interviewBasic.setId(cursor.getInt(cursor.getColumnIndex("id")));
+		interviewBasic.setUsername(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_USERNAME)));
+		interviewBasic.setIdentityCard(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_IDENTITY_CARD)));
+		interviewBasic.setMobile(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_MOBILE)));
+		interviewBasic.setProvince(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_PROVINCE)));
+		interviewBasic.setCity(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_CITY)));
+		interviewBasic.setAddress(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_ADDRESS)));
+		interviewBasic.setPostCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_POST_CODE)));
+		interviewBasic.setFamilyMobile(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_FAMILY_MOBILE)));
+		interviewBasic.setFamilyAddress(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_FAMILY_ADDRESS)));
+		interviewBasic.setDna(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_DNA)));
+		interviewBasic.setRemark(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_REMARK)));
+		interviewBasic.setInterviewerId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID)));
+		interviewBasic.setType(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE)));
+		interviewBasic.setIsTest(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_IS_TEST)));
+		interviewBasic.setStartTime(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_START_TIME)));
+		interviewBasic.setStatus(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_STATUS)));
+		interviewBasic.setCurQuestionaireCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_CUR_QUESTIONAIRE_CODE)));
+		interviewBasic.setNextQuestionCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_NEXT_QUESTION_CODE)));
+		interviewBasic.setLastModifiedTime(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_LAST_MODIFYED_TIME)));
+		interviewBasic.setVersionId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_VERSION_ID)));
 		
-		return interview;
+		return interviewBasic;
 	}
 	
 	/**

@@ -1,31 +1,23 @@
 package com.huasheng.sysq.activity.interviewee;
 
-import com.huasheng.sysq.R;
-import com.huasheng.sysq.activity.reservation.ReservationAdapter;
-import com.huasheng.sysq.activity.reservation.ReservationAddActivity;
-import com.huasheng.sysq.activity.reservation.ReservationListActivity;
-import com.huasheng.sysq.model.InterviewBasic;
-import com.huasheng.sysq.model.Page;
-import com.huasheng.sysq.model.Reservation;
-import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.service.ReservationService;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.huasheng.sysq.R;
+import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.Page;
+import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.SysqApplication;
 
 public class IntervieweeActivity extends Activity implements OnClickListener{
 	
@@ -67,7 +59,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		searchET = (EditText)findViewById(R.id.et_interviewee_search);
 		searchBtn = (Button)findViewById(R.id.btn_interviewee_search);
 		
-		Page<InterviewBasic> page = InterviewService.searchInterview("", 1,Page.PAGE_SIZE);
+		Page<InterviewBasic> page = InterviewService.searchInterviewBasic("", 1,Page.PAGE_SIZE);
 		this.refreshListView(page);
 		
 		previousTV.setOnClickListener(this);
@@ -98,7 +90,26 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		}else if(view.getId() == R.id.btn_interviewee_export){//导出
 			
 			this.export();
+			
+		}else if(view.getId() == R.id.tv_interviewee_item_view){//查看问卷
+			
+			int interviewBasicId = (Integer)view.getTag();
+			this.viewQuestionaire(interviewBasicId);
+			
+		}else if(view.getId() == R.id.tv_interviewee_item_continue){//继续
+			
+			int interviewBasicId = (Integer)view.getTag();
+			this.continueInterview(interviewBasicId);
+			
 		}
+	}
+	
+	private void continueInterview(int interviewBasicId){
+		SysqApplication.showMessage(interviewBasicId + "");
+	}
+	
+	private void viewQuestionaire(int interviewBasicId){
+		SysqApplication.showMessage(interviewBasicId + "");
 	}
 	
 	private void export(){
@@ -111,7 +122,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	
 	private void search(){
 		searchStr = searchET.getText().toString();
-		Page<InterviewBasic> page = InterviewService.searchInterview(searchStr, 1, Page.PAGE_SIZE);;
+		Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr, 1, Page.PAGE_SIZE);;
 		this.refreshListView(page);
 	}
 	
@@ -119,7 +130,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		if(this.currentPage == this.totalPage){
 			Toast.makeText(this, "已经到最后一页",Toast.LENGTH_SHORT).show();
 		}else{
-			Page<InterviewBasic> page = InterviewService.searchInterview(searchStr,this.currentPage+1,Page.PAGE_SIZE);
+			Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr,this.currentPage+1,Page.PAGE_SIZE);
 			this.refreshListView(page);
 		}
 	}
@@ -128,7 +139,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		if(this.currentPage == 1){
 			Toast.makeText(this, "已经到第一页",Toast.LENGTH_SHORT).show();
 		}else{
-			Page<InterviewBasic> page = InterviewService.searchInterview(searchStr,this.currentPage-1,Page.PAGE_SIZE);;
+			Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr,this.currentPage-1,Page.PAGE_SIZE);;
 			this.refreshListView(page);
 		}
 	}
