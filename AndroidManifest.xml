@@ -53,6 +53,8 @@
          
          <activity android:name=".activity.interviewee.IntervieweeActivity" android:screenOrientation="landscape"></activity>
          
+         <activity android:name=".activity.interviewee.IntervieweeQuestionaireActivity" android:screenOrientation="portrait"></activity>
+         
     </application>
 
 </manifest>

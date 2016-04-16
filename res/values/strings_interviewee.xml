@@ -1,5 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- interviewee list -->
     <string name="interviewee_list_head_id_label">条码</string>
     <string name="interviewee_list_head_username_label">姓名</string>
     <string name="interviewee_list_head_address_label">地址</string>
@@ -15,5 +16,30 @@
     <string name="interviewee_list_head_type_weight">1</string>
     <string name="interviewee_list_head_status_weight">2</string>
     <string name="interviewee_list_head_operation_weight">2</string>
+    
+    <!-- interviewee questionaire -->
+    <string name="interviewee_questionaire_list">问卷列表</string>
+    <string name="interviewee_questionaire_basic">受访者信息</string>
+    <string name="interviewee_questionaire_dna">DNA样本</string>
+    
+    <!-- interviewee questionaire basic -->
+    <string name="interviewee_questionaire_basic_username_label">姓名：</string>
+    <string name="interviewee_questionaire_basic_username_hint">2-10个中文字</string>
+    <string name="interviewee_questionaire_basic_identity_card_label">身份证号码：</string>
+    <string name="interviewee_questionaire_basic_identity_card_hint">18位，按GB11643-1999;15位，按GB11643-1989</string>
+    <string name="interviewee_questionaire_basic_province_label">省/自治区/直辖市：</string>
+    <string name="interviewee_questionaire_basic_city_label">市/县/区：</string>
+    <string name="interviewee_questionaire_basic_city_hint">2-10个中文字</string>
+    <string name="interviewee_questionaire_basic_address_label">联系地址：</string>
+    <string name="interviewee_questionaire_basic_address_hint">5-50个中文字</string>
+    <string name="interviewee_questionaire_basic_post_code_label">邮政编码：</string>
+    <string name="interviewee_questionaire_basic_post_code_hint">6位数字</string>
+    <string name="interviewee_questionaire_basic_mobile_label">本地联系电话：</string>
+    <string name="interviewee_questionaire_basic_mobile_hint">6-20位数字</string>
+    <string name="interviewee_questionaire_basic_family_address_label">本地亲属联系地址：</string>
+    <string name="interviewee_questionaire_basic_family_mobile_label">本地亲属联系电话：</string>
+    <string name="interviewee_questionaire_basic_remark_label">备注：</string>
+    <string name="interviewee_questionaire_basic_remark_hint">病例卡号、住院卡号</string>
+    <string name="interviewee_questionaire_basic_submit">保存</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.huasheng.sysq.activity.interviewee;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +18,7 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.Page;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.service.IntervieweeService;
 import com.huasheng.sysq.util.SysqApplication;
 
 public class IntervieweeActivity extends Activity implements OnClickListener{
@@ -59,7 +61,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		searchET = (EditText)findViewById(R.id.et_interviewee_search);
 		searchBtn = (Button)findViewById(R.id.btn_interviewee_search);
 		
-		Page<InterviewBasic> page = InterviewService.searchInterviewBasic("", 1,Page.PAGE_SIZE);
+		Page<InterviewBasic> page = IntervieweeService.searchInterviewBasic("", 1,Page.PAGE_SIZE);
 		this.refreshListView(page);
 		
 		previousTV.setOnClickListener(this);
@@ -109,7 +111,9 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	}
 	
 	private void viewQuestionaire(int interviewBasicId){
-		SysqApplication.showMessage(interviewBasicId + "");
+		Intent intent = new Intent(this,IntervieweeQuestionaireActivity.class);
+		intent.putExtra("interviewBasicId", interviewBasicId);
+		this.startActivity(intent);
 	}
 	
 	private void export(){
@@ -122,7 +126,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	
 	private void search(){
 		searchStr = searchET.getText().toString();
-		Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr, 1, Page.PAGE_SIZE);;
+		Page<InterviewBasic> page = IntervieweeService.searchInterviewBasic(searchStr, 1, Page.PAGE_SIZE);;
 		this.refreshListView(page);
 	}
 	
@@ -130,7 +134,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		if(this.currentPage == this.totalPage){
 			Toast.makeText(this, "已经到最后一页",Toast.LENGTH_SHORT).show();
 		}else{
-			Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr,this.currentPage+1,Page.PAGE_SIZE);
+			Page<InterviewBasic> page = IntervieweeService.searchInterviewBasic(searchStr,this.currentPage+1,Page.PAGE_SIZE);
 			this.refreshListView(page);
 		}
 	}
@@ -139,7 +143,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		if(this.currentPage == 1){
 			Toast.makeText(this, "已经到第一页",Toast.LENGTH_SHORT).show();
 		}else{
-			Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr,this.currentPage-1,Page.PAGE_SIZE);;
+			Page<InterviewBasic> page = IntervieweeService.searchInterviewBasic(searchStr,this.currentPage-1,Page.PAGE_SIZE);;
 			this.refreshListView(page);
 		}
 	}

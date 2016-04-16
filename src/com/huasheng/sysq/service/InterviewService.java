@@ -355,39 +355,4 @@ public class InterviewService {
 		return VersionDB.getCurVersion();
 	}
 	
-	/**
-	 * 搜索访谈记录
-	 * @param searchStr
-	 * @param pageNo
-	 * @param pageSize
-	 * @return
-	 */
-	public static Page<InterviewBasic> searchInterviewBasic(String searchStr,Integer pageNo,Integer pageSize){
-		
-		//构造搜索对象
-		InterviewBasic interview = new InterviewBasic();
-		interview.setUsername(searchStr);
-		interview.setDna(searchStr);
-		
-		//分页计算
-		Integer offset = null;
-		Integer limit = pageSize;
-		offset = (pageNo - 1) * pageSize;
-		
-		//数据查询
-		List<InterviewBasic> data = InterviewBasicDB.search(interview, "or", offset, limit);
-		
-		//构造page
-		Page<InterviewBasic> page = new Page<InterviewBasic>();
-		page.setData(data);
-		page.setPageNo(pageNo);
-		page.setPageSize(pageSize);
-		
-		//计算总页数
-		int size = InterviewBasicDB.size(interview, "or");
-		int totalPages = size % pageSize == 0 ? size / pageSize : size / pageSize + 1;
-		page.setTotalPages(totalPages);
-		
-		return page;
-	}
 }

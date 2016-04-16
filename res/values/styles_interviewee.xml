@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <!-- interviewee list -->
     <style name="interviewee_list_head">
         <item name="android:textSize">20sp</item>
         <item name="android:background">#338EE7</item>
@@ -13,6 +14,36 @@
     <style name="interviewee_list_body">
         <item name="android:textSize">20sp</item>
 	     <item name="android:gravity">center</item>
+    </style>
+    
+    <!-- interviewee questionaire basic -->
+    <style name="interviewee_questionaire_basic_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginBottom">50dp</item>
+    </style>
+    <style name="interviewee_questionaire_basic_label">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+    <style name="interviewee_questionaire_basic_edittext">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">250dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/edittext_border</item>
+    </style>
+    <style name="interviewee_questionaire_basic_hint">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:textColor">#FF0000</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_gravity">center_vertical</item>
     </style>
     
 </resources>

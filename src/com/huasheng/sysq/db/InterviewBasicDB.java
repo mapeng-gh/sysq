@@ -26,6 +26,15 @@ public class InterviewBasicDB {
 		SysQOpenHelper.getDatabase().update(TableConstants.TABLE_INTERVIEW_BASIC, values,"id = ?",new String[]{interviewBasic.getId()+""});
 	}
 	
+	public static InterviewBasic selectById(int id){
+		Cursor cursor = SysQOpenHelper.getDatabase().query(TableConstants.TABLE_INTERVIEW_BASIC, null, "id = ?", new String[]{id + ""}, null, null, null);
+		InterviewBasic interviewBasic = null;
+		if(cursor.moveToNext()){
+			interviewBasic = fillObjectFromDB(cursor);
+		}
+		return interviewBasic;
+	}
+	
 	public static List<InterviewBasic> search(InterviewBasic interview,String searchType,Integer offset,Integer limit){
 		
 		//处理过滤条件
