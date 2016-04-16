@@ -1,5 +1,10 @@
 package com.huasheng.sysq.activity.interviewee;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -61,11 +66,46 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 			
 		}else if(view.getId() == R.id.ll_interviewee_questionaire_dna){//DNA样本	
 			
-			this.intervieweeDNA();
+			this.intervieweeDNAPage();
 			
 		}else if(view.getId() == R.id.btn_interviewee_questionaire_basic_submit){//修改受访者信息
 			
 			this.saveIntervieweeBasic();
+			
+		}else if(view.getId() == R.id.btn_interviewee_questionaire_dna_submit){//保存DNA信息
+			
+			this.saveIntervieweeDNA();
+		}
+	}
+	
+	private void saveIntervieweeDNA(){
+		
+		InterviewBasic interviewBasic = IntervieweeService.findById(this.interviewBasicId);
+		
+		EditText sample1ET = (EditText)this.containerLL.findViewById(R.id.et_interviewee_questionaire_dna_sample1);
+		EditText sample2ET = (EditText)this.containerLL.findViewById(R.id.et_interviewee_questionaire_dna_sample2);
+		EditText sample3ET = (EditText)this.containerLL.findViewById(R.id.et_interviewee_questionaire_dna_sample3);
+		EditText sample4ET = (EditText)this.containerLL.findViewById(R.id.et_interviewee_questionaire_dna_sample4);
+		
+		List<String> dnaList = new ArrayList<String>();
+		if(!StringUtils.isEmpty(sample1ET.getText())){
+			dnaList.add(sample1ET.getText().toString());
+		}
+		if(!StringUtils.isEmpty(sample2ET.getText())){
+			dnaList.add(sample2ET.getText().toString());
+		}
+		if(!StringUtils.isEmpty(sample3ET.getText())){
+			dnaList.add(sample3ET.getText().toString());
+		}
+		if(!StringUtils.isEmpty(sample4ET.getText())){
+			dnaList.add(sample4ET.getText().toString());
+		}
+		
+		if(dnaList.size() > 0){
+			String dnas = StringUtils.join(dnaList,",");
+			interviewBasic.setDna(dnas);
+			IntervieweeService.modifyInterviewBasic(interviewBasic);
+			SysqApplication.showMessage("修改成功");
 		}
 	}
 	
@@ -160,8 +200,37 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		submitBtn.setOnClickListener(this);
 	}
 	
-	private void intervieweeDNA(){
+	private void intervieweeDNAPage(){
 		
+		//加载静态页面
+		LayoutInflater inflater = getLayoutInflater();
+		View view = inflater.inflate(R.layout.interviewee_questionaire_dna, null);
+		
+		//加载数据
+		InterviewBasic interviewBasic = IntervieweeService.findById(this.interviewBasicId);
+		
+		//数据绑定
+		if(!StringUtils.isEmpty(interviewBasic.getDna())){
+			String[] dnaArray = interviewBasic.getDna().split(",");
+			if(dnaArray != null && dnaArray.length > 0){
+				EditText sample1ET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_dna_sample1);
+				EditText sample2ET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_dna_sample2);
+				EditText sample3ET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_dna_sample3);
+				EditText sample4ET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_dna_sample4);
+				EditText[] sampleETArray = new EditText[]{sample1ET,sample2ET,sample3ET,sample4ET};
+				for(int i = 0 ; i < dnaArray.length; i++){
+					sampleETArray[i].setText(dnaArray[i]);
+				}
+			}
+		}
+		
+		//渲染
+		this.containerLL.removeAllViews();
+		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+		
+		//绑定事件
+		Button submitBtn = (Button)view.findViewById(R.id.btn_interviewee_questionaire_dna_submit);
+		submitBtn.setOnClickListener(this);
 	}
 
 }

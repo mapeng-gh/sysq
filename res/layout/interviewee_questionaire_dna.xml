@@ -1,8 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent">
     
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        
+   		
+	   <LinearLayout 
+	       style="@style/interviewee_questionaire_dna_layout">
+	       
+	       <TextView 
+	           style="@style/interviewee_questionaire_dna_label"
+	           android:text="@string/interviewee_questionaire_dna_sample1_label"/>
+	       <EditText 
+	           android:id="@+id/et_interviewee_questionaire_dna_sample1"
+	           style="@style/interviewee_questionaire_dna_edittext"/>
+	       <TextView 
+	           style="@style/interviewee_questionaire_dna_btn"
+	           android:text="@string/interviewee_questionaire_dna_scan_label"/>
+	       
+	   </LinearLayout>
+	   
+	   <LinearLayout 
+	       style="@style/interviewee_questionaire_dna_layout">
+	       
+	       <TextView 
+	           style="@style/interviewee_questionaire_dna_label"
+	           android:text="@string/interviewee_questionaire_dna_sample2_label"/>
+	       <EditText 
+	           android:id="@+id/et_interviewee_questionaire_dna_sample2"
+	           style="@style/interviewee_questionaire_dna_edittext"/>
+	       <TextView 
+	           style="@style/interviewee_questionaire_dna_btn"
+	           android:text="@string/interviewee_questionaire_dna_scan_label"/>
+	       
+	   </LinearLayout>
+	   
+	   <LinearLayout 
+	       style="@style/interviewee_questionaire_dna_layout">
+	       
+	       <TextView 
+	           style="@style/interviewee_questionaire_dna_label"
+	           android:text="@string/interviewee_questionaire_dna_sample3_label"/>
+	       <EditText 
+	           android:id="@+id/et_interviewee_questionaire_dna_sample3"
+	           style="@style/interviewee_questionaire_dna_edittext"/>
+	       <TextView 
+	           style="@style/interviewee_questionaire_dna_btn"
+	           android:text="@string/interviewee_questionaire_dna_scan_label"/>
+	       
+	   </LinearLayout>
+	   
+	   <LinearLayout 
+	       style="@style/interviewee_questionaire_dna_layout">
+	       
+	       <TextView 
+	           style="@style/interviewee_questionaire_dna_label"
+	           android:text="@string/interviewee_questionaire_dna_sample4_label"/>
+	       <EditText 
+	           android:id="@+id/et_interviewee_questionaire_dna_sample4"
+	           style="@style/interviewee_questionaire_dna_edittext"/>
+	       <TextView 
+	           style="@style/interviewee_questionaire_dna_btn"
+	           android:text="@string/interviewee_questionaire_dna_scan_label"/>
+	       
+	   </LinearLayout>
+	   
+	   <LinearLayout 
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content"
+	       android:layout_marginTop="30dp"
+	       android:orientation="vertical">
+	       
+	        <Button
+	            android:id="@+id/btn_interviewee_questionaire_dna_submit"
+	            android:layout_width="350dp"
+	            android:layout_height="wrap_content"
+	            android:text="@string/interviewee_questionaire_dna_submit"
+	            android:background="#0096DC"
+	            android:textColor="#FFFFFF"
+	            android:textSize="25sp"
+	            android:layout_gravity="center_horizontal"/>
+	       
+	   </LinearLayout>
+        
+    </LinearLayout>
+    
+</RelativeLayout>
 
-</LinearLayout>
+

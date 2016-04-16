@@ -41,5 +41,13 @@
     <string name="interviewee_questionaire_basic_remark_label">备注：</string>
     <string name="interviewee_questionaire_basic_remark_hint">病例卡号、住院卡号</string>
     <string name="interviewee_questionaire_basic_submit">保存</string>
+    
+    <!-- interviewee questionaire dna -->
+    <string name="interviewee_questionaire_dna_sample1_label">样本1：</string>
+    <string name="interviewee_questionaire_dna_sample2_label">样本2：</string>
+    <string name="interviewee_questionaire_dna_sample3_label">样本3：</string>
+    <string name="interviewee_questionaire_dna_sample4_label">样本4：</string>
+    <string name="interviewee_questionaire_dna_scan_label">扫一扫</string>
+    <string name="interviewee_questionaire_dna_submit">保存</string>
 
 </resources>
