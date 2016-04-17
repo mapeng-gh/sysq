@@ -22,20 +22,42 @@ public class QuestionaireDB {
 		
 		List<Questionaire> questionaireList = new ArrayList<Questionaire>();
 		while(cursor.moveToNext()){
-			Questionaire questionaire = new Questionaire();
-			questionaire.setId(cursor.getInt(cursor.getColumnIndex("id")));
-			questionaire.setCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_CODE)));
-			questionaire.setTitle(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_TITLE)));
-			questionaire.setIntroduction(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_INTRODUCTION)));
-			questionaire.setRemark(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_REMARK)));
-			questionaire.setType(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_TYPE)));
-			questionaire.setSeqNum(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_SEQ_NUM)));
-			questionaire.setVersionId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_VERSION_ID)));
+			Questionaire questionaire = fillObjectFromDB(cursor);
 			questionaireList.add(questionaire);
 		}
 		
 		cursor.close();
 		
 		return questionaireList;
+	}
+	
+	public static Questionaire selectByCode(String code,int versionId){
+		Cursor cursor = SysQOpenHelper.getDatabase().query(
+				TableConstants.TABLE_QUESTIONAIRE, 
+				null, 
+				ColumnConstants.COLUMN_QUESTIONAIRE_CODE + "=?" + " and " + ColumnConstants.COLUMN_QUESTIONAIRE_VERSION_ID + "=?",
+				new String[]{code,versionId+""},
+				null,null,null);
+		
+		Questionaire questionaire = null;
+		if(cursor.moveToNext()){
+			questionaire = fillObjectFromDB(cursor);
+		}
+		cursor.close();
+		
+		return questionaire;
+	}
+	
+	private static Questionaire fillObjectFromDB(Cursor cursor){
+		Questionaire questionaire = new Questionaire();
+		questionaire.setId(cursor.getInt(cursor.getColumnIndex("id")));
+		questionaire.setCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_CODE)));
+		questionaire.setTitle(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_TITLE)));
+		questionaire.setIntroduction(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_INTRODUCTION)));
+		questionaire.setRemark(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_REMARK)));
+		questionaire.setType(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_TYPE)));
+		questionaire.setSeqNum(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_SEQ_NUM)));
+		questionaire.setVersionId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTIONAIRE_VERSION_ID)));
+		return questionaire;
 	}
 }

@@ -170,21 +170,21 @@ function jumpToNextQuestion(){
  */
 function jumpToAnswerList(){
 	saveToAnswers();
-	appservice.jumpToAnswerList(JSON.stringify(answers));
+	appservice.jumpToAnswerList(JSON.stringify(answers),"all");
 }
 
 /**
  * 中途跳转答案列表
  */
 function jumpToPartialAnswerList(){
-	appservice.jumpToPartialAnswerList(JSON.stringify(answers));
+	appservice.jumpToAnswerList(JSON.stringify(answers),"part");
 }
 
 /**
  * 保存问卷
  */
 function saveQuestionaire(){
-	appservice.saveQuestionaire(JSON.stringify(answers));
+	appservice.saveAnswers(JSON.stringify(answers));
 	answers = [];//清空答案
 }
 

@@ -11,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import com.huasheng.sysq.activity.IndexActivity;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewQuestionaire;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
@@ -18,58 +19,6 @@ import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.service.InterviewService;
 
 public class JSObject {
-	
-	/**
-	 * 跳转第一个问卷
-	 */
-	@JavascriptInterface
-	public static void jumpToFirstQuestionaire(){
-		
-		//获取第一个问卷
-		Questionaire firstQuestionaire = InterviewService.getFirstQuestionaire();
-		
-		//设置上下文
-		InterviewContext.setCurQuestionaire(firstQuestionaire);
-		InterviewContext.setQuestionaireStartTime(DateTimeUtils.getCurTime());
-		
-		//渲染页面
-		firstQuestionaire.setIntroduction(RenderUtils.handlePara(firstQuestionaire.getIntroduction()));
-		RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);
-		
-	}
-	
-	/**
-	 * 跳转下一个问卷
-	 */
-	public void jumpToNextQuestionaire(){
-		
-		//获取下一个问卷
-		Questionaire nextQuestionaire = InterviewService.getNextQuestionaire();
-		
-		//最后一个问卷
-		if(nextQuestionaire == null){
-			
-			//更新访谈状态为完成
-			InterviewService.updateInterviewStatus(InterviewBasic.STATUS_DONE);
-			
-			//跳转首页
-			SysqApplication.jumpToActivity(IndexActivity.class);
-			return;
-		}
-		
-		//记录访谈所处位置（下一个问卷）
-		InterviewService.updateInterviewPosition(nextQuestionaire.getCode(), null);
-		InterviewService.updateInterviewStatus(InterviewBasic.STATUS_DOING);
-		
-		//保存到访谈上下文
-		InterviewContext.clearQuestionaireContext();
-		InterviewContext.setCurQuestionaire(nextQuestionaire);
-		InterviewContext.setQuestionaireStartTime(DateTimeUtils.getCurTime());
-		
-		//渲染页面
-		nextQuestionaire.setIntroduction(RenderUtils.handlePara(nextQuestionaire.getIntroduction()));
-		RenderUtils.render(TemplateConstants.QUESTIONAIRE, nextQuestionaire, null);
-	}
 	
 	/**
 	 * 跳转第一个问题
@@ -179,21 +128,6 @@ public class JSObject {
 	}
 	
 	/**
-	 * 继续访谈（临时答案列表页）
-	 */
-	@JavascriptInterface
-	public void resumeQuestionaire(){
-		
-		//获取当前问题
-		Question curQuestion = InterviewContext.getCurQuestion();
-		QuestionWrap curQuestionWrap = InterviewService.wrap(curQuestion);
-		
-		//渲染页面
-		curQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(curQuestionWrap.getQuestion().getDescription()));
-		RenderUtils.render(TemplateConstants.QUESTION, curQuestionWrap,new String[]{"extra"});
-	}
-	
-	/**
 	 * 跳转到结束问题
 	 * @param endQuestionCode
 	 */
@@ -209,11 +143,26 @@ public class JSObject {
 	}
 	
 	/**
+	 * 返回当前问题（从临时答案列表继续）
+	 */
+	@JavascriptInterface
+	public void resumeQuestionaire(){
+		
+		//获取当前问题
+		Question curQuestion = InterviewContext.getCurQuestion();
+		QuestionWrap curQuestionWrap = InterviewService.wrap(curQuestion);
+		
+		//渲染页面
+		curQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(curQuestionWrap.getQuestion().getDescription()));
+		RenderUtils.render(TemplateConstants.QUESTION, curQuestionWrap,new String[]{"extra"});
+	}
+	
+	/**
 	 * 跳转答案列表
 	 * @param answersJA
 	 */
 	@JavascriptInterface
-	public void jumpToAnswerList(String answersJA){
+	public void jumpToAnswerList(String answersJA,String type){
 		
 		//获取答案参数
 		List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
@@ -228,45 +177,65 @@ public class JSObject {
 		}
 		
 		//渲染页面
-		RenderUtils.render(TemplateConstants.ANSWERS, resultWrap,null);
-	}
-	
-	/**
-	 * 跳转部分答案页面
-	 * @param answersJA
-	 */
-	@JavascriptInterface
-	public void jumpToPartialAnswerList(String answersJA){
-		
-		//获取答案参数
-		List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
-		
-		//获取答案列表
-		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
-		
-		//问题介绍分段处理
-		List<Question> questionList = resultWrap.getQuestionList();
-		for(Question question : questionList){
-			question.setDescription(RenderUtils.handlePara(question.getDescription()));
+		if("all".equals(type)){
+			RenderUtils.render(TemplateConstants.ANSWERS, resultWrap,null);
+		}else if("part".equals(type)){
+			RenderUtils.render(TemplateConstants.ANSWERS_PARTIAL, resultWrap,null);
 		}
 		
-		//渲染页面
-		RenderUtils.render(TemplateConstants.ANSWERS_PARTIAL, resultWrap,null);
 	}
 	
 	/**
-	 * 保存问卷
+	 * 保存答案
 	 * @param answersJS
 	 */
 	@JavascriptInterface
-	public void saveQuestionaire(String answersJS){
+	public void saveAnswers(String answersJS){
 		
 		//保存当前问卷答案
 		List<AnswerValue> answerValueMap = (List<AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
-		InterviewService.saveInterviewQuestionaire(answerValueMap);
+		InterviewService.saveAnswers(answerValueMap);
 		
-		//跳转下一个问卷
-		this.jumpToNextQuestionaire();
+		//更新当前问卷记录
+		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
+		interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DONE);
+		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurTime());
+		InterviewService.updateInterviewQuestionaire(interviewQuestionaire);
+		
+		//获取下一个问卷
+		Questionaire nextQuestionaire = InterviewService.getNextQuestionaire();
+		if(nextQuestionaire == null){
+			
+			//更新访谈记录
+			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+			curInterviewBasic.setStatus(InterviewBasic.STATUS_DONE);
+			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
+			InterviewService.updateInterviewBasic(curInterviewBasic);
+			
+			//跳转首页
+			SysqApplication.jumpToActivity(IndexActivity.class);
+			
+		}else{
+			
+			//新建下一个问卷记录
+			InterviewQuestionaire nextInterviewQuestionaire = InterviewService.newInterviewQuestionaire(nextQuestionaire);
+			
+			//设置上下文
+			InterviewContext.setCurInterviewQuestionaire(nextInterviewQuestionaire);
+			
+			//清空问题返回栈
+			InterviewContext.clearQuestionStack();
+			
+			//更新访谈记录
+			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+			curInterviewBasic.setCurQuestionaireCode(nextQuestionaire.getCode());
+			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
+			InterviewService.updateInterviewBasic(curInterviewBasic);
+			
+			//渲染页面
+			nextQuestionaire.setIntroduction(RenderUtils.handlePara(nextQuestionaire.getIntroduction()));
+			RenderUtils.render(TemplateConstants.QUESTIONAIRE, nextQuestionaire,null);
+		}
 	}
 	
 	/**
@@ -275,12 +244,21 @@ public class JSObject {
 	@JavascriptInterface
 	public void quitInterview(String answersJS){
 		
-		//保存当前问卷答案
+		//保存问卷答案
 		List<AnswerValue> answerValueMap = (List<AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
-		InterviewService.saveInterviewQuestionaire(answerValueMap);
+		InterviewService.saveAnswers(answerValueMap);
 		
-		//更新访谈状态为结束
-		InterviewService.updateInterviewStatus(InterviewBasic.STATUS_BREAK);
+		//更新访问记录
+		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+		curInterviewBasic.setStatus(InterviewBasic.STATUS_BREAK);
+		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
+		InterviewService.updateInterviewBasic(curInterviewBasic);
+		
+		//更新问卷记录
+		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
+		curInterviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_BREAK);
+		curInterviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurTime());
+		InterviewService.updateInterviewQuestionaire(curInterviewQuestionaire);
 		
 		//跳转主页
 		SysqApplication.jumpToActivity(IndexActivity.class);
@@ -295,10 +273,12 @@ public class JSObject {
 		
 		//保存当前问卷答案
 		List<AnswerValue> answerValueMap = (List<AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
-		InterviewService.saveInterviewQuestionaire(answerValueMap);
+		InterviewService.saveAnswers(answerValueMap);
 		
-		//记录当前位置
-		InterviewService.updateInterviewPosition(null,InterviewContext.getCurQuestion().getCode());
+		//更新访问记录
+		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+		curInterviewBasic.setNextQuestionCode(InterviewContext.getCurQuestion().getCode());
+		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
 		//跳转主页
 		SysqApplication.jumpToActivity(IndexActivity.class);

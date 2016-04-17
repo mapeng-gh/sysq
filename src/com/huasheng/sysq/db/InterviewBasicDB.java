@@ -16,9 +16,9 @@ import com.huasheng.sysq.util.TableConstants;
 
 public class InterviewBasicDB {
 
-	public static long save(InterviewBasic interviewBasic){
+	public static int insert(InterviewBasic interviewBasic){
 		ContentValues values = fill(interviewBasic);
-		return SysQOpenHelper.getDatabase().insert(TableConstants.TABLE_INTERVIEW_BASIC, null, values);
+		return (int)SysQOpenHelper.getDatabase().insert(TableConstants.TABLE_INTERVIEW_BASIC, null, values);
 	}
 	
 	public static void update(InterviewBasic interviewBasic){

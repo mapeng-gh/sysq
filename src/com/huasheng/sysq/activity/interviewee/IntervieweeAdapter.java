@@ -73,11 +73,13 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 		viewTV.setOnClickListener(this.activity);
 		viewTV.setTag(interviewBasic.getId());
 		
+		TextView continueTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_continue);
 		if(interviewBasic.getStatus() == InterviewBasic.STATUS_DOING){//正在进行显示“继续”
-			TextView continueTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_continue);
 			continueTV.setVisibility(View.VISIBLE);
 			continueTV.setOnClickListener(this.activity);
 			continueTV.setTag(interviewBasic.getId());
+		}else{
+			continueTV.setVisibility(View.GONE);
 		}
 		
 		return interviewView;

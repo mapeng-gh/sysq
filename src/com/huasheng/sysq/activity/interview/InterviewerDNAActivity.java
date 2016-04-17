@@ -21,6 +21,7 @@ import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.InterviewConstants;
 import com.huasheng.sysq.util.InterviewContext;
+import com.huasheng.sysq.util.SysqApplication;
 
 public class InterviewerDNAActivity extends Activity implements OnClickListener{
 	
@@ -54,14 +55,14 @@ public class InterviewerDNAActivity extends Activity implements OnClickListener{
 	public void onClick(View view) {
 		if(view.getId() == R.id.interviewer_dna_submit_button){
 			
-			//保存访谈信息
+			//新建访问记录
 			InterviewBasic interviewBasic = (InterviewBasic)getIntent().getSerializableExtra("interview");
 			collectData(interviewBasic);
-			InterviewService.addInterviewBasic(interviewBasic);
-			Toast.makeText(this, "保存成功 ", Toast.LENGTH_SHORT).show();
+			InterviewService.newInterviewBasic(interviewBasic);
+			SysqApplication.showMessage("保存成功");
 			
-			//保存到访谈上下文
-			InterviewContext.setInterview(interviewBasic);
+			//保存到上下文
+			InterviewContext.setCurInterviewBasic(interviewBasic);
 			
 			//跳转问卷页
 			Intent intent = new Intent(this,InterviewActivity.class);

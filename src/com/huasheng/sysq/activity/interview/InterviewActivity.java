@@ -7,8 +7,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewQuestionaire;
+import com.huasheng.sysq.model.Questionaire;
+import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.JSObject;
+import com.huasheng.sysq.util.RenderUtils;
+import com.huasheng.sysq.util.TemplateConstants;
 
 public class InterviewActivity extends Activity{
 	
@@ -28,7 +35,24 @@ public class InterviewActivity extends Activity{
 
 			@Override
 			public void onPageFinished(WebView view, String url) {//页面加载完成回调
-				JSObject.jumpToFirstQuestionaire();
+				
+				//获取第一个问卷
+				Questionaire firstQuestionaire = InterviewService.getFirstQuestionaire();
+				
+				//新建问卷记录
+				InterviewQuestionaire interviewQuestionaire = InterviewService.newInterviewQuestionaire(firstQuestionaire);
+				
+				//更新访问记录
+				InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+				curInterviewBasic.setCurQuestionaireCode(firstQuestionaire.getCode());
+				curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
+				
+				//保存上下文
+				InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
+				
+				//渲染页面
+				firstQuestionaire.setIntroduction(RenderUtils.handlePara(firstQuestionaire.getIntroduction()));
+				RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);
 			}
 		});
 		

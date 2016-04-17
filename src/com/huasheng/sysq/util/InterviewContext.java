@@ -6,14 +6,13 @@ import java.util.List;
 import android.webkit.WebView;
 
 import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewQuestionaire;
 import com.huasheng.sysq.model.Question;
-import com.huasheng.sysq.model.Questionaire;
 
 public class InterviewContext {
 
-	private static InterviewBasic interviewBasic;//访问记录
-	private static Questionaire curQuestionaire;//当前问卷
-	private static String questionaireStartTime;//问卷开始时间
+	private static InterviewBasic curInterviewBasic;//当前访问记录
+	private static InterviewQuestionaire curInterviewQuestionaire;//当前访问问卷
 	private static List<Question> questionBackStack = new ArrayList<Question>();
 	
 	private static WebView webView;
@@ -22,16 +21,14 @@ public class InterviewContext {
 	 * ================清空上下文信息===================
 	 */
 	public static void clearInterviewContext(){
-		interviewBasic = null;
-		curQuestionaire = null;
+		curInterviewBasic = null;
+		curInterviewQuestionaire = null;
 		questionBackStack.clear();
-		questionaireStartTime = null;
 		webView = null;
 	}
 	public static void clearQuestionaireContext(){
-		curQuestionaire = null;
+		curInterviewQuestionaire = null;
 		questionBackStack.clear();
-		questionaireStartTime = null;
 	}
 	
 	/**
@@ -74,31 +71,23 @@ public class InterviewContext {
 	/**
 	 * ================设置/获取上下文===================
 	 */
-	public static InterviewBasic getInterviewBasic() {
-		return interviewBasic;
+	public static InterviewBasic getCurInterviewBasic() {
+		return curInterviewBasic;
 	}
-	public static void setInterview(InterviewBasic interviewBasic) {
-		InterviewContext.interviewBasic = interviewBasic;
+	public static void setCurInterviewBasic(InterviewBasic interviewBasic) {
+		curInterviewBasic = interviewBasic;
 	}
-	
-	public static Questionaire getCurQuestionaire() {
-		return curQuestionaire;
+	public static InterviewQuestionaire getCurInterviewQuestionaire() {
+		return curInterviewQuestionaire;
 	}
-	public static void setCurQuestionaire(Questionaire curQuestionaire) {
-		InterviewContext.curQuestionaire = curQuestionaire;
+	public static void setCurInterviewQuestionaire(
+			InterviewQuestionaire curInterviewQuestionaire) {
+		InterviewContext.curInterviewQuestionaire = curInterviewQuestionaire;
 	}
 	public static WebView getWebView() {
 		return webView;
 	}
 	public static void setWebView(WebView webView) {
 		InterviewContext.webView = webView;
-	}
-
-	public static String getQuestionaireStartTime() {
-		return questionaireStartTime;
-	}
-
-	public static void setQuestionaireStartTime(String questionaireStartTime) {
-		InterviewContext.questionaireStartTime = questionaireStartTime;
 	}
 }

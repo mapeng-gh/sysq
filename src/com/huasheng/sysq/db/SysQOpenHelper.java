@@ -116,7 +116,8 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_QUESTIONAIRE_CODE + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_START_TIME + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_END_TIME + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_LAST_MODIFIED_TIME + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_VERSION_ID + " integer" +
 			")";
 	
