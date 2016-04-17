@@ -4,5 +4,62 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+        
+	    <TextView 
+	        style="@style/interviewee_questionaire_list_head"
+	        android:layout_weight="@string/interviewee_questionaire_list_head_title_weight"
+	        android:text="@string/interviewee_questionaire_list_head_title_label"/>
+	    
+	    <TextView 
+	        style="@style/interviewee_questionaire_list_head"
+	        android:layout_weight="@string/interviewee_questionaire_list_head_status_weight"
+	        android:text="@string/interviewee_questionaire_list_head_status_label"/>
+	    
+	    <TextView 
+	        style="@style/interviewee_questionaire_list_head"
+	        android:layout_weight="@string/interviewee_questionaire_list_head_last_modified_time_weight"
+	        android:text="@string/interviewee_questionaire_list_head_last_modified_time_label"/>
+	    
+	    <TextView 
+	        style="@style/interviewee_questionaire_list_head"
+	        android:layout_weight="@string/interviewee_questionaire_list_head_operation_weight"
+	        android:text="@string/interviewee_questionaire_list_head_operation_label"/>
+	    
+    </LinearLayout>
+    
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	        
+	         <View style="@style/list_item_row_seperator"/>
+	         
+		    <ListView 
+		        android:id="@+id/lv_interviewee_questionaire_list"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:divider="#808080"
+		        android:dividerHeight="1dp">
+		        
+		    </ListView>
+		    
+		    <View style="@style/list_item_row_seperator"/>
+		    
+    	</LinearLayout>
+        
+    </ScrollView>
 
 </LinearLayout>

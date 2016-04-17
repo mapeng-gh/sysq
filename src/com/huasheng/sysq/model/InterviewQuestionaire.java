@@ -8,6 +8,7 @@ public class InterviewQuestionaire {
 	private String startTime;
 	private String lastModifiedTime;
 	private int status;
+	private int seqNum;
 	private int versionId;
 	
 	public static final int STATUS_DOING = 1;
@@ -55,6 +56,12 @@ public class InterviewQuestionaire {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	public int getSeqNum() {
+		return seqNum;
+	}
+	public void setSeqNum(int seqNum) {
+		this.seqNum = seqNum;
 	}
 	
 }

@@ -102,6 +102,7 @@ public class ColumnConstants {
 	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_START_TIME = "start_time";
 	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_LAST_MODIFIED_TIME = "last_modified_time";
 	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_STATUS = "status";
+	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_SEQ_NUM = "seq_num";
 	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_VERSION_ID = "version_id";
 	
 	/**

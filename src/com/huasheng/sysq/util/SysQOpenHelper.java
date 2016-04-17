@@ -1,4 +1,4 @@
-package com.huasheng.sysq.db;
+package com.huasheng.sysq.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,9 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.huasheng.sysq.util.ColumnConstants;
-import com.huasheng.sysq.util.SysqApplication;
-import com.huasheng.sysq.util.TableConstants;
 
 public class SysQOpenHelper extends SQLiteOpenHelper{
 	
@@ -118,6 +115,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_START_TIME + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_LAST_MODIFIED_TIME + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " integer," +
+				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_SEQ_NUM + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_VERSION_ID + " integer" +
 			")";
 	

@@ -12,6 +12,7 @@ import android.database.Cursor;
 
 import com.huasheng.sysq.model.Reservation;
 import com.huasheng.sysq.util.ColumnConstants;
+import com.huasheng.sysq.util.SysQOpenHelper;
 import com.huasheng.sysq.util.TableConstants;
 
 public class ReservationDB {

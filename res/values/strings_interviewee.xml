@@ -49,5 +49,15 @@
     <string name="interviewee_questionaire_dna_sample4_label">样本4：</string>
     <string name="interviewee_questionaire_dna_scan_label">扫一扫</string>
     <string name="interviewee_questionaire_dna_submit">保存</string>
+    
+    <!-- interviewee questionaire list -->
+    <string name="interviewee_questionaire_list_head_title_weight">3</string>
+    <string name="interviewee_questionaire_list_head_title_label">问卷名称</string>
+    <string name="interviewee_questionaire_list_head_status_weight">1</string>
+    <string name="interviewee_questionaire_list_head_status_label">状态</string>
+    <string name="interviewee_questionaire_list_head_last_modified_time_weight">2</string>
+    <string name="interviewee_questionaire_list_head_last_modified_time_label">最后更新时间</string>
+    <string name="interviewee_questionaire_list_head_operation_weight">1</string>
+    <string name="interviewee_questionaire_list_head_operation_label">操作</string>
 
 </resources>

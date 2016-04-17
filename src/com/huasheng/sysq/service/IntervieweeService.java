@@ -1,10 +1,18 @@
 package com.huasheng.sysq.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.huasheng.sysq.db.InterviewBasicDB;
+import com.huasheng.sysq.db.InterviewQuestionaireDB;
+import com.huasheng.sysq.db.QuestionaireDB;
 import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewQuestionaire;
+import com.huasheng.sysq.model.InterviewQuestionaireWrap;
 import com.huasheng.sysq.model.Page;
+import com.huasheng.sysq.model.Questionaire;
+import com.huasheng.sysq.model.Version;
+import com.huasheng.sysq.util.SysqContext;
 
 public class IntervieweeService {
 
@@ -59,5 +67,27 @@ public class IntervieweeService {
 	 */
 	public static void modifyInterviewBasic(InterviewBasic interviewBasic){
 		InterviewBasicDB.update(interviewBasic);
+	}
+	
+	/**
+	 * 查询访问问卷集合
+	 * @param interviewBasicId
+	 * @return
+	 */
+	public static List<InterviewQuestionaireWrap> getInterviewQuestionaireList(int interviewBasicId){
+		//获取当前版本
+		Version curVersion = SysqContext.getCurrentVersion();
+		
+		//查询访问问卷
+		List<InterviewQuestionaire> interviewQuestionaireList = InterviewQuestionaireDB.selectByInterviewBasicId(interviewBasicId, curVersion.getId());
+		
+		//包装问卷
+		List<InterviewQuestionaireWrap> interviewQuestionaireWrapList = new ArrayList<InterviewQuestionaireWrap>();
+		for(InterviewQuestionaire interviewQuestionaire : interviewQuestionaireList){
+			Questionaire questionaire = QuestionaireDB.selectByCode(interviewQuestionaire.getQuestionaireCode(), curVersion.getId());
+			interviewQuestionaireWrapList.add(new InterviewQuestionaireWrap(interviewQuestionaire,questionaire));
+		}
+		
+		return interviewQuestionaireWrapList;
 	}
 }

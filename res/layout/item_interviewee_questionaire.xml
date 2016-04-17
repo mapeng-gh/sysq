@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        style="@style/interviewee_questionaire_list_body"
+        android:id="@+id/tv_interviewee_questionaire_list_item_title"
+        android:layout_weight="@string/interviewee_questionaire_list_head_title_weight"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        style="@style/interviewee_questionaire_list_body"
+        android:id="@+id/tv_interviewee_questionaire_list_item_status"
+        android:layout_weight="@string/interviewee_questionaire_list_head_status_weight"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        style="@style/interviewee_questionaire_list_body"
+        android:id="@+id/tv_interviewee_questionaire_list_item_last_modified_time"
+        android:layout_weight="@string/interviewee_questionaire_list_head_last_modified_time_weight"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <RelativeLayout 
+        android:layout_width="0dp"
+        android:layout_weight="@string/interviewee_questionaire_list_head_operation_weight"
+        android:layout_height="match_parent">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:orientation="horizontal">
+            
+            <TextView 
+                android:id="@+id/tv_interviewee_questionaire_list_item_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看答案"
+                android:textColor="#338EE7"
+                android:textSize="17sp"/>
+            
+        </LinearLayout>
+        
+    </RelativeLayout>
+    
+    <View style="@style/list_item_cell_seperator"/>
+
+</LinearLayout>

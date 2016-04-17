@@ -73,6 +73,7 @@ public class InterviewService {
 		interviewQuestionaire.setStartTime(DateTimeUtils.getCurTime());
 		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurTime());
 		interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DOING);
+		interviewQuestionaire.setSeqNum(questionaire.getSeqNum());
 		interviewQuestionaire.setVersionId(SysqContext.getCurrentVersion().getId());
 		int id = InterviewQuestionaireDB.insert(interviewQuestionaire);
 		interviewQuestionaire.setId(id);

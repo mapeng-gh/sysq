@@ -75,4 +75,22 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
     
+    <!-- interview questionaire list -->
+    <style name="interviewee_questionaire_list_head">
+         <item name="android:textSize">20sp</item>
+         <item name="android:background">#338EE7</item>
+	     <item name="android:textColor">#FFFFFF</item>
+	     <item name="android:gravity">center</item>
+	     <item name="android:paddingTop">5dp</item>
+	     <item name="android:paddingBottom">5dp</item>
+	     <item name="android:layout_width">0dp</item>
+	     <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="interviewee_questionaire_list_body">
+        <item name="android:textSize">20sp</item>
+	    <item name="android:gravity">center</item>
+	    <item name="android:layout_width">0dp</item>
+	    <item name="android:layout_height">match_parent</item>
+    </style>
+    
 </resources>

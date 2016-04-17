@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewQuestion;
 import com.huasheng.sysq.util.ColumnConstants;
+import com.huasheng.sysq.util.SysQOpenHelper;
 import com.huasheng.sysq.util.TableConstants;
 
 public class InterviewAnswerDB {

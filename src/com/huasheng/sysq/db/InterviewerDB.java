@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.util.ColumnConstants;
+import com.huasheng.sysq.util.SysQOpenHelper;
 import com.huasheng.sysq.util.TableConstants;
 
 public class InterviewerDB {

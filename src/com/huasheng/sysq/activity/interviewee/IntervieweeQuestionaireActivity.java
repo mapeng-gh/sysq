@@ -15,9 +15,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewQuestionaireWrap;
 import com.huasheng.sysq.service.IntervieweeService;
 import com.huasheng.sysq.util.SysqApplication;
 
@@ -149,6 +151,21 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 	
 	private void questionaireListPage(){
 		
+		//加载静态页面
+		LayoutInflater inflater = getLayoutInflater();
+		View view = inflater.inflate(R.layout.interviewee_questionaire_list, null);
+		
+		//加载数据
+		List<InterviewQuestionaireWrap> interviewQuestionaireWrapList = IntervieweeService.getInterviewQuestionaireList(this.interviewBasicId);
+		
+		//数据绑定
+		ListView interviewQuestionaireListView = (ListView)view.findViewById(R.id.lv_interviewee_questionaire_list);
+		IntervieweeQuestionaireAdapter adapter = new IntervieweeQuestionaireAdapter(this,R.layout.item_interviewee_questionaire,interviewQuestionaireWrapList,this);
+		interviewQuestionaireListView.setAdapter(adapter);
+		
+		//渲染
+		this.containerLL.removeAllViews();
+		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 	}
 	
 	private void intervieweeBasicPage(){
