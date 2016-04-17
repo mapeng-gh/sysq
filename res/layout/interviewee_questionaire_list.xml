@@ -32,34 +32,26 @@
 	    
     </LinearLayout>
     
-    <ScrollView 
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
-	    
-	    <LinearLayout 
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+        
+         <View style="@style/list_item_row_seperator"/>
+         
+	    <ListView 
+	        android:id="@+id/lv_interviewee_questionaire_list"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:orientation="vertical">
+	        android:divider="#808080"
+	        android:dividerHeight="1dp">
 	        
-	         <View style="@style/list_item_row_seperator"/>
-	         
-		    <ListView 
-		        android:id="@+id/lv_interviewee_questionaire_list"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:divider="#808080"
-		        android:dividerHeight="1dp">
-		        
-		    </ListView>
-		    
-		    <View style="@style/list_item_row_seperator"/>
-		    
-    	</LinearLayout>
+	    </ListView>
+	    
+	    <View style="@style/list_item_row_seperator"/>
+	    
+   	</LinearLayout>
         
-    </ScrollView>
-
 </LinearLayout>
