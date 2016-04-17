@@ -53,8 +53,10 @@
          
          <activity android:name=".activity.interviewee.IntervieweeActivity" android:screenOrientation="landscape"></activity>
          
-         <activity android:name=".activity.interviewee.IntervieweeQuestionaireActivity" android:screenOrientation="portrait"></activity>
-         
+         <activity android:name="com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionaireActivity" android:screenOrientation="portrait"></activity>
+    
+         <activity android:name="com.huasheng.sysq.activity.interviewee.answers.IntervieweeAnswerActivity" android:screenOrientation="portrait"></activity>
+    
     </application>
 
 </manifest>

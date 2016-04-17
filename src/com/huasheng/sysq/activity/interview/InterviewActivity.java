@@ -11,6 +11,7 @@ import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionaire;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.BreakLineUtils;
 import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.JSObject;
@@ -51,7 +52,7 @@ public class InterviewActivity extends Activity{
 				InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
 				
 				//‰÷»æ“≥√Ê
-				firstQuestionaire.setIntroduction(RenderUtils.handlePara(firstQuestionaire.getIntroduction()));
+				firstQuestionaire.setIntroduction(BreakLineUtils.handleParaInHTML(firstQuestionaire.getIntroduction()));
 				RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);
 			}
 		});

@@ -150,6 +150,7 @@ public class InterviewService {
 			interviewQuestion.setInterviewBasicId(InterviewContext.getCurInterviewBasic().getId());
 			interviewQuestion.setQuestionaireCode(InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 			interviewQuestion.setQuestionCode(questionCode);
+			interviewQuestion.setSeqNum(QuestionDB.selectByCode(questionCode, SysqContext.getCurrentVersion().getId()).getSeqNum());
 			interviewQuestion.setVersionId(SysqContext.getCurrentVersion().getId());
 			InterviewQuestionDB.insert(interviewQuestion);
 		}
@@ -161,6 +162,7 @@ public class InterviewService {
 			interviewAnswer.setQuestionCode(answerValue.getQuestionCode());
 			interviewAnswer.setAnswerCode(answerValue.getCode());
 			interviewAnswer.setAnswerValue(answerValue.getValue());
+			interviewAnswer.setAnswerText(answerValue.getText());
 			InterviewAnswerDB.insert(interviewAnswer);
 		}
 	}

@@ -1,4 +1,4 @@
-package com.huasheng.sysq.activity.interviewee;
+package com.huasheng.sysq.activity.interviewee.questionaire;
 
 import java.util.List;
 

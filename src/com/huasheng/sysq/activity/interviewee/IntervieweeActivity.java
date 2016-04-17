@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionaireActivity;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.Page;
 import com.huasheng.sysq.service.InterviewService;

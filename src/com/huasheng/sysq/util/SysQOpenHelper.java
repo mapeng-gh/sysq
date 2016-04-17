@@ -125,6 +125,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 				ColumnConstants.COLUMN_INTERVIEW_QUESTION_INTERVIEW_BASIC_ID + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTION_QUESTIONAIRE_CODE + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTION_QUESTION_CODE + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEW_QUESTION_SEQ_NUM + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTION_VERSION_ID + " integer" +
 			")";
 	
@@ -135,6 +136,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 				ColumnConstants.COLUMN_INTERVIEW_ANSWER_QUESTION_CODE + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_CODE + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_VALUE + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_TEXT + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTION_VERSION_ID + " integer" +
 			")";
 	

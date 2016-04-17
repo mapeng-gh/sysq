@@ -6,6 +6,7 @@ public class InterviewQuestion {
 	private int interviewBasicId;
 	private String questionaireCode;
 	private String questionCode;
+	private int seqNum;
 	private int versionId;
 	
 	public int getId() {
@@ -37,6 +38,12 @@ public class InterviewQuestion {
 	}
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+	public int getSeqNum() {
+		return seqNum;
+	}
+	public void setSeqNum(int seqNum) {
+		this.seqNum = seqNum;
 	}
 	
 	

@@ -75,22 +75,4 @@ public class RenderUtils {
 		});
 	}
 	
-	public static final String PARA_SEPERATOR = "<para>";
-	public static String handlePara(String description){
-		
-		if(!description.contains(PARA_SEPERATOR)){//²»·Ö¶Î
-			return "<p>" + description + "</p>";
-		}
-		
-		StringBuffer sb = new StringBuffer();
-		
-		String[] paras = description.split(PARA_SEPERATOR);
-		for(String para : paras){
-			if(!"".equals(para)){
-				sb.append("<p>").append(para).append("</p>");
-			}
-		}
-		
-		return sb.toString();
-	}
 }

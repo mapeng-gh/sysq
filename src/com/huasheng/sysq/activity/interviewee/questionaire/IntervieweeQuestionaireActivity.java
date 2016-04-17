@@ -1,4 +1,4 @@
-package com.huasheng.sysq.activity.interviewee;
+package com.huasheng.sysq.activity.interviewee.questionaire;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.activity.interviewee.answers.IntervieweeAnswerActivity;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionaireWrap;
 import com.huasheng.sysq.service.IntervieweeService;
@@ -77,7 +79,19 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		}else if(view.getId() == R.id.btn_interviewee_questionaire_dna_submit){//保存DNA信息
 			
 			this.saveIntervieweeDNA();
+			
+		}else if(view.getId() == R.id.tv_interviewee_questionaire_list_item_view){//查看答案列表
+			
+			String questionaireCode = (String)view.getTag();
+			this.viewAnswers(questionaireCode);
 		}
+	}
+	
+	private void viewAnswers(String questionaireCode){
+		Intent intent = new Intent(this,IntervieweeAnswerActivity.class);
+		intent.putExtra("interviewBasicId", this.interviewBasicId);
+		intent.putExtra("questionaireCode", questionaireCode);
+		this.startActivity(intent);
 	}
 	
 	private void saveIntervieweeDNA(){

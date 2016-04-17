@@ -111,6 +111,7 @@ public class ColumnConstants {
 	public static final String COLUMN_INTERVIEW_QUESTION_INTERVIEW_BASIC_ID = "interview_basic_id";
 	public static final String COLUMN_INTERVIEW_QUESTION_QUESTIONAIRE_CODE = "questionaire_code";
 	public static final String COLUMN_INTERVIEW_QUESTION_QUESTION_CODE = "question_code";
+	public static final String COLUMN_INTERVIEW_QUESTION_SEQ_NUM = "seq_num";
 	public static final String COLUMN_INTERVIEW_QUESTION_VERSION_ID = "version_id";
 	
 	/**
@@ -120,5 +121,6 @@ public class ColumnConstants {
 	public static final String COLUMN_INTERVIEW_ANSWER_QUESTION_CODE = "question_code";
 	public static final String COLUMN_INTERVIEW_ANSWER_ANSWER_CODE = "answer_code";
 	public static final String COLUMN_INTERVIEW_ANSWER_ANSWER_VALUE = "answer_value";
+	public static final String COLUMN_INTERVIEW_ANSWER_ANSWER_TEXT = "answer_text";
 	public static final String COLUMN_INTERVIEW_ANSWER_VERSION_ID = "version_id";
 }

@@ -21,14 +21,29 @@ public class QuestionDB {
 				null,null,ColumnConstants.COLUMN_QUESTION_SEQ_NUM + " asc");
 		List<Question> questionList = new ArrayList<Question>();
 		while(cursor.moveToNext()){
-			Question question = fill(cursor);
+			Question question = fillObjectFromDB(cursor);
 			questionList.add(question);
 		}
 		cursor.close();
 		return questionList;
 	}
 	
-	private static Question fill(Cursor cursor){
+	public static Question selectByCode(String questionCode,int versionId){
+		Cursor cursor = SysQOpenHelper.getDatabase().query(
+				TableConstants.TABLE_QUESTION,
+				null,
+				ColumnConstants.COLUMN_QUESTION_CODE + "=?" + " and " + ColumnConstants.COLUMN_QUESTION_VERSION_ID + "=?",
+				new String[]{questionCode,versionId + ""},
+				null,null,null);
+		Question question = null;
+		if(cursor.moveToNext()){
+			question = fillObjectFromDB(cursor);
+		}
+		cursor.close();
+		return question;
+	}
+	
+	private static Question fillObjectFromDB(Cursor cursor){
 		Question question = new Question();
 		question.setId(cursor.getInt(cursor.getColumnIndex("id")));
 		question.setCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTION_CODE)));

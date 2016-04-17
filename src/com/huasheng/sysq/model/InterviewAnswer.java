@@ -7,6 +7,7 @@ public class InterviewAnswer {
 	private String questionCode;
 	private String answerCode;
 	private String answerValue;
+	private String answerText;
 	private int versionId;
 	
 	public int getId() {
@@ -44,5 +45,11 @@ public class InterviewAnswer {
 	}
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+	public String getAnswerText() {
+		return answerText;
+	}
+	public void setAnswerText(String answerText) {
+		this.answerText = answerText;
 	}
 }

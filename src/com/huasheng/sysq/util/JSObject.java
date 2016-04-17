@@ -38,7 +38,7 @@ public class JSObject {
 		}
 		
 		//‰÷»æ“≥√Ê
-		firstQuesWrap.getQuestion().setDescription(RenderUtils.handlePara(firstQuesWrap.getQuestion().getDescription()));
+		firstQuesWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(firstQuesWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, firstQuesWrap,new String[]{"extra"});
 	}
 	
@@ -60,7 +60,7 @@ public class JSObject {
 		}
 		
 		//“≥√Ê‰÷»æ
-		nextQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(nextQuestionWrap.getQuestion().getDescription()));
+		nextQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(nextQuestionWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, nextQuestionWrap,new String[]{"extra"});
 	}
 	
@@ -91,7 +91,7 @@ public class JSObject {
 		}
 		
 		//‰÷»æ“≥√Ê
-		prevQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(prevQuestionWrap.getQuestion().getDescription()));
+		prevQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(prevQuestionWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, prevQuestionWrap,new String[]{"extra"});
 	}
 	
@@ -123,7 +123,7 @@ public class JSObject {
 		}
 		
 		//‰÷»æ ˝æ›
-		specQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(specQuestionWrap.getQuestion().getDescription()));
+		specQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(specQuestionWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});
 	}
 	
@@ -138,7 +138,7 @@ public class JSObject {
 		QuestionWrap endQuestionWrap = InterviewService.getSpecQuestion(endQuestionCode);
 		
 		//‰÷»æ“≥√Ê
-		endQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(endQuestionWrap.getQuestion().getDescription()));
+		endQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(endQuestionWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION_END, endQuestionWrap,new String[]{"extra"});
 	}
 	
@@ -153,7 +153,7 @@ public class JSObject {
 		QuestionWrap curQuestionWrap = InterviewService.wrap(curQuestion);
 		
 		//‰÷»æ“≥√Ê
-		curQuestionWrap.getQuestion().setDescription(RenderUtils.handlePara(curQuestionWrap.getQuestion().getDescription()));
+		curQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(curQuestionWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, curQuestionWrap,new String[]{"extra"});
 	}
 	
@@ -173,7 +173,7 @@ public class JSObject {
 		//Œ Ã‚ΩÈ…‹∑÷∂Œ¥¶¿Ì
 		List<Question> questionList = resultWrap.getQuestionList();
 		for(Question question : questionList){
-			question.setDescription(RenderUtils.handlePara(question.getDescription()));
+			question.setDescription(BreakLineUtils.handleParaInHTML(question.getDescription()));
 		}
 		
 		//‰÷»æ“≥√Ê
@@ -233,7 +233,7 @@ public class JSObject {
 			InterviewService.updateInterviewBasic(curInterviewBasic);
 			
 			//‰÷»æ“≥√Ê
-			nextQuestionaire.setIntroduction(RenderUtils.handlePara(nextQuestionaire.getIntroduction()));
+			nextQuestionaire.setIntroduction(BreakLineUtils.handleParaInHTML(nextQuestionaire.getIntroduction()));
 			RenderUtils.render(TemplateConstants.QUESTIONAIRE, nextQuestionaire,null);
 		}
 	}
