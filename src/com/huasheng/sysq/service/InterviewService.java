@@ -277,6 +277,38 @@ public class InterviewService {
 		
 	}
 	
+	/**
+	 * 获取指定结束问题
+	 * @param questionCode
+	 * @return
+	 */
+	public static QuestionWrap getSpecEndQuestion(String questionCode){
+		
+		//获取当前问卷、当前版本
+		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
+		Version curVersion = SysqContext.getCurrentVersion();
+		
+		Question specQuestion = null;
+		
+		//查询指定问题
+		List<Question> questionList = QuestionDB.getList(curInterviewQuestionaire.getQuestionaireCode(),curVersion.getId(),Question.QUESTION_END);
+		for(Question question : questionList){
+			if(question.getCode().equals(questionCode)){
+				specQuestion = question;
+				break;
+			}
+		}
+		
+		if(specQuestion == null){//指定问题不存在
+			throw new RuntimeException("问题[" + questionCode + "]不存在");
+		}
+		
+		//包装成questionWrap
+		QuestionWrap questionWrap = wrap(specQuestion);
+		return questionWrap;
+		
+	}
+	
 	public static QuestionWrap wrap(Question question){
 		
 		//获取当前问卷、当前版本号

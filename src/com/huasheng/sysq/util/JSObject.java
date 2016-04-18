@@ -135,7 +135,7 @@ public class JSObject {
 	public void jumpToEndQuestion(String endQuestionCode){
 		
 		//获取结束问题
-		QuestionWrap endQuestionWrap = InterviewService.getSpecQuestion(endQuestionCode);
+		QuestionWrap endQuestionWrap = InterviewService.getSpecEndQuestion(endQuestionCode);
 		
 		//渲染页面
 		endQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(endQuestionWrap.getQuestion().getDescription()));
@@ -229,6 +229,7 @@ public class JSObject {
 			//更新访谈记录
 			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 			curInterviewBasic.setCurQuestionaireCode(nextQuestionaire.getCode());
+			curInterviewBasic.setNextQuestionCode("");
 			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
 			InterviewService.updateInterviewBasic(curInterviewBasic);
 			
