@@ -15,10 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.activity.interview.InterviewActivity;
 import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionaireActivity;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.Page;
-import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.service.IntervieweeService;
 import com.huasheng.sysq.util.SysqApplication;
 
@@ -108,7 +108,10 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	}
 	
 	private void continueInterview(int interviewBasicId){
-		SysqApplication.showMessage(interviewBasicId + "");
+		
+		Intent intent = new Intent(this,InterviewActivity.class);
+		intent.putExtra("interviewBasicId", interviewBasicId);
+		this.startActivity(intent);
 	}
 	
 	private void viewQuestionaire(int interviewBasicId){

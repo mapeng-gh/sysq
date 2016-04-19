@@ -132,4 +132,13 @@ public class IntervieweeService {
 		return interviewQuestionWrapList;
 		
 	}
+	
+	/**
+	 * ≤È—Ø∑√Œ º«¬º
+	 * @param interviewBasicId
+	 * @return
+	 */
+	public static InterviewBasic getInterviewBasic(int interviewBasicId){
+		return InterviewBasicDB.selectById(interviewBasicId);
+	}
 }

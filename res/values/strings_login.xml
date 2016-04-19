@@ -7,7 +7,6 @@
     <string name="login_password">密码</string>
     <string name="login_button">登录</string>
     
-    <string name="login_logo_text_up">University of Oxford</string>
-    <string name="login_logo_text_down">The Welcome Trust</string>
+    <string name="login_logo_text">University of Oxford \n\n The Welcome Trust</string>
     
 </resources>

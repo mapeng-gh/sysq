@@ -177,14 +177,19 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 
 	public void initData(SQLiteDatabase db){
 		
+		String[] dataFiles = new String[]{"data/interviewer.sql","data/version.sql","data/questionaire.sql","data/question.sql","data/answer.sql"};
 		AssetManager assetManager = SysqApplication.getContext().getAssets();
 		BufferedReader reader = null;
+		
 		try{
-			reader = new BufferedReader(new InputStreamReader(assetManager.open("data.txt"), "utf-8"));
-			String line;
-			while((line=reader.readLine())!=null){
-				db.execSQL(line);
+			for(String dataFile : dataFiles){
+				reader = new BufferedReader(new InputStreamReader(assetManager.open(dataFile), "utf-8"));
+				String line;
+				while((line=reader.readLine())!=null){
+					db.execSQL(line);
+				}
 			}
+			SysqApplication.showMessage("数据导入完成");
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{

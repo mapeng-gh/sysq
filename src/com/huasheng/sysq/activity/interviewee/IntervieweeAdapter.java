@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huasheng.sysq.R;
@@ -73,11 +72,15 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 		viewTV.setOnClickListener(this.activity);
 		viewTV.setTag(interviewBasic.getId());
 		
+		//控制“继续”显示
 		TextView continueTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_continue);
-		if(interviewBasic.getStatus() == InterviewBasic.STATUS_DOING){//正在进行显示“继续”
+		if(interviewBasic.getStatus() == InterviewBasic.STATUS_DOING){
 			continueTV.setVisibility(View.VISIBLE);
+			
+			//绑定“继续”事件
 			continueTV.setOnClickListener(this.activity);
 			continueTV.setTag(interviewBasic.getId());
+			
 		}else{
 			continueTV.setVisibility(View.GONE);
 		}
