@@ -30,52 +30,60 @@ public class IndexActivity extends Activity implements OnClickListener{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_index);
 		
-		reservationLL = (LinearLayout)findViewById(R.id.reservation_admin);
+		reservationLL = (LinearLayout)findViewById(R.id.ll_index_reservation);
 		reservationLL.setOnClickListener(this);
 		
-		dataStaticsLL = (LinearLayout)findViewById(R.id.data_statics);
+		dataStaticsLL = (LinearLayout)findViewById(R.id.ll_index_statics);
 		dataStaticsLL.setOnClickListener(this);
 		
-		systemUpdateLL = (LinearLayout)findViewById(R.id.system_update);
+		systemUpdateLL = (LinearLayout)findViewById(R.id.ll_index_system_update);
 		systemUpdateLL.setOnClickListener(this);
 		
-		interviewStartLL = (LinearLayout)findViewById(R.id.interview_start);
+		interviewStartLL = (LinearLayout)findViewById(R.id.ll_index_interview);
 		interviewStartLL.setOnClickListener(this);
 		
-		userCenterLL = (LinearLayout)findViewById(R.id.user_center);
+		userCenterLL = (LinearLayout)findViewById(R.id.ll_index_usercenter);
 		userCenterLL.setOnClickListener(this);
 		
-		interviewerSearchLL = (LinearLayout)findViewById(R.id.interviewer_search);
+		interviewerSearchLL = (LinearLayout)findViewById(R.id.ll_index_interviewee_search);
 		interviewerSearchLL.setOnClickListener(this);
 		
-		dataUploadLL = (LinearLayout)findViewById(R.id.data_upload);
+		dataUploadLL = (LinearLayout)findViewById(R.id.ll_index_data_upload);
 		dataUploadLL.setOnClickListener(this);
 		
-		helpLL = (LinearLayout)findViewById(R.id.help);
+		helpLL = (LinearLayout)findViewById(R.id.ll_index_help);
 		helpLL.setOnClickListener(this);
 		
 	}
 
 	@Override
 	public void onClick(View view) {
-		if(view.getId() == R.id.reservation_admin){//预约管理
+		if(view.getId() == R.id.ll_index_reservation){//预约管理
+			
 			startActivity(new Intent(this,ReservationListActivity.class));
-		}else if(view.getId() == R.id.data_statics){
 			
-		}else if(view.getId() == R.id.system_update){
+		}else if(view.getId() == R.id.ll_index_statics){
 			
-		}else if(view.getId() == R.id.interview_start){//开始访谈
+		}else if(view.getId() == R.id.ll_index_system_update){
+			
+		}else if(view.getId() == R.id.ll_index_interview){//开始访谈
+			
 			Intent intent = new Intent(this,InterviewerBasicActivity.class);
 			startActivity(intent);
-		}else if(view.getId() == R.id.user_center){//个人中心
+			
+		}else if(view.getId() == R.id.ll_index_usercenter){//个人中心
+			
 			Intent intent = new Intent(this,UserCenterActivity.class);
 			startActivity(intent);
-		}else if(view.getId() == R.id.interviewer_search){//受访者一览
+			
+		}else if(view.getId() == R.id.ll_index_interviewee_search){//受访者一览
+			
 			Intent intent = new Intent(this,IntervieweeActivity.class);
 			startActivity(intent);
-		}else if(view.getId() == R.id.data_upload){
 			
-		}else if(view.getId() == R.id.help){
+		}else if(view.getId() == R.id.ll_index_data_upload){
+			
+		}else if(view.getId() == R.id.ll_index_help){
 			
 		}
 	}

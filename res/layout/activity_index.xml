@@ -1,282 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout 
+<RelativeLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:paddingLeft="100dp"
-    android:paddingRight="100dp"
-    android:paddingTop="250dp"
-    android:paddingBottom="250dp"
     android:background="#FFF">
     
+    
     <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:orientation="vertical">
         
-         <LinearLayout 
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+        
+        <!-- 第一行 -->
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
             
-            <RelativeLayout 
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-            	android:orientation="vertical">
-            	
-                <LinearLayout 
-                    android:id="@+id/reservation_admin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-                    
-                    <ImageView 
+            <!-- 预约管理   -->
+            <LinearLayout 
+                android:id="@+id/ll_index_reservation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                 <ImageView 
             	    android:layout_width="wrap_content"
             	    android:layout_height="wrap_content"
             	    android:layout_gravity="center_horizontal"
             	    android:src="@drawable/index_reservation"/>
                     
                 	<TextView 
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal"
+	                    android:text="@string/index_reservation"
+	                    android:textSize="@dimen/index_title_text_size"/>
+                
+            </LinearLayout>
+            
+            <!-- 开始访谈   -->
+            <LinearLayout 
+                android:id="@+id/ll_index_interview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/index_module_margin">
+                
+                 <ImageView 
+            	    android:layout_width="wrap_content"
+            	    android:layout_height="wrap_content"
+            	    android:layout_gravity="center_horizontal"
+            	    android:src="@drawable/index_interview"/>
+                    
+               	<TextView 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/index_reservation"
+                    android:text="@string/index_interview"
                     android:textSize="@dimen/index_title_text_size"/>
-                    
-                </LinearLayout>
-            	
                 
-            </RelativeLayout>
+            </LinearLayout>
             
-            <RelativeLayout 
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1">
+            <!-- 受访者查询   -->
+            <LinearLayout 
+                android:id="@+id/ll_index_interviewee_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/index_module_margin">
                 
-                <LinearLayout 
-                    android:id="@+id/data_statics"
+                 <ImageView 
+            	    android:layout_width="wrap_content"
+            	    android:layout_height="wrap_content"
+            	    android:layout_gravity="center_horizontal"
+            	    android:src="@drawable/index_search"/>
+                    
+               	<TextView 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/index_search"
+                    android:textSize="@dimen/index_title_text_size"/>
+                
+            </LinearLayout>
+            
+            <!-- 个人中心   -->
+            <LinearLayout 
+                android:id="@+id/ll_index_usercenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/index_module_margin">
+                
+                 <ImageView 
+            	    android:layout_width="wrap_content"
+            	    android:layout_height="wrap_content"
+            	    android:layout_gravity="center_horizontal"
+            	    android:src="@drawable/index_usercenter"/>
                     
-                    <ImageView 
+               	<TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/index_usercenter"
+                    android:textSize="@dimen/index_title_text_size"/>
+                
+            </LinearLayout>
+            
+        </LinearLayout>
+        
+        
+        <!-- 第二行 -->
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:orientation="horizontal">
+            
+            
+            <!-- 数据统计   -->
+            <LinearLayout 
+                android:id="@+id/ll_index_statics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                 <ImageView 
             	    android:layout_width="wrap_content"
             	    android:layout_height="wrap_content"
             	    android:layout_gravity="center_horizontal"
             	    android:src="@drawable/index_statics"/>
                     
                 	<TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/index_statics"
-                    android:textSize="@dimen/index_title_text_size"/>
-                    
-                </LinearLayout>
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal"
+	                    android:text="@string/index_statics"
+	                    android:textSize="@dimen/index_title_text_size"/>
                 
-            </RelativeLayout>
+            </LinearLayout>
             
-            <RelativeLayout 
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1">
+            <!-- 数据上传   -->
+            <LinearLayout 
+                android:id="@+id/ll_index_data_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/index_module_margin">
                 
-                <LinearLayout 
-                    android:id="@+id/system_update"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-                    
-                    <ImageView 
-            	    android:layout_width="wrap_content"
-            	    android:layout_height="wrap_content"
-            	    android:layout_gravity="center_horizontal"
-            	    android:src="@drawable/index_update"/>
-                    
-                	<TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/index_update"
-                    android:textSize="@dimen/index_title_text_size"/>
-                    
-                </LinearLayout>
-                
-            </RelativeLayout>
-            
-            
-        </LinearLayout>
-        
-        <LinearLayout 
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            
-           <RelativeLayout 
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-                
-                <LinearLayout 
-                    android:id="@+id/interview_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-                    
-                    <ImageView 
-            	    android:layout_width="wrap_content"
-            	    android:layout_height="wrap_content"
-            	    android:layout_gravity="center_horizontal"
-            	    android:src="@drawable/index_interview"/>
-                    
-                	<TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/index_interview"
-                    android:textSize="@dimen/index_title_text_size"/>
-                    
-                </LinearLayout>
-                
-            </RelativeLayout>
-            
-            <RelativeLayout 
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-                
-                <LinearLayout 
-                    android:id="@+id/user_center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-                    
-                    <ImageView 
-            	    android:layout_width="wrap_content"
-            	    android:layout_height="wrap_content"
-            	    android:layout_gravity="center_horizontal"
-            	    android:src="@drawable/index_usercenter"/>
-                    
-                	<TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/index_usercenter"
-                    android:textSize="@dimen/index_title_text_size"/>
-                    
-                </LinearLayout>
-                
-            </RelativeLayout> 
-            
-        </LinearLayout>
-        
-        <LinearLayout 
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            
-             <RelativeLayout 
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-            	android:orientation="vertical">
-            	
-                <LinearLayout 
-                    android:id="@+id/interviewer_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-                    
-                    <ImageView 
-            	    android:layout_width="wrap_content"
-            	    android:layout_height="wrap_content"
-            	    android:layout_gravity="center_horizontal"
-            	    android:src="@drawable/index_search"/>
-                    
-                	<TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/index_search"
-                    android:textSize="@dimen/index_title_text_size"/>
-                    
-                </LinearLayout>
-            	
-                
-            </RelativeLayout>
-            
-            <RelativeLayout 
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-                
-                <LinearLayout 
-                    android:id="@+id/data_upload"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-                    
-                    <ImageView 
+                 <ImageView 
             	    android:layout_width="wrap_content"
             	    android:layout_height="wrap_content"
             	    android:layout_gravity="center_horizontal"
             	    android:src="@drawable/index_upload"/>
                     
-                	<TextView 
+               	<TextView 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/index_upload"
                     android:textSize="@dimen/index_title_text_size"/>
-                    
-                </LinearLayout>
                 
-            </RelativeLayout>
+            </LinearLayout>
             
-            <RelativeLayout 
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1">
+            <!-- 系统更新   -->
+            <LinearLayout 
+                android:id="@+id/ll_index_system_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/index_module_margin">
                 
-                <LinearLayout 
-                    android:id="@+id/help"
+                 <ImageView 
+            	    android:layout_width="wrap_content"
+            	    android:layout_height="wrap_content"
+            	    android:layout_gravity="center_horizontal"
+            	    android:src="@drawable/index_update"/>
+                    
+               	<TextView 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-                    
-                    <ImageView 
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/index_update"
+                    android:textSize="@dimen/index_title_text_size"/>
+                
+            </LinearLayout>
+            
+            <!-- 帮助  -->
+            <LinearLayout 
+                android:id="@+id/ll_index_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/index_module_margin">
+                
+                 <ImageView 
             	    android:layout_width="wrap_content"
             	    android:layout_height="wrap_content"
             	    android:layout_gravity="center_horizontal"
             	    android:src="@drawable/index_help"/>
                     
-                	<TextView 
+               	<TextView 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/index_help"
                     android:textSize="@dimen/index_title_text_size"/>
-                    
-                </LinearLayout>
                 
-            </RelativeLayout>
+            </LinearLayout>
+            
             
         </LinearLayout>
         
+        
     </LinearLayout>
     
-</LinearLayout>
+    
+</RelativeLayout>
