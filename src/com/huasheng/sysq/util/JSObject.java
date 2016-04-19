@@ -311,12 +311,8 @@ public class JSObject {
 	 * Ò³Ãæµ÷ÊÔ
 	 * @param msg
 	 */
-	public static boolean isDebug = true;
 	@JavascriptInterface
 	public void debug(String tag,String msg){
-		
-		if(isDebug){
-			Log.d(tag,msg);
-		}
+		LogUtils.debug(tag, msg);
 	}
 }

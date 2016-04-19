@@ -189,7 +189,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 					db.execSQL(line);
 				}
 			}
-			SysqApplication.showMessage("数据导入完成");
+			LogUtils.debug("SysQOpenHelper","数据导入完成");
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
