@@ -1,5 +1,7 @@
 package com.huasheng.sysq.activity.interview;
 
+import org.apache.commons.lang3.StringUtils;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.widget.EditText;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.util.RegexUtils;
+import com.huasheng.sysq.util.SysqApplication;
 
 public class InterviewerBasicActivity extends Activity implements OnClickListener{
 	
@@ -52,26 +56,88 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 	@Override
 	public void onClick(View view) {
 		if(view.getId() == R.id.interviewer_basic_submit_button){
-			Intent intent = new Intent(this,InterviewerDNAActivity.class);
+			
+			//表单校验
 			InterviewBasic interview= collectData();
+			if(interview == null){
+				return;
+			}
+			
+			//跳转
+			Intent intent = new Intent(this,InterviewerDNAActivity.class);
 			intent.putExtra("interview", interview);
 			startActivity(intent);
 		}
 	}
 	
 	private InterviewBasic collectData(){
-		InterviewBasic interview = new InterviewBasic();
-		interview.setUsername(userET.getText().toString());
-		interview.setIdentityCard(identityCardET.getText().toString());
-		interview.setProvince(provinceET.getText().toString());
-		interview.setCity(cityET.getText().toString());
-		interview.setAddress(addressET.getText().toString());
-		interview.setPostCode(postCodeET.getText().toString());
-		interview.setMobile(mobileET.getText().toString());
-		interview.setFamilyAddress(familyAddressET.getText().toString());
-		interview.setFamilyMobile(familyMobileET.getText().toString());
-		interview.setRemark(remarkET.getText().toString());
-		return interview;
+		InterviewBasic interviewBasic = new InterviewBasic();
+		
+		String username = userET.getText().toString();
+		if(StringUtils.isEmpty(StringUtils.trim(username))){
+			SysqApplication.showMessage("姓名不能为空");
+			return null;
+		}
+		interviewBasic.setUsername(username);
+		
+		String identityCard = identityCardET.getText().toString();
+		if(!RegexUtils.test("[0-9A-Za-z]{18}", identityCard)){
+			SysqApplication.showMessage("身份证必须是18位数字和字母组合");
+			return null;
+		}
+		interviewBasic.setIdentityCard(identityCard);
+		
+		String province = provinceET.getText().toString();
+		if(StringUtils.isEmpty(StringUtils.trim(province))){
+			SysqApplication.showMessage("省/自治区/直辖市不能为空");
+			return null;
+		}
+		interviewBasic.setProvince(province);
+		
+		String city = cityET.getText().toString();
+		if(StringUtils.isEmpty(StringUtils.trim(city))){
+			SysqApplication.showMessage("市/县/区不能为空");
+			return null;
+		}
+		interviewBasic.setCity(city);
+		
+		String address = addressET.getText().toString();
+		if(StringUtils.isEmpty(StringUtils.trim(address))){
+			SysqApplication.showMessage("联系地址不能为空");
+			return null;
+		}
+		interviewBasic.setAddress(address);
+		
+		String postCode = postCodeET.getText().toString();
+		if(!RegexUtils.test("[0-9]{6}", postCode)){
+			SysqApplication.showMessage("邮编必须是6位数字");
+			return null;
+		}
+		interviewBasic.setPostCode(postCode);
+		
+		String mobile = mobileET.getText().toString();
+		if(!RegexUtils.test("1[0-9]{10}", mobile)){
+			SysqApplication.showMessage("联系电话必须是以1开头的11位数字");
+			return null;
+		}
+		interviewBasic.setMobile(mobile);
+		
+		String familyAddress = familyAddressET.getText().toString();
+		interviewBasic.setFamilyAddress(StringUtils.trim(familyAddress));
+		
+		String familyMobile = familyMobileET.getText().toString();
+		if(!StringUtils.isEmpty(familyMobile)){
+			if(!RegexUtils.test("1[0-9]{10}", familyMobile)){
+				SysqApplication.showMessage("亲属联系电话必须是以1开头的11位数字");
+				return null;
+			}
+		}
+		interviewBasic.setFamilyMobile(familyMobile);
+
+		String remark = remarkET.getText().toString();
+		interviewBasic.setRemark(StringUtils.trim(remark));
+		
+		return interviewBasic;
 	}
 
 	
