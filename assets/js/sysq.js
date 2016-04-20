@@ -1,5 +1,7 @@
+var isReplay = false;
+
 /**
- * Ò³ÃæäÖÈ¾
+ * é¡µé¢æ¸²æŸ“
  * @param tpl
  * @param data
  */
@@ -21,16 +23,7 @@ function renderContent(tpl,data){
 }
 
 /**
- * Ò³Ãæ³õÊ¼»¯
- * @param entryLogic
- */
-function entry(entryLogic){
-	eval(entryLogic);
-}
-
-
-/**
- * »¬¶¯¿éÍÏ¶¯´¥·¢º¯Êı
+ * æ»‘åŠ¨å—æ‹–åŠ¨è§¦å‘å‡½æ•°
  * @param dom
  */
 function onsliderchange(dom){
@@ -40,7 +33,7 @@ function onsliderchange(dom){
 var answers = [];
 
 /**
- * »ñÈ¡±¾Ìâ´ğ°¸
+ * è·å–æœ¬é¢˜ç­”æ¡ˆ
  */
 function getLocalAnswerValue(){
 	
@@ -49,44 +42,44 @@ function getLocalAnswerValue(){
 	$("div.answer").each(function(){
 		var $answer = $(this);
 		
-		//Ìø¹ıÒş²Ø´ğ°¸
+		//è·³è¿‡éšè—ç­”æ¡ˆ
 		if($answer.hasClass("nodisplay")){
 			return;
 		}
 		
-		//»ñÈ¡´ğ°¸Í¨ÓÃÊôĞÔ
+		//è·å–ç­”æ¡ˆé€šç”¨å±æ€§
 		var code = $answer.data("code");
 		var label = $answer.data("label");
 		var type = $answer.data("type");
 		var questionCode = $answer.data("question-code");
 		
-		//»ñÈ¡ÖµÓëÎÄ±¾
+		//è·å–å€¼ä¸æ–‡æœ¬
 		var value,text;
-		if(type == "radiogroup"){	//µ¥Ñ¡ 
+		if(type == "radiogroup"){	//å•é€‰ 
 			
 			var $selectedRadio = $answer.find("input[type='radio']:checked");
 			value = $selectedRadio.val();
 			text = $selectedRadio.next().text();
 			
-		}else if(type == "slider"){//»¬¶¯¿é
+		}else if(type == "slider"){//æ»‘åŠ¨å—
 			
 			var $range = $answer.find("input[type='range']");
 			value = $range.val();
 			text = value;
 			
-		}else if(type == "dropdownlist"){//ÏÂÀ­¿ò
+		}else if(type == "dropdownlist"){//ä¸‹æ‹‰æ¡†
 			
 			var $select = $answer.find("select");
 			value = $select.val();
 			text = $select.find("option:checked").text();
 			
-		}else if(type == "text"){//ÎÄ±¾Óò
+		}else if(type == "text"){//æ–‡æœ¬åŸŸ
 			
 			var $textarea = $answer.find("textarea");
 			value = $textarea.val();
 			text = value;
 			
-		}else if(type == "calendar"){//ÈÕÀú
+		}else if(type == "calendar"){//æ—¥å†
 			
 			var $date = $answer.find("input[type='date']");
 			value = $date.val();
@@ -100,12 +93,12 @@ function getLocalAnswerValue(){
 }
 
 /**
- * »ñÈ¡´ğ°¸Öµ
+ * è·å–ç­”æ¡ˆå€¼
  * @param answerCode
  */
 function getAnswerValue(answerCode){
 	
-	//´Ó±¾Ìâ»ñÈ¡
+	//ä»æœ¬é¢˜è·å–
 	var localAnswers = getLocalAnswerValue();
 	for(var i=0;i<localAnswers.length;i++){
 		if(localAnswers[i].code == answerCode){
@@ -113,7 +106,7 @@ function getAnswerValue(answerCode){
 		}
 	}
 	
-	//´ÓÒÑ×öÌâÄ¿»ñÈ¡
+	//ä»å·²åšé¢˜ç›®è·å–
 	for(i=0;i<answers.length;i++){
 		if(answers[i].code == answerCode){
 			return answers[i]["value"];
@@ -123,14 +116,14 @@ function getAnswerValue(answerCode){
 
 
 /**
- * Ôİ´æ´ğ°¸
+ * æš‚å­˜ç­”æ¡ˆ
  */
 function saveToAnswers(){
 	
-	//»ñÈ¡±¾Ìâ´ğ°¸
+	//è·å–æœ¬é¢˜ç­”æ¡ˆ
 	var localAnswers = getLocalAnswerValue();
 	
-	//Èç¹ûÒÑ¾­´æÔÚ´ğ°¸£¬Ôò¸üĞÂ
+	//å¦‚æœå·²ç»å­˜åœ¨ç­”æ¡ˆï¼Œåˆ™æ›´æ–°
 	for(var i=0;i<localAnswers.length;i++){
 		var isExist = false;
 		for(var j=0;j<answers.length;j++){
@@ -150,7 +143,7 @@ function saveToAnswers(){
 }
 
 /**
- * ¿ªÊ¼·ÃÌ¸
+ * å¼€å§‹è®¿è°ˆ
  */
 function startInterview(){
 	appservice.jumpToFirstQuestion();
@@ -158,46 +151,54 @@ function startInterview(){
 
 
 /**
- * Ìø×ªÏÂÒ»Ìâ
+ * è·³è½¬ä¸‹ä¸€é¢˜
  */
 function jumpToNextQuestion(){
+	if(isReplay){
+		return;
+	}
+	
 	saveToAnswers();
 	appservice.jumpToNextQuestion();
 }
 
 /**
- * Ìø×ª´ğ°¸ÁĞ±í
+ * è·³è½¬ç­”æ¡ˆåˆ—è¡¨
  */
 function jumpToAnswerList(){
+	if(isReplay){
+		return;
+	}
+	
 	saveToAnswers();
 	appservice.jumpToAnswerList(JSON.stringify(answers),"all");
 }
 
 /**
- * ÖĞÍ¾Ìø×ª´ğ°¸ÁĞ±í
+ * ä¸­é€”è·³è½¬ç­”æ¡ˆåˆ—è¡¨
  */
 function jumpToPartialAnswerList(){
 	appservice.jumpToAnswerList(JSON.stringify(answers),"part");
 }
 
 /**
- * ±£´æÎÊ¾í
+ * ä¿å­˜é—®å·
  */
 function saveQuestionaire(){
 	appservice.saveAnswers(JSON.stringify(answers));
-	answers = [];//Çå¿Õ´ğ°¸
+	answers = [];//æ¸…ç©ºç­”æ¡ˆ
 }
 
 /**
- * ÖØ×öÎÊ¾í
+ * é‡åšé—®å·
  */
 function redoQuestionaire(){
-	answers = [];//Çå¿Õ´ğ°¸
+	answers = [];//æ¸…ç©ºç­”æ¡ˆ
 	appservice.redoQuestionaire();
 }
 
 /**
- * ÍË³ö·ÃÌ¸
+ * é€€å‡ºè®¿è°ˆ
  */
 function quitInterview(){
 	if(answers.length > 0){
@@ -206,14 +207,31 @@ function quitInterview(){
 }
 
 /**
- * Ìø×ªÉÏÒ»Ìâ
+ * è·³è½¬ä¸Šä¸€é¢˜
  */
 function jumpToPreviousQuestion(){
+	
+	//å¦‚æœæ˜¯ç¬¬ä¸€é¢˜ï¼Œç›´æ¥è·³å‡º
+	if(answers.length == 0){
+		appservice.showMsg("å·²ç»æ˜¯ç¬¬ä¸€é¢˜");
+		return;
+	}
+	
+	//åˆ é™¤ä¸Šä¸€é¢˜çš„æ‰€æœ‰ç­”æ¡ˆï¼ˆé˜²æ­¢æ±¡æŸ“å±€éƒ¨ç­”æ¡ˆåˆ—è¡¨ï¼‰
+	var lastQuestionCode = answers[answers.length-1]["questionCode"];
+	for(var i=answers.length-1;i>=0;i--){
+		if(answers[i]["questionCode"] == lastQuestionCode){
+			answers.pop();
+		}else{
+			break;
+		}
+	}
+	
 	appservice.jumpToPreviousQuestion();
 }
 
 /**
- * ÔİÍ£·ÃÌ¸
+ * æš‚åœè®¿è°ˆ
  */
 function pauseInterview(){
 	if(answers.length > 0){
@@ -222,7 +240,7 @@ function pauseInterview(){
 }
 
 /**
- * µ¯¿òÌáÊ¾
+ * å¼¹æ¡†æç¤º
  * @param msg
  */
 function showMsg(msg){
@@ -230,25 +248,27 @@ function showMsg(msg){
 }
 
 /**
- * Ìø×ªÖ¸¶¨ÎÊÌâ
+ * è·³è½¬æŒ‡å®šé—®é¢˜
  * @param questionCode
  */
 function jumpToSpecQuestion(questionCode){
+	if(isReplay){
+		return;
+	}
+	
 	saveToAnswers();
 	appservice.jumpToSpecQuestion(questionCode);
 }
 
 /**
- * ±à¼­ÎÊÌâ£¨´ğ°¸ÁĞ±íÌø×ª£©
+ * ç¼–è¾‘é—®é¢˜ï¼ˆç­”æ¡ˆåˆ—è¡¨è·³è½¬ï¼‰
  * @param questionCode
  */
 function editQuestion(questionCode){
 	
-	//Çå¿Õ¸ÃÎÊÌâÒÔ¼°Ö®ºóÎÊÌâµÄËùÓĞ´ğ°¸
-	var index = -1;
+	//æ¸…ç©ºè¯¥é—®é¢˜ä»¥åŠä¹‹åé—®é¢˜çš„æ‰€æœ‰ç­”æ¡ˆ
 	for(var i=0;i<answers.length;i++){
 		if(answers[i]["questionCode"] == questionCode){
-			index = i;
 			break;
 		}
 	}
@@ -259,10 +279,14 @@ function editQuestion(questionCode){
 }
 
 /**
- * ÏÔÊ¾
+ * æ˜¾ç¤º
  * @param answerCode
  */
 function showAnswer(answerCode){
+	if(isReplay){
+		return;
+	}
+	
 	var $answer = $("div.answer[data-code='"+answerCode+"']");
 	if($answer.hasClass("nodisplay")){
 		$answer.removeClass("nodisplay");
@@ -270,10 +294,14 @@ function showAnswer(answerCode){
 }
 
 /**
- * Òş²Ø
+ * éšè—
  * @param answerCode
  */
 function hideAnswer(answerCode){
+	if(isReplay){
+		return;
+	}
+	
 	var $answer = $("div.answer[data-code='"+answerCode+"']");
 	if(!$answer.hasClass("nodisplay")){
 		$answer.addClass("nodisplay");
@@ -281,14 +309,14 @@ function hideAnswer(answerCode){
 }
 
 /**
- * ¼ÌĞø·ÃÌ¸£¨ÖĞÍ¾Ìø×ª´ğ°¸ÁĞ±í£©
+ * ç»§ç»­è®¿è°ˆï¼ˆä¸­é€”è·³è½¬ç­”æ¡ˆåˆ—è¡¨ï¼‰
  */
 function resumeQuestionaire(){
 	appservice.resumeQuestionaire();
 }
 
 /**
- * Ìø×ª½áÊøÎÊÌâ
+ * è·³è½¬ç»“æŸé—®é¢˜
  * @param endQuestionCode
  */
 function jumpToEnd(endQuestionCode){
@@ -296,7 +324,7 @@ function jumpToEnd(endQuestionCode){
 }
 
 /**
- * ¼ÆËãÄêÁä
+ * è®¡ç®—å¹´é¾„
  * @param dateStr  1988-07-03
  */
 function calculateAge(dateStr){

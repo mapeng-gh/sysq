@@ -71,28 +71,27 @@ public class JSObject {
 	public void jumpToPreviousQuestion(){
 		
 		//从返回栈获取上一个问题
-		Question prevQuestion = InterviewContext.getPrevQuestion();
-		
-		//已经为第一个题目
-		if(prevQuestion == null){
-			SysqApplication.showMessage("已经是第一题");
-			return;
-		}
+		InterviewContext.popQuestion();
+		Question prevQuestion = InterviewContext.getTopQuestion();
 		
 		//包装上一个问题
 		QuestionWrap prevQuestionWrap = InterviewService.wrap(prevQuestion);
 		
-		//更新问题返回栈
-		InterviewContext.popQuestion();
-		
-		//执行进入逻辑代码
-		if(!StringUtils.isEmpty(StringUtils.trim(prevQuestionWrap.getQuestion().getEntryLogic()))){
-			JSFuncInvokeUtils.invoke(prevQuestionWrap.getQuestion().getEntryLogic());
-		}
-		
 		//渲染页面
 		prevQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(prevQuestionWrap.getQuestion().getDescription()));
 		RenderUtils.render(TemplateConstants.QUESTION, prevQuestionWrap,new String[]{"extra"});
+		
+		//还原现场
+		JSFuncInvokeUtils.invoke("isReplay=true;");
+		List<Question> questionList = InterviewContext.getQuestionList();
+		for(Question question : questionList){
+			JSFuncInvokeUtils.invoke(question.getEntryLogic());
+			if(!question.getCode().equals(prevQuestion.getCode())){//上一个问题不需执行退出逻辑
+				JSFuncInvokeUtils.invoke(question.getExitLogic());
+			}
+		}
+		JSFuncInvokeUtils.invoke("isReplay=false;");
+		
 	}
 	
 	/**
@@ -102,29 +101,48 @@ public class JSObject {
 	@JavascriptInterface
 	public void jumpToSpecQuestion(String questionCode){
 		
-		//查询指定问题
-		QuestionWrap specQuestionWrap = null;
-		specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
-		
-		//更新问题返回栈
+		//从返回栈查找指定问题
 		Question specQuestion = InterviewContext.findQuestion(questionCode);
+		
 		if(specQuestion == null){//往后
+			
+			//查库
+			QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
+			
+			//添加栈
 			InterviewContext.pushQuestion(specQuestionWrap.getQuestion());
 			
+			//渲染数据
+			specQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(specQuestionWrap.getQuestion().getDescription()));
+			RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});
+			
+			//执行进入逻辑
+			JSFuncInvokeUtils.invoke(specQuestionWrap.getQuestion().getEntryLogic());
+			
 		}else{//往前（答案列表跳转）
-			while(specQuestion != InterviewContext.getCurQuestion()){
+			
+			//更新返回栈
+			while(specQuestion != InterviewContext.getTopQuestion()){
 				InterviewContext.popQuestion();
 			}
+			
+			//渲染数据
+			QuestionWrap specQuestionWrap = InterviewService.wrap(specQuestion);
+			specQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(specQuestionWrap.getQuestion().getDescription()));
+			RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});
+			
+			//还原现场
+			JSFuncInvokeUtils.invoke("isReplay=true;");
+			List<Question> questionList = InterviewContext.getQuestionList();
+			for(Question question : questionList){
+				JSFuncInvokeUtils.invoke(question.getEntryLogic());
+				if(!question.getCode().equals(specQuestion.getCode())){//上一个问题不需执行退出逻辑
+					JSFuncInvokeUtils.invoke(question.getExitLogic());
+				}
+			}
+			JSFuncInvokeUtils.invoke("isReplay=false;");
 		}
 		
-		//执行进入逻辑代码
-		if(!StringUtils.isEmpty(StringUtils.trim(specQuestionWrap.getQuestion().getEntryLogic()))){
-			JSFuncInvokeUtils.invoke(specQuestionWrap.getQuestion().getEntryLogic());
-		}
-		
-		//渲染数据
-		specQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(specQuestionWrap.getQuestion().getDescription()));
-		RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});
 	}
 	
 	/**
@@ -149,7 +167,7 @@ public class JSObject {
 	public void resumeQuestionaire(){
 		
 		//获取当前问题
-		Question curQuestion = InterviewContext.getCurQuestion();
+		Question curQuestion = InterviewContext.getTopQuestion();
 		QuestionWrap curQuestionWrap = InterviewService.wrap(curQuestion);
 		
 		//渲染页面
@@ -224,7 +242,7 @@ public class JSObject {
 			InterviewContext.setCurInterviewQuestionaire(nextInterviewQuestionaire);
 			
 			//清空问题返回栈
-			InterviewContext.clearQuestionStack();
+			InterviewContext.clearQuestion();
 			
 			//更新访谈记录
 			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
@@ -278,7 +296,7 @@ public class JSObject {
 		
 		//更新访问记录
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
-		curInterviewBasic.setNextQuestionCode(InterviewContext.getCurQuestion().getCode());
+		curInterviewBasic.setNextQuestionCode(InterviewContext.getTopQuestion().getCode());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
 		//跳转主页
@@ -292,7 +310,7 @@ public class JSObject {
 	public void redoQuestionaire(){
 		
 		//清空问题返回栈
-		InterviewContext.clearQuestionStack();
+		InterviewContext.clearQuestion();
 		
 		//跳转第一个问题
 		this.jumpToFirstQuestion();

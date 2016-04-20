@@ -40,22 +40,15 @@ public class InterviewContext {
 	public static void popQuestion(){
 		questionBackStack.remove(questionBackStack.size()-1);
 	}
-	public static void clearQuestionStack(){
+	public static void clearQuestion(){
 		questionBackStack.clear();
 	}
-	public static Question getCurQuestion() {
+	public static Question getTopQuestion() {
 		if(questionBackStack.size() <= 0){
 			return null;
 		}
 		return questionBackStack.get(questionBackStack.size()-1);
 	}
-	public static Question getPrevQuestion(){
-		if(questionBackStack.size() <= 1){
-			return null;
-		}
-		return questionBackStack.get(questionBackStack.size()-2);
-	}
-	
 	public static Question findQuestion(String questionCode){
 		if(questionBackStack.size() <= 0){
 			return null;
@@ -66,6 +59,12 @@ public class InterviewContext {
 			}
 		}
 		return null;
+	}
+	public static int questionSize(){
+		return questionBackStack.size();
+	}
+	public static List<Question> getQuestionList(){
+		return questionBackStack;
 	}
 	
 	/**

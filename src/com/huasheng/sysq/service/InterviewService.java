@@ -197,7 +197,7 @@ public class InterviewService {
 		//获取当前问卷、当前版本、当前问题
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
-		Question curQuestion = InterviewContext.getCurQuestion();
+		Question curQuestion = InterviewContext.getTopQuestion();
 		
 		//获取上一question
 		Question previousQuestion = null;
@@ -228,7 +228,7 @@ public class InterviewService {
 		//获取当前问卷、当前版本号、当前问题
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
-		Question curQuestion = InterviewContext.getCurQuestion();
+		Question curQuestion = InterviewContext.getTopQuestion();
 		
 		//获取下一个question
 		Question nextQuestion = null;
