@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.google.gson.reflect.TypeToken;

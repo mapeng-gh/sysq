@@ -119,8 +119,10 @@ public class ColumnConstants {
 	 */
 	public static final String COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID = "interview_basic_id";
 	public static final String COLUMN_INTERVIEW_ANSWER_QUESTION_CODE = "question_code";
+	public static final String COLUMN_INTERVIEW_ANSWER_ANSWER_LABEL = "answer_label";
 	public static final String COLUMN_INTERVIEW_ANSWER_ANSWER_CODE = "answer_code";
 	public static final String COLUMN_INTERVIEW_ANSWER_ANSWER_VALUE = "answer_value";
 	public static final String COLUMN_INTERVIEW_ANSWER_ANSWER_TEXT = "answer_text";
+	public static final String COLUMN_INTERVIEW_ANSWER_ANSWER_SEQ_NUM = "answer_seq_num";
 	public static final String COLUMN_INTERVIEW_ANSWER_VERSION_ID = "version_id";
 }

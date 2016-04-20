@@ -19,7 +19,7 @@
 		
 		{{each answerWrapList as answerWrap i}}
 		
-			<div class="answer {{answerWrap.answer.isShow == 0 ? "nodisplay":""}}" data-code="{{answerWrap.answer.code}}" data-type="{{answerWrap.answer.type}}" data-label="{{answerWrap.answer.label}}" data-question-code="{{question.code}}">
+			<div class="answer {{answerWrap.answer.isShow == 0 ? "nodisplay":""}}" data-code="{{answerWrap.answer.code}}" data-type="{{answerWrap.answer.type}}" data-label="{{answerWrap.answer.label}}" data-seq-num="{{answerWrap.answer.seqNum}}" data-question-code="{{question.code}}">
 		
 					<span class="label size-answer-label">{{answerWrap.answer.label}}</span>
 					

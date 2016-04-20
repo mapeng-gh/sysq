@@ -5,9 +5,11 @@ public class InterviewAnswer {
 	private int id;
 	private int interviewBasicId;
 	private String questionCode;
+	private String answerLabel;
 	private String answerCode;
 	private String answerValue;
 	private String answerText;
+	private int answerSeqNum;
 	private int versionId;
 	
 	public int getId() {
@@ -51,5 +53,17 @@ public class InterviewAnswer {
 	}
 	public void setAnswerText(String answerText) {
 		this.answerText = answerText;
+	}
+	public String getAnswerLabel() {
+		return answerLabel;
+	}
+	public void setAnswerLabel(String answerLabel) {
+		this.answerLabel = answerLabel;
+	}
+	public int getAnswerSeqNum() {
+		return answerSeqNum;
+	}
+	public void setAnswerSeqNum(int answerSeqNum) {
+		this.answerSeqNum = answerSeqNum;
 	}
 }

@@ -51,6 +51,7 @@ function getLocalAnswerValue(){
 		var code = $answer.data("code");
 		var label = $answer.data("label");
 		var type = $answer.data("type");
+		var seqNum = $answer.data("seq-num");
 		var questionCode = $answer.data("question-code");
 		
 		//获取值与文本
@@ -86,7 +87,7 @@ function getLocalAnswerValue(){
 			text = value;
 		}
 		
-		localAnswers.push({"code":code,"label":label,"value":value,"text":text,"questionCode":questionCode});
+		localAnswers.push({"code":code,"label":label,"value":value,"text":text,"seqNum":seqNum,"questionCode":questionCode});
 	});
 	
 	return localAnswers;

@@ -66,6 +66,9 @@ public class InterviewContext {
 	public static List<Question> getQuestionList(){
 		return questionBackStack;
 	}
+	public static void setQuestionList(List<Question> questionList){
+		InterviewContext.questionBackStack = questionList;
+	}
 	
 	/**
 	 * ================设置/获取上下文===================

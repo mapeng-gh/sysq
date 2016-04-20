@@ -90,6 +90,42 @@ public class InterviewService {
 	}
 	
 	/**
+	 * 查询问卷记录
+	 * @param interviewBasicId
+	 * @param questionaireCode
+	 * @return
+	 */
+	public static InterviewQuestionaire findInterviewQuestionaire(int interviewBasicId,String questionaireCode){
+		List<InterviewQuestionaire> interviewQuestionaireList = InterviewQuestionaireDB.selectByInterviewBasicId(interviewBasicId, SysqContext.getCurrentVersion().getId());
+		for(InterviewQuestionaire interviewQuestionaire : interviewQuestionaireList){
+			if(interviewQuestionaire.getQuestionaireCode().equals(questionaireCode)){
+				return interviewQuestionaire;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 查询问题记录列表
+	 * @param interviewBasicId
+	 * @param questionaireCode
+	 * @return
+	 */
+	public static List<InterviewQuestion> getInterviewQuestionList(int interviewBasicId,String questionaireCode){
+		return InterviewQuestionDB.selectByQuestionaire(interviewBasicId, questionaireCode);
+	}
+	
+	/**
+	 * 查询答案记录列表
+	 * @param interviewBasicId
+	 * @param questionCode
+	 * @return
+	 */
+	public static List<InterviewAnswer> getInterviewAnswerList(int interviewBasicId,String questionCode){
+		return InterviewAnswerDB.selectByQuestion(interviewBasicId, questionCode);
+	}
+	
+	/**
 	 * 获取答案列表
 	 * @param answerValueMap
 	 * @return
@@ -160,9 +196,11 @@ public class InterviewService {
 			InterviewAnswer interviewAnswer = new InterviewAnswer();
 			interviewAnswer.setInterviewBasicId(InterviewContext.getCurInterviewBasic().getId());
 			interviewAnswer.setQuestionCode(answerValue.getQuestionCode());
+			interviewAnswer.setAnswerLabel(answerValue.getLabel());
 			interviewAnswer.setAnswerCode(answerValue.getCode());
 			interviewAnswer.setAnswerValue(answerValue.getValue());
 			interviewAnswer.setAnswerText(answerValue.getText());
+			interviewAnswer.setAnswerSeqNum(answerValue.getSeqNum());
 			InterviewAnswerDB.insert(interviewAnswer);
 		}
 	}
@@ -383,6 +421,15 @@ public class InterviewService {
 		}
 		
 		return nextQuestionaire;
+	}
+	
+	/**
+	 * 获取指定问卷
+	 * @param questionaireCode
+	 * @return
+	 */
+	public static Questionaire getSpecQuestionaire(String questionaireCode){
+		return QuestionaireDB.selectByCode(questionaireCode,SysqContext.getCurrentVersion().getId());
 	}
 	
 	/**

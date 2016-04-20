@@ -23,6 +23,12 @@ public class InterviewQuestionaireDB {
 		SysQOpenHelper.getDatabase().update(TableConstants.TABLE_INTERVIEW_QUESTIONAIRE, values, "id=?", new String[]{interviewQuestionaire.getId()+""});
 	}
 	
+	/**
+	 * 查询访问记录下所有问卷记录
+	 * @param interviewBasicId
+	 * @param versionId
+	 * @return
+	 */
 	public static List<InterviewQuestionaire> selectByInterviewBasicId(int interviewBasicId,int versionId){
 		Cursor cursor = SysQOpenHelper.getDatabase().query(
 				TableConstants.TABLE_INTERVIEW_QUESTIONAIRE,

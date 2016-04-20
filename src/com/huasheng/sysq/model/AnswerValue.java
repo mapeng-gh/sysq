@@ -6,6 +6,7 @@ public class AnswerValue {
 	private String label;//用于答案列表显示
 	private String text;//用于答案列表显示
 	private String value;//用于保存
+	private int seqNum;
 	private String questionCode;//问题code
 	
 	public String getCode() {
@@ -37,6 +38,12 @@ public class AnswerValue {
 	}
 	public void setQuestionCode(String questionCode) {
 		this.questionCode = questionCode;
+	}
+	public int getSeqNum() {
+		return seqNum;
+	}
+	public void setSeqNum(int seqNum) {
+		this.seqNum = seqNum;
 	}
 	
 }

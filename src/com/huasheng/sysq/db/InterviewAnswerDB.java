@@ -24,7 +24,7 @@ public class InterviewAnswerDB {
 				null,
 				ColumnConstants.COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID + "=?" + " and " + ColumnConstants.COLUMN_INTERVIEW_ANSWER_QUESTION_CODE + "=?",
 				new String[]{interviewBasicId + "",questionCode},
-				null,null, null);
+				null,null, ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_SEQ_NUM + " asc");
 		List<InterviewAnswer> interviewAnswerList = new ArrayList<InterviewAnswer>();
 		while(cursor.moveToNext()){
 			InterviewAnswer interviewAnswer = fillObjectFromDB(cursor);
@@ -39,9 +39,11 @@ public class InterviewAnswerDB {
 		interviewAnswer.setId(cursor.getInt(cursor.getColumnIndex("id")));
 		interviewAnswer.setInterviewBasicId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID)));
 		interviewAnswer.setQuestionCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_ANSWER_QUESTION_CODE)));
+		interviewAnswer.setAnswerLabel(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_LABEL)));
 		interviewAnswer.setAnswerCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_CODE)));
 		interviewAnswer.setAnswerValue(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_VALUE)));
 		interviewAnswer.setAnswerText(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_TEXT)));
+		interviewAnswer.setAnswerSeqNum(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_SEQ_NUM)));
 		interviewAnswer.setVersionId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_ANSWER_VERSION_ID)));
 		return interviewAnswer;
 	}
@@ -50,9 +52,11 @@ public class InterviewAnswerDB {
 		ContentValues values = new ContentValues();
 		values.put(ColumnConstants.COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID, interviewAnswer.getInterviewBasicId());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_ANSWER_QUESTION_CODE, interviewAnswer.getQuestionCode());
+		values.put(ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_LABEL, interviewAnswer.getAnswerLabel());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_CODE, interviewAnswer.getAnswerCode());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_VALUE, interviewAnswer.getAnswerValue());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_TEXT, interviewAnswer.getAnswerText());
+		values.put(ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_SEQ_NUM, interviewAnswer.getAnswerSeqNum());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_ANSWER_VERSION_ID, interviewAnswer.getVersionId());
 		return values;
 	}

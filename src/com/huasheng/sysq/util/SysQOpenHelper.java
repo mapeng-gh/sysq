@@ -134,9 +134,11 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 				"id integer primary key autoincrement," +
 				ColumnConstants.COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_ANSWER_QUESTION_CODE + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_LABEL + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_CODE + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_VALUE + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_TEXT + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_SEQ_NUM + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTION_VERSION_ID + " integer" +
 			")";
 	
