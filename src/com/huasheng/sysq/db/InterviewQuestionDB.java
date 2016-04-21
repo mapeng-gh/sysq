@@ -18,6 +18,10 @@ public class InterviewQuestionDB {
 		return (int)SysQOpenHelper.getDatabase().insert(TableConstants.TABLE_INTERVIEW_QUESTION, null, values);
 	}
 	
+	public static void deleteByInterviewBasic(int interviewBasicId){
+		SysQOpenHelper.getDatabase().delete(TableConstants.TABLE_INTERVIEW_QUESTION, ColumnConstants.COLUMN_INTERVIEW_QUESTION_INTERVIEW_BASIC_ID + "=?", new String[]{interviewBasicId + ""});
+	}
+	
 	public static List<InterviewQuestion> selectByQuestionaire(int interviewBasicId,String questionaireCode){
 		Cursor cursor = SysQOpenHelper.getDatabase().query(
 				TableConstants.TABLE_INTERVIEW_QUESTION,

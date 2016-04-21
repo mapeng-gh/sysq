@@ -1,6 +1,8 @@
 package com.huasheng.sysq.util;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -181,24 +183,53 @@ public class JSObject {
 	@JavascriptInterface
 	public void jumpToAnswerList(String answersJA,String type){
 		
-		//获取答案参数
-		List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
+		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		
-		//获取答案列表
-		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
-		
-		//问题介绍分段处理
-		List<Question> questionList = resultWrap.getQuestionList();
-		for(Question question : questionList){
-			question.setDescription(BreakLineUtils.handleParaInHTML(question.getDescription()));
+		if(interviewQuestionaire.getQuestionaireCode().equals("LHC")){//生活日历问卷定制
+			
+			//获取答案参数
+			List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
+			
+			//封装答案
+			Map<String,Object> result = new HashMap<String,Object>();
+			result.put("questionaireTitle", InterviewService.getSpecQuestionaire(interviewQuestionaire.getQuestionaireCode()).getTitle());
+			
+			Map<String,AnswerValue> answerMap = new HashMap<String,AnswerValue>();
+			for(AnswerValue answerValue : answerValueList){
+				answerMap.put(answerValue.getCode(), answerValue);
+			}
+			result.put("answerList",answerMap);
+			
+			//渲染页面
+			if("all".equals(type)){
+				RenderUtils.render(TemplateConstants.ANSWERS_LHC, result,null);
+			}else if("part".equals(type)){
+				RenderUtils.render(TemplateConstants.ANSWERS_LHC_PARTIAL, result,null);
+			}
+			
+		}else{
+			
+			//获取答案参数
+			List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
+			
+			//获取答案列表
+			ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
+			
+			//问题介绍分段处理
+			List<Question> questionList = resultWrap.getQuestionList();
+			for(Question question : questionList){
+				question.setDescription(BreakLineUtils.handleParaInHTML(question.getDescription()));
+			}
+			
+			//渲染页面
+			if("all".equals(type)){
+				RenderUtils.render(TemplateConstants.ANSWERS, resultWrap,null);
+			}else if("part".equals(type)){
+				RenderUtils.render(TemplateConstants.ANSWERS_PARTIAL, resultWrap,null);
+			}
 		}
 		
-		//渲染页面
-		if("all".equals(type)){
-			RenderUtils.render(TemplateConstants.ANSWERS, resultWrap,null);
-		}else if("part".equals(type)){
-			RenderUtils.render(TemplateConstants.ANSWERS_PARTIAL, resultWrap,null);
-		}
+		
 		
 	}
 	

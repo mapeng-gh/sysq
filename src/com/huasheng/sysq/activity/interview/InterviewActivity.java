@@ -128,11 +128,12 @@ public class InterviewActivity extends Activity{
 				answerValue.setValue(interviewAnswer.getAnswerValue());
 				answerValue.setText(interviewAnswer.getAnswerText());
 				answerValue.setSeqNum(interviewAnswer.getAnswerSeqNum());
-				answerValue.setQuestionCode(interviewAnswer.getAnswerValue());
+				answerValue.setQuestionCode(interviewAnswer.getQuestionCode());
 				answerValueList.add(answerValue);
 			}
 		}
-		JSFuncInvokeUtils.invoke(RenderUtils.toJson(answerValueList, null));
+		String jsStr = "answers=JSON.parse(\\'" + RenderUtils.toJson(answerValueList, null) + "\\')";
+		JSFuncInvokeUtils.invoke(jsStr);
 		
 		//还原现场
 		JSFuncInvokeUtils.invoke("isReplay=true;");

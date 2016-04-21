@@ -1,0 +1,30 @@
+/**头部**/
+div.results-lhc div.header{
+	background-color: #338EE7;
+	padding: 5px 0 5px 5px;
+	color:#FFFFFF;
+	font-weight: bold;
+}
+
+/**工具栏**/
+div.results-lhc div.toolbar{
+	margin-top: 20px;
+	text-align:right;
+}
+div.results-lhc div.toolbar input{
+	margin-left: 50px;
+}
+
+/** 表格 **/
+div.results-lhc div.content{
+	margin-top: 20px;
+}
+div.results-lhc table{
+	width:100%;
+	border-collapse: collapse;
+}
+div.results-lhc table td{
+	border:solid 1px grey;
+	padding:5px;
+	font-size:18px;
+}

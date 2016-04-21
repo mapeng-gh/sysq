@@ -176,6 +176,11 @@ public class InterviewService {
 	 */
 	public static void saveAnswers(List<AnswerValue> answerValueList){
 		
+		//清除访问问卷下所有访问问题、访问答案
+		InterviewBasic interviewBasic = InterviewContext.getCurInterviewBasic();
+		InterviewQuestionDB.deleteByInterviewBasic(interviewBasic.getId());
+		InterviewAnswerDB.deleteByInterviewBasic(interviewBasic.getId());
+		
 		//保存interviewQuestion（主要记录访谈的问题）
 		Set<String> questionCodeSet = new HashSet<String>();
 		for(AnswerValue answerValue : answerValueList){
