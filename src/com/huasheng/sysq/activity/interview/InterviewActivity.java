@@ -114,7 +114,7 @@ public class InterviewActivity extends Activity{
 		//äÖÈ¾Ò³Ãæ
 		QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
 		specQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(specQuestionWrap.getQuestion().getDescription()));
-		RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});
+		RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra","entryLogic"});
 		
 		//»Ö¸´´ð°¸
 		List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();

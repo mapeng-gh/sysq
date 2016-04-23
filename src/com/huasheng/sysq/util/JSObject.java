@@ -34,14 +34,14 @@ public class JSObject {
 		//设置上下文
 		InterviewContext.pushQuestion(firstQuesWrap.getQuestion());
 		
+		//渲染页面
+		firstQuesWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(firstQuesWrap.getQuestion().getDescription()));
+		RenderUtils.render(TemplateConstants.QUESTION, firstQuesWrap,new String[]{"extra","entryLogic"});
+		
 		//执行进入逻辑代码
 		if(!StringUtils.isEmpty(StringUtils.trim(firstQuesWrap.getQuestion().getEntryLogic()))){
 			JSFuncInvokeUtils.invoke(firstQuesWrap.getQuestion().getEntryLogic());
 		}
-		
-		//渲染页面
-		firstQuesWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(firstQuesWrap.getQuestion().getDescription()));
-		RenderUtils.render(TemplateConstants.QUESTION, firstQuesWrap,new String[]{"extra"});
 	}
 	
 	/**
@@ -56,14 +56,14 @@ public class JSObject {
 		//保存当前题目到上下文
 		InterviewContext.pushQuestion(nextQuestionWrap.getQuestion());
 		
+		//页面渲染
+		nextQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(nextQuestionWrap.getQuestion().getDescription()));
+		RenderUtils.render(TemplateConstants.QUESTION, nextQuestionWrap,new String[]{"extra","entryLogic"});
+		
 		//执行进入逻辑代码
 		if(!StringUtils.isEmpty(StringUtils.trim(nextQuestionWrap.getQuestion().getEntryLogic()))){
 			JSFuncInvokeUtils.invoke(nextQuestionWrap.getQuestion().getEntryLogic());
 		}
-		
-		//页面渲染
-		nextQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(nextQuestionWrap.getQuestion().getDescription()));
-		RenderUtils.render(TemplateConstants.QUESTION, nextQuestionWrap,new String[]{"extra"});
 	}
 	
 	/**
@@ -81,7 +81,7 @@ public class JSObject {
 		
 		//渲染页面
 		prevQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(prevQuestionWrap.getQuestion().getDescription()));
-		RenderUtils.render(TemplateConstants.QUESTION, prevQuestionWrap,new String[]{"extra"});
+		RenderUtils.render(TemplateConstants.QUESTION, prevQuestionWrap,new String[]{"extra","entryLogic"});
 		
 		//还原现场
 		JSFuncInvokeUtils.invoke("isReplay=true;");
@@ -116,7 +116,7 @@ public class JSObject {
 			
 			//渲染数据
 			specQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(specQuestionWrap.getQuestion().getDescription()));
-			RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});
+			RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra","entryLogic"});
 			
 			//执行进入逻辑
 			JSFuncInvokeUtils.invoke(specQuestionWrap.getQuestion().getEntryLogic());
@@ -131,7 +131,7 @@ public class JSObject {
 			//渲染数据
 			QuestionWrap specQuestionWrap = InterviewService.wrap(specQuestion);
 			specQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(specQuestionWrap.getQuestion().getDescription()));
-			RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra"});
+			RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra","entryLogic"});
 			
 			//还原现场
 			JSFuncInvokeUtils.invoke("isReplay=true;");
@@ -159,7 +159,7 @@ public class JSObject {
 		
 		//渲染页面
 		endQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(endQuestionWrap.getQuestion().getDescription()));
-		RenderUtils.render(TemplateConstants.QUESTION_END, endQuestionWrap,new String[]{"extra"});
+		RenderUtils.render(TemplateConstants.QUESTION_END, endQuestionWrap,new String[]{"extra","entryLogic"});
 	}
 	
 	/**
@@ -174,7 +174,7 @@ public class JSObject {
 		
 		//渲染页面
 		curQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(curQuestionWrap.getQuestion().getDescription()));
-		RenderUtils.render(TemplateConstants.QUESTION, curQuestionWrap,new String[]{"extra"});
+		RenderUtils.render(TemplateConstants.QUESTION, curQuestionWrap,new String[]{"extra","entryLogic"});
 	}
 	
 	/**
