@@ -19,8 +19,7 @@ import com.huasheng.sysq.activity.interview.InterviewActivity;
 import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionaireActivity;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.Page;
-import com.huasheng.sysq.service.IntervieweeService;
-import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.service.InterviewService;
 
 public class IntervieweeActivity extends Activity implements OnClickListener{
 	
@@ -62,7 +61,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		searchET = (EditText)findViewById(R.id.et_interviewee_search);
 		searchBtn = (Button)findViewById(R.id.btn_interviewee_search);
 		
-		Page<InterviewBasic> page = IntervieweeService.searchInterviewBasic("", 1,Page.PAGE_SIZE);
+		Page<InterviewBasic> page = InterviewService.searchInterviewBasic("", 1,Page.PAGE_SIZE);
 		this.refreshListView(page);
 		
 		previousTV.setOnClickListener(this);
@@ -130,7 +129,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	
 	private void search(){
 		searchStr = searchET.getText().toString();
-		Page<InterviewBasic> page = IntervieweeService.searchInterviewBasic(searchStr, 1, Page.PAGE_SIZE);;
+		Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr, 1, Page.PAGE_SIZE);;
 		this.refreshListView(page);
 	}
 	
@@ -138,7 +137,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		if(this.currentPage == this.totalPage){
 			Toast.makeText(this, "已经到最后一页",Toast.LENGTH_SHORT).show();
 		}else{
-			Page<InterviewBasic> page = IntervieweeService.searchInterviewBasic(searchStr,this.currentPage+1,Page.PAGE_SIZE);
+			Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr,this.currentPage+1,Page.PAGE_SIZE);
 			this.refreshListView(page);
 		}
 	}
@@ -147,7 +146,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		if(this.currentPage == 1){
 			Toast.makeText(this, "已经到第一页",Toast.LENGTH_SHORT).show();
 		}else{
-			Page<InterviewBasic> page = IntervieweeService.searchInterviewBasic(searchStr,this.currentPage-1,Page.PAGE_SIZE);;
+			Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr,this.currentPage-1,Page.PAGE_SIZE);;
 			this.refreshListView(page);
 		}
 	}

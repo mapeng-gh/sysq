@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewQuestionWrap;
-import com.huasheng.sysq.service.IntervieweeService;
+import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.BreakLineUtils;
 
 public class IntervieweeAnswerActivity extends Activity{
@@ -32,7 +32,7 @@ public class IntervieweeAnswerActivity extends Activity{
 		
 		questionLV = (ListView)findViewById(R.id.lv_interviewee_answers_question);
 		
-		List<InterviewQuestionWrap> interviewQuestionWrapList = IntervieweeService.getInterviewQuestionList(this.interviewBasicId, this.questionaireCode);
+		List<InterviewQuestionWrap> interviewQuestionWrapList = InterviewService.getWrapInterviewQuestionList(this.interviewBasicId, this.questionaireCode);
 		
 		//∂Œ¬‰ªª––¥¶¿Ì
 		for(InterviewQuestionWrap interviewQuestionWrap : interviewQuestionWrapList){

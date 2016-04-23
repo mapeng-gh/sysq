@@ -19,9 +19,13 @@ import com.huasheng.sysq.model.Answer;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.AnswerWrap;
 import com.huasheng.sysq.model.InterviewAnswer;
+import com.huasheng.sysq.model.InterviewAnswerWrap;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestion;
+import com.huasheng.sysq.model.InterviewQuestionWrap;
 import com.huasheng.sysq.model.InterviewQuestionaire;
+import com.huasheng.sysq.model.InterviewQuestionaireWrap;
+import com.huasheng.sysq.model.Page;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
@@ -61,6 +65,51 @@ public class InterviewService {
 	}
 	
 	/**
+	 * 搜索访谈记录
+	 * @param searchStr
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public static Page<InterviewBasic> searchInterviewBasic(String searchStr,Integer pageNo,Integer pageSize){
+		
+		//构造搜索对象
+		InterviewBasic interview = new InterviewBasic();
+		interview.setUsername(searchStr);
+		interview.setDna(searchStr);
+		
+		//分页计算
+		Integer offset = null;
+		Integer limit = pageSize;
+		offset = (pageNo - 1) * pageSize;
+		
+		//数据查询
+		List<InterviewBasic> data = InterviewBasicDB.search(interview, "or", offset, limit);
+		
+		//构造page
+		Page<InterviewBasic> page = new Page<InterviewBasic>();
+		page.setData(data);
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		
+		//计算总页数
+		int size = InterviewBasicDB.size(interview, "or");
+		int totalPages = size % pageSize == 0 ? size / pageSize : size / pageSize + 1;
+		page.setTotalPages(totalPages);
+		
+		return page;
+	}
+	
+	/**
+	 * 获取唯一访问记录
+	 * @param id
+	 * @return
+	 */
+	public static InterviewBasic findInterviewBasicById(int id){
+		return InterviewBasicDB.selectById(id);
+	}
+	
+	/**
 	 * 添加问卷记录
 	 * @param questionaire
 	 * @return
@@ -90,7 +139,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * 查询问卷记录
+	 * 查询唯一问卷记录
 	 * @param interviewBasicId
 	 * @param questionaireCode
 	 * @return
@@ -106,6 +155,28 @@ public class InterviewService {
 	}
 	
 	/**
+	 * 查询问卷记录集合
+	 * @param interviewBasicId
+	 * @return
+	 */
+	public static List<InterviewQuestionaireWrap> getInterviewQuestionaireList(int interviewBasicId){
+		//获取当前版本
+		Version curVersion = SysqContext.getCurrentVersion();
+		
+		//查询访问问卷
+		List<InterviewQuestionaire> interviewQuestionaireList = InterviewQuestionaireDB.selectByInterviewBasicId(interviewBasicId, curVersion.getId());
+		
+		//包装问卷
+		List<InterviewQuestionaireWrap> interviewQuestionaireWrapList = new ArrayList<InterviewQuestionaireWrap>();
+		for(InterviewQuestionaire interviewQuestionaire : interviewQuestionaireList){
+			Questionaire questionaire = QuestionaireDB.selectByCode(interviewQuestionaire.getQuestionaireCode(), curVersion.getId());
+			interviewQuestionaireWrapList.add(new InterviewQuestionaireWrap(interviewQuestionaire,questionaire));
+		}
+		
+		return interviewQuestionaireWrapList;
+	}
+	
+	/**
 	 * 查询问题记录列表
 	 * @param interviewBasicId
 	 * @param questionaireCode
@@ -113,6 +184,39 @@ public class InterviewService {
 	 */
 	public static List<InterviewQuestion> getInterviewQuestionList(int interviewBasicId,String questionaireCode){
 		return InterviewQuestionDB.selectByQuestionaire(interviewBasicId, questionaireCode);
+	}
+	
+	/**
+	 * 获取访问问题集合
+	 * @param interviewBasicId
+	 * @param questionaireCode
+	 * @return
+	 */
+	public static List<InterviewQuestionWrap> getWrapInterviewQuestionList(int interviewBasicId,String questionaireCode){
+		List<InterviewQuestionWrap> interviewQuestionWrapList = new ArrayList<InterviewQuestionWrap>();
+		
+		List<InterviewQuestion> interviewQuestionList = InterviewQuestionDB.selectByQuestionaire(interviewBasicId, questionaireCode);
+		for(InterviewQuestion interviewQuestion : interviewQuestionList){
+			InterviewQuestionWrap interviewQuestionWrap = new InterviewQuestionWrap();
+			
+			Question question = QuestionDB.selectByCode(interviewQuestion.getQuestionCode(), SysqContext.getCurrentVersion().getId());
+			interviewQuestionWrap.setQuestion(question);
+			
+			List<InterviewAnswerWrap> interviewAnswerWrapList = new ArrayList<InterviewAnswerWrap>();
+			List<InterviewAnswer> interviewAnswerList = InterviewAnswerDB.selectByQuestion(interviewBasicId, interviewQuestion.getQuestionCode());
+			for(InterviewAnswer interviewAnswer : interviewAnswerList){
+				InterviewAnswerWrap interviewAnswerWrap = new InterviewAnswerWrap();
+				interviewAnswerWrap.setInterviewAnswer(interviewAnswer);
+				interviewAnswerWrap.setAnswer(AnswerDB.selectByCode(interviewAnswer.getAnswerCode(), SysqContext.getCurrentVersion().getId()));
+				interviewAnswerWrapList.add(interviewAnswerWrap);
+			}
+			interviewQuestionWrap.setAnswerWrapList(interviewAnswerWrapList);
+			
+			interviewQuestionWrapList.add(interviewQuestionWrap);
+		}
+		
+		return interviewQuestionWrapList;
+		
 	}
 	
 	/**

@@ -10,6 +10,7 @@ import android.webkit.JavascriptInterface;
 
 import com.google.gson.reflect.TypeToken;
 import com.huasheng.sysq.activity.IndexActivity;
+import com.huasheng.sysq.db.InterviewAnswerDB;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionaire;
@@ -229,8 +230,16 @@ public class JSObject {
 			}
 		}
 		
-		
-		
+	}
+	
+	/**
+	 * 获取访问答案
+	 * @param answerCode
+	 * @return
+	 */
+	@JavascriptInterface
+	public String getInterviewAnswer(String answerCode){
+		return null;
 	}
 	
 	/**

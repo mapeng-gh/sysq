@@ -22,7 +22,7 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.activity.interviewee.answers.IntervieweeAnswerActivity;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionaireWrap;
-import com.huasheng.sysq.service.IntervieweeService;
+import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.SysqApplication;
 
 public class IntervieweeQuestionaireActivity extends Activity implements OnClickListener{
@@ -96,7 +96,7 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 	
 	private void saveIntervieweeDNA(){
 		
-		InterviewBasic interviewBasic = IntervieweeService.findById(this.interviewBasicId);
+		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		
 		EditText sample1ET = (EditText)this.containerLL.findViewById(R.id.et_interviewee_questionaire_dna_sample1);
 		EditText sample2ET = (EditText)this.containerLL.findViewById(R.id.et_interviewee_questionaire_dna_sample2);
@@ -120,14 +120,14 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		if(dnaList.size() > 0){
 			String dnas = StringUtils.join(dnaList,",");
 			interviewBasic.setDna(dnas);
-			IntervieweeService.modifyInterviewBasic(interviewBasic);
+			InterviewService.updateInterviewBasic(interviewBasic);
 			SysqApplication.showMessage("修改成功");
 		}
 	}
 	
 	private void saveIntervieweeBasic(){
 		
-		InterviewBasic interviewBasic = IntervieweeService.findById(this.interviewBasicId);
+		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		
 		EditText userNameET = (EditText)this.containerLL.findViewById(R.id.et_interviewee_questionaire_basic_username);
 		interviewBasic.setUsername(userNameET.getText().toString());
@@ -159,7 +159,7 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		EditText remarkET = (EditText)this.containerLL.findViewById(R.id.et_interviewee_questionaire_basic_remark);
 		interviewBasic.setRemark(remarkET.getText().toString());
 		
-		IntervieweeService.modifyInterviewBasic(interviewBasic);
+		InterviewService.updateInterviewBasic(interviewBasic);
 		SysqApplication.showMessage("修改成功");
 	}
 	
@@ -170,7 +170,7 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		View view = inflater.inflate(R.layout.interviewee_questionaire_list, null);
 		
 		//加载数据
-		List<InterviewQuestionaireWrap> interviewQuestionaireWrapList = IntervieweeService.getInterviewQuestionaireList(this.interviewBasicId);
+		List<InterviewQuestionaireWrap> interviewQuestionaireWrapList = InterviewService.getInterviewQuestionaireList(this.interviewBasicId);
 		
 		//数据绑定
 		ListView interviewQuestionaireListView = (ListView)view.findViewById(R.id.lv_interviewee_questionaire_list);
@@ -189,7 +189,7 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		View view = inflater.inflate(R.layout.interviewee_questionaire_basic, null);
 		
 		//加载数据
-		InterviewBasic interviewBasic = IntervieweeService.findById(this.interviewBasicId);
+		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		
 		//数据绑定
 		EditText userNameET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_basic_username);
@@ -238,7 +238,7 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		View view = inflater.inflate(R.layout.interviewee_questionaire_dna, null);
 		
 		//加载数据
-		InterviewBasic interviewBasic = IntervieweeService.findById(this.interviewBasicId);
+		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		
 		//数据绑定
 		if(!StringUtils.isEmpty(interviewBasic.getDna())){

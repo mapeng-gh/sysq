@@ -38,6 +38,22 @@ public class InterviewAnswerDB {
 		return interviewAnswerList;
 	}
 	
+	public static List<InterviewAnswer> selectByInterview(int interviewBasicId){
+		Cursor cursor = SysQOpenHelper.getDatabase().query(
+				TableConstants.TABLE_INTERVIEW_ANSWER,
+				null,
+				ColumnConstants.COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID + "=?",
+				new String[]{interviewBasicId + ""},
+				null,null, ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_SEQ_NUM + " asc");
+		List<InterviewAnswer> interviewAnswerList = new ArrayList<InterviewAnswer>();
+		while(cursor.moveToNext()){
+			InterviewAnswer interviewAnswer = fillObjectFromDB(cursor);
+			interviewAnswerList.add(interviewAnswer);
+		}
+		cursor.close();
+		return interviewAnswerList;
+	}
+	
 	private static InterviewAnswer fillObjectFromDB(Cursor cursor){
 		InterviewAnswer interviewAnswer = new InterviewAnswer();
 		interviewAnswer.setId(cursor.getInt(cursor.getColumnIndex("id")));

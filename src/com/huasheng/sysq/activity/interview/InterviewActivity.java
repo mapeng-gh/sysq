@@ -2,7 +2,6 @@ package com.huasheng.sysq.activity.interview;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,7 +22,6 @@ import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.service.IntervieweeService;
 import com.huasheng.sysq.util.BreakLineUtils;
 import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.InterviewContext;
@@ -68,7 +66,7 @@ public class InterviewActivity extends Activity{
 				}else{
 					
 					//保存访问记录到上下文
-					InterviewBasic interviewBasic = IntervieweeService.findById(InterviewActivity.this.interviewBasicId);
+					InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(InterviewActivity.this.interviewBasicId);
 					InterviewContext.setCurInterviewBasic(interviewBasic);
 					
 					if(StringUtils.isEmpty(interviewBasic.getNextQuestionCode())){//当前位置在问卷介绍页

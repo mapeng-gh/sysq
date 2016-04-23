@@ -113,6 +113,16 @@ function getAnswerValue(answerCode){
 			return answers[i]["value"];
 		}
 	}
+	
+	//从其他问卷获取
+	
+}
+
+/**
+ * 获取其他问卷答案
+ */
+function getAnswerValueEx(answerCode){
+	
 }
 
 
