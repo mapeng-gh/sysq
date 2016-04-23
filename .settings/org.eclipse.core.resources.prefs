@@ -1,8 +1,8 @@
 eclipse.preferences.version=1
-encoding//assets/data/answer.sql=UTF-8
-encoding//assets/data/question.sql=UTF-8
-encoding//assets/data/questionaire.sql=UTF-8
-encoding//assets/data_test1/data.sql=UTF-8
+encoding//assets/data/data.sql=UTF-8
+encoding//assets/data_test/answer.sql=UTF-8
+encoding//assets/data_test/question.sql=UTF-8
+encoding//assets/data_test/questionaire.sql=UTF-8
 encoding//assets/js/sysq.js=UTF-8
 encoding//assets/js/template-debug.js=UTF-8
 encoding//assets/tpl/answers.tpl=UTF-8

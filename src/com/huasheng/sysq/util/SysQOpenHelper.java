@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.apache.commons.lang3.StringUtils;
+
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -179,8 +181,8 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 
 	public void initData(SQLiteDatabase db){
 		
-		String[] dataFiles = new String[]{"data/interviewer.sql","data/version.sql","data/questionaire.sql","data/question.sql","data/answer.sql"};
-		//String[] dataFiles = new String[]{"data/data.sql"};
+//		String[] dataFiles = new String[]{"data/interviewer.sql","data/version.sql","data/questionaire.sql","data/question.sql","data/answer.sql"};
+		String[] dataFiles = new String[]{"data/data.sql"};
 		AssetManager assetManager = SysqApplication.getContext().getAssets();
 		BufferedReader reader = null;
 		
@@ -188,7 +190,8 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 			for(String dataFile : dataFiles){
 				reader = new BufferedReader(new InputStreamReader(assetManager.open(dataFile), "utf-8"));
 				String line;
-				while((line=reader.readLine())!=null){
+				while((line=reader.readLine()) != null){
+					LogUtils.debug("SysQOpenHelper", line);
 					db.execSQL(line);
 				}
 			}

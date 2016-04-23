@@ -240,8 +240,11 @@ public class JSObject {
 	@JavascriptInterface
 	public String getInterviewAnswer(String answerCode){
 		InterviewAnswer interviewAnswer = InterviewService.getInterviewAnswer(answerCode);
-		
-		return null;
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("value", interviewAnswer.getAnswerValue());
+		map.put("text", interviewAnswer.getAnswerText());
+		String interviewAnswerJS = JsonUtils.toJson(map,null);
+		return interviewAnswerJS;
 	}
 	
 	/**
