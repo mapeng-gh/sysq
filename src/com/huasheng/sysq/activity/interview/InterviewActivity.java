@@ -27,6 +27,7 @@ import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.JSFuncInvokeUtils;
 import com.huasheng.sysq.util.JSObject;
+import com.huasheng.sysq.util.JsonUtils;
 import com.huasheng.sysq.util.RenderUtils;
 import com.huasheng.sysq.util.TemplateConstants;
 
@@ -130,7 +131,7 @@ public class InterviewActivity extends Activity{
 				answerValueList.add(answerValue);
 			}
 		}
-		String jsStr = "answers=JSON.parse(\\'" + RenderUtils.toJson(answerValueList, null) + "\\')";
+		String jsStr = "answers=JSON.parse(\\'" + JsonUtils.toJson(answerValueList, null) + "\\')";
 		JSFuncInvokeUtils.invoke(jsStr);
 		
 		//还原现场

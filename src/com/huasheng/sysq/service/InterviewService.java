@@ -155,7 +155,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * 查询问卷记录集合
+	 * 查询问卷记录列表
 	 * @param interviewBasicId
 	 * @return
 	 */
@@ -187,7 +187,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * 获取访问问题集合
+	 * 查询问题记录列表（包装）
 	 * @param interviewBasicId
 	 * @param questionaireCode
 	 * @return
@@ -227,6 +227,25 @@ public class InterviewService {
 	 */
 	public static List<InterviewAnswer> getInterviewAnswerList(int interviewBasicId,String questionCode){
 		return InterviewAnswerDB.selectByQuestion(interviewBasicId, questionCode);
+	}
+	
+	/**
+	 * 获取答案记录
+	 * @param answerCode
+	 * @return
+	 */
+	public static InterviewAnswer getInterviewAnswer(String answerCode){
+		//获取当前访问记录
+		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+		
+		//查询
+		List<InterviewAnswer> interviewAnswerList = InterviewAnswerDB.selectByInterview(curInterviewBasic.getId());
+		for(InterviewAnswer interviewAnswer : interviewAnswerList){
+			if(interviewAnswer.getAnswerCode().equals(answerCode)){
+				return interviewAnswer;
+			}
+		}
+		return null;
 	}
 	
 	/**

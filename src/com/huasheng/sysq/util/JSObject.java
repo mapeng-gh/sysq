@@ -10,8 +10,8 @@ import android.webkit.JavascriptInterface;
 
 import com.google.gson.reflect.TypeToken;
 import com.huasheng.sysq.activity.IndexActivity;
-import com.huasheng.sysq.db.InterviewAnswerDB;
 import com.huasheng.sysq.model.AnswerValue;
+import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionaire;
 import com.huasheng.sysq.model.Question;
@@ -189,7 +189,7 @@ public class JSObject {
 		if(interviewQuestionaire.getQuestionaireCode().equals("LHC")){//生活日历问卷定制
 			
 			//获取答案参数
-			List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
+			List<AnswerValue> answerValueList = (List<AnswerValue>)JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
 			
 			//封装答案
 			Map<String,Object> result = new HashMap<String,Object>();
@@ -211,7 +211,7 @@ public class JSObject {
 		}else{
 			
 			//获取答案参数
-			List<AnswerValue> answerValueList = (List<AnswerValue>)RenderUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
+			List<AnswerValue> answerValueList = (List<AnswerValue>)JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
 			
 			//获取答案列表
 			ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
@@ -239,6 +239,8 @@ public class JSObject {
 	 */
 	@JavascriptInterface
 	public String getInterviewAnswer(String answerCode){
+		InterviewAnswer interviewAnswer = InterviewService.getInterviewAnswer(answerCode);
+		
 		return null;
 	}
 	
@@ -250,7 +252,7 @@ public class JSObject {
 	public void saveAnswers(String answersJS){
 		
 		//保存当前问卷答案
-		List<AnswerValue> answerValueMap = (List<AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+		List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 		InterviewService.saveAnswers(answerValueMap);
 		
 		//更新当前问卷记录
@@ -303,7 +305,7 @@ public class JSObject {
 	public void quitInterview(String answersJS){
 		
 		//保存问卷答案
-		List<AnswerValue> answerValueMap = (List<AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+		List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 		InterviewService.saveAnswers(answerValueMap);
 		
 		//更新访问记录
@@ -330,7 +332,7 @@ public class JSObject {
 	public void pauseInterview(String answersJS){
 		
 		//保存当前问卷答案
-		List<AnswerValue> answerValueMap = (List<AnswerValue>)RenderUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+		List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 		InterviewService.saveAnswers(answerValueMap);
 		
 		//更新访问记录
