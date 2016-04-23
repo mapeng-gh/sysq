@@ -6,6 +6,10 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 public class RenderUtils {
 
 	public static final String TEMPLATE_DIR = "tpl";
@@ -31,6 +35,7 @@ public class RenderUtils {
 	
 	public static void render(final String filename,Object obj,String[] excludeFields){
 		final String tpl = loadTemplate(filename);
+		
 		final String data = JsonUtils.toJson(obj, excludeFields);
 		
 		InterviewContext.getWebView().post(new Runnable() {

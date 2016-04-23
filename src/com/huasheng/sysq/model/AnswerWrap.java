@@ -15,6 +15,10 @@ public class AnswerWrap {
 	private Map<String,String> sliderOption;
 	private List<Map<String,String>> dropDownListOptions;
 	
+	public AnswerWrap(){
+		
+	}
+	
 	public AnswerWrap(Answer answer){
 		
 		this.answer = answer;

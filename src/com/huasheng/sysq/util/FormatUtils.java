@@ -1,6 +1,6 @@
 package com.huasheng.sysq.util;
 
-public class BreakLineUtils {
+public class FormatUtils {
 
 	public static final String PARA_SEPERATOR = "<para>";
 	
@@ -34,5 +34,13 @@ public class BreakLineUtils {
 	 */
 	public static String handParaInApp(String description){
 		return description.replaceAll(PARA_SEPERATOR, "\n");
+	}
+	
+	public static String escapeQuote4HTML(String s){
+		return s.replace("\"", "&quot;");
+	}
+	
+	public static String escapeQuote4JS(String s){
+		return s.replace("\"", "\\\"");
 	}
 }

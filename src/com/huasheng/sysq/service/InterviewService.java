@@ -301,8 +301,13 @@ public class InterviewService {
 		
 		//清除访问问卷下所有访问问题、访问答案
 		InterviewBasic interviewBasic = InterviewContext.getCurInterviewBasic();
-		InterviewQuestionDB.deleteByInterviewBasic(interviewBasic.getId());
-		InterviewAnswerDB.deleteByInterviewBasic(interviewBasic.getId());
+		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
+		
+		List<InterviewQuestion> interviewQuestionList = InterviewQuestionDB.selectByQuestionaire(interviewBasic.getId(), interviewQuestionaire.getQuestionaireCode());
+		InterviewQuestionDB.deleteByInterviewQuestionaire(interviewBasic.getId(),interviewQuestionaire.getQuestionaireCode());
+		for(InterviewQuestion interviewQuestion : interviewQuestionList){
+			InterviewAnswerDB.deleteByInterviewQuestion(interviewBasic.getId(),interviewQuestion.getQuestionCode());
+		}
 		
 		//保存interviewQuestion（主要记录访谈的问题）
 		Set<String> questionCodeSet = new HashSet<String>();

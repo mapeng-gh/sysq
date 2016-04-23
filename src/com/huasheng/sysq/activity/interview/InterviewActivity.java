@@ -22,7 +22,7 @@ import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.BreakLineUtils;
+import com.huasheng.sysq.util.FormatUtils;
 import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.JSFuncInvokeUtils;
@@ -113,7 +113,7 @@ public class InterviewActivity extends Activity{
 		
 		//‰÷»æ“≥√Ê
 		QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
-		specQuestionWrap.getQuestion().setDescription(BreakLineUtils.handleParaInHTML(specQuestionWrap.getQuestion().getDescription()));
+		specQuestionWrap.format();
 		RenderUtils.render(TemplateConstants.QUESTION, specQuestionWrap,new String[]{"extra","entryLogic"});
 		
 		//ª÷∏¥¥∞∏
@@ -159,7 +159,7 @@ public class InterviewActivity extends Activity{
 		
 		//‰÷»æ“≥√Ê
 		Questionaire questionaire = InterviewService.getSpecQuestionaire(interviewBasic.getCurQuestionaireCode());
-		questionaire.setIntroduction(BreakLineUtils.handleParaInHTML(questionaire.getIntroduction()));
+		questionaire.setIntroduction(FormatUtils.handleParaInHTML(questionaire.getIntroduction()));
 		RenderUtils.render(TemplateConstants.QUESTIONAIRE, questionaire,null);
 	}
 	
@@ -183,7 +183,7 @@ public class InterviewActivity extends Activity{
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
 		//‰÷»æ“≥√Ê
-		firstQuestionaire.setIntroduction(BreakLineUtils.handleParaInHTML(firstQuestionaire.getIntroduction()));
+		firstQuestionaire.setIntroduction(FormatUtils.handleParaInHTML(firstQuestionaire.getIntroduction()));
 		RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);
 	}
 

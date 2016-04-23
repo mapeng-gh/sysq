@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewQuestionWrap;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.BreakLineUtils;
+import com.huasheng.sysq.util.FormatUtils;
 
 public class IntervieweeAnswerActivity extends Activity{
 	
@@ -36,7 +36,7 @@ public class IntervieweeAnswerActivity extends Activity{
 		
 		//∂Œ¬‰ªª––¥¶¿Ì
 		for(InterviewQuestionWrap interviewQuestionWrap : interviewQuestionWrapList){
-			interviewQuestionWrap.getQuestion().setDescription(BreakLineUtils.handParaInApp(interviewQuestionWrap.getQuestion().getDescription()));
+			interviewQuestionWrap.getQuestion().setDescription(FormatUtils.handParaInApp(interviewQuestionWrap.getQuestion().getDescription()));
 		}
 		
 		IntervieweeQuestionAdapter adapter = new IntervieweeQuestionAdapter(this,R.layout.item_interviewee_answers_question,interviewQuestionWrapList,this);
