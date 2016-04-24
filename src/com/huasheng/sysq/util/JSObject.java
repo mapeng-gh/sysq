@@ -42,6 +42,9 @@ public class JSObject {
 		if(!StringUtils.isEmpty(StringUtils.trim(firstQuesWrap.getQuestion().getEntryLogic()))){
 			JSFuncInvokeUtils.invoke(firstQuesWrap.getQuestion().getEntryLogic());
 		}
+		
+		//问题描述动态插值
+		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 	}
 	
 	/**
@@ -64,6 +67,9 @@ public class JSObject {
 		if(!StringUtils.isEmpty(StringUtils.trim(nextQuestionWrap.getQuestion().getEntryLogic()))){
 			JSFuncInvokeUtils.invoke(nextQuestionWrap.getQuestion().getEntryLogic());
 		}
+		
+		//问题描述动态插值
+		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 	}
 	
 	/**
@@ -94,6 +100,9 @@ public class JSObject {
 		}
 		JSFuncInvokeUtils.invoke("isReplay=false;");
 		
+		//问题描述动态插值
+		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
+		
 	}
 	
 	/**
@@ -121,6 +130,9 @@ public class JSObject {
 			//执行进入逻辑
 			JSFuncInvokeUtils.invoke(specQuestionWrap.getQuestion().getEntryLogic());
 			
+			//问题描述动态插值
+			JSFuncInvokeUtils.invoke("insertQuestionFragment();");
+			
 		}else{//往前（答案列表跳转）
 			
 			//更新返回栈
@@ -143,6 +155,9 @@ public class JSObject {
 				}
 			}
 			JSFuncInvokeUtils.invoke("isReplay=false;");
+			
+			//问题描述动态插值
+			JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 		}
 		
 	}
@@ -160,6 +175,9 @@ public class JSObject {
 		//渲染页面
 		QuestionWrap formattedQuestionWrap = endQuestionWrap.format();
 		RenderUtils.render(TemplateConstants.QUESTION_END, formattedQuestionWrap,new String[]{"extra","entryLogic"});
+		
+		//问题描述动态插值
+		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 	}
 	
 	/**
@@ -175,6 +193,9 @@ public class JSObject {
 		//渲染页面
 		QuestionWrap formattedQuestionWrap = curQuestionWrap.format();
 		RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
+		
+		//问题描述动态插值
+		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 	}
 	
 	/**
@@ -210,17 +231,18 @@ public class JSObject {
 			
 		}else{
 			
-			//获取答案参数
+			//封装答案数据
 			List<AnswerValue> answerValueList = (List<AnswerValue>)JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
-			
-			//获取答案列表
 			ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
 			
-			//问题介绍分段处理
+			//问题描述特殊处理
 			List<Question> questionList = resultWrap.getQuestionList();
 			for(Question question : questionList){
-				question.setDescription(FormatUtils.handleParaInHTML(question.getDescription()));
-				question.setDescription(FormatUtils.escapeQuote4JS(question.getDescription()));
+				
+				String description = question.getDescription();
+				description = FormatUtils.handleParaInHTML(description);//分段
+				description = FormatUtils.escapeQuote4JS(description);//双引号转义
+				question.setDescription(description);
 			}
 			
 			//渲染页面
@@ -229,6 +251,9 @@ public class JSObject {
 			}else if("part".equals(type)){
 				RenderUtils.render(TemplateConstants.ANSWERS_PARTIAL, resultWrap,new String[]{"entryLogic","exitLogic"});
 			}
+			
+			//问题描述动态插值
+			JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 		}
 		
 	}
@@ -240,7 +265,8 @@ public class JSObject {
 	 */
 	@JavascriptInterface
 	public String getInterviewAnswer(String answerCode){
-		InterviewAnswer interviewAnswer = InterviewService.getInterviewAnswer(answerCode);
+		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+		InterviewAnswer interviewAnswer = InterviewService.getInterviewAnswer(curInterviewBasic.getId(),answerCode);
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("value", interviewAnswer.getAnswerValue());
 		map.put("text", interviewAnswer.getAnswerText());

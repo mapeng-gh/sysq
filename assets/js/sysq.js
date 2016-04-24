@@ -350,3 +350,16 @@ function calculateAge(dateStr){
 	var curYear = curDate.getFullYear();
 	return curYear - parseInt(year);
 }
+
+/**
+ * 问题描述动态插入内容
+ * @param name
+ * @param text
+ */
+function insertQuestionFragment(){
+	$("div.description span").each(function(){
+		var answerCode = $(this).attr("name");
+		var answerText = getAnswer(answerCode)["text"];
+		$(this).html(answerText);
+	});
+}

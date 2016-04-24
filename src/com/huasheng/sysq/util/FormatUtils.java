@@ -32,8 +32,8 @@ public class FormatUtils {
 	 * @param description
 	 * @return
 	 */
-	public static String handParaInApp(String description){
-		return description.replaceAll(PARA_SEPERATOR, "\n");
+	public static String handPara4App(String description){
+		return description.replace(PARA_SEPERATOR, "\n");
 	}
 	
 	public static String escapeQuote4HTML(String s){

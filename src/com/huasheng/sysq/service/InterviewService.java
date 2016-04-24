@@ -234,12 +234,10 @@ public class InterviewService {
 	 * @param answerCode
 	 * @return
 	 */
-	public static InterviewAnswer getInterviewAnswer(String answerCode){
-		//获取当前访问记录
-		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+	public static InterviewAnswer getInterviewAnswer(int interviewBasicId,String answerCode){
 		
 		//查询
-		List<InterviewAnswer> interviewAnswerList = InterviewAnswerDB.selectByInterview(curInterviewBasic.getId());
+		List<InterviewAnswer> interviewAnswerList = InterviewAnswerDB.selectByInterview(interviewBasicId);
 		for(InterviewAnswer interviewAnswer : interviewAnswerList){
 			if(interviewAnswer.getAnswerCode().equals(answerCode)){
 				return interviewAnswer;

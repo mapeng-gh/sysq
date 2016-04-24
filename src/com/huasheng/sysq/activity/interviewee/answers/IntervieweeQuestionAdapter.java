@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewQuestionWrap;
+import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.FormatUtils;
 
 public class IntervieweeQuestionAdapter extends ArrayAdapter<InterviewQuestionWrap>{
 	
@@ -38,10 +40,11 @@ public class IntervieweeQuestionAdapter extends ArrayAdapter<InterviewQuestionWr
 			view = convertView;
 		}
 		
-		//绑定数据
+		//绑定问题
 		TextView questionDescTV = (TextView)view.findViewById(R.id.tv_interviewee_answers_qustion_description);
 		questionDescTV.setText(interviewQuestionWrap.getQuestion().getDescription());
 		
+		//遍历答案
 		ListView answerLV = (ListView)view.findViewById(R.id.lv_interviewee_answers_answer);
 		IntervieweeAnswerAdapter adapter = new IntervieweeAnswerAdapter(this.activity,R.layout.item_interviewee_answers_answer,interviewQuestionWrap.getAnswerWrapList(),this.activity);
 		answerLV.setAdapter(adapter);

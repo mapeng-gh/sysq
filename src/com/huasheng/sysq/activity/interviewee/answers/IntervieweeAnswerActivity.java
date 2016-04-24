@@ -34,14 +34,32 @@ public class IntervieweeAnswerActivity extends Activity{
 		
 		List<InterviewQuestionWrap> interviewQuestionWrapList = InterviewService.getWrapInterviewQuestionList(this.interviewBasicId, this.questionaireCode);
 		
-		//段落换行处理
+		//处理问题分段、插值
 		for(InterviewQuestionWrap interviewQuestionWrap : interviewQuestionWrapList){
-			interviewQuestionWrap.getQuestion().setDescription(FormatUtils.handParaInApp(interviewQuestionWrap.getQuestion().getDescription()));
+			interviewQuestionWrap.getQuestion().setDescription(this.handleQuestionDescription(interviewQuestionWrap.getQuestion().getDescription()));
 		}
 		
 		IntervieweeQuestionAdapter adapter = new IntervieweeQuestionAdapter(this,R.layout.item_interviewee_answers_question,interviewQuestionWrapList,this);
 		questionLV.setAdapter(adapter);
 		
+	}
+	
+	private String handleQuestionDescription(String description){
+		
+		//分段
+		description = FormatUtils.handPara4App(description);
+		
+		//插值
+		while(description.indexOf("<span") != -1){
+			int spanStart = description.indexOf("<span");
+			int spanEnd = description.indexOf("</span>");
+			String span = description.substring(spanStart, spanEnd + "</span>".length());
+			String answerCode = span.replace("<span name=\"", "").replace("\"></span>", "");
+			String answerText = InterviewService.getInterviewAnswer(this.interviewBasicId,answerCode).getAnswerText();
+			description = description.replace("<span name=\""+answerCode+"\"></span>",answerText);
+		}
+		
+		return description;
 	}
 
 }
