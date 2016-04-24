@@ -89,10 +89,6 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 			
 			this.scan();
 			
-		}else if(view.getId() == R.id.btn_interviewee_export){//导出
-			
-			this.export();
-			
 		}else if(view.getId() == R.id.tv_interviewee_item_view){//查看问卷
 			
 			int interviewBasicId = (Integer)view.getTag();
@@ -118,10 +114,6 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		Intent intent = new Intent(this,IntervieweeQuestionaireActivity.class);
 		intent.putExtra("interviewBasicId", interviewBasicId);
 		this.startActivity(intent);
-	}
-	
-	private void export(){
-		
 	}
 	
 	private void scan(){
