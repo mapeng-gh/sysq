@@ -1,1 +1,0 @@
-insert into version (id,name,publish_date,remark,is_current) values (1,'版本一','2016/3/20','',1);

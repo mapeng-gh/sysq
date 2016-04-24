@@ -37,3 +37,7 @@ captures/
 proguard-project.txt
 project.properties
 libs/
+
+
+#data dir
+assets/data/
