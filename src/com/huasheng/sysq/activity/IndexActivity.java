@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.activity.interview.InterviewerBasicActivity;
 import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
+import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 
 public class IndexActivity extends Activity implements OnClickListener{
@@ -63,6 +64,9 @@ public class IndexActivity extends Activity implements OnClickListener{
 			startActivity(new Intent(this,ReservationListActivity.class));
 			
 		}else if(view.getId() == R.id.ll_index_statics){
+			
+			Intent intent = new Intent(this,ReportActivity.class);
+			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_system_update){
 			

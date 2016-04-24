@@ -2,7 +2,166 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="#FFF">
     
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        
+        <!-- 受访者登记统计 -->
+        <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical">
+            
+            <!-- title -->
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="#338EE7"
+                android:text="受访者登记统计"
+                android:textColor="#FFF"
+                android:textSize="18sp"/>
+            
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="vertical">
+                
+                <View style="@style/list_item_row_seperator"/>
+                
+                <!-- head -->
+                <LinearLayout 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                    <TextView 
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#338EE7"
+                        android:textSize="18sp"/>
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                     <TextView 
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="全部"
+                        android:textColor="#338EE7"
+                        android:textSize="18sp"/>
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                     <TextView 
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="今日病例"
+                        android:textColor="#338EE7"
+                        android:textSize="18sp"/>
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                     <TextView 
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="全部病例"
+                        android:textColor="#338EE7"
+                        android:textSize="18sp"/>
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                     <TextView 
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="今日对照"
+                        android:textColor="#338EE7"
+                        android:textSize="18sp"/>
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                     <TextView 
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="全部对照"
+                        android:textColor="#338EE7"
+                        android:textSize="18sp"/>
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                </LinearLayout>
+                
+                <View style="@style/list_item_row_seperator"/>
+                
+                <ListView 
+                    android:id="@+id/lv_report_interview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="#808080"
+	        		android:dividerHeight="1dp">
+                    
+                </ListView>
+                
+                <View style="@style/list_item_row_seperator"/>
+                
+            </LinearLayout>
+            
+        </LinearLayout>
+        
+         <!-- 口腔刮片统计 -->
+         <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+         
+         <!-- 问卷统计 -->
+         <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            
+        </LinearLayout>
+        
+         <!-- 用户统计 -->
+        <LinearLayout 
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            
+        </LinearLayout>
+        
+    </LinearLayout>
 
 </LinearLayout>

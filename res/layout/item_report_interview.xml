@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_report_interview_title"
+        android:layout_width="0dp"
+		android:layout_weight="1"        
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#338EE7"
+        android:textSize="18sp"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_report_interview_all"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"/>
+    
+     <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_report_interview_today_case"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"/>
+    
+     <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_report_interview_all_case"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"/>
+    
+     <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_report_interview_today_contrast"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"/>
+    
+     <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_report_interview_all_contrast"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+
+</LinearLayout>

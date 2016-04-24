@@ -21,4 +21,14 @@ public class DateTimeUtils {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return dateFormat.format(curDate);
 	}
+	
+	/**
+	 * 获取当前日期（yyyy-MM-dd）
+	 * @return
+	 */
+	public static String getCurDate(){
+		Date curDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return dateFormat.format(curDate);
+	}
 }
