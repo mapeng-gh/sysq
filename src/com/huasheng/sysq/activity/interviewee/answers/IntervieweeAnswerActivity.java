@@ -5,15 +5,18 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ListView;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.activity.interview.InterviewActivity;
 import com.huasheng.sysq.model.InterviewQuestionWrap;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.FormatUtils;
 
-public class IntervieweeAnswerActivity extends Activity{
+public class IntervieweeAnswerActivity extends Activity implements OnClickListener{
 	
 	private int interviewBasicId;
 	private String questionaireCode;
@@ -60,6 +63,19 @@ public class IntervieweeAnswerActivity extends Activity{
 		}
 		
 		return description;
+	}
+
+	@Override
+	public void onClick(View view) {
+		if(view.getId() == R.id.ll_interviewee_answers_question){
+			String questionCode = (String)view.getTag();
+			Intent intent = new Intent(this,InterviewActivity.class);
+			intent.putExtra("operateType", "modify");
+			intent.putExtra("interviewBasicId", this.interviewBasicId);
+			intent.putExtra("questionaireCode", this.questionaireCode);
+			intent.putExtra("questionCode", questionCode);
+			this.startActivity(intent);
+		}
 	}
 
 }

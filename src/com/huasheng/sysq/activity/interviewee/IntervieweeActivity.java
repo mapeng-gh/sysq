@@ -109,6 +109,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	private void continueInterview(int interviewBasicId){
 		
 		Intent intent = new Intent(this,InterviewActivity.class);
+		intent.putExtra("operateType", "continue");
 		intent.putExtra("interviewBasicId", interviewBasicId);
 		this.startActivity(intent);
 	}

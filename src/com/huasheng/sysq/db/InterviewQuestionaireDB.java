@@ -23,18 +23,25 @@ public class InterviewQuestionaireDB {
 		SysQOpenHelper.getDatabase().update(TableConstants.TABLE_INTERVIEW_QUESTIONAIRE, values, "id=?", new String[]{interviewQuestionaire.getId()+""});
 	}
 	
+	public static void delete(int interviewBasicId,String questionaireCode){
+		SysQOpenHelper.getDatabase().delete(
+				TableConstants.TABLE_INTERVIEW_QUESTIONAIRE, 
+				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID + "=?" + " and " + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_QUESTIONAIRE_CODE + "=?", 
+				new String[]{interviewBasicId + "",questionaireCode});
+	}
+	
 	/**
 	 * 查询访问记录下所有问卷记录
 	 * @param interviewBasicId
 	 * @param versionId
 	 * @return
 	 */
-	public static List<InterviewQuestionaire> selectByInterviewBasicId(int interviewBasicId,int versionId){
+	public static List<InterviewQuestionaire> selectByInterviewBasicId(int interviewBasicId){
 		Cursor cursor = SysQOpenHelper.getDatabase().query(
 				TableConstants.TABLE_INTERVIEW_QUESTIONAIRE,
 				null,
-				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID + "=?" + " and " + "version_id=?",
-				new String[]{interviewBasicId + "" , versionId + ""},
+				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID + "=?",
+				new String[]{interviewBasicId + ""},
 				null,null,"seq_num asc");
 		
 		List<InterviewQuestionaire> interviewQuestionaireList = new ArrayList<InterviewQuestionaire>();

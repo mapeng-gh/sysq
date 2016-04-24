@@ -145,7 +145,7 @@ public class InterviewService {
 	 * @return
 	 */
 	public static InterviewQuestionaire findInterviewQuestionaire(int interviewBasicId,String questionaireCode){
-		List<InterviewQuestionaire> interviewQuestionaireList = InterviewQuestionaireDB.selectByInterviewBasicId(interviewBasicId, SysqContext.getCurrentVersion().getId());
+		List<InterviewQuestionaire> interviewQuestionaireList = InterviewQuestionaireDB.selectByInterviewBasicId(interviewBasicId);
 		for(InterviewQuestionaire interviewQuestionaire : interviewQuestionaireList){
 			if(interviewQuestionaire.getQuestionaireCode().equals(questionaireCode)){
 				return interviewQuestionaire;
@@ -164,7 +164,7 @@ public class InterviewService {
 		Version curVersion = SysqContext.getCurrentVersion();
 		
 		//查询访问问卷
-		List<InterviewQuestionaire> interviewQuestionaireList = InterviewQuestionaireDB.selectByInterviewBasicId(interviewBasicId, curVersion.getId());
+		List<InterviewQuestionaire> interviewQuestionaireList = InterviewQuestionaireDB.selectByInterviewBasicId(interviewBasicId);
 		
 		//包装问卷
 		List<InterviewQuestionaireWrap> interviewQuestionaireWrapList = new ArrayList<InterviewQuestionaireWrap>();
@@ -244,6 +244,46 @@ public class InterviewService {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * 删除指定访问问题之后所有问卷记录、问题记录、答案记录
+	 * @param interviewBasicId
+	 * @param questionaireCode
+	 * @param questionCode
+	 */
+	public static void clearInterviewAfterQuestion(int interviewBasicId,String questionaireCode,String questionCode){
+		
+		//删除本问卷之后所有访问记录
+		boolean isStart = false;
+		List<InterviewQuestionaire> interviewQuestionaireList = InterviewQuestionaireDB.selectByInterviewBasicId(interviewBasicId);
+		for(InterviewQuestionaire interviewQuestionaire : interviewQuestionaireList){
+			if(interviewQuestionaire.getQuestionaireCode().equals(questionaireCode)){
+				isStart = true;
+			}else{
+				if(isStart){//开始删除
+					List<InterviewQuestion> interviewQuestionList = InterviewQuestionDB.selectByQuestionaire(interviewBasicId, interviewQuestionaire.getQuestionaireCode());
+					for(InterviewQuestion interviewQuestion : interviewQuestionList){
+						InterviewAnswerDB.deleteByInterviewQuestion(interviewBasicId, interviewQuestion.getQuestionCode());//批量删除访问答案
+					}
+					InterviewQuestionDB.deleteByInterviewQuestionaire(interviewBasicId, interviewQuestionaire.getQuestionaireCode());//批量删除访问问题
+					InterviewQuestionaireDB.delete(interviewBasicId, interviewQuestionaire.getQuestionaireCode());//删除问卷记录
+				}
+			}
+		}
+		
+		//删除本问卷该问题之后（包括本问题）的访问问题、访问答案
+		isStart = false;
+		List<InterviewQuestion> interviewQuestionList = InterviewQuestionDB.selectByQuestionaire(interviewBasicId, questionaireCode);
+		for(InterviewQuestion interviewQuestion : interviewQuestionList){
+			if(interviewQuestion.getQuestionCode().equals(questionCode)){
+				isStart = true;
+			}
+			if(isStart){
+				InterviewAnswerDB.deleteByInterviewQuestion(interviewBasicId, interviewQuestion.getQuestionCode());//批量删除访问答案
+				InterviewQuestionDB.delete(interviewBasicId, interviewQuestion.getQuestionCode());//删除访问答案
+			}
+		}
 	}
 	
 	/**
