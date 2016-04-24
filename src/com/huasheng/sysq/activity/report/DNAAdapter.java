@@ -12,12 +12,12 @@ import android.widget.TextView;
 
 import com.huasheng.sysq.R;
 
-public class QuestionaireAdapter extends ArrayAdapter<Map<String,String>>{
-
+public class DNAAdapter extends ArrayAdapter<Map<String,String>>{
+	
 	private int resource;
 	private ReportActivity activity;
 
-	public QuestionaireAdapter(Context context, int resource,List<Map<String,String>> objects,ReportActivity activity) {
+	public DNAAdapter(Context context, int resource,List<Map<String,String>> objects,ReportActivity activity) {
 		super(context, resource, objects);
 		this.resource = resource;
 		this.activity = activity;
@@ -35,14 +35,17 @@ public class QuestionaireAdapter extends ArrayAdapter<Map<String,String>>{
 			view = convertView;
 		}
 		
-		TextView titleTV = (TextView)view.findViewById(R.id.tv_report_questionaire_title);
+		TextView titleTV = (TextView)view.findViewById(R.id.tv_report_dna_title);
 		titleTV.setText(row.get("title"));
 		
-		TextView allTV = (TextView)view.findViewById(R.id.tv_report_questionaire_all);
+		TextView allTV = (TextView)view.findViewById(R.id.tv_report_dna_all);
 		allTV.setText(row.get("all"));
 		
-		TextView doneTV = (TextView)view.findViewById(R.id.tv_report_questionaire_done);
-		doneTV.setText(row.get("done"));
+		TextView todayTV = (TextView)view.findViewById(R.id.tv_report_dna_today);
+		todayTV.setText(row.get("today"));
+		
+		TextView beforeTV = (TextView)view.findViewById(R.id.tv_report_dna_before);
+		beforeTV.setText(row.get("before"));
 		
 		return view;
 	}

@@ -2,10 +2,17 @@ package com.huasheng.sysq.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.huasheng.sysq.db.InterviewerDB;
 import com.huasheng.sysq.db.StaticsDB;
+import com.huasheng.sysq.model.InterviewQuestionaire;
+import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.util.ColumnConstants;
 import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.InterviewConstants;
@@ -152,7 +159,73 @@ public class StaticsService {
 	 * @return
 	 */
 	public static List<Map<String,String>> reportDNA(){
-		return null;
+		
+		List<Map<String,String>> data = new ArrayList<Map<String,String>>();
+		
+		int today = 0;
+		int all = 0;
+		
+		//today
+		String todaySQL = "select dna" +
+						  " from " + TableConstants.TABLE_INTERVIEW_BASIC + 
+						  " where " + ColumnConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?";
+		String[] todaySQLArgs = new String[]{DateTimeUtils.getCurDate()+"%"};
+		List<Map<String,String>> todayResult = StaticsDB.execSQL(todaySQL, todaySQLArgs);
+		
+		if(todayResult != null && todayResult.size() > 0){
+			
+			Set<String> dnaSet = new HashSet<String>();
+			
+			for(Map<String,String> map : todayResult){
+				String dnas = map.get("dna");
+				
+				if(!StringUtils.isEmpty(dnas)){
+					String[] dnaArray = dnas.split(",");
+					
+					for(String dna : dnaArray){
+						dnaSet.add(dna);
+					}
+				}
+			}
+			
+			today = dnaSet.size();
+		}
+		
+		//all
+		String allSQL = "select dna" +
+				  " from " + TableConstants.TABLE_INTERVIEW_BASIC;
+		List<Map<String,String>> allResult = StaticsDB.execSQL(allSQL,null);
+
+		if(allResult != null && allResult.size() > 0){
+			
+			Set<String> dnaSet = new HashSet<String>();
+			
+			for(Map<String,String> map : allResult){
+				String dnas = map.get("dna");
+				
+				if(!StringUtils.isEmpty(dnas)){
+					String[] dnaArray = dnas.split(",");
+					
+					for(String dna : dnaArray){
+						dnaSet.add(dna);
+					}
+				}
+			}
+			
+			all = dnaSet.size();
+		}
+		
+		
+		Map<String,String> row = new HashMap<String,String>();
+		
+		row.put("title", "总计");
+		row.put("all",Integer.toString(all));
+		row.put("today",Integer.toString(today));
+		row.put("before",Integer.toString(all - today));
+		
+		data.add(row);
+		
+		return data;
 	}
 	
 	/**
@@ -160,14 +233,77 @@ public class StaticsService {
 	 * @return
 	 */
 	public static List<Map<String,String>> reportQuestionaire(){
-		return null;
+		
+		List<Map<String,String>> data = new ArrayList<Map<String,String>>();
+		
+		//本人
+		int myAll = 0;
+		int myDone = 0;
+		
+		String myAllSQL = "select count(*) as myAll" + 
+						  " from " + TableConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
+						  " inner join " + TableConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
+						  " on interviewBasic.id = interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
+						  " where interviewBasic." + ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " = ?";
+		String[] myAllSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
+		myAll = Integer.parseInt(StaticsDB.execSQL(myAllSQL, myAllSQLArgs).get(0).get("myAll"));
+		
+		String myDoneSQL = "select count(*) as myDone" + 
+						  " from " + TableConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
+						  " inner join " + TableConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
+						  " on interviewBasic.id = interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
+						  " where interviewBasic." + ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " = ?" + 
+						  " and interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " = " + InterviewQuestionaire.STATUS_DONE;
+		String[] myDoneSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
+		myDone = Integer.parseInt(StaticsDB.execSQL(myDoneSQL, myDoneSQLArgs).get(0).get("myDone"));
+		
+		//其他
+		int othersAll = 0;
+		int othersDone = 0;
+		
+		String othersAllSQL = "select count(*) as othersAll" + 
+				  " from " + TableConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
+				  " inner join " + TableConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
+				  " on interviewBasic.id = interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
+				  " where interviewBasic." + ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " != ?";
+		String[] othersAllSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
+		othersAll = Integer.parseInt(StaticsDB.execSQL(othersAllSQL, othersAllSQLArgs).get(0).get("othersAll"));
+
+		String othersDoneSQL = "select count(*) as othersDone" + 
+				  " from " + TableConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
+				  " inner join " + TableConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
+				  " on interviewBasic.id = interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
+				  " where interviewBasic." + ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " != ?" + 
+				  " and interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " = " + InterviewQuestionaire.STATUS_DONE;
+		String[] othersDoneSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
+		othersDone = Integer.parseInt(StaticsDB.execSQL(othersDoneSQL, othersDoneSQLArgs).get(0).get("othersDone"));
+		
+		Map<String,String> totalRow = new HashMap<String,String>();
+		totalRow.put("title","总计");
+		totalRow.put("all",Integer.toString(myAll + othersAll));
+		totalRow.put("done", Integer.toString(myDone + othersDone));
+		data.add(totalRow);
+		
+		Map<String,String> myRow = new HashMap<String,String>();
+		myRow.put("title", "您");
+		myRow.put("all", Integer.toString(myAll));
+		myRow.put("done", Integer.toString(myDone));
+		data.add(myRow);
+		
+		Map<String,String> othersRow = new HashMap<String,String>();
+		othersRow.put("title", "其他医生");
+		othersRow.put("all", Integer.toString(othersAll));
+		othersRow.put("done", Integer.toString(othersDone));
+		data.add(othersRow);
+		
+		return data;
 	}
 	
 	/**
 	 * 采访者统计
 	 * @return
 	 */
-	public static List<Map<String,String>> reportInterviewer(){
-		return null;
+	public static List<Interviewer> reportInterviewer(){
+		return InterviewerDB.selectAll();
 	}
 }

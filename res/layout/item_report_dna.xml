@@ -7,7 +7,7 @@
     <View style="@style/list_item_cell_seperator"/>
     
     <TextView 
-        android:id="@+id/tv_report_questionaire_title"
+        android:id="@+id/tv_report_dna_title"
         android:layout_width="0dp"
 		android:layout_weight="1"        
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
     <View style="@style/list_item_cell_seperator"/>
     
     <TextView 
-        android:id="@+id/tv_report_questionaire_all"
+        android:id="@+id/tv_report_dna_all"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
@@ -28,7 +28,17 @@
      <View style="@style/list_item_cell_seperator"/>
     
     <TextView 
-        android:id="@+id/tv_report_questionaire_done"
+        android:id="@+id/tv_report_dna_today"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"/>
+    
+     <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_report_dna_before"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"

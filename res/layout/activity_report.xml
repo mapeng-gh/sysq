@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:padding="10dp"
+            android:padding="20dp"
             android:orientation="vertical">
             
             <!-- title -->
@@ -26,7 +26,7 @@
                 android:background="#338EE7"
                 android:text="受访者登记统计"
                 android:textColor="#FFF"
-                android:textSize="18sp"/>
+                android:textSize="20sp"/>
             
             <LinearLayout 
                 android:layout_width="match_parent"
@@ -135,7 +135,98 @@
          <LinearLayout 
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:orientation="vertical">
+            
+            <!-- title -->
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="#338EE7"
+                android:text="口腔刮片统计"
+                android:textColor="#FFF"
+                android:textSize="20sp"/>
+            
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="vertical">
+                
+                <View style="@style/list_item_row_seperator"/>
+                
+                <!-- head -->
+                <LinearLayout 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                    <TextView 
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#338EE7"
+                        android:textSize="18sp"/>
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                     <TextView 
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="全部"
+                        android:textColor="#338EE7"
+                        android:textSize="18sp"/>
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                     <TextView 
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="今天"
+                        android:textColor="#338EE7"
+                        android:textSize="18sp"/>
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                     <TextView 
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="之前"
+                        android:textColor="#338EE7"
+                        android:textSize="18sp"/>
+                    
+                    <View style="@style/list_item_cell_seperator"/>
+                    
+                </LinearLayout>
+                
+                <View style="@style/list_item_row_seperator"/>
+                
+                <ListView 
+                    android:id="@+id/lv_report_dna"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="#808080"
+	        		android:dividerHeight="1dp">
+                    
+                </ListView>
+                
+                <View style="@style/list_item_row_seperator"/>
+                
+            </LinearLayout>
             
         </LinearLayout>
         
@@ -150,16 +241,187 @@
          <LinearLayout 
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:orientation="vertical">
             
+	            <!-- title -->
+	            <TextView 
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:padding="5dp"
+	                android:background="#338EE7"
+	                android:text="问卷统计"
+	                android:textColor="#FFF"
+	                android:textSize="20sp"/>
+	            
+	            <LinearLayout 
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="50dp"
+	                android:layout_marginLeft="30dp"
+	                android:layout_marginRight="30dp"
+	                android:orientation="vertical">
+	                
+	                <View style="@style/list_item_row_seperator"/>
+	                
+	                <!-- head -->
+	                <LinearLayout 
+	                    android:layout_width="match_parent"
+	                    android:layout_height="wrap_content"
+	                    android:orientation="horizontal">
+	                    
+	                    <View style="@style/list_item_cell_seperator"/>
+	                    
+	                    <TextView 
+	                        android:layout_width="0dp"
+	                        android:layout_weight="1"
+	                        android:layout_height="wrap_content"
+	                        android:gravity="center"
+	                        android:text=""
+	                        android:textColor="#338EE7"
+	                        android:textSize="18sp"/>
+	                    
+	                    <View style="@style/list_item_cell_seperator"/>
+	                    
+	                     <TextView 
+	                        android:layout_width="0dp"
+	                        android:layout_weight="1"
+	                        android:layout_height="wrap_content"
+	                        android:gravity="center"
+	                        android:text="已做问卷"
+	                        android:textColor="#338EE7"
+	                        android:textSize="18sp"/>
+	                    
+	                    <View style="@style/list_item_cell_seperator"/>
+	                    
+	                     <TextView 
+	                        android:layout_width="0dp"
+	                        android:layout_weight="1"
+	                        android:layout_height="wrap_content"
+	                        android:gravity="center"
+	                        android:text="已完成"
+	                        android:textColor="#338EE7"
+	                        android:textSize="18sp"/>
+	                    
+	                    <View style="@style/list_item_cell_seperator"/>
+	                    
+	                </LinearLayout>
+	                
+	                <View style="@style/list_item_row_seperator"/>
+	                
+	                <ListView 
+	                    android:id="@+id/lv_report_questionaire"
+	                    android:layout_width="match_parent"
+	                    android:layout_height="wrap_content"
+	                    android:divider="#808080"
+		        		android:dividerHeight="1dp">
+	                    
+	                </ListView>
+	                
+	                <View style="@style/list_item_row_seperator"/>
+	                
+	            </LinearLayout>
+	            
         </LinearLayout>
         
          <!-- 用户统计 -->
-        <LinearLayout 
+       <LinearLayout 
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:orientation="vertical">
             
+	            <!-- title -->
+	            <TextView 
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:padding="5dp"
+	                android:background="#338EE7"
+	                android:text="用户统计"
+	                android:textColor="#FFF"
+	                android:textSize="20sp"/>
+	            
+	            <LinearLayout 
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="50dp"
+	                android:layout_marginLeft="30dp"
+	                android:layout_marginRight="30dp"
+	                android:orientation="vertical">
+	                
+	                <View style="@style/list_item_row_seperator"/>
+	                
+	                <!-- head -->
+	                <LinearLayout 
+	                    android:layout_width="match_parent"
+	                    android:layout_height="wrap_content"
+	                    android:orientation="horizontal">
+	                    
+	                    <View style="@style/list_item_cell_seperator"/>
+	                    
+	                    <TextView 
+	                        android:layout_width="0dp"
+	                        android:layout_weight="1"
+	                        android:layout_height="wrap_content"
+	                        android:gravity="center"
+	                        android:text="用户名"
+	                        android:textColor="#338EE7"
+	                        android:textSize="18sp"/>
+	                    
+	                    <View style="@style/list_item_cell_seperator"/>
+	                    
+	                     <TextView 
+	                        android:layout_width="0dp"
+	                        android:layout_weight="1"
+	                        android:layout_height="wrap_content"
+	                        android:gravity="center"
+	                        android:text="姓名"
+	                        android:textColor="#338EE7"
+	                        android:textSize="18sp"/>
+	                    
+	                    <View style="@style/list_item_cell_seperator"/>
+	                    
+	                     <TextView 
+	                        android:layout_width="0dp"
+	                        android:layout_weight="1"
+	                        android:layout_height="wrap_content"
+	                        android:gravity="center"
+	                        android:text="联系电话"
+	                        android:textColor="#338EE7"
+	                        android:textSize="18sp"/>
+	                    
+	                    <View style="@style/list_item_cell_seperator"/>
+	                    
+	                     <TextView 
+	                        android:layout_width="0dp"
+	                        android:layout_weight="1"
+	                        android:layout_height="wrap_content"
+	                        android:gravity="center"
+	                        android:text="电子邮件"
+	                        android:textColor="#338EE7"
+	                        android:textSize="18sp"/>
+	                    
+	                    <View style="@style/list_item_cell_seperator"/>
+	                    
+	                </LinearLayout>
+	                
+	                <View style="@style/list_item_row_seperator"/>
+	                
+	                <ListView 
+	                    android:id="@+id/lv_report_interviewer"
+	                    android:layout_width="match_parent"
+	                    android:layout_height="wrap_content"
+	                    android:divider="#808080"
+		        		android:dividerHeight="1dp">
+	                    
+	                </ListView>
+	                
+	                <View style="@style/list_item_row_seperator"/>
+	                
+	            </LinearLayout>
+	            
         </LinearLayout>
         
     </LinearLayout>

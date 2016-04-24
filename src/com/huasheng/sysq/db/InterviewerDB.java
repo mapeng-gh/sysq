@@ -1,8 +1,10 @@
 package com.huasheng.sysq.db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.util.ColumnConstants;
@@ -12,8 +14,9 @@ import com.huasheng.sysq.util.TableConstants;
 public class InterviewerDB {
 	
 	public static Interviewer findByLoginName(String loginName){
-		SQLiteDatabase db = SysQOpenHelper.getDatabase();
-		Cursor cursor = db.query(TableConstants.TABLE_INTERVIEWER, null, ColumnConstants.COLUMN_INTERVIEWER_LOGIN_NAME + " = ?", 
+		Cursor cursor = SysQOpenHelper.getDatabase().query(
+				TableConstants.TABLE_INTERVIEWER, null, 
+				ColumnConstants.COLUMN_INTERVIEWER_LOGIN_NAME + " = ?", 
 				new String[]{loginName}, null, null, null);
 		Interviewer interviewer = null;
 		if(cursor.moveToFirst()){
@@ -21,6 +24,17 @@ public class InterviewerDB {
 		}
 		cursor.close();
 		return interviewer;
+	}
+	
+	public static List<Interviewer> selectAll(){
+		List<Interviewer> interviewerList = new ArrayList<Interviewer>(); 
+		Cursor cursor = SysQOpenHelper.getDatabase().query(TableConstants.TABLE_INTERVIEWER, null, null, null, null, null, null);
+		while(cursor.moveToNext()){
+			Interviewer interviewer = fillObjectFromDB(cursor);
+			interviewerList.add(interviewer);
+		}
+		cursor.close();
+		return interviewerList;
 	}
 	
 	public static void update(Interviewer interviewer){

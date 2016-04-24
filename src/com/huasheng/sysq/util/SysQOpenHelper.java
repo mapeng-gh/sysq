@@ -182,7 +182,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	public void initData(SQLiteDatabase db){
 		
 //		String[] dataFiles = new String[]{"data/interviewer.sql","data/version.sql","data/questionaire.sql","data/question.sql","data/answer.sql"};
-		String[] dataFiles = new String[]{"data/data.sql"};
+		String[] dataFiles = new String[]{"data/test.sql"};
 		AssetManager assetManager = SysqApplication.getContext().getAssets();
 		BufferedReader reader = null;
 		
