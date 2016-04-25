@@ -40,11 +40,13 @@
         
          <activity android:name=".activity.interview.InterviewActivity" android:screenOrientation="landscape"></activity>
          
+         <!-- usercenter -->
          <activity android:name=".activity.UserCenterActivity" android:screenOrientation="portrait"></activity>
          
+         <!-- interviewee search -->
          <activity android:name=".activity.interviewee.IntervieweeActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>
          
-         <activity android:name=".activity.interviewee.questionaire.IntervieweeQuestionaireActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name=".activity.interviewee.questionaire.IntervieweeQuestionaireActivity" android:screenOrientation="landscape"></activity>
     
          <activity android:name=".activity.interviewee.answers.IntervieweeAnswerActivity" android:screenOrientation="portrait"></activity>
          

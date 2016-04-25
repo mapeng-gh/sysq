@@ -26,7 +26,7 @@
     <string name="interviewee_questionaire_basic_username_label">姓名：</string>
     <string name="interviewee_questionaire_basic_username_hint">2-10个中文字</string>
     <string name="interviewee_questionaire_basic_identity_card_label">身份证号码：</string>
-    <string name="interviewee_questionaire_basic_identity_card_hint">18位，按GB11643-1999;15位，按GB11643-1989</string>
+    <string name="interviewee_questionaire_basic_identity_card_hint">18位</string>
     <string name="interviewee_questionaire_basic_province_label">省/自治区/直辖市：</string>
     <string name="interviewee_questionaire_basic_city_label">市/县/区：</string>
     <string name="interviewee_questionaire_basic_city_hint">2-10个中文字</string>
