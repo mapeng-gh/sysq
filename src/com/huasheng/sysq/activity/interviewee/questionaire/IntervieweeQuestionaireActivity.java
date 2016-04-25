@@ -54,7 +54,8 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		interviewBasicLL.setOnClickListener(this);
 		interviewDNALL.setOnClickListener(this);
 		
-		
+		//默认显示问卷列表
+		this.questionaireListPage();
 	}
 
 	@Override

@@ -53,6 +53,9 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		newUserLL.setOnClickListener(this);
 		logoutLL.setOnClickListener(this);
 		
+		//默认显示个人信息
+		this.loadUserInfoPage();
+		
 	}
 
 	@Override
