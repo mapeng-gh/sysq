@@ -116,8 +116,8 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 		interviewBasic.setPostCode(postCode);
 		
 		String mobile = mobileET.getText().toString();
-		if(!RegexUtils.test("1[0-9]{10}", mobile)){
-			SysqApplication.showMessage("联系电话必须是以1开头的11位数字");
+		if(!RegexUtils.test("[0-9]{10,11}", mobile)){
+			SysqApplication.showMessage("请输入正确的座机号码或者手机号码");
 			return null;
 		}
 		interviewBasic.setMobile(mobile);
