@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -26,7 +27,7 @@ public class ReservationListActivity extends Activity implements OnClickListener
 	private ListView listView;
 	private ReservationAdapter adapter;
 	
-	private ImageButton addImgBtn;
+	private Button addBtn;
 	
 	private TextView previousTV;
 	private TextView nextTV;
@@ -41,7 +42,7 @@ public class ReservationListActivity extends Activity implements OnClickListener
 	private TextView noDataTV;
 	
 	private EditText searchET;
-	private ImageButton searchImgBtn;
+	private Button searchBtn;
 	private String searchStr;
 
 	@Override
@@ -51,7 +52,7 @@ public class ReservationListActivity extends Activity implements OnClickListener
 		setContentView(R.layout.activity_reservation_list);
 		
 		listView = (ListView)findViewById(R.id.reservation_list);
-		addImgBtn = (ImageButton)findViewById(R.id.reservation_list_add);
+		addBtn = (Button)findViewById(R.id.reservation_list_add);
 		currentTV = (TextView)findViewById(R.id.reservation_list_current_page);
 		totalTV = (TextView)findViewById(R.id.reservation_list_total_page);
 		previousTV = (TextView)findViewById(R.id.reservation_list_previous);
@@ -60,17 +61,17 @@ public class ReservationListActivity extends Activity implements OnClickListener
 		paginationRL = (RelativeLayout)findViewById(R.id.reservation_list_pagination);
 		noDataTV = (TextView)findViewById(R.id.reservation_list_no_data);
 		searchET = (EditText)findViewById(R.id.reservation_list_search_et);
-		searchImgBtn = (ImageButton)findViewById(R.id.reservation_list_search);
+		searchBtn = (Button)findViewById(R.id.reservation_list_search);
 		
 		Page<Reservation> page = ReservationService.searchReservation("", 1,Page.PAGE_SIZE);
 		this.refreshListView(page);
 		
-		addImgBtn.setOnClickListener(this);
+		addBtn.setOnClickListener(this);
 		
 		previousTV.setOnClickListener(this);
 		nextTV.setOnClickListener(this);
 		
-		searchImgBtn.setOnClickListener(this);
+		searchBtn.setOnClickListener(this);
 		
 	}
 

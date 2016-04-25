@@ -25,16 +25,20 @@
         <Button 
             android:id="@+id/btn_interviewee_search"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+             android:background="@drawable/buttonstyle"
             android:text="搜索"
-            android:layout_marginLeft="20dp"/>
+            android:textColor="#338EE7"
+            android:layout_marginLeft="15dp"/>
         
         <Button 
             android:id="@+id/btn_interviewee_barcode"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:background="@drawable/buttonstyle"
             android:text="扫一扫"
-            android:layout_marginLeft="20dp"/>
+            android:textColor="#338EE7"
+            android:layout_marginLeft="15dp"/>
         
     </LinearLayout>
     
