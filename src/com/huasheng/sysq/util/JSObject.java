@@ -187,7 +187,7 @@ public class JSObject {
 	 * 返回当前问题（从临时答案列表继续）
 	 */
 	@JavascriptInterface
-	public void resumeQuestionaire(String answersJS){
+	public void resumeQuestionaire(){
 		
 		//获取当前问题
 		Question curQuestion = InterviewContext.getTopQuestion();
@@ -199,9 +199,6 @@ public class JSObject {
 		
 		//问题描述动态插值
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
-		
-		//恢复本题答案
-		JSFuncInvokeUtils.invokeFunction("resumeAnswers('"+answersJS+"')");
 	}
 	
 	/**
@@ -393,6 +390,14 @@ public class JSObject {
 		
 		//跳转第一个问题
 		this.jumpToFirstQuestion();
+	}
+	
+	/**
+	 * 返回主页
+	 */
+	@JavascriptInterface
+	public void jumpToIndex(){
+		SysqApplication.jumpToActivity(IndexActivity.class);
 	}
 	
 	/**

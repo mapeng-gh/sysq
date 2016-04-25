@@ -392,3 +392,10 @@ function insertQuestionFragment(){
 		$(this).html(answerText);
 	});
 }
+
+/**
+ * 返回主页
+ */
+function jumpToIndex(){
+	appservice.jumpToIndex();
+}
