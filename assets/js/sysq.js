@@ -236,16 +236,43 @@ function jumpToPreviousQuestion(){
 	}
 	
 	//删除上一题的所有答案（防止污染局部答案列表）
+	var lastQuestionAnswers = [];
 	var lastQuestionCode = answers[answers.length-1]["questionCode"];
 	for(var i=answers.length-1;i>=0;i--){
 		if(answers[i]["questionCode"] == lastQuestionCode){
-			answers.pop();
+			lastQuestionAnswers.push(answers.pop());
 		}else{
 			break;
 		}
 	}
 	
-	appservice.jumpToPreviousQuestion();
+	appservice.jumpToPreviousQuestion(JSON.stringify(lastQuestionAnswers));
+}
+
+/**
+ * 恢复问题答案
+ * @param answersJS
+ */
+function resumeAnswers(answersJS){
+	var oldAnswers = JSON.parse(answersJS);
+	for(var i=0;i<oldAnswers.length;i++){
+		var answer = oldAnswers[i];
+		var answer$ = $("div.answer[data-code='"+answer.code+"']");
+		var type = answer$.data("type");
+		if(type == "radiogroup"){
+			answer$.find("input[type='radio'][value='"+answer.value+"']").attr("checked","checked");
+			answer$.find("input[type='radio'][value='"+answer.value+"']").trigger("click");
+		}else if(type == "slider"){
+			answer$.find("input[type='range']").val(answer.value);
+			answer$.find("div.slider-value").html(answer.value);
+		}else if(type == "dropdownlist"){
+			answer$.find("select").val(answer.value);
+		}else if(type == "text"){
+			answer$.find("textarea").val(answer.value);
+		}else if(type == "calendar"){
+			answer$.find("input[type='date']").val(answer.value);
+		}
+	}
 }
 
 /**

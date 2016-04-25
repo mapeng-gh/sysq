@@ -76,7 +76,7 @@ public class JSObject {
 	 * 跳转上一个问题
 	 */
 	@JavascriptInterface
-	public void jumpToPreviousQuestion(){
+	public void jumpToPreviousQuestion(String answersJS){
 		
 		//从返回栈获取上一个问题
 		InterviewContext.popQuestion();
@@ -102,6 +102,9 @@ public class JSObject {
 		
 		//问题描述动态插值
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
+		
+		//恢复本题答案
+		JSFuncInvokeUtils.invokeFunction("resumeAnswers('"+answersJS+"')");
 		
 	}
 	
@@ -184,7 +187,7 @@ public class JSObject {
 	 * 返回当前问题（从临时答案列表继续）
 	 */
 	@JavascriptInterface
-	public void resumeQuestionaire(){
+	public void resumeQuestionaire(String answersJS){
 		
 		//获取当前问题
 		Question curQuestion = InterviewContext.getTopQuestion();
@@ -196,6 +199,9 @@ public class JSObject {
 		
 		//问题描述动态插值
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
+		
+		//恢复本题答案
+		JSFuncInvokeUtils.invokeFunction("resumeAnswers('"+answersJS+"')");
 	}
 	
 	/**

@@ -16,4 +16,13 @@ public class JSFuncInvokeUtils {
 			});
 		}
 	}
+	
+	public static void invokeFunction(final String func){
+		InterviewContext.getWebView().post(new Runnable() {
+			@Override
+			public void run() {
+				InterviewContext.getWebView().loadUrl("javascript:"+func);
+			}
+		});
+	}
 }
