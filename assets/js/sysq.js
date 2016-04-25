@@ -218,9 +218,10 @@ function redoQuestionaire(){
  * 退出访谈
  */
 function quitInterview(){
-	if(answers.length > 0){
-		appservice.quitInterview(JSON.stringify(answers));
-	}
+	
+	var answersJS = answers.length == 0 ? "" : JSON.stringify(answers);
+	appservice.quitInterview(answersJS);
+	
 }
 
 /**
@@ -251,9 +252,10 @@ function jumpToPreviousQuestion(){
  * 暂停访谈
  */
 function pauseInterview(){
-	if(answers.length > 0){
-		appservice.pauseInterview(JSON.stringify(answers));
-	}
+	
+	var answersJS = answers.length == 0 ? "" : JSON.stringify(answers);
+	appservice.pauseInterview(answersJS);
+	
 }
 
 /**

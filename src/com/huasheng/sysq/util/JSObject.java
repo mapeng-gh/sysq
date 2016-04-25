@@ -334,9 +334,10 @@ public class JSObject {
 	@JavascriptInterface
 	public void quitInterview(String answersJS){
 		
-		//保存问卷答案
-		List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
-		InterviewService.saveAnswers(answerValueMap);
+		if(!StringUtils.isEmpty(answersJS)){////保存问卷答案
+			List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+			InterviewService.saveAnswers(answerValueMap);
+		}
 		
 		//更新访问记录
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
@@ -361,9 +362,10 @@ public class JSObject {
 	@JavascriptInterface
 	public void pauseInterview(String answersJS){
 		
-		//保存当前问卷答案
-		List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
-		InterviewService.saveAnswers(answerValueMap);
+		if(!StringUtils.isEmpty(answersJS)){//保存当前问卷答案
+			List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+			InterviewService.saveAnswers(answerValueMap);
+		}
 		
 		//更新访问记录
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
