@@ -48,7 +48,7 @@
          
          <activity android:name=".activity.interviewee.questionaire.IntervieweeQuestionaireActivity" android:screenOrientation="landscape"></activity>
     
-         <activity android:name=".activity.interviewee.answers.IntervieweeAnswerActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name=".activity.interviewee.answers.IntervieweeAnswerActivity" android:screenOrientation="landscape"></activity>
          
          <!-- report -->
          <activity android:name=".activity.report.ReportActivity" android:screenOrientation="landscape"></activity>
