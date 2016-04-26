@@ -1,3 +1,11 @@
+div.results{
+	width:100%;
+	height:100%;
+	position:relative;
+	top:0;
+	left:0;
+}
+
 /**头部**/
 div.results div.header{
 	background-color: #338EE7;
@@ -17,7 +25,11 @@ div.results div.toolbar input{
 
 /**主体**/
 div.results div.body{
-	margin-top: 20px;
+	width:100%;
+	position:absolute;
+	top:100px;
+	bottom:0;
+	overflow-y:auto;
 }
 div.results div.body div.content{
 	margin-top: 10px;

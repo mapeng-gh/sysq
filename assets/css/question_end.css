@@ -1,0 +1,49 @@
+div.question-end{
+	width:100%;
+	height:100%;
+	position:relative;
+	top:0;
+	left:0;
+}
+
+/**头部**/
+div.question-end div.header{
+	background-color: #338EE7;
+	padding: 5px 0 5px 5px;
+	color:#FFFFFF;
+	font-weight: bold;
+}
+
+div.question-end div.contents{
+	width:100%;
+	position:absolute;
+	top:60px;
+	bottom:50px;
+	overflow-y:auto;
+}
+
+/**问题**/
+div.question-end div.description p{
+	text-indent: 20px;
+	margin-top: 10px;
+	line-height: 150%;
+}
+
+
+/**底部**/
+div.question-end div.footer{
+	width:100%;
+	height:30px;
+	position:absolute;
+	bottom:0;
+	text-align:center;
+}
+div.question-end div.footer input.btn-end{
+	width:200px;
+	background-color: #338EE7;
+	border: none;
+	padding:5px 0;
+	font-size:20px;
+	color:#FFF;
+}
+

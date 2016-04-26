@@ -1,3 +1,12 @@
+div.question{
+	width:100%;
+	height:100%;
+	position:relative;
+	top:0;
+	left:0;
+}
+
+
 /**头部**/
 div.question div.header{
 	background-color: #338EE7;
@@ -13,6 +22,14 @@ div.question div.toolbar{
 }
 div.question div.toolbar input{
 	margin-left: 50px;
+}
+
+div.question div.contents{
+	width:100%;
+	position:absolute;
+	top:100px;
+	bottom:50px;
+	overflow-y:auto;
 }
 
 /**问题**/
@@ -66,12 +83,28 @@ div.answer div.content select{
 
 /**底部**/
 div.question div.footer{
-	margin-top:20px;
+	width:100%;
+	height:30px;
+	position:absolute;
+	bottom:0;
 	text-align:center;
 }
-div.question div.footer input{
+div.question div.footer input.btn-previous{
+	width:150px;
+	background-color: #338EE7;
+	border: none;
 	margin-right: 50px;
+	padding:5px 0;
+	font-size:20px;
+	color:#FFF;
 }
-
+div.question div.footer input.btn-next{
+	width:150px;
+	background-color: #338EE7;
+	border: none;
+	padding:5px 0;
+	font-size:20px;
+	color:#FFF;
+}
 
 
