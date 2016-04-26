@@ -366,6 +366,7 @@ function resumeQuestionaire(){
  * @param endQuestionCode
  */
 function jumpToEnd(endQuestionCode){
+	saveToAnswers();
 	appservice.jumpToEndQuestion(endQuestionCode);
 }
 
