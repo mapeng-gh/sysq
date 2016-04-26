@@ -29,7 +29,7 @@
         <activity android:name=".activity.IndexActivity" android:screenOrientation="landscape"></activity>
         
         <!-- reservation -->
-         <activity android:name=".activity.reservation.ReservationAddActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name=".activity.reservation.ReservationAddActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>
          
          <activity android:name=".activity.reservation.ReservationListActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>
          
