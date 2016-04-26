@@ -1,6 +1,8 @@
 package com.huasheng.sysq.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,8 @@ import com.huasheng.sysq.activity.interview.InterviewerBasicActivity;
 import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
 import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
+import com.huasheng.sysq.util.InterviewContext;
+import com.huasheng.sysq.util.SysqContext;
 
 public class IndexActivity extends Activity implements OnClickListener{
 	
@@ -91,5 +95,33 @@ public class IndexActivity extends Activity implements OnClickListener{
 			
 		}
 	}
+
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("确定退出系统吗？");
+		builder.setIcon(android.R.drawable.ic_dialog_info);
+		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+				//清除上下文
+				SysqContext.clearContext();
+				InterviewContext.clearInterviewContext();
+				
+				//跳转登录
+				Intent loginIntent = new Intent(IndexActivity.this,LoginActivity.class);
+				IndexActivity.this.startActivity(loginIntent);
+			}
+		});
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			};
+		});
+		builder.show();
+	}
+	
+	
 
 }
