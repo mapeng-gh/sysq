@@ -39,11 +39,12 @@
 	                android:text="@string/interview_interviewer_dna_sample1"
 	                android:layout_gravity="center_vertical"/>
 	            <EditText 
-	                android:id="@+id/interviewer_dna_sample1"
+	                android:id="@+id/et_interview_dna_sample1"
 	               	style="@style/interview_interviewer_dna_edittext"
 	               	android:background="@drawable/edittext_border"
 	               	android:layout_gravity="center_vertical"/>
 	            <ImageButton 
+	                android:id="@+id/btn_interview_dna_sample1"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:src="@drawable/interview_dna_scan"
@@ -65,11 +66,12 @@
 	                android:text="@string/interview_interviewer_dna_sample2"
 	                android:layout_gravity="center_vertical"/>
 	            <EditText 
-	                android:id="@+id/interviewer_dna_sample2"
+	                android:id="@+id/et_interview_dna_sample2"
 	               	style="@style/interview_interviewer_dna_edittext"
 	               	android:background="@drawable/edittext_border"
 	               	android:layout_gravity="center_vertical"/>
 	            <ImageButton 
+	                android:id="@+id/btn_interview_dna_sample2"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:src="@drawable/interview_dna_scan"
@@ -91,11 +93,12 @@
 	                android:text="@string/interview_interviewer_dna_sample2"
 	                android:layout_gravity="center_vertical"/>
 	            <EditText 
-	                android:id="@+id/interviewer_dna_sample3"
+	                android:id="@+id/et_interview_dna_sample3"
 	               	style="@style/interview_interviewer_dna_edittext"
 	               	android:background="@drawable/edittext_border"
 	               	android:layout_gravity="center_vertical"/>
 	            <ImageButton 
+	                android:id="@+id/btn_interview_dna_sample3"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:src="@drawable/interview_dna_scan"
@@ -117,11 +120,12 @@
 	                android:text="@string/interview_interviewer_dna_sample4"
 	                android:layout_gravity="center_vertical"/>
 	            <EditText 
-	                android:id="@+id/interviewer_dna_sample4"
+	                android:id="@+id/et_interview_dna_sample4"
 	               	style="@style/interview_interviewer_dna_edittext"
 	               	android:background="@drawable/edittext_border"
 	               	android:layout_gravity="center_vertical"/>
 	            <ImageButton 
+	                android:id="@+id/btn_interview_dna_sample4"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:src="@drawable/interview_dna_scan"

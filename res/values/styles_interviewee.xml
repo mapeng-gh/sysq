@@ -65,6 +65,7 @@
         <item name="android:padding">10dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/edittext_border</item>
+        <item name="android:singleLine">true</item>
     </style>
     <style name="interviewee_questionaire_dna_btn">
         <item name="android:layout_width">wrap_content</item>

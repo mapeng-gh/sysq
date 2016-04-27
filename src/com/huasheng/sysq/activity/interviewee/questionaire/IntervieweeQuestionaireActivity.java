@@ -15,6 +15,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -23,6 +24,7 @@ import com.huasheng.sysq.activity.interviewee.answers.IntervieweeAnswerActivity;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionaireWrap;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.ScanConstants;
 import com.huasheng.sysq.util.SysqApplication;
 
 public class IntervieweeQuestionaireActivity extends Activity implements OnClickListener{
@@ -34,6 +36,11 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 	private LinearLayout questionaireListLL;
 	private LinearLayout interviewBasicLL;
 	private LinearLayout interviewDNALL;
+	
+	private EditText sample1ET;
+	private EditText sample2ET;
+	private EditText sample3ET;
+	private EditText sample4ET;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +92,58 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 			
 			String questionaireCode = (String)view.getTag();
 			this.viewAnswers(questionaireCode);
+			
+		}else if(view.getId() == R.id.btn_interviewee_detail_dna_sample1){
+			
+			Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
+			this.startActivityForResult(intent, 1);
+			
+		}else if(view.getId() == R.id.btn_interviewee_detail_dna_sample2){
+			
+			Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
+			this.startActivityForResult(intent, 2);
+			
+		}else if(view.getId() == R.id.btn_interviewee_detail_dna_sample3){
+			
+			Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
+			this.startActivityForResult(intent, 3);
+			
+		}else if(view.getId() == R.id.btn_interviewee_detail_dna_sample4){
+			
+			Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
+			this.startActivityForResult(intent, 4);
 		}
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		if(resultCode == Activity.RESULT_OK){
+			
+			if(requestCode == 1){
+				
+				String scanResult = data.getStringExtra(ScanConstants.ACTION_SCAN_KEY);
+				this.sample1ET.setText(scanResult);
+				
+			}else if(requestCode == 2){
+				
+				String scanResult = data.getStringExtra(ScanConstants.ACTION_SCAN_KEY);
+				this.sample2ET.setText(scanResult);
+				
+			}else if(requestCode == 3){
+				
+				String scanResult = data.getStringExtra(ScanConstants.ACTION_SCAN_KEY);
+				this.sample3ET.setText(scanResult);
+				
+			}else if(requestCode == 4){
+				
+				String scanResult = data.getStringExtra(ScanConstants.ACTION_SCAN_KEY);
+				this.sample4ET.setText(scanResult);
+				
+			}
+		}
+	}
+
 	private void viewAnswers(String questionaireCode){
 		Intent intent = new Intent(this,IntervieweeAnswerActivity.class);
 		intent.putExtra("interviewBasicId", this.interviewBasicId);
@@ -238,6 +294,11 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		LayoutInflater inflater = getLayoutInflater();
 		View view = inflater.inflate(R.layout.interviewee_questionaire_dna, null);
 		
+		this.sample1ET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_dna_sample1);
+		this.sample2ET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_dna_sample2);
+		this.sample3ET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_dna_sample3);
+		this.sample4ET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_dna_sample4);
+		
 		//加载数据
 		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		
@@ -261,6 +322,15 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		
 		//绑定事件
+		ImageButton sample1ImgBtn = (ImageButton)view.findViewById(R.id.btn_interviewee_detail_dna_sample1);
+		ImageButton sample2ImgBtn = (ImageButton)view.findViewById(R.id.btn_interviewee_detail_dna_sample2);
+		ImageButton sample3ImgBtn = (ImageButton)view.findViewById(R.id.btn_interviewee_detail_dna_sample3);
+		ImageButton sample4ImgBtn = (ImageButton)view.findViewById(R.id.btn_interviewee_detail_dna_sample4);
+		sample1ImgBtn.setOnClickListener(this);
+		sample2ImgBtn.setOnClickListener(this);
+		sample3ImgBtn.setOnClickListener(this);
+		sample4ImgBtn.setOnClickListener(this);
+		
 		Button submitBtn = (Button)view.findViewById(R.id.btn_interviewee_questionaire_dna_submit);
 		submitBtn.setOnClickListener(this);
 	}

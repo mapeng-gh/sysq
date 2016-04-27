@@ -22,23 +22,26 @@
             android:background="@drawable/edittext_border"
             android:singleLine="true"
             android:layout_gravity="center_vertical"/>
+        
+        <ImageButton 
+            android:id="@+id/btn_interviewee_barcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/interview_dna_scan"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:background="#00000000"/>
+        
         <Button 
             android:id="@+id/btn_interviewee_search"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-             android:background="@drawable/buttonstyle"
+            android:background="@drawable/buttonstyle"
             android:text="搜索"
             android:textColor="#338EE7"
             android:layout_marginLeft="15dp"/>
         
-        <Button 
-            android:id="@+id/btn_interviewee_barcode"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:background="@drawable/buttonstyle"
-            android:text="扫一扫"
-            android:textColor="#338EE7"
-            android:layout_marginLeft="15dp"/>
+        
         
     </LinearLayout>
     

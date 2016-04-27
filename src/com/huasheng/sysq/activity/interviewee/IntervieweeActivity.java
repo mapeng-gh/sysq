@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -20,6 +21,7 @@ import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionai
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.Page;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.ScanConstants;
 
 public class IntervieweeActivity extends Activity implements OnClickListener{
 	
@@ -40,6 +42,8 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	private EditText searchET;
 	private Button searchBtn;
 	private String searchStr;
+	
+	private ImageButton scanImgBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,9 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 		
 		searchET = (EditText)findViewById(R.id.et_interviewee_search);
 		searchBtn = (Button)findViewById(R.id.btn_interviewee_search);
+		
+		scanImgBtn = (ImageButton)findViewById(R.id.btn_interviewee_barcode);
+		scanImgBtn.setOnClickListener(this);
 		
 		Page<InterviewBasic> page = InterviewService.searchInterviewBasic("", 1,Page.PAGE_SIZE);
 		this.refreshListView(page);
@@ -118,8 +125,23 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	
 	private void scan(){
 		
+		Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
+		this.startActivityForResult(intent, 1);
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		if(resultCode == Activity.RESULT_OK){
+			
+			if(requestCode == 1){
+				
+				String scanResult = data.getStringExtra(ScanConstants.ACTION_SCAN_KEY);
+				this.searchET.setText(scanResult);
+			}
+		}
+	}
+
 	private void search(){
 		searchStr = searchET.getText().toString();
 		Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr, 1, Page.PAGE_SIZE);;
