@@ -111,6 +111,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 				
 				//Ìø×ªµÇÂ¼
 				Intent loginIntent = new Intent(IndexActivity.this,LoginActivity.class);
+				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				IndexActivity.this.startActivity(loginIntent);
 			}
 		});

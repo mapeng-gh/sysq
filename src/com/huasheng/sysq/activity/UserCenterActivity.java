@@ -167,6 +167,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 				
 				//Ìø×ªµÇÂ¼
 				Intent loginIntent = new Intent(UserCenterActivity.this,LoginActivity.class);
+				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				UserCenterActivity.this.startActivity(loginIntent);
 			}
 		});

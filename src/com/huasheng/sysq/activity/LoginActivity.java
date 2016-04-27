@@ -3,7 +3,6 @@ package com.huasheng.sysq.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -12,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.huasheng.sysq.R;
-import com.huasheng.sysq.db.VersionDB;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.service.LoginService;
