@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="match_parent">
     
     <LinearLayout 
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_centerInParent="true"
         android:orientation="vertical">
     
 	   <LinearLayout 
-	       style="@style/usercenter_layout">
+	        android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:layout_marginBottom="50dp"
+       		android:orientation="horizontal">
 	       
 	       <TextView 
 	           style="@style/usercenter_label"
@@ -26,7 +28,10 @@
 	   </LinearLayout>
 	   
 	   <LinearLayout 
-	       style="@style/usercenter_layout">
+	        android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:layout_marginBottom="50dp"
+       		android:orientation="horizontal">
 	       
 	       <TextView 
 	           style="@style/usercenter_label"
@@ -41,8 +46,11 @@
 	       
 	   </LinearLayout>
 	   
-	   <LinearLayout 
-	       style="@style/usercenter_layout">
+	  <LinearLayout 
+	        android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:layout_marginBottom="50dp"
+       		android:orientation="horizontal">
 	       
 	       <TextView 
 	           style="@style/usercenter_label"
@@ -51,11 +59,16 @@
 	           android:id="@+id/et_usercenter_new_password_again"
 	           style="@style/usercenter_edittext"
 	           android:password="true"/>
+	       <TextView 
+	           style="@style/usercenter_hint"/>
 	       
 	   </LinearLayout>
 	   
 	   <LinearLayout 
-	       style="@style/usercenter_layout">
+	        android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:layout_marginBottom="70dp"
+       		android:orientation="horizontal">
 	       
 	       <TextView 
 	           style="@style/usercenter_label"
@@ -70,25 +83,16 @@
 	       
 	   </LinearLayout>
 	   
-	   <LinearLayout 
-	       android:layout_width="match_parent"
-	       android:layout_height="wrap_content"
-	       android:layout_marginTop="100dp"
-	       android:orientation="vertical">
+       <Button
+           android:id="@+id/btn_usercenter_new_submit"
+           android:layout_width="300dp"
+           android:layout_height="wrap_content"
+           android:text="@string/usercenter_new_submit"
+           android:background="#0096DC"
+           android:textColor="#FFFFFF"
+           android:textSize="25sp"
+           android:layout_gravity="center_horizontal"/>
 	       
-	        <Button
-	            android:id="@+id/btn_usercenter_new_submit"
-	            android:layout_width="350dp"
-	            android:layout_height="wrap_content"
-	            android:text="@string/usercenter_new_submit"
-	            android:background="#0096DC"
-	            android:textColor="#FFFFFF"
-	            android:textSize="25sp"
-	            android:layout_gravity="center_horizontal"/>
-	       
-	   </LinearLayout>
-	   
-	    
 	 </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

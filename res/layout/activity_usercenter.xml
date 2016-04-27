@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="50dp"
     android:orientation="vertical" >
     
     <LinearLayout 
@@ -9,28 +10,27 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingLeft="50dp"
-	    android:paddingRight="50dp"
-	    android:paddingTop="50dp"
-	    android:paddingBottom="50dp"
 	    android:orientation="vertical">
     </LinearLayout>
     
     <LinearLayout 
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
         
-        <RelativeLayout 
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
             
             <LinearLayout 
                 android:id="@+id/ll_usercenter_userinfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="100dp"
                 android:orientation="vertical">
                 
                 <ImageView 
@@ -42,22 +42,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/usercenter_userinfo"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"/>
                 
             </LinearLayout>
-            
-        </RelativeLayout>
-        
-        <RelativeLayout 
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
             
             <LinearLayout 
                 android:id="@+id/ll_usercenter_modify_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="100dp"
                 android:orientation="vertical">
                 
                 <ImageView 
@@ -69,22 +64,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/usercenter_modify_password"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"/>
                 
             </LinearLayout>
-            
-        </RelativeLayout>
-        
-        <RelativeLayout 
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
             
             <LinearLayout 
                 android:id="@+id/ll_usercenter_new_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="100dp"
                 android:orientation="vertical">
                 
                 <ImageView 
@@ -96,22 +86,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/usercenter_new_user"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"/>
                 
             </LinearLayout>
-            
-        </RelativeLayout>
-        
-        <RelativeLayout 
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
             
             <LinearLayout 
                 android:id="@+id/ll_usercenter_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="100dp"
                 android:orientation="vertical">
                 
                 <ImageView 
@@ -123,11 +108,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/usercenter_logout"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"/>
                 
             </LinearLayout>
             
-        </RelativeLayout>
+        </LinearLayout>
         
     </LinearLayout>
 

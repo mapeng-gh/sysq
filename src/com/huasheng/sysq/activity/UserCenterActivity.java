@@ -185,19 +185,12 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		EditText usernameET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_userinfo_username);
 		EditText emailET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_userinfo_email);
 		EditText mobileET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_userinfo_mobile);
-		RadioButton workingPlaceUKRB = (RadioButton)this.containerLL.findViewById(R.id.rb_usercenter_userinfo_working_place_uk);
-		RadioButton workingPlaceChinaRB = (RadioButton)this.containerLL.findViewById(R.id.rb_usercenter_userinfo_working_place_china);
 		
 		//保存
 		Interviewer loginUser = SysqContext.getInterviewer();
 		loginUser.setUsername(usernameET.getText().toString());
 		loginUser.setEmail(emailET.getText().toString());
 		loginUser.setMobile(mobileET.getText().toString());
-		if(workingPlaceUKRB.isChecked()){
-			loginUser.setWorkingPlace(workingPlaceUKRB.getText().toString());
-		}else if(workingPlaceChinaRB.isChecked()){
-			loginUser.setWorkingPlace(workingPlaceChinaRB.getText().toString());
-		}
 		UserCenterService.modifyUser(loginUser);
 		
 		Toast.makeText(SysqApplication.getContext(), "修改成功", Toast.LENGTH_SHORT).show();
@@ -218,18 +211,10 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		EditText userNameET = (EditText)view.findViewById(R.id.et_usercenter_userinfo_username);
 		EditText emailET = (EditText)view.findViewById(R.id.et_usercenter_userinfo_email);
 		EditText mobileET = (EditText)view.findViewById(R.id.et_usercenter_userinfo_mobile);
-		RadioButton workingPlaceUKRB = (RadioButton)view.findViewById(R.id.rb_usercenter_userinfo_working_place_uk);
-		RadioButton workingPlaceChinaRB = (RadioButton)view.findViewById(R.id.rb_usercenter_userinfo_working_place_china);
 		loginNameTV.setText(loginUser.getLoginName());
 		userNameET.setText(loginUser.getUsername());
 		emailET.setText(loginUser.getEmail());
 		mobileET.setText(loginUser.getMobile());
-		if(workingPlaceUKRB.getText().toString().equals(loginUser.getWorkingPlace())){
-			workingPlaceUKRB.setChecked(true);
-		}
-		if(workingPlaceChinaRB.getText().toString().equals(loginUser.getWorkingPlace())){
-			workingPlaceChinaRB.setChecked(true);
-		}
 		
 		//渲染
 		this.containerLL.removeAllViews();
