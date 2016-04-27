@@ -11,8 +11,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/logo"
+        android:label="抑郁症病例对照研究"
         android:theme="@style/AppTheme" 
         android:name="com.huasheng.sysq.util.SysqApplication">
         
