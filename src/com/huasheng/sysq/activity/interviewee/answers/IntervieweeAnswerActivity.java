@@ -50,8 +50,14 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 		
 		setContentView(R.layout.activity_interviewee_answers_lhc);
 		
+		//查询访问答案
 		List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(this.interviewBasicId);
 		
+		if(interviewAnswerList == null || interviewAnswerList.size() <= 0){//没有任何答案（没开始答题）
+			return;
+		}
+		
+		//渲染表格数据
 		answersLL = (LinearLayout)findViewById(R.id.ll_interviewee_answers_lhc);
 		for(int i=0;i<answersLL.getChildCount();i++){
 			View rowView = answersLL.getChildAt(i);
@@ -62,9 +68,34 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 					if(cellView instanceof TextView){//忽略列分割线
 						TextView tv = (TextView)cellView;
 						if(StringUtils.isEmpty(tv.getText())){//固定值的TextView不处理
-							String tag = (String)tv.getTag();
+							final String tag = (String)tv.getTag();
 							String text = searchAnswerValue(tag,interviewAnswerList);
 							tv.setText(text);
+							
+							//绑定事件
+							if(!StringUtils.isEmpty(text)){
+								
+								tv.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View view) {
+										
+										String answerCode = tag.contains(",") ? tag.split(",")[0] : tag;
+										String questionCode = InterviewService.getInterviewAnswer(IntervieweeAnswerActivity.this.interviewBasicId, answerCode).getQuestionCode();
+										
+										//跳转问题页面
+										Intent intent = new Intent(IntervieweeAnswerActivity.this,InterviewActivity.class);
+										intent.putExtra("operateType", "modify");
+										intent.putExtra("interviewBasicId", IntervieweeAnswerActivity.this.interviewBasicId);
+										intent.putExtra("questionaireCode", IntervieweeAnswerActivity.this.questionaireCode);
+										intent.putExtra("questionCode", questionCode);
+										IntervieweeAnswerActivity.this.startActivity(intent);
+										
+									}
+								});
+								
+								
+							}
 						}
 					}
 				}
@@ -74,9 +105,6 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 	}
 	
 	private String searchAnswerValue(String tag,List<InterviewAnswer> interviewAnswerList){
-		if(StringUtils.isEmpty(tag) || (interviewAnswerList == null || interviewAnswerList.size() <= 0)){
-			return "";
-		}
 		
 		List<String> answerTexts = new ArrayList<String>();
 		String[] answerCodeArray = tag.split(",");
@@ -87,6 +115,13 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 					break;
 				}
 			}
+		}
+		
+		if(answerTexts.size() == 0){
+			return "";
+		}
+		if(answerTexts.size() == 1){
+			return answerTexts.get(0);
 		}
 		return StringUtils.join(answerTexts,",");
 	}
