@@ -36,63 +36,63 @@
 				</td>
 				{{if answerList["LHC.1.1"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.1"].questionCode}}\')">
-						{{answerList["LHC.1.1"]["text"]}}
+						{{answerList["LHC.1.1"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.1"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.1"].questionCode}}\')">
-						{{answerList["LHC.2.1"]["text"]}}
+						{{answerList["LHC.2.1"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.1.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.1.2"].questionCode}}\')">
-						{{answerList["LHC.3.1.2"]["text"]}}
+						{{answerList["LHC.3.1.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.1.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.1.2"].questionCode}}\')">
-						{{answerList["LHC.4.1.2"]["text"]}}
+						{{answerList["LHC.4.1.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.1.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.1.2"].questionCode}}\')">
-						{{answerList["LHC.5.1.2"]["text"]}}
+						{{answerList["LHC.5.1.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.1.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.1.2"].questionCode}}\')">
-						{{answerList["LHC.6.1.2"]["text"]}}
+						{{answerList["LHC.6.1.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.1.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.1.2"].questionCode}}\')">
-						{{answerList["LHC.7.1.2"]["text"]}}
+						{{answerList["LHC.7.1.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.1.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.1.2"].questionCode}}\')">
-						{{answerList["LHC.8.1.2"]["text"]}}
+						{{answerList["LHC.8.1.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.1"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.1"].questionCode}}\')">
-						{{answerList["LHC.9.1"]["text"]}}
+						{{answerList["LHC.9.1"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -105,56 +105,56 @@
 				</td>
 				{{if answerList["LHC.1.1.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.1.b"].questionCode}}\')">
-						{{answerList["LHC.1.1.b"]["text"]}}
+						{{answerList["LHC.1.1.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.1.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.1.b"].questionCode}}\')">
-						{{answerList["LHC.2.1.b"]["text"]}}
+						{{answerList["LHC.2.1.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.1.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.1.b"].questionCode}}\')">
-						{{answerList["LHC.3.1.b"]["text"]}}
+						{{answerList["LHC.3.1.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.1.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.1.b"].questionCode}}\')">
-						{{answerList["LHC.4.1.b"]["text"]}}
+						{{answerList["LHC.4.1.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.1.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.1.b"].questionCode}}\')">
-						{{answerList["LHC.5.1.b"]["text"]}}
+						{{answerList["LHC.5.1.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.1.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.1.b"].questionCode}}\')">
-						{{answerList["LHC.6.1.b"]["text"]}}
+						{{answerList["LHC.6.1.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.1.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.1.b"].questionCode}}\')">
-						{{answerList["LHC.7.1.b"]["text"]}}
+						{{answerList["LHC.7.1.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.1.a"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.1.a"].questionCode}}\')">
-						{{answerList["LHC.8.1.a"]["text"]}}
+						{{answerList["LHC.8.1.a"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -168,63 +168,63 @@
 				</td>
 				{{if answerList["LHC.1.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.2"].questionCode}}\')">
-						{{answerList["LHC.1.2"]["text"]}}
+						{{answerList["LHC.1.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.2"].questionCode}}\')">
-						{{answerList["LHC.2.2"]["text"]}}
+						{{answerList["LHC.2.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.2"].questionCode}}\')">
-						{{answerList["LHC.3.2"]["text"]}}
+						{{answerList["LHC.3.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.2"].questionCode}}\')">
-						{{answerList["LHC.4.2"]["text"]}}
+						{{answerList["LHC.4.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.2"].questionCode}}\')">
-						{{answerList["LHC.5.2"]["text"]}}
+						{{answerList["LHC.5.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.2"].questionCode}}\')">
-						{{answerList["LHC.6.2"]["text"]}}
+						{{answerList["LHC.6.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.2"].questionCode}}\')">
-						{{answerList["LHC.7.2"]["text"]}}
+						{{answerList["LHC.7.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.2"].questionCode}}\')">
-						{{answerList["LHC.8.2"]["text"]}}
+						{{answerList["LHC.8.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.2"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.2"].questionCode}}\')">
-						{{answerList["LHC.9.2"]["text"]}}
+						{{answerList["LHC.9.2"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -237,81 +237,81 @@
 				</td>
 				{{if answerList["LHC.1.3.y"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.3.y"].questionCode}}\')">
-						{{answerList["LHC.1.3.y"]["text"]}}Y
-						{{answerList["LHC.1.3.m"]["text"]}}M
-						{{answerList["LHC.1.3.w"]["text"]}}W
+						{{answerList["LHC.1.3.y"]["value"]}}Y
+						{{answerList["LHC.1.3.m"]["value"]}}M
+						{{answerList["LHC.1.3.w"]["value"]}}W
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.3.y"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.3.y"].questionCode}}\')">
-						{{answerList["LHC.2.3.y"]["text"]}}Y
-						{{answerList["LHC.2.3.m"]["text"]}}M
-						{{answerList["LHC.2.3.w"]["text"]}}W
+						{{answerList["LHC.2.3.y"]["value"]}}Y
+						{{answerList["LHC.2.3.m"]["value"]}}M
+						{{answerList["LHC.2.3.w"]["value"]}}W
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.3.y"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.3.y"].questionCode}}\')">
-						{{answerList["LHC.3.3.y"]["text"]}}Y
-						{{answerList["LHC.3.3.m"]["text"]}}M
-						{{answerList["LHC.3.3.w"]["text"]}}W
+						{{answerList["LHC.3.3.y"]["value"]}}Y
+						{{answerList["LHC.3.3.m"]["value"]}}M
+						{{answerList["LHC.3.3.w"]["value"]}}W
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.3.y"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.3.y"].questionCode}}\')">
-						{{answerList["LHC.4.3.y"]["text"]}}Y
-						{{answerList["LHC.4.3.m"]["text"]}}M
-						{{answerList["LHC.4.3.w"]["text"]}}W
+						{{answerList["LHC.4.3.y"]["value"]}}Y
+						{{answerList["LHC.4.3.m"]["value"]}}M
+						{{answerList["LHC.4.3.w"]["value"]}}W
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.3.y"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.3.y"].questionCode}}\')">
-						{{answerList["LHC.5.3.y"]["text"]}}Y
-						{{answerList["LHC.5.3.m"]["text"]}}M
-						{{answerList["LHC.5.3.w"]["text"]}}W
+						{{answerList["LHC.5.3.y"]["value"]}}Y
+						{{answerList["LHC.5.3.m"]["value"]}}M
+						{{answerList["LHC.5.3.w"]["value"]}}W
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.3.y"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.3.y"].questionCode}}\')">
-						{{answerList["LHC.6.3.y"]["text"]}}Y
-						{{answerList["LHC.6.3.m"]["text"]}}M
-						{{answerList["LHC.6.3.w"]["text"]}}W
+						{{answerList["LHC.6.3.y"]["value"]}}Y
+						{{answerList["LHC.6.3.m"]["value"]}}M
+						{{answerList["LHC.6.3.w"]["value"]}}W
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.3.y"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.3.y"].questionCode}}\')">
-						{{answerList["LHC.7.3.y"]["text"]}}Y
-						{{answerList["LHC.7.3.m"]["text"]}}M
-						{{answerList["LHC.7.3.w"]["text"]}}W
+						{{answerList["LHC.7.3.y"]["value"]}}Y
+						{{answerList["LHC.7.3.m"]["value"]}}M
+						{{answerList["LHC.7.3.w"]["value"]}}W
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.3.y"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.3.y"].questionCode}}\')">
-						{{answerList["LHC.8.3.y"]["text"]}}Y
-						{{answerList["LHC.8.3.m"]["text"]}}M
-						{{answerList["LHC.8.3.w"]["text"]}}W
+						{{answerList["LHC.8.3.y"]["value"]}}Y
+						{{answerList["LHC.8.3.m"]["value"]}}M
+						{{answerList["LHC.8.3.w"]["value"]}}W
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.3.y"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.3.y"].questionCode}}\')">
-						{{answerList["LHC.9.3.y"]["text"]}}Y
-						{{answerList["LHC.9.3.m"]["text"]}}M
-						{{answerList["LHC.9.3.w"]["text"]}}W
+						{{answerList["LHC.9.3.y"]["value"]}}Y
+						{{answerList["LHC.9.3.m"]["value"]}}M
+						{{answerList["LHC.9.3.w"]["value"]}}W
 					</td>
 				{{else}}
 					<td></td>
@@ -324,63 +324,63 @@
 				</td>
 				{{if answerList["LHC.1.4"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.4"].questionCode}}\')">
-						{{answerList["LHC.1.4"]["text"]}}
+						{{answerList["LHC.1.4"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.4"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.4"].questionCode}}\')">
-						{{answerList["LHC.2.4"]["text"]}}
+						{{answerList["LHC.2.4"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.4"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.4"].questionCode}}\')">
-						{{answerList["LHC.3.4"]["text"]}}
+						{{answerList["LHC.3.4"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.4"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.4"].questionCode}}\')">
-						{{answerList["LHC.4.4"]["text"]}}
+						{{answerList["LHC.4.4"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.4"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.4"].questionCode}}\')">
-						{{answerList["LHC.5.4"]["text"]}}
+						{{answerList["LHC.5.4"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.4"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.4"].questionCode}}\')">
-						{{answerList["LHC.6.4"]["text"]}}
+						{{answerList["LHC.6.4"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.4"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.4"].questionCode}}\')">
-						{{answerList["LHC.7.4"]["text"]}}
+						{{answerList["LHC.7.4"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.4"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.4"].questionCode}}\')">
-						{{answerList["LHC.8.4"]["text"]}}
+						{{answerList["LHC.8.4"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.4"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.4"].questionCode}}\')">
-						{{answerList["LHC.9.4"]["text"]}}
+						{{answerList["LHC.9.4"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -393,63 +393,63 @@
 				</td>
 				{{if answerList["LHC.1.4.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.4.b"].questionCode}}\')">
-						{{answerList["LHC.1.4.b"]["text"]}}
+						{{answerList["LHC.1.4.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.4.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.4.b"].questionCode}}\')">
-						{{answerList["LHC.2.4.b"]["text"]}}
+						{{answerList["LHC.2.4.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.4.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.4.b"].questionCode}}\')">
-						{{answerList["LHC.3.4.b"]["text"]}}
+						{{answerList["LHC.3.4.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.4.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.4.b"].questionCode}}\')">
-						{{answerList["LHC.4.4.b"]["text"]}}
+						{{answerList["LHC.4.4.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.4.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.4.b"].questionCode}}\')">
-						{{answerList["LHC.5.4.b"]["text"]}}
+						{{answerList["LHC.5.4.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.4.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.4.b"].questionCode}}\')">
-						{{answerList["LHC.6.4.b"]["text"]}}
+						{{answerList["LHC.6.4.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.4.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.4.b"].questionCode}}\')">
-						{{answerList["LHC.7.4.b"]["text"]}}
+						{{answerList["LHC.7.4.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.4.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.4.b"].questionCode}}\')">
-						{{answerList["LHC.8.4.b"]["text"]}}
+						{{answerList["LHC.8.4.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.4.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.4.b"].questionCode}}\')">
-						{{answerList["LHC.9.4.b"]["text"]}}
+						{{answerList["LHC.9.4.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -462,63 +462,63 @@
 				</td>
 				{{if answerList["LHC.1.5.a"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.5.a"].questionCode}}\')">
-						{{answerList["LHC.1.5.a"]["text"]}}
+						{{answerList["LHC.1.5.a"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.5.a"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.5.a"].questionCode}}\')">
-						{{answerList["LHC.2.5.a"]["text"]}}
+						{{answerList["LHC.2.5.a"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.5.a"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.5.a"].questionCode}}\')">
-						{{answerList["LHC.3.5.a"]["text"]}}
+						{{answerList["LHC.3.5.a"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.5.a"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.5.a"].questionCode}}\')">
-						{{answerList["LHC.4.5.a"]["text"]}}
+						{{answerList["LHC.4.5.a"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.5.a"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.5.a"].questionCode}}\')">
-						{{answerList["LHC.5.5.a"]["text"]}}
+						{{answerList["LHC.5.5.a"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.5.a"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.5.a"].questionCode}}\')">
-						{{answerList["LHC.6.5.a"]["text"]}}
+						{{answerList["LHC.6.5.a"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.5.a"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.5.a"].questionCode}}\')">
-						{{answerList["LHC.7.5.a"]["text"]}}
+						{{answerList["LHC.7.5.a"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.5.a"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.5.a"].questionCode}}\')">
-						{{answerList["LHC.8.5.a"]["text"]}}
+						{{answerList["LHC.8.5.a"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.5.a"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.5.a"].questionCode}}\')">
-						{{answerList["LHC.9.5.a"]["text"]}}
+						{{answerList["LHC.9.5.a"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -531,63 +531,63 @@
 				</td>
 				{{if answerList["LHC.1.5.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.5.b"].questionCode}}\')">
-						{{answerList["LHC.1.5.b"]["text"]}}
+						{{answerList["LHC.1.5.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.5.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.5.b"].questionCode}}\')">
-						{{answerList["LHC.2.5.b"]["text"]}}
+						{{answerList["LHC.2.5.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.5.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.5.b"].questionCode}}\')">
-						{{answerList["LHC.3.5.b"]["text"]}}
+						{{answerList["LHC.3.5.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.5.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.5.b"].questionCode}}\')">
-						{{answerList["LHC.4.5.b"]["text"]}}
+						{{answerList["LHC.4.5.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.5.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.5.b"].questionCode}}\')">
-						{{answerList["LHC.5.5.b"]["text"]}}
+						{{answerList["LHC.5.5.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.5.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.5.b"].questionCode}}\')">
-						{{answerList["LHC.6.5.b"]["text"]}}
+						{{answerList["LHC.6.5.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.5.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.5.b"].questionCode}}\')">
-						{{answerList["LHC.7.5.b"]["text"]}}
+						{{answerList["LHC.7.5.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.5.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.5.b"].questionCode}}\')">
-						{{answerList["LHC.8.5.b"]["text"]}}
+						{{answerList["LHC.8.5.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.5.b"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.5.b"].questionCode}}\')">
-						{{answerList["LHC.9.5.b"]["text"]}}
+						{{answerList["LHC.9.5.b"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -600,63 +600,63 @@
 				</td>
 				{{if answerList["LHC.1.5.c"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.5.c"].questionCode}}\')">
-						{{answerList["LHC.1.5.c"]["text"]}}
+						{{answerList["LHC.1.5.c"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.5.c"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.5.c"].questionCode}}\')">
-						{{answerList["LHC.2.5.c"]["text"]}}
+						{{answerList["LHC.2.5.c"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.5.c"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.5.c"].questionCode}}\')">
-						{{answerList["LHC.3.5.c"]["text"]}}
+						{{answerList["LHC.3.5.c"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.5.c"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.5.c"].questionCode}}\')">
-						{{answerList["LHC.4.5.c"]["text"]}}
+						{{answerList["LHC.4.5.c"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.5.c"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.5.c"].questionCode}}\')">
-						{{answerList["LHC.5.5.c"]["text"]}}
+						{{answerList["LHC.5.5.c"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.5.c"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.5.c"].questionCode}}\')">
-						{{answerList["LHC.6.5.c"]["text"]}}
+						{{answerList["LHC.6.5.c"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.5.c"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.5.c"].questionCode}}\')">
-						{{answerList["LHC.7.5.c"]["text"]}}
+						{{answerList["LHC.7.5.c"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.5.c"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.5.c"].questionCode}}\')">
-						{{answerList["LHC.8.5.c"]["text"]}}
+						{{answerList["LHC.8.5.c"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.5.c"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.5.c"].questionCode}}\')">
-						{{answerList["LHC.9.5.c"]["text"]}}
+						{{answerList["LHC.9.5.c"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -669,63 +669,63 @@
 				</td>
 				{{if answerList["LHC.1.5.d"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.5.d"].questionCode}}\')">
-						{{answerList["LHC.1.5.d"]["text"]}}
+						{{answerList["LHC.1.5.d"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.5.d"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.5.d"].questionCode}}\')">
-						{{answerList["LHC.2.5.d"]["text"]}}
+						{{answerList["LHC.2.5.d"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.5.d"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.5.d"].questionCode}}\')">
-						{{answerList["LHC.3.5.d"]["text"]}}
+						{{answerList["LHC.3.5.d"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.5.d"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.5.d"].questionCode}}\')">
-						{{answerList["LHC.4.5.d"]["text"]}}
+						{{answerList["LHC.4.5.d"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.5.d"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.5.d"].questionCode}}\')">
-						{{answerList["LHC.5.5.d"]["text"]}}
+						{{answerList["LHC.5.5.d"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.5.d"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.5.d"].questionCode}}\')">
-						{{answerList["LHC.6.5.d"]["text"]}}
+						{{answerList["LHC.6.5.d"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.5.d"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.5.d"].questionCode}}\')">
-						{{answerList["LHC.7.5.d"]["text"]}}
+						{{answerList["LHC.7.5.d"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.5.d"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.5.d"].questionCode}}\')">
-						{{answerList["LHC.8.5.d"]["text"]}}
+						{{answerList["LHC.8.5.d"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.5.d"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.5.d"].questionCode}}\')">
-						{{answerList["LHC.9.5.d"]["text"]}}
+						{{answerList["LHC.9.5.d"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -738,63 +738,63 @@
 				</td>
 				{{if answerList["LHC.1.5.e"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.5.e"].questionCode}}\')">
-						{{answerList["LHC.1.5.e"]["text"]}}
+						{{answerList["LHC.1.5.e"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.5.e"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.5.e"].questionCode}}\')">
-						{{answerList["LHC.2.5.e"]["text"]}}
+						{{answerList["LHC.2.5.e"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.5.e"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.5.e"].questionCode}}\')">
-						{{answerList["LHC.3.5.e"]["text"]}}
+						{{answerList["LHC.3.5.e"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.5.e"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.5.e"].questionCode}}\')">
-						{{answerList["LHC.4.5.e"]["text"]}}
+						{{answerList["LHC.4.5.e"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.5.e"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.5.e"].questionCode}}\')">
-						{{answerList["LHC.5.5.e"]["text"]}}
+						{{answerList["LHC.5.5.e"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.5.e"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.5.e"].questionCode}}\')">
-						{{answerList["LHC.6.5.e"]["text"]}}
+						{{answerList["LHC.6.5.e"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.5.e"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.5.e"].questionCode}}\')">
-						{{answerList["LHC.7.5.e"]["text"]}}
+						{{answerList["LHC.7.5.e"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.5.e"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.5.e"].questionCode}}\')">
-						{{answerList["LHC.8.5.e"]["text"]}}
+						{{answerList["LHC.8.5.e"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.5.e"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.5.e"].questionCode}}\')">
-						{{answerList["LHC.9.5.e"]["text"]}}
+						{{answerList["LHC.9.5.e"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -807,63 +807,63 @@
 				</td>
 				{{if answerList["LHC.1.5.f"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.5.f"].questionCode}}\')">
-						{{answerList["LHC.1.5.f"]["text"]}}
+						{{answerList["LHC.1.5.f"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.5.f"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.5.f"].questionCode}}\')">
-						{{answerList["LHC.2.5.f"]["text"]}}
+						{{answerList["LHC.2.5.f"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.5.f"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.5.f"].questionCode}}\')">
-						{{answerList["LHC.3.5.f"]["text"]}}
+						{{answerList["LHC.3.5.f"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.5.f"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.5.f"].questionCode}}\')">
-						{{answerList["LHC.4.5.f"]["text"]}}
+						{{answerList["LHC.4.5.f"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.5.f"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.5.f"].questionCode}}\')">
-						{{answerList["LHC.5.5.f"]["text"]}}
+						{{answerList["LHC.5.5.f"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.5.f"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.5.f"].questionCode}}\')">
-						{{answerList["LHC.6.5.f"]["text"]}}
+						{{answerList["LHC.6.5.f"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.5.f"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.5.f"].questionCode}}\')">
-						{{answerList["LHC.7.5.f"]["text"]}}
+						{{answerList["LHC.7.5.f"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.5.f"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.5.f"].questionCode}}\')">
-						{{answerList["LHC.8.5.f"]["text"]}}
+						{{answerList["LHC.8.5.f"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.5.f"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.5.f"].questionCode}}\')">
-						{{answerList["LHC.9.5.f"]["text"]}}
+						{{answerList["LHC.9.5.f"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -876,63 +876,63 @@
 				</td>
 				{{if answerList["LHC.1.5.g"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.5.g"].questionCode}}\')">
-						{{answerList["LHC.1.5.g"]["text"]}}
+						{{answerList["LHC.1.5.g"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.5.g"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.5.g"].questionCode}}\')">
-						{{answerList["LHC.2.5.g"]["text"]}}
+						{{answerList["LHC.2.5.g"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.5.g"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.5.g"].questionCode}}\')">
-						{{answerList["LHC.3.5.g"]["text"]}}
+						{{answerList["LHC.3.5.g"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.5.g"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.5.g"].questionCode}}\')">
-						{{answerList["LHC.4.5.g"]["text"]}}
+						{{answerList["LHC.4.5.g"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.5.g"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.5.g"].questionCode}}\')">
-						{{answerList["LHC.5.5.g"]["text"]}}
+						{{answerList["LHC.5.5.g"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.5.g"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.5.g"].questionCode}}\')">
-						{{answerList["LHC.6.5.g"]["text"]}}
+						{{answerList["LHC.6.5.g"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.5.g"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.5.g"].questionCode}}\')">
-						{{answerList["LHC.7.5.g"]["text"]}}
+						{{answerList["LHC.7.5.g"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.5.g"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.5.g"].questionCode}}\')">
-						{{answerList["LHC.8.5.g"]["text"]}}
+						{{answerList["LHC.8.5.g"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.5.g"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.5.g"].questionCode}}\')">
-						{{answerList["LHC.9.5.g"]["text"]}}
+						{{answerList["LHC.9.5.g"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -945,63 +945,63 @@
 				</td>
 				{{if answerList["LHC.1.5.h"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.5.h"].questionCode}}\')">
-						{{answerList["LHC.1.5.h"]["text"]}}
+						{{answerList["LHC.1.5.h"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.5.h"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.5.h"].questionCode}}\')">
-						{{answerList["LHC.2.5.h"]["text"]}}
+						{{answerList["LHC.2.5.h"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.5.h"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.5.h"].questionCode}}\')">
-						{{answerList["LHC.3.5.h"]["text"]}}
+						{{answerList["LHC.3.5.h"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.5.h"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.5.h"].questionCode}}\')">
-						{{answerList["LHC.4.5.h"]["text"]}}
+						{{answerList["LHC.4.5.h"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.5.h"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.5.h"].questionCode}}\')">
-						{{answerList["LHC.5.5.h"]["text"]}}
+						{{answerList["LHC.5.5.h"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.5.h"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.5.h"].questionCode}}\')">
-						{{answerList["LHC.6.5.h"]["text"]}}
+						{{answerList["LHC.6.5.h"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.5.h"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.5.h"].questionCode}}\')">
-						{{answerList["LHC.7.5.h"]["text"]}}
+						{{answerList["LHC.7.5.h"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.5.h"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.5.h"].questionCode}}\')">
-						{{answerList["LHC.8.5.h"]["text"]}}
+						{{answerList["LHC.8.5.h"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.5.h"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.5.h"].questionCode}}\')">
-						{{answerList["LHC.9.5.h"]["text"]}}
+						{{answerList["LHC.9.5.h"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -1014,63 +1014,63 @@
 				</td>
 				{{if answerList["LHC.1.5.i"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.5.i"].questionCode}}\')">
-						{{answerList["LHC.1.5.i"]["text"]}}
+						{{answerList["LHC.1.5.i"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 					{{if answerList["LHC.2.5.i"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.5.i"].questionCode}}\')">
-						{{answerList["LHC.2.5.i"]["text"]}}
+						{{answerList["LHC.2.5.i"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.5.i"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.5.i"].questionCode}}\')">
-						{{answerList["LHC.3.5.i"]["text"]}}
+						{{answerList["LHC.3.5.i"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.5.i"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.5.i"].questionCode}}\')">
-						{{answerList["LHC.4.5.i"]["text"]}}
+						{{answerList["LHC.4.5.i"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.5.i"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.5.i"].questionCode}}\')">
-						{{answerList["LHC.5.5.i"]["text"]}}
+						{{answerList["LHC.5.5.i"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.5.i"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.5.i"].questionCode}}\')">
-						{{answerList["LHC.6.5.i"]["text"]}}
+						{{answerList["LHC.6.5.i"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.5.i"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.5.i"].questionCode}}\')">
-						{{answerList["LHC.7.5.i"]["text"]}}
+						{{answerList["LHC.7.5.i"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.5.i"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.5.i"].questionCode}}\')">
-						{{answerList["LHC.8.5.i"]["text"]}}
+						{{answerList["LHC.8.5.i"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.5.i"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.5.i"].questionCode}}\')">
-						{{answerList["LHC.9.5.i"]["text"]}}
+						{{answerList["LHC.9.5.i"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
@@ -1083,63 +1083,63 @@
 				</td>
 				{{if answerList["LHC.1.5.j"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.1.5.j"].questionCode}}\')">
-						{{answerList["LHC.1.5.j"]["text"]}}
+						{{answerList["LHC.1.5.j"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.2.5.j"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.2.5.j"].questionCode}}\')">
-						{{answerList["LHC.2.5.j"]["text"]}}
+						{{answerList["LHC.2.5.j"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.3.5.j"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.3.5.j"].questionCode}}\')">
-						{{answerList["LHC.3.5.j"]["text"]}}
+						{{answerList["LHC.3.5.j"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.4.5.j"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.4.5.j"].questionCode}}\')">
-						{{answerList["LHC.4.5.j"]["text"]}}
+						{{answerList["LHC.4.5.j"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.5.5.j"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.5.5.j"].questionCode}}\')">
-						{{answerList["LHC.5.5.j"]["text"]}}
+						{{answerList["LHC.5.5.j"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.6.5.j"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.6.5.j"].questionCode}}\')">
-						{{answerList["LHC.6.5.j"]["text"]}}
+						{{answerList["LHC.6.5.j"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.7.5.j"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.7.5.j"].questionCode}}\')">
-						{{answerList["LHC.7.5.j"]["text"]}}
+						{{answerList["LHC.7.5.j"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.8.5.j"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.8.5.j"].questionCode}}\')">
-						{{answerList["LHC.8.5.j"]["text"]}}
+						{{answerList["LHC.8.5.j"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
 				{{/if}}
 				{{if answerList["LHC.9.5.j"]}}
 					<td onclick="editQuestion(\'{{answerList["LHC.9.5.j"].questionCode}}\')">
-						{{answerList["LHC.9.5.j"]["text"]}}
+						{{answerList["LHC.9.5.j"]["value"]}}
 					</td>
 				{{else}}
 					<td></td>
