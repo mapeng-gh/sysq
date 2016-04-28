@@ -1,0 +1,2075 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="50dp"
+    android:orientation="vertical">
+    
+    <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#338EE7"
+            android:padding="5dp"
+            android:text="答案列表"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"/>
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="30dp">
+    
+	    <LinearLayout 
+	        android:id="@+id/ll_interviewee_answers_lhc"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="Number of Episode\n发作次数"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="1"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="3"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="4"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="5"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	             
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="6"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="7"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="8"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="9"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="age\n发生年龄"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.1"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.1"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.1.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.1.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.1.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.1.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.1.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.1.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.1"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="is the worst\n是否最严重"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.1.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.1.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.1.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.1.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.1.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.1.b"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.1.b"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.1.a"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag=""
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="Events or Out of Blue\n由于事件还是具体原因"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.2"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.2"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="Duration: weeks, months or years\n持续时间：年、月、周"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.3.y,LHC.1.3.m,LHC.1.3.w"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.3.y,LHC.2.3.m,LHC.2.3.w"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.3.y,LHC.3.3.m,LHC.3.3.w"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.3.y,LHC.4.3.m,LHC.4.3.w"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.3.y,LHC.5.3.m,LHC.5.3.w"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.3.y,LHC.6.3.m,LHC.6.3.w"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.3.y,LHC.7.3.m,LHC.7.3.w"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.3.y,LHC.8.3.m,LHC.8.3.w"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.3.y,LHC.9.3.m,LHC.9.3.w"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	         <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="Treatment\n接受治疗与否"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.4"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.4"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.4"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.4"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.4"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.4"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.4"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.4"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.4"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="How well did treatment work?\n治疗效果如何"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.4.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.4.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.4.b"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.4.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.4.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.4.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.4.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.4.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.4.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="LTE1 Marital separation/divorce\nLTE1 夫妻分居/离婚"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.5.a"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.5.a"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.5.a"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.5.a"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.5.a"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.5.a"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.5.a"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.5.a"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.5.a"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="LTE2 Major injury or traffic accident\nLTE2 严重创伤或车祸"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.5.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.5.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.5.b"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.5.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.5.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.5.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.5.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.5.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.5.b"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="LTE3 Loss of job/retirement\nLTE3 失业/下岗/退休"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.5.c"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.5.c"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.5.c"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.5.c"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.5.c"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.5.c"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.5.c"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.5.c"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.5.c"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="LTE4 Death /major illness of spouse\nLTE4 配偶死亡或患重病"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.5.d"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.5.d"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.5.d"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.5.d"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.5.d"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.5.d"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.5.d"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.5.d"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.5.d"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="LTE5 Business bankrupt\nLTE5 营企业或家庭经济破产"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.5.e"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.5.e"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.5.e"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.5.e"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.5.e"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.5.e"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.5.e"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.5.e"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.5.e"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="LTE6 Death/major illness of other close family member\nLTE6 家庭其他成员死亡或患重病"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.5.f"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.5.f"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.5.f"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.5.f"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.5.f"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.5.f"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.5.f"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.5.f"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.5.f"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="LTE7 Violence\nLTE7 遭到暴力打击/被强暴"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.5.g"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.5.g"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.5.g"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.5.g"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.5.g"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.5.g"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.5.g"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.5.g"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.5.g"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="LTE8 Major natural disaster (e.g. flood  drought)\nLTE8 严重自然灾害（如旱、涝等）"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.5.h"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.5.h"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.5.h"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.5.h"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.5.h"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.5.h"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.5.h"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.5.h"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.5.h"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	         <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="LTE9 Major conflict within family\nLTE9 严重的家庭内部矛盾及冲突"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.5.i"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.5.i"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.5.i"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.5.i"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.5.i"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.5.i"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.5.i"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.5.i"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.5.i"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+	              
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_zero"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:text="LTE10 Loss of income / living on debt\nLTE10 丧失经济来源/负债度日"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_one"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.1.5.j"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	               android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_two"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.2.5.j"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_three"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.3.5.j"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_four"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.4.5.j"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	            
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_five"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.5.5.j"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	             
+	            <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_six"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.6.5.j"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	            
+	            <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_seven"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.7.5.j"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	             <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_eight"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.8.5.j"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	             
+	             <View style="@style/list_item_cell_seperator"/>
+	              
+	              <TextView 
+	                android:layout_width="0dp"
+	                android:layout_weight="@string/interviewee_answers_lhc_column_nine"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center"
+	                android:tag="LHC.9.5.j"
+	                style="@style/interviewee_answers_lhc_cell"/>
+	              
+	              <View style="@style/list_item_cell_seperator"/>
+	            
+	        </LinearLayout>
+	        
+	        <View style="@style/list_item_row_seperator"/>
+	        
+	    </LinearLayout>
+	    
+	 </ScrollView>
+
+</LinearLayout>

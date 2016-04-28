@@ -59,5 +59,17 @@
     <string name="interviewee_questionaire_list_head_last_modified_time_label">最后更新时间</string>
     <string name="interviewee_questionaire_list_head_operation_weight">1</string>
     <string name="interviewee_questionaire_list_head_operation_label">操作</string>
+    
+    <!-- interviewee answers lhc -->
+    <string name="interviewee_answers_lhc_column_zero">3</string>
+    <string name="interviewee_answers_lhc_column_one">1</string>
+    <string name="interviewee_answers_lhc_column_two">1</string>
+    <string name="interviewee_answers_lhc_column_three">1</string>
+    <string name="interviewee_answers_lhc_column_four">1</string>
+    <string name="interviewee_answers_lhc_column_five">1</string>
+    <string name="interviewee_answers_lhc_column_six">1</string>
+    <string name="interviewee_answers_lhc_column_seven">1</string>
+    <string name="interviewee_answers_lhc_column_eight">1</string>
+    <string name="interviewee_answers_lhc_column_nine">1</string>
 
 </resources>

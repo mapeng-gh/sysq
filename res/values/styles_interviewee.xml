@@ -94,4 +94,11 @@
 	    <item name="android:layout_height">match_parent</item>
     </style>
     
+    <!-- interviewee answers lhc -->
+    <style name="interviewee_answers_lhc_cell">
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+    
 </resources>

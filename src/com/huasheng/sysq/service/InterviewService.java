@@ -220,6 +220,15 @@ public class InterviewService {
 	}
 	
 	/**
+	 * 获取答案记录列表
+	 * @param interviewBasicId
+	 * @return
+	 */
+	public static List<InterviewAnswer> getInterviewAnswerList(int interviewBasicId){
+		return InterviewAnswerDB.selectByInterview(interviewBasicId);
+	}
+	
+	/**
 	 * 查询答案记录列表
 	 * @param interviewBasicId
 	 * @param questionCode
