@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,6 +23,7 @@ import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.AudioUtils;
 import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.FormatUtils;
 import com.huasheng.sysq.util.InterviewContext;
@@ -31,7 +31,6 @@ import com.huasheng.sysq.util.JSFuncInvokeUtils;
 import com.huasheng.sysq.util.JSObject;
 import com.huasheng.sysq.util.JsonUtils;
 import com.huasheng.sysq.util.RenderUtils;
-import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.TemplateConstants;
 
 public class InterviewActivity extends Activity{
@@ -64,9 +63,15 @@ public class InterviewActivity extends Activity{
 				
 				if(InterviewActivity.this.isRequestFromOutside == false){
 					
+					//开始录音
+					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
+					
 					jumpToFirstQuestionaire();
 					
 				}else if("continue".equals(InterviewActivity.this.operateType)){
+					
+					//开始录音
+					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
 					
 					//保存访问记录到上下文
 					InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(InterviewActivity.this.interviewBasicId);
@@ -81,6 +86,9 @@ public class InterviewActivity extends Activity{
 						resumeQuestion(interviewBasic);
 					}
 				}else if("modify".equals(InterviewActivity.this.operateType)){
+					
+					//开始录音
+					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
 					
 					modifyQuestion();
 				}

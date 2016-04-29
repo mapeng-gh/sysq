@@ -18,7 +18,7 @@ public class DateTimeUtils {
 	 */
 	public static String getCurTime(){
 		Date curDate = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return dateFormat.format(curDate);
 	}
 	

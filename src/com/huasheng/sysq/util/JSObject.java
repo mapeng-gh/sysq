@@ -298,6 +298,9 @@ public class JSObject {
 		Questionaire nextQuestionaire = InterviewService.getNextQuestionaire();
 		if(nextQuestionaire == null){
 			
+			//Í£Ö¹Â¼Òô
+			AudioUtils.stop();
+			
 			//¸üÐÂ·ÃÌ¸¼ÇÂ¼
 			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 			curInterviewBasic.setStatus(InterviewBasic.STATUS_DONE);
@@ -337,6 +340,9 @@ public class JSObject {
 	@JavascriptInterface
 	public void quitInterview(String answersJS){
 		
+		//Í£Ö¹Â¼Òô
+		AudioUtils.stop();
+		
 		if(!StringUtils.isEmpty(answersJS)){////±£´æÎÊ¾í´ð°¸
 			List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 			InterviewService.saveAnswers(answerValueMap);
@@ -364,6 +370,9 @@ public class JSObject {
 	 */
 	@JavascriptInterface
 	public void pauseInterview(String answersJS){
+		
+		//Í£Ö¹Â¼Òô
+		AudioUtils.stop();
 		
 		if(!StringUtils.isEmpty(answersJS)){//±£´æµ±Ç°ÎÊ¾í´ð°¸
 			List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
@@ -397,6 +406,10 @@ public class JSObject {
 	 */
 	@JavascriptInterface
 	public void jumpToIndex(){
+		
+		//Í£Ö¹Â¼Òô
+		AudioUtils.stop();
+		
 		SysqApplication.jumpToActivity(IndexActivity.class);
 	}
 	
