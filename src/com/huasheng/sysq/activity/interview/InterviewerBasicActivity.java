@@ -57,13 +57,13 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 	public void onClick(View view) {
 		if(view.getId() == R.id.interviewer_basic_submit_button){
 			
-			//±íµ¥Ğ£Ñé
+			//è¡¨å•æ ¡éªŒ
 			InterviewBasic interview= collectData();
 			if(interview == null){
 				return;
 			}
 			
-			//Ìø×ª
+			//è·³è½¬
 			Intent intent = new Intent(this,InterviewerDNAActivity.class);
 			intent.putExtra("interview", interview);
 			startActivity(intent);
@@ -75,49 +75,49 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 		
 		String username = userET.getText().toString();
 		if(StringUtils.isEmpty(StringUtils.trim(username))){
-			SysqApplication.showMessage("ĞÕÃû²»ÄÜÎª¿Õ");
+			SysqApplication.showMessage("å§“åä¸èƒ½ä¸ºç©º");
 			return null;
 		}
 		interviewBasic.setUsername(username);
 		
 		String identityCard = identityCardET.getText().toString();
 		if(!RegexUtils.test("[0-9A-Za-z]{18}", identityCard)){
-			SysqApplication.showMessage("Éí·İÖ¤±ØĞëÊÇ18Î»Êı×ÖºÍ×ÖÄ¸×éºÏ");
+			SysqApplication.showMessage("èº«ä»½è¯å¿…é¡»æ˜¯18ä½æ•°å­—å’Œå­—æ¯ç»„åˆ");
 			return null;
 		}
 		interviewBasic.setIdentityCard(identityCard);
 		
 		String province = provinceET.getText().toString();
 		if(StringUtils.isEmpty(StringUtils.trim(province))){
-			SysqApplication.showMessage("Ê¡/×ÔÖÎÇø/Ö±Ï½ÊĞ²»ÄÜÎª¿Õ");
+			SysqApplication.showMessage("çœ/è‡ªæ²»åŒº/ç›´è¾–å¸‚ä¸èƒ½ä¸ºç©º");
 			return null;
 		}
 		interviewBasic.setProvince(province);
 		
 		String city = cityET.getText().toString();
 		if(StringUtils.isEmpty(StringUtils.trim(city))){
-			SysqApplication.showMessage("ÊĞ/ÏØ/Çø²»ÄÜÎª¿Õ");
+			SysqApplication.showMessage("å¸‚/å¿/åŒºä¸èƒ½ä¸ºç©º");
 			return null;
 		}
 		interviewBasic.setCity(city);
 		
 		String address = addressET.getText().toString();
 		if(StringUtils.isEmpty(StringUtils.trim(address))){
-			SysqApplication.showMessage("ÁªÏµµØÖ·²»ÄÜÎª¿Õ");
+			SysqApplication.showMessage("è”ç³»åœ°å€ä¸èƒ½ä¸ºç©º");
 			return null;
 		}
 		interviewBasic.setAddress(address);
 		
 		String postCode = postCodeET.getText().toString();
 		if(!RegexUtils.test("[0-9]{6}", postCode)){
-			SysqApplication.showMessage("ÓÊ±à±ØĞëÊÇ6Î»Êı×Ö");
+			SysqApplication.showMessage("é‚®ç¼–å¿…é¡»æ˜¯6ä½æ•°å­—");
 			return null;
 		}
 		interviewBasic.setPostCode(postCode);
 		
 		String mobile = mobileET.getText().toString();
 		if(!RegexUtils.test("[0-9]{10,11}", mobile)){
-			SysqApplication.showMessage("ÇëÊäÈëÕıÈ·µÄ×ù»úºÅÂë»òÕßÊÖ»úºÅÂë");
+			SysqApplication.showMessage("è¯·è¾“å…¥æ­£ç¡®çš„åº§æœºå·ç æˆ–è€…æ‰‹æœºå·ç ");
 			return null;
 		}
 		interviewBasic.setMobile(mobile);
@@ -128,7 +128,7 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 		String familyMobile = familyMobileET.getText().toString();
 		if(!StringUtils.isEmpty(familyMobile)){
 			if(!RegexUtils.test("1[0-9]{10}", familyMobile)){
-				SysqApplication.showMessage("Ç×ÊôÁªÏµµç»°±ØĞëÊÇÒÔ1¿ªÍ·µÄ11Î»Êı×Ö");
+				SysqApplication.showMessage("äº²å±è”ç³»ç”µè¯å¿…é¡»æ˜¯ä»¥1å¼€å¤´çš„11ä½æ•°å­—");
 				return null;
 			}
 		}

@@ -28,21 +28,21 @@ public class ReservationService {
 		Reservation reservation = new Reservation();
 		reservation.setUsername(searchStr);
 		
-		//·ÖÒ³¼ÆËã
+		//åˆ†é¡µè®¡ç®—
 		Integer offset = null;
 		Integer limit = pageSize;
 		offset = (pageNo - 1) * pageSize;
 		
-		//Êı¾İ²éÑ¯
+		//æ•°æ®æŸ¥è¯¢
 		List<Reservation> data = ReservationDB.search(reservation, "or", offset, limit);
 		
-		//¹¹Ôìpage
+		//æ„é€ page
 		Page<Reservation> page = new Page<Reservation>();
 		page.setData(data);
 		page.setPageNo(pageNo);
 		page.setPageSize(pageSize);
 		
-		//¼ÆËã×ÜÒ³Êı
+		//è®¡ç®—æ€»é¡µæ•°
 		int size = ReservationDB.size(reservation, "or");
 		int totalPages = size % pageSize == 0 ? size / pageSize : size / pageSize + 1;
 		page.setTotalPages(totalPages);

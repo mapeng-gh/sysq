@@ -1,7 +1,7 @@
 package com.huasheng.sysq.model;
 
 /**
- * ´ð°¸
+ * ç­”æ¡ˆ
  * @author map
  *
  */

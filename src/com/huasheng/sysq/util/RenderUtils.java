@@ -21,7 +21,7 @@ public class RenderUtils {
 			is = SysqApplication.getContext().getAssets().open(TEMPLATE_DIR + File.separator + filename);
 			tpl = IOUtils.toString(is,"utf-8");
 		}catch(Exception e){
-			throw new RuntimeException("¼ÓÔØÄ£°æÊ§°Ü", e);
+			throw new RuntimeException("åŠ è½½æ¨¡ç‰ˆå¤±è´¥", e);
 		}finally{
 			if(is != null){
 				try {

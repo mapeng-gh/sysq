@@ -49,45 +49,45 @@ public class InterviewActivity extends Activity{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_interview);
 		
-		//³õÊ¼»¯Íâ²¿²ÎÊı
+		//åˆå§‹åŒ–å¤–éƒ¨å‚æ•°
 		this.initParam();
 		
 		interviewWV = (WebView)findViewById(R.id.interview_web_view);
 		
-		interviewWV.getSettings().setJavaScriptEnabled(true);//ÆôÓÃjs
+		interviewWV.getSettings().setJavaScriptEnabled(true);//å¯ç”¨js
 		
 		interviewWV.setWebViewClient(new WebViewClient(){
 
 			@Override
-			public void onPageFinished(WebView view, String url) {//Ò³Ãæ¼ÓÔØÍê³É»Øµ÷
+			public void onPageFinished(WebView view, String url) {//é¡µé¢åŠ è½½å®Œæˆå›è°ƒ
 				
 				if(InterviewActivity.this.isRequestFromOutside == false){
 					
-					//¿ªÊ¼Â¼Òô
+					//å¼€å§‹å½•éŸ³
 					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
 					
 					jumpToFirstQuestionaire();
 					
 				}else if("continue".equals(InterviewActivity.this.operateType)){
 					
-					//¿ªÊ¼Â¼Òô
+					//å¼€å§‹å½•éŸ³
 					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
 					
-					//±£´æ·ÃÎÊ¼ÇÂ¼µ½ÉÏÏÂÎÄ
+					//ä¿å­˜è®¿é—®è®°å½•åˆ°ä¸Šä¸‹æ–‡
 					InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(InterviewActivity.this.interviewBasicId);
 					InterviewContext.setCurInterviewBasic(interviewBasic);
 					
-					if(StringUtils.isEmpty(interviewBasic.getNextQuestionCode())){//µ±Ç°Î»ÖÃÔÚÎÊ¾í½éÉÜÒ³
+					if(StringUtils.isEmpty(interviewBasic.getNextQuestionCode())){//å½“å‰ä½ç½®åœ¨é—®å·ä»‹ç»é¡µ
 						
 						resumeQuestionaire(interviewBasic);
 						
-					}else{//µ±Ç°Î»ÖÃÔÚÄ³¸öÎÊÌâÉÏ
+					}else{//å½“å‰ä½ç½®åœ¨æŸä¸ªé—®é¢˜ä¸Š
 						
 						resumeQuestion(interviewBasic);
 					}
 				}else if("modify".equals(InterviewActivity.this.operateType)){
 					
-					//¿ªÊ¼Â¼Òô
+					//å¼€å§‹å½•éŸ³
 					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
 					
 					modifyQuestion();
@@ -95,36 +95,36 @@ public class InterviewActivity extends Activity{
 			}
 		});
 		
-		InterviewContext.setWebView(interviewWV);//±£´æµ½ÉÏÏÂÎÄ
+		InterviewContext.setWebView(interviewWV);//ä¿å­˜åˆ°ä¸Šä¸‹æ–‡
 		
-		interviewWV.addJavascriptInterface(new JSObject(), "appservice");//×¢²áJSObject
+		interviewWV.addJavascriptInterface(new JSObject(), "appservice");//æ³¨å†ŒJSObject
 		
 		interviewWV.loadUrl("file:///android_asset/interview.html");
 	}
 	
 	private void modifyQuestion(){
 		
-		//±£´æ·ÃÎÊ¼ÇÂ¼µ½ÉÏÏÂÎÄ
+		//ä¿å­˜è®¿é—®è®°å½•åˆ°ä¸Šä¸‹æ–‡
 		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		InterviewContext.setCurInterviewBasic(interviewBasic);
 		
-		//ĞŞ¸Ä·ÃÎÊ¼ÇÂ¼×´Ì¬
+		//ä¿®æ”¹è®¿é—®è®°å½•çŠ¶æ€
 		interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
 		interviewBasic.setCurQuestionaireCode(this.questionaireCode);
 		interviewBasic.setNextQuestionCode(this.questionCode);
 		interviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
 		InterviewService.updateInterviewBasic(interviewBasic);
 		
-		//±£´æÎÊ¾í¼ÇÂ¼µ½ÉÏÏÂÎÄ
+		//ä¿å­˜é—®å·è®°å½•åˆ°ä¸Šä¸‹æ–‡
 		InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(interviewBasic.getId(),this.questionaireCode);
 		InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
 		
-		//ĞŞ¸ÄÎÊ¾í¼ÇÂ¼×´Ì¬
+		//ä¿®æ”¹é—®å·è®°å½•çŠ¶æ€
 		interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DOING);
 		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurTime());
 		InterviewService.updateInterviewQuestionaire(interviewQuestionaire);
 		
-		//»Ö¸´ÎÊÌâ·µ»ØÕ»
+		//æ¢å¤é—®é¢˜è¿”å›æ ˆ
 		List<Question> questionList = new ArrayList<Question>();
 		List<InterviewQuestion> interviewQuestionList = InterviewService.getInterviewQuestionList(interviewBasic.getId(), questionaireCode);
 		for(InterviewQuestion interviewQuestion : interviewQuestionList){
@@ -135,10 +135,10 @@ public class InterviewActivity extends Activity{
 		}
 		InterviewContext.setQuestionList(questionList);
 		
-		//É¾³ıÖ®ºóµÄÎÊ¾í¼ÇÂ¼¡¢ÎÊÌâ¼ÇÂ¼¡¢´ğ°¸¼ÇÂ¼
+		//åˆ é™¤ä¹‹åçš„é—®å·è®°å½•ã€é—®é¢˜è®°å½•ã€ç­”æ¡ˆè®°å½•
 		InterviewService.clearInterviewAfterQuestion(this.interviewBasicId, this.questionaireCode, this.questionCode);
 		
-		//»Ö¸´´ğ°¸
+		//æ¢å¤ç­”æ¡ˆ
 		List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
 		List<InterviewQuestion> existInterviewQuestionList = InterviewQuestionDB.selectByQuestionaire(interviewBasicId, questionaireCode);
 		for(InterviewQuestion interviewQuestion : existInterviewQuestionList){
@@ -157,23 +157,23 @@ public class InterviewActivity extends Activity{
 		String jsStr = "answers=JSON.parse(\\'" + JsonUtils.toJson(answerValueList, null) + "\\')";
 		JSFuncInvokeUtils.invoke(jsStr);
 		
-		//äÖÈ¾Ò³Ãæ
+		//æ¸²æŸ“é¡µé¢
 		QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
 		QuestionWrap formattedQuestionWrap = specQuestionWrap.format();
 		RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 		
-		//»¹Ô­ÏÖ³¡
+		//è¿˜åŸç°åœº
 		JSFuncInvokeUtils.invoke("isReplay=true;");
 		List<Question> backQuestionList = InterviewContext.getQuestionList();
 		for(Question question : backQuestionList){
 			JSFuncInvokeUtils.invoke(question.getEntryLogic());
-			if(!question.getCode().equals(questionCode)){//ÉÏÒ»¸öÎÊÌâ²»ĞèÖ´ĞĞÍË³öÂß¼­
+			if(!question.getCode().equals(questionCode)){//ä¸Šä¸€ä¸ªé—®é¢˜ä¸éœ€æ‰§è¡Œé€€å‡ºé€»è¾‘
 				JSFuncInvokeUtils.invoke(question.getExitLogic());
 			}
 		}
 		JSFuncInvokeUtils.invoke("isReplay=false;");
 		
-		//ÎÊÌâÃèÊö¶¯Ì¬²åÖµ
+		//é—®é¢˜æè¿°åŠ¨æ€æ’å€¼
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 		
 	}
@@ -203,7 +203,7 @@ public class InterviewActivity extends Activity{
 	}
 	
 	/**
-	 * »Ö¸´ÎÊÌâ
+	 * æ¢å¤é—®é¢˜
 	 * @param interviewBasic
 	 */
 	private void resumeQuestion(InterviewBasic interviewBasic){
@@ -211,11 +211,11 @@ public class InterviewActivity extends Activity{
 		String questionaireCode = interviewBasic.getCurQuestionaireCode();
 		String questionCode = interviewBasic.getNextQuestionCode();
 		
-		//±£´æÎÊ¾í¼ÇÂ¼µ½ÉÏÏÂÎÄ
+		//ä¿å­˜é—®å·è®°å½•åˆ°ä¸Šä¸‹æ–‡
 		InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(interviewBasic.getId(), questionaireCode);
 		InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
 		
-		//»Ö¸´ÎÊÌâ·µ»ØÕ»
+		//æ¢å¤é—®é¢˜è¿”å›æ ˆ
 		List<Question> questionList = new ArrayList<Question>();
 		List<InterviewQuestion> interviewQuestionList = InterviewService.getInterviewQuestionList(interviewBasic.getId(), questionaireCode);
 		for(InterviewQuestion interviewQuestion : interviewQuestionList){
@@ -224,12 +224,12 @@ public class InterviewActivity extends Activity{
 		questionList.add(InterviewService.getSpecQuestion(questionCode).getQuestion());
 		InterviewContext.setQuestionList(questionList);
 		
-		//äÖÈ¾Ò³Ãæ
+		//æ¸²æŸ“é¡µé¢
 		QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
 		QuestionWrap formattedQuestionWrap = specQuestionWrap.format();
 		RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 		
-		//»Ö¸´´ğ°¸
+		//æ¢å¤ç­”æ¡ˆ
 		List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
 		for(InterviewQuestion interviewQuestion : interviewQuestionList){
 			List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(interviewBasic.getId(), interviewQuestion.getQuestionCode());
@@ -247,58 +247,58 @@ public class InterviewActivity extends Activity{
 		String jsStr = "answers=JSON.parse(\\'" + JsonUtils.toJson(answerValueList, null) + "\\')";
 		JSFuncInvokeUtils.invoke(jsStr);
 		
-		//»¹Ô­ÏÖ³¡
+		//è¿˜åŸç°åœº
 		JSFuncInvokeUtils.invoke("isReplay=true;");
 		List<Question> backQuestionList = InterviewContext.getQuestionList();
 		for(Question question : backQuestionList){
 			JSFuncInvokeUtils.invoke(question.getEntryLogic());
-			if(!question.getCode().equals(questionCode)){//ÉÏÒ»¸öÎÊÌâ²»ĞèÖ´ĞĞÍË³öÂß¼­
+			if(!question.getCode().equals(questionCode)){//ä¸Šä¸€ä¸ªé—®é¢˜ä¸éœ€æ‰§è¡Œé€€å‡ºé€»è¾‘
 				JSFuncInvokeUtils.invoke(question.getExitLogic());
 			}
 		}
 		JSFuncInvokeUtils.invoke("isReplay=false;");
 		
-		//ÎÊÌâÃèÊö¶¯Ì¬²åÖµ
+		//é—®é¢˜æè¿°åŠ¨æ€æ’å€¼
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 	
 	}
 	
 	/**
-	 * »Ö¸´ÎÊ¾í
+	 * æ¢å¤é—®å·
 	 * @param interviewBasic
 	 */
 	private void resumeQuestionaire(InterviewBasic interviewBasic){
 		
-		//±£´æÎÊ¾í¼ÇÂ¼µ½ÉÏÏÂÎÄ
+		//ä¿å­˜é—®å·è®°å½•åˆ°ä¸Šä¸‹æ–‡
 		InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(interviewBasic.getId(), interviewBasic.getCurQuestionaireCode());
 		InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
 		
-		//äÖÈ¾Ò³Ãæ
+		//æ¸²æŸ“é¡µé¢
 		Questionaire questionaire = InterviewService.getSpecQuestionaire(interviewBasic.getCurQuestionaireCode());
 		questionaire.setIntroduction(FormatUtils.handleParaInHTML(questionaire.getIntroduction()));
 		RenderUtils.render(TemplateConstants.QUESTIONAIRE, questionaire,null);
 	}
 	
 	/**
-	 * ·ÃÌ¸¿ªÊ¼Ìø×ªµÚÒ»¸öÎÊ¾í
+	 * è®¿è°ˆå¼€å§‹è·³è½¬ç¬¬ä¸€ä¸ªé—®å·
 	 */
 	private void jumpToFirstQuestionaire(){
 		
-		//²éÑ¯µÚÒ»¸öÎÊ¾í
+		//æŸ¥è¯¢ç¬¬ä¸€ä¸ªé—®å·
 		Questionaire firstQuestionaire = InterviewService.getFirstQuestionaire();
 		
-		//ĞÂ½¨ÎÊ¾í¼ÇÂ¼²¢±£´æÉÏÏÂÎÄ
+		//æ–°å»ºé—®å·è®°å½•å¹¶ä¿å­˜ä¸Šä¸‹æ–‡
 		InterviewQuestionaire interviewQuestionaire = InterviewService.newInterviewQuestionaire(firstQuestionaire);
 		InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
 		
-		//¸üĞÂ·ÃÎÊ¼ÇÂ¼
+		//æ›´æ–°è®¿é—®è®°å½•
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 		curInterviewBasic.setCurQuestionaireCode(firstQuestionaire.getCode());
 		curInterviewBasic.setNextQuestionCode("");
 		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
-		//äÖÈ¾Ò³Ãæ
+		//æ¸²æŸ“é¡µé¢
 		firstQuestionaire.setIntroduction(FormatUtils.handleParaInHTML(firstQuestionaire.getIntroduction()));
 		RenderUtils.render(TemplateConstants.QUESTIONAIRE, firstQuestionaire,null);
 	}

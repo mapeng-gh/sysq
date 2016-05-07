@@ -80,28 +80,28 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View view) {
 		
-		if(view.getId() == R.id.tv_interviewee_list_pagination_previous){//ÉÏÒ»Ò³
+		if(view.getId() == R.id.tv_interviewee_list_pagination_previous){//ä¸Šä¸€é¡µ
 			
 			this.jumpToPreviousPage();
 			
-		}else if(view.getId() == R.id.tv_interviewee_list_pagination_next){//ÏÂÒ»Ò³
+		}else if(view.getId() == R.id.tv_interviewee_list_pagination_next){//ä¸‹ä¸€é¡µ
 			
 			this.jumpToNextPage();
 			
-		}else if(view.getId() == R.id.btn_interviewee_search){//ËÑË÷
+		}else if(view.getId() == R.id.btn_interviewee_search){//æœç´¢
 			
 			this.search();
 			
-		}else if(view.getId() == R.id.btn_interviewee_barcode){//¶şÎ¬Âë
+		}else if(view.getId() == R.id.btn_interviewee_barcode){//äºŒç»´ç 
 			
 			this.scan();
 			
-		}else if(view.getId() == R.id.tv_interviewee_item_view){//²é¿´ÎÊ¾í
+		}else if(view.getId() == R.id.tv_interviewee_item_view){//æŸ¥çœ‹é—®å·
 			
 			int interviewBasicId = (Integer)view.getTag();
 			this.viewQuestionaire(interviewBasicId);
 			
-		}else if(view.getId() == R.id.tv_interviewee_item_continue){//¼ÌĞø
+		}else if(view.getId() == R.id.tv_interviewee_item_continue){//ç»§ç»­
 			
 			int interviewBasicId = (Integer)view.getTag();
 			this.continueInterview(interviewBasicId);
@@ -150,7 +150,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	
 	private void jumpToNextPage(){
 		if(this.currentPage == this.totalPage){
-			Toast.makeText(this, "ÒÑ¾­µ½×îºóÒ»Ò³",Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "å·²ç»åˆ°æœ€åä¸€é¡µ",Toast.LENGTH_SHORT).show();
 		}else{
 			Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr,this.currentPage+1,Page.PAGE_SIZE);
 			this.refreshListView(page);
@@ -159,7 +159,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 	
 	private void jumpToPreviousPage(){
 		if(this.currentPage == 1){
-			Toast.makeText(this, "ÒÑ¾­µ½µÚÒ»Ò³",Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "å·²ç»åˆ°ç¬¬ä¸€é¡µ",Toast.LENGTH_SHORT).show();
 		}else{
 			Page<InterviewBasic> page = InterviewService.searchInterviewBasic(searchStr,this.currentPage-1,Page.PAGE_SIZE);;
 			this.refreshListView(page);

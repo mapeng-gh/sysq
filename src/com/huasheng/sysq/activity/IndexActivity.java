@@ -63,7 +63,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View view) {
-		if(view.getId() == R.id.ll_index_reservation){//Ô¤Ô¼¹ÜÀí
+		if(view.getId() == R.id.ll_index_reservation){//é¢„çº¦ç®¡ç†
 			
 			startActivity(new Intent(this,ReservationListActivity.class));
 			
@@ -74,17 +74,17 @@ public class IndexActivity extends Activity implements OnClickListener{
 			
 		}else if(view.getId() == R.id.ll_index_system_update){
 			
-		}else if(view.getId() == R.id.ll_index_interview){//¿ªÊ¼·ÃÌ¸
+		}else if(view.getId() == R.id.ll_index_interview){//å¼€å§‹è®¿è°ˆ
 			
 			Intent intent = new Intent(this,InterviewerBasicActivity.class);
 			startActivity(intent);
 			
-		}else if(view.getId() == R.id.ll_index_usercenter){//¸öÈËÖĞĞÄ
+		}else if(view.getId() == R.id.ll_index_usercenter){//ä¸ªäººä¸­å¿ƒ
 			
 			Intent intent = new Intent(this,UserCenterActivity.class);
 			startActivity(intent);
 			
-		}else if(view.getId() == R.id.ll_index_interviewee_search){//ÊÜ·ÃÕßÒ»ÀÀ
+		}else if(view.getId() == R.id.ll_index_interviewee_search){//å—è®¿è€…ä¸€è§ˆ
 			
 			Intent intent = new Intent(this,IntervieweeActivity.class);
 			startActivity(intent);
@@ -99,23 +99,23 @@ public class IndexActivity extends Activity implements OnClickListener{
 	@Override
 	public void onBackPressed() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("È·¶¨ÍË³öÏµÍ³Âğ£¿");
+		builder.setTitle("ç¡®å®šé€€å‡ºç³»ç»Ÿå—ï¼Ÿ");
 		builder.setIcon(android.R.drawable.ic_dialog_info);
-		builder.setPositiveButton("È·¶¨", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton("ç¡®å®š", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				
-				//Çå³ıÉÏÏÂÎÄ
+				//æ¸…é™¤ä¸Šä¸‹æ–‡
 				SysqContext.clearContext();
 				InterviewContext.clearInterviewContext();
 				
-				//Ìø×ªµÇÂ¼
+				//è·³è½¬ç™»å½•
 				Intent loginIntent = new Intent(IndexActivity.this,LoginActivity.class);
 				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				IndexActivity.this.startActivity(loginIntent);
 			}
 		});
-		builder.setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
+		builder.setNegativeButton("å–æ¶ˆ", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 			};

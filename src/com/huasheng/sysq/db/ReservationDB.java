@@ -23,22 +23,22 @@ public class ReservationDB {
 
 	public static List<Reservation> search(Reservation reservation,String searchType,Integer offset,Integer limit){
 		
-		//处理过滤条件
+		//澶勭悊杩囨护鏉′欢
 		String selection = (String)whereSql(reservation,searchType).get("selection");
 		String[] selectionArgs = (String[])whereSql(reservation,searchType).get("selectionArgs");
 		
-		//处理分页
+		//澶勭悊鍒嗛〉
 		String limitStr = null;
 		if(offset != null && limit != null){
 			limitStr = offset + "," + limit;
 		}
 		
-		//遍历数据
+		//閬嶅巻鏁版嵁
 		Cursor cursor = SysQOpenHelper.getDatabase().query(TableConstants.TABLE_RESERVATION, null, selection, selectionArgs, null, null,"book_date desc",limitStr);
 		List<Reservation> data = new ArrayList<Reservation>();
 		if(cursor.moveToFirst()){
 			do{
-				data.add(fill(cursor));//填充数据
+				data.add(fill(cursor));//濉厖鏁版嵁
 			}while(cursor.moveToNext());
 		}
 		cursor.close();
@@ -48,7 +48,7 @@ public class ReservationDB {
 	
 	public static int size(Reservation reservation,String searchType){
 		
-		//处理过滤条件
+		//澶勭悊杩囨护鏉′欢
 		String selection = (String)whereSql(reservation,searchType).get("selection");
 		String[] selectionArgs = (String[])whereSql(reservation,searchType).get("selectionArgs");
 		
@@ -84,9 +84,9 @@ public class ReservationDB {
 	}
 	
 	/**
-	 * 动态生成selection和selectionArgs
+	 * 鍔ㄦ�佺敓鎴恠election鍜宻electionArgs
 	 * 
-	 * 目前只处理了name
+	 * 鐩墠鍙鐞嗕簡name
 	 * 
 	 * @param reservation
 	 * @return

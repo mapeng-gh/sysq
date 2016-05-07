@@ -5,8 +5,8 @@ import com.huasheng.sysq.model.Version;
 
 public class SysqContext {
 
-	private static Interviewer interviewer;//·ÃÎÊÕß
-	private static Version currentVersion;//µ±Ç°°æ±¾
+	private static Interviewer interviewer;//è®¿é—®è€…
+	private static Version currentVersion;//å½“å‰ç‰ˆæœ¬
 	
 	public static Interviewer getInterviewer() {
 		return interviewer;

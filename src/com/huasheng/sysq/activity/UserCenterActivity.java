@@ -53,96 +53,96 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		newUserLL.setOnClickListener(this);
 		logoutLL.setOnClickListener(this);
 		
-		//Ä¬ÈÏÏÔÊ¾¸öÈËĞÅÏ¢
+		//é»˜è®¤æ˜¾ç¤ºä¸ªäººä¿¡æ¯
 		this.loadUserInfoPage();
 		
 	}
 
 	@Override
 	public void onClick(View view) {
-		if(view.getId() == R.id.ll_usercenter_userinfo){//¸öÈËĞÅÏ¢
+		if(view.getId() == R.id.ll_usercenter_userinfo){//ä¸ªäººä¿¡æ¯
 			this.loadUserInfoPage();
 			
-		}else if(view.getId() == R.id.ll_usercenter_modify_password){//ĞŞ¸ÄÃÜÂë
+		}else if(view.getId() == R.id.ll_usercenter_modify_password){//ä¿®æ”¹å¯†ç 
 			this.loadModifyPasswordPage();
 			
-		}else if(view.getId() == R.id.ll_usercenter_new_user){//×¢²áÓÃ»§
+		}else if(view.getId() == R.id.ll_usercenter_new_user){//æ³¨å†Œç”¨æˆ·
 			this.loadNewUserPage();
 			
-		}else if(view.getId() == R.id.ll_usercenter_logout){//ÍË³ö
+		}else if(view.getId() == R.id.ll_usercenter_logout){//é€€å‡º
 			this.logout();
 			
-		}else if(view.getId() == R.id.btn_usercenter_userinfo_submit){//±£´æ¸öÈËĞÅÏ¢
+		}else if(view.getId() == R.id.btn_usercenter_userinfo_submit){//ä¿å­˜ä¸ªäººä¿¡æ¯
 			this.modifyUserInfo();
-		}else if(view.getId() == R.id.btn_usercenter_password_submit){//ĞŞ¸ÄÃÜÂë
+		}else if(view.getId() == R.id.btn_usercenter_password_submit){//ä¿®æ”¹å¯†ç 
 			this.modifyPassword();
-		}else if(view.getId() == R.id.btn_usercenter_new_submit){//×¢²áÓÃ»§
+		}else if(view.getId() == R.id.btn_usercenter_new_submit){//æ³¨å†Œç”¨æˆ·
 			this.newUser();
 		}
 	}
 	
 	private void newUser(){
-		//»ñÈ¡ÊäÈëÊı¾İ
+		//è·å–è¾“å…¥æ•°æ®
 		EditText loginNameET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_new_loginname);
 		EditText passwordET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_new_password);
 		EditText passwordAgainET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_new_password_again);
 		EditText validatePasswordET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_new_validate_password);
 		
-		//ÓÃ»§ÃûÊÇ·ñÎª¿Õ
+		//ç”¨æˆ·åæ˜¯å¦ä¸ºç©º
 		if(StringUtils.isEmpty(StringUtils.trim(loginNameET.getText().toString()))){
-			Toast.makeText(SysqApplication.getContext(), "ÓÃ»§Ãû²»ÄÜÎª¿Õ", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "ç”¨æˆ·åä¸èƒ½ä¸ºç©º", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
-		//Ğ£ÑéÓÃ»§ÊÇ·ñ´æÔÚ
+		//æ ¡éªŒç”¨æˆ·æ˜¯å¦å­˜åœ¨
 		Interviewer user = UserCenterService.getUser(loginNameET.getText().toString());
 		if(user != null){
-			Toast.makeText(SysqApplication.getContext(), "ÓÃ»§ÒÑ´æÔÚ", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "ç”¨æˆ·å·²å­˜åœ¨", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
-		//ĞÂÃÜÂë²»ÄÜÎª¿Õ
+		//æ–°å¯†ç ä¸èƒ½ä¸ºç©º
 		if(StringUtils.isEmpty(StringUtils.trim(passwordET.getText().toString())) || StringUtils.isEmpty(StringUtils.trim(passwordAgainET.getText().toString()))){
-			Toast.makeText(SysqApplication.getContext(), "ĞÂÃÜÂë²»ÄÜÎª¿Õ", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "æ–°å¯†ç ä¸èƒ½ä¸ºç©º", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
-		//Á½´ÎÊäÈëÃÜÂë²»Ò»ÖÂ
+		//ä¸¤æ¬¡è¾“å…¥å¯†ç ä¸ä¸€è‡´
 		if(!passwordET.getText().toString().equals(passwordAgainET.getText().toString())){
-			Toast.makeText(SysqApplication.getContext(), "Á½´ÎÃÜÂëÊäÈë²»Ò»ÖÂ", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "ä¸¤æ¬¡å¯†ç è¾“å…¥ä¸ä¸€è‡´", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
-		//¹ÜÀíÔ±ÃÜÂë²»ÕıÈ·
+		//ç®¡ç†å‘˜å¯†ç ä¸æ­£ç¡®
 		if(!SysqContext.getInterviewer().getPassword().equals(validatePasswordET.getText().toString())){
-			Toast.makeText(SysqApplication.getContext(), "Äúµ±Ç°ÃÜÂë²»ÕıÈ·", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "æ‚¨å½“å‰å¯†ç ä¸æ­£ç¡®", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
-		//Ìí¼ÓÓÃ»§
+		//æ·»åŠ ç”¨æˆ·
 		Interviewer newUser = new Interviewer();
 		newUser.setLoginName(loginNameET.getText().toString());
 		newUser.setPassword(passwordET.getText().toString());
 		UserCenterService.addUser(newUser);
 		
-		Toast.makeText(SysqApplication.getContext(), "ÓÃ»§Ìí¼Ó³É¹¦", Toast.LENGTH_SHORT).show();
+		Toast.makeText(SysqApplication.getContext(), "ç”¨æˆ·æ·»åŠ æˆåŠŸ", Toast.LENGTH_SHORT).show();
 	}
 	
 	private void modifyPassword(){
-		//»ñÈ¡ÊäÈëÊı¾İ
+		//è·å–è¾“å…¥æ•°æ®
 		EditText oldPasswordET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_password_old);
 		EditText newPasswordET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_password_new);
 		EditText newAgainPasswordET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_password_new_again);
 		
-		//µ±Ç°ÃÜÂëÊäÈë²»ÕıÈ·
+		//å½“å‰å¯†ç è¾“å…¥ä¸æ­£ç¡®
 		if(!SysqContext.getInterviewer().getPassword().equals(oldPasswordET.getText().toString())){
-			Toast.makeText(SysqApplication.getContext(), "µ±Ç°ÃÜÂë²»ÕıÈ·", Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(), "å½“å‰å¯†ç ä¸æ­£ç¡®", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
-		//Á½´ÎÊäÈëĞÂÃÜÂë²»ÕıÈ·
+		//ä¸¤æ¬¡è¾“å…¥æ–°å¯†ç ä¸æ­£ç¡®
 		if(!newPasswordET.getText().toString().equals(newAgainPasswordET.getText().toString())){
-			Toast.makeText(SysqApplication.getContext(),"ĞÂÃÜÂëÁ½´ÎÊäÈë²»Ò»ÖÂ",Toast.LENGTH_SHORT).show();
+			Toast.makeText(SysqApplication.getContext(),"æ–°å¯†ç ä¸¤æ¬¡è¾“å…¥ä¸ä¸€è‡´",Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
@@ -150,28 +150,28 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		curUser.setPassword(newPasswordET.getText().toString());
 		UserCenterService.modifyUser(curUser);
 		
-		Toast.makeText(SysqApplication.getContext(), "ÃÜÂëĞŞ¸Ä³É¹¦", Toast.LENGTH_SHORT).show();
+		Toast.makeText(SysqApplication.getContext(), "å¯†ç ä¿®æ”¹æˆåŠŸ", Toast.LENGTH_SHORT).show();
 	}
 	
 	private void logout(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("È·¶¨ÍË³öÏµÍ³Âğ£¿");
+		builder.setTitle("ç¡®å®šé€€å‡ºç³»ç»Ÿå—ï¼Ÿ");
 		builder.setIcon(android.R.drawable.ic_dialog_info);
-		builder.setPositiveButton("È·¶¨", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton("ç¡®å®š", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				
-				//Çå³ıÉÏÏÂÎÄ
+				//æ¸…é™¤ä¸Šä¸‹æ–‡
 				SysqContext.clearContext();
 				InterviewContext.clearInterviewContext();
 				
-				//Ìø×ªµÇÂ¼
+				//è·³è½¬ç™»å½•
 				Intent loginIntent = new Intent(UserCenterActivity.this,LoginActivity.class);
 				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				UserCenterActivity.this.startActivity(loginIntent);
 			}
 		});
-		builder.setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
+		builder.setNegativeButton("å–æ¶ˆ", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 			};
@@ -181,32 +181,32 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 	
 	private void modifyUserInfo(){
 		
-		//»ñÈ¡ÊäÈëÊı¾İ
+		//è·å–è¾“å…¥æ•°æ®
 		EditText usernameET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_userinfo_username);
 		EditText emailET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_userinfo_email);
 		EditText mobileET = (EditText)this.containerLL.findViewById(R.id.et_usercenter_userinfo_mobile);
 		
-		//±£´æ
+		//ä¿å­˜
 		Interviewer loginUser = SysqContext.getInterviewer();
 		loginUser.setUsername(usernameET.getText().toString());
 		loginUser.setEmail(emailET.getText().toString());
 		loginUser.setMobile(mobileET.getText().toString());
 		UserCenterService.modifyUser(loginUser);
 		
-		Toast.makeText(SysqApplication.getContext(), "ĞŞ¸Ä³É¹¦", Toast.LENGTH_SHORT).show();
+		Toast.makeText(SysqApplication.getContext(), "ä¿®æ”¹æˆåŠŸ", Toast.LENGTH_SHORT).show();
 		
 	}
 	
 	private void loadUserInfoPage(){
 		
-		//¼ÓÔØ¾²Ì¬Ò³Ãæ
+		//åŠ è½½é™æ€é¡µé¢
 		LayoutInflater inflater = getLayoutInflater();
 		View view = inflater.inflate(R.layout.usercenter_userinfo, null);
 		
-		//¼ÓÔØÊı¾İ
+		//åŠ è½½æ•°æ®
 		Interviewer loginUser = SysqContext.getInterviewer();
 		
-		//Êı¾İ°ó¶¨
+		//æ•°æ®ç»‘å®š
 		TextView loginNameTV = (TextView)view.findViewById(R.id.tv_usercenter_userinfo_login_name);
 		EditText userNameET = (EditText)view.findViewById(R.id.et_usercenter_userinfo_username);
 		EditText emailET = (EditText)view.findViewById(R.id.et_usercenter_userinfo_email);
@@ -216,11 +216,11 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		emailET.setText(loginUser.getEmail());
 		mobileET.setText(loginUser.getMobile());
 		
-		//äÖÈ¾
+		//æ¸²æŸ“
 		this.containerLL.removeAllViews();
 		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		
-		//°ó¶¨ÊÂ¼ş
+		//ç»‘å®šäº‹ä»¶
 		Button submitBtn = (Button)view.findViewById(R.id.btn_usercenter_userinfo_submit);
 		submitBtn.setOnClickListener(this);
 	}
@@ -232,7 +232,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		this.containerLL.removeAllViews();
 		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		
-		//°ó¶¨ÊÂ¼ş
+		//ç»‘å®šäº‹ä»¶
 		Button submitBtn = (Button)view.findViewById(R.id.btn_usercenter_password_submit);
 		submitBtn.setOnClickListener(this);
 	}
@@ -244,7 +244,7 @@ public class UserCenterActivity extends Activity implements OnClickListener{
 		this.containerLL.removeAllViews();
 		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		
-		//°ó¶¨ÊÂ¼ş
+		//ç»‘å®šäº‹ä»¶
 		Button submitBtn = (Button)view.findViewById(R.id.btn_usercenter_new_submit);
 		submitBtn.setOnClickListener(this);
 	}

@@ -3,7 +3,7 @@ package com.huasheng.sysq.util;
 public class TableConstants {
 
 	/**
-	 * ËùÓĞ±íÃû
+	 * æ‰€æœ‰è¡¨å
 	 */
 	public static final String TABLE_INTERVIEWER = "interviewer";
 	public static final String TABLE_RESERVATION = "reservation";

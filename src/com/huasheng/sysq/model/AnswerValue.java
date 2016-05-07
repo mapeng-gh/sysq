@@ -2,12 +2,12 @@ package com.huasheng.sysq.model;
 
 public class AnswerValue {
 
-	private String code;//用于保存
-	private String label;//用于答案列表显示
-	private String text;//用于答案列表显示
-	private String value;//用于保存
+	private String code;//鐢ㄤ簬淇濆瓨
+	private String label;//鐢ㄤ簬绛旀鍒楄〃鏄剧ず
+	private String text;//鐢ㄤ簬绛旀鍒楄〃鏄剧ず
+	private String value;//鐢ㄤ簬淇濆瓨
 	private int seqNum;
-	private String questionCode;//问题code
+	private String questionCode;//闂code
 	
 	public String getCode() {
 		return code;

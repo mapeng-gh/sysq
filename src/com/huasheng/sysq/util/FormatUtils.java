@@ -5,13 +5,13 @@ public class FormatUtils {
 	public static final String PARA_SEPERATOR = "<para>";
 	
 	/**
-	 * ÖÃ»»³É<p>
+	 * ç½®æ¢æˆ<p>
 	 * @param description
 	 * @return
 	 */
 	public static String handleParaInHTML(String description){
 		
-		if(!description.contains(PARA_SEPERATOR)){//²»·Ö¶Î
+		if(!description.contains(PARA_SEPERATOR)){//ä¸åˆ†æ®µ
 			return "<p>" + description + "</p>";
 		}
 		
@@ -28,7 +28,7 @@ public class FormatUtils {
 	}
 	
 	/**
-	 * ÖÃ»»³É\n
+	 * ç½®æ¢æˆ\n
 	 * @param description
 	 * @return
 	 */

@@ -73,18 +73,18 @@ public class InterviewerDNAActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View view) {
 		
-		if(view.getId() == R.id.interviewer_dna_submit_button){//Ìá½»
+		if(view.getId() == R.id.interviewer_dna_submit_button){//æäº¤
 			
-			//ĞÂ½¨·ÃÎÊ¼ÇÂ¼
+			//æ–°å»ºè®¿é—®è®°å½•
 			InterviewBasic interviewBasic = (InterviewBasic)getIntent().getSerializableExtra("interview");
 			collectData(interviewBasic);
 			InterviewService.newInterviewBasic(interviewBasic);
-			SysqApplication.showMessage("±£´æ³É¹¦");
+			SysqApplication.showMessage("ä¿å­˜æˆåŠŸ");
 			
-			//±£´æµ½ÉÏÏÂÎÄ
+			//ä¿å­˜åˆ°ä¸Šä¸‹æ–‡
 			InterviewContext.setCurInterviewBasic(interviewBasic);
 			
-			//Ìø×ªÎÊ¾íÒ³
+			//è·³è½¬é—®å·é¡µ
 			Intent intent = new Intent(this,InterviewActivity.class);
 			startActivity(intent);
 			

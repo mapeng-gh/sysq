@@ -27,10 +27,10 @@ public class IntervieweeQuestionaireAdapter extends ArrayAdapter<InterviewQuesti
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		//»ñÈ¡Êý¾Ý
+		//èŽ·å–æ•°æ®
 		InterviewQuestionaireWrap interviewQuestionaireWrap = getItem(position);
 		
-		//µ¥Àýview
+		//å•ä¾‹view
 		View view;
 		if(convertView == null){
 			view = LayoutInflater.from(getContext()).inflate(this.resource, null);
@@ -38,23 +38,23 @@ public class IntervieweeQuestionaireAdapter extends ArrayAdapter<InterviewQuesti
 			view = convertView;
 		}
 		
-		//°ó¶¨Êý¾Ý
+		//ç»‘å®šæ•°æ®
 		TextView titleTV = (TextView)view.findViewById(R.id.tv_interviewee_questionaire_list_item_title);
 		titleTV.setText(interviewQuestionaireWrap.getQuestionaire().getCode() + " " + interviewQuestionaireWrap.getQuestionaire().getTitle());
 		
 		TextView statusTV = (TextView)view.findViewById(R.id.tv_interviewee_questionaire_list_item_status);
 		if(interviewQuestionaireWrap.getInterviewQuestionaire().getStatus() == InterviewQuestionaire.STATUS_DOING){
-			statusTV.setText("ÕýÔÚ½øÐÐ");
+			statusTV.setText("æ­£åœ¨è¿›è¡Œ");
 		}else if(interviewQuestionaireWrap.getInterviewQuestionaire().getStatus() == InterviewQuestionaire.STATUS_BREAK){
-			statusTV.setText("ÒÑ½áÊø");
+			statusTV.setText("å·²ç»“æŸ");
 		}else if(interviewQuestionaireWrap.getInterviewQuestionaire().getStatus() == InterviewQuestionaire.STATUS_DONE){
-			statusTV.setText("ÒÑÍê³É");
+			statusTV.setText("å·²å®Œæˆ");
 		}
 		
 		TextView lastModifiedTimeTV = (TextView)view.findViewById(R.id.tv_interviewee_questionaire_list_item_last_modified_time);
 		lastModifiedTimeTV.setText(interviewQuestionaireWrap.getInterviewQuestionaire().getLastModifiedTime());
 		
-		//°ó¶¨ÊÂ¼þ
+		//ç»‘å®šäº‹ä»¶
 		TextView viewTV = (TextView)view.findViewById(R.id.tv_interviewee_questionaire_list_item_view);
 		viewTV.setOnClickListener(this.activity);
 		viewTV.setTag(interviewQuestionaireWrap.getQuestionaire().getCode());

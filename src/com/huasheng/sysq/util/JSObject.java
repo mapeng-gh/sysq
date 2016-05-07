@@ -23,186 +23,186 @@ import com.huasheng.sysq.service.InterviewService;
 public class JSObject {
 	
 	/**
-	 * Ìø×ªµÚÒ»¸öÎÊÌâ
+	 * è·³è½¬ç¬¬ä¸€ä¸ªé—®é¢˜
 	 */
 	@JavascriptInterface
 	public void jumpToFirstQuestion(){
 		
-		//»ñÈ¡µÚÒ»¸öÎÊÌâ
+		//è·å–ç¬¬ä¸€ä¸ªé—®é¢˜
 		QuestionWrap firstQuesWrap = InterviewService.getFirstQuestion();
 		
-		//ÉèÖÃÉÏÏÂÎÄ
+		//è®¾ç½®ä¸Šä¸‹æ–‡
 		InterviewContext.pushQuestion(firstQuesWrap.getQuestion());
 		
-		//äÖÈ¾Ò³Ãæ
+		//æ¸²æŸ“é¡µé¢
 		QuestionWrap formattedQuestionWrap = firstQuesWrap.format();
 		RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 		
-		//Ö´ĞĞ½øÈëÂß¼­´úÂë
+		//æ‰§è¡Œè¿›å…¥é€»è¾‘ä»£ç 
 		if(!StringUtils.isEmpty(StringUtils.trim(firstQuesWrap.getQuestion().getEntryLogic()))){
 			JSFuncInvokeUtils.invoke(firstQuesWrap.getQuestion().getEntryLogic());
 		}
 		
-		//ÎÊÌâÃèÊö¶¯Ì¬²åÖµ
+		//é—®é¢˜æè¿°åŠ¨æ€æ’å€¼
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 	}
 	
 	/**
-	 * Ìø×ªÏÂÒ»¸öÎÊÌâ
+	 * è·³è½¬ä¸‹ä¸€ä¸ªé—®é¢˜
 	 */
 	@JavascriptInterface
 	public void jumpToNextQuestion(){
 		
-		//²éÑ¯Êı¾İ
+		//æŸ¥è¯¢æ•°æ®
 		QuestionWrap nextQuestionWrap = InterviewService.getNextQuestion();
 		
-		//±£´æµ±Ç°ÌâÄ¿µ½ÉÏÏÂÎÄ
+		//ä¿å­˜å½“å‰é¢˜ç›®åˆ°ä¸Šä¸‹æ–‡
 		InterviewContext.pushQuestion(nextQuestionWrap.getQuestion());
 		
-		//Ò³ÃæäÖÈ¾
+		//é¡µé¢æ¸²æŸ“
 		QuestionWrap formattedQuestionWrap = nextQuestionWrap.format();
 		RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 		
-		//Ö´ĞĞ½øÈëÂß¼­´úÂë
+		//æ‰§è¡Œè¿›å…¥é€»è¾‘ä»£ç 
 		if(!StringUtils.isEmpty(StringUtils.trim(nextQuestionWrap.getQuestion().getEntryLogic()))){
 			JSFuncInvokeUtils.invoke(nextQuestionWrap.getQuestion().getEntryLogic());
 		}
 		
-		//ÎÊÌâÃèÊö¶¯Ì¬²åÖµ
+		//é—®é¢˜æè¿°åŠ¨æ€æ’å€¼
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 	}
 	
 	/**
-	 * Ìø×ªÉÏÒ»¸öÎÊÌâ
+	 * è·³è½¬ä¸Šä¸€ä¸ªé—®é¢˜
 	 */
 	@JavascriptInterface
 	public void jumpToPreviousQuestion(String answersJS){
 		
-		//´Ó·µ»ØÕ»»ñÈ¡ÉÏÒ»¸öÎÊÌâ
+		//ä»è¿”å›æ ˆè·å–ä¸Šä¸€ä¸ªé—®é¢˜
 		InterviewContext.popQuestion();
 		Question prevQuestion = InterviewContext.getTopQuestion();
 		
-		//°ü×°ÉÏÒ»¸öÎÊÌâ
+		//åŒ…è£…ä¸Šä¸€ä¸ªé—®é¢˜
 		QuestionWrap prevQuestionWrap = InterviewService.wrap(prevQuestion);
 		
-		//äÖÈ¾Ò³Ãæ
+		//æ¸²æŸ“é¡µé¢
 		QuestionWrap formattedQuestionWrap = prevQuestionWrap.format();
 		RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 		
-		//»¹Ô­ÏÖ³¡
+		//è¿˜åŸç°åœº
 		JSFuncInvokeUtils.invoke("isReplay=true;");
 		List<Question> questionList = InterviewContext.getQuestionList();
 		for(Question question : questionList){
 			JSFuncInvokeUtils.invoke(question.getEntryLogic());
-			if(!question.getCode().equals(prevQuestion.getCode())){//ÉÏÒ»¸öÎÊÌâ²»ĞèÖ´ĞĞÍË³öÂß¼­
+			if(!question.getCode().equals(prevQuestion.getCode())){//ä¸Šä¸€ä¸ªé—®é¢˜ä¸éœ€æ‰§è¡Œé€€å‡ºé€»è¾‘
 				JSFuncInvokeUtils.invoke(question.getExitLogic());
 			}
 		}
 		JSFuncInvokeUtils.invoke("isReplay=false;");
 		
-		//ÎÊÌâÃèÊö¶¯Ì¬²åÖµ
+		//é—®é¢˜æè¿°åŠ¨æ€æ’å€¼
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 		
-		//»Ö¸´±¾Ìâ´ğ°¸
+		//æ¢å¤æœ¬é¢˜ç­”æ¡ˆ
 		JSFuncInvokeUtils.invokeFunction("resumeAnswers('"+answersJS+"')");
 		
 	}
 	
 	/**
-	 * Ìø×ªµ½Ö¸¶¨ÎÊÌâ
+	 * è·³è½¬åˆ°æŒ‡å®šé—®é¢˜
 	 * @param questionCode
 	 */
 	@JavascriptInterface
 	public void jumpToSpecQuestion(String questionCode){
 		
-		//´Ó·µ»ØÕ»²éÕÒÖ¸¶¨ÎÊÌâ
+		//ä»è¿”å›æ ˆæŸ¥æ‰¾æŒ‡å®šé—®é¢˜
 		Question specQuestion = InterviewContext.findQuestion(questionCode);
 		
-		if(specQuestion == null){//Íùºó
+		if(specQuestion == null){//å¾€å
 			
-			//²é¿â
+			//æŸ¥åº“
 			QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
 			
-			//Ìí¼ÓÕ»
+			//æ·»åŠ æ ˆ
 			InterviewContext.pushQuestion(specQuestionWrap.getQuestion());
 			
-			//äÖÈ¾Êı¾İ
+			//æ¸²æŸ“æ•°æ®
 			QuestionWrap formattedQuestionWrap = specQuestionWrap.format();
 			RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 			
-			//Ö´ĞĞ½øÈëÂß¼­
+			//æ‰§è¡Œè¿›å…¥é€»è¾‘
 			JSFuncInvokeUtils.invoke(specQuestionWrap.getQuestion().getEntryLogic());
 			
-			//ÎÊÌâÃèÊö¶¯Ì¬²åÖµ
+			//é—®é¢˜æè¿°åŠ¨æ€æ’å€¼
 			JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 			
-		}else{//ÍùÇ°£¨´ğ°¸ÁĞ±íÌø×ª£©
+		}else{//å¾€å‰ï¼ˆç­”æ¡ˆåˆ—è¡¨è·³è½¬ï¼‰
 			
-			//¸üĞÂ·µ»ØÕ»
+			//æ›´æ–°è¿”å›æ ˆ
 			while(specQuestion != InterviewContext.getTopQuestion()){
 				InterviewContext.popQuestion();
 			}
 			
-			//äÖÈ¾Êı¾İ
+			//æ¸²æŸ“æ•°æ®
 			QuestionWrap specQuestionWrap = InterviewService.wrap(specQuestion);
 			QuestionWrap formattedQuestionWrap = specQuestionWrap.format();
 			RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 			
-			//»¹Ô­ÏÖ³¡
+			//è¿˜åŸç°åœº
 			JSFuncInvokeUtils.invoke("isReplay=true;");
 			List<Question> questionList = InterviewContext.getQuestionList();
 			for(Question question : questionList){
 				JSFuncInvokeUtils.invoke(question.getEntryLogic());
-				if(!question.getCode().equals(specQuestion.getCode())){//ÉÏÒ»¸öÎÊÌâ²»ĞèÖ´ĞĞÍË³öÂß¼­
+				if(!question.getCode().equals(specQuestion.getCode())){//ä¸Šä¸€ä¸ªé—®é¢˜ä¸éœ€æ‰§è¡Œé€€å‡ºé€»è¾‘
 					JSFuncInvokeUtils.invoke(question.getExitLogic());
 				}
 			}
 			JSFuncInvokeUtils.invoke("isReplay=false;");
 			
-			//ÎÊÌâÃèÊö¶¯Ì¬²åÖµ
+			//é—®é¢˜æè¿°åŠ¨æ€æ’å€¼
 			JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 		}
 		
 	}
 	
 	/**
-	 * Ìø×ªµ½½áÊøÎÊÌâ
+	 * è·³è½¬åˆ°ç»“æŸé—®é¢˜
 	 * @param endQuestionCode
 	 */
 	@JavascriptInterface
 	public void jumpToEndQuestion(String endQuestionCode){
 		
-		//»ñÈ¡½áÊøÎÊÌâ
+		//è·å–ç»“æŸé—®é¢˜
 		QuestionWrap endQuestionWrap = InterviewService.getSpecEndQuestion(endQuestionCode);
 		
-		//äÖÈ¾Ò³Ãæ
+		//æ¸²æŸ“é¡µé¢
 		QuestionWrap formattedQuestionWrap = endQuestionWrap.format();
 		RenderUtils.render(TemplateConstants.QUESTION_END, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 		
-		//ÎÊÌâÃèÊö¶¯Ì¬²åÖµ
+		//é—®é¢˜æè¿°åŠ¨æ€æ’å€¼
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 	}
 	
 	/**
-	 * ·µ»Øµ±Ç°ÎÊÌâ£¨´ÓÁÙÊ±´ğ°¸ÁĞ±í¼ÌĞø£©
+	 * è¿”å›å½“å‰é—®é¢˜ï¼ˆä»ä¸´æ—¶ç­”æ¡ˆåˆ—è¡¨ç»§ç»­ï¼‰
 	 */
 	@JavascriptInterface
 	public void resumeQuestionaire(){
 		
-		//»ñÈ¡µ±Ç°ÎÊÌâ
+		//è·å–å½“å‰é—®é¢˜
 		Question curQuestion = InterviewContext.getTopQuestion();
 		QuestionWrap curQuestionWrap = InterviewService.wrap(curQuestion);
 		
-		//äÖÈ¾Ò³Ãæ
+		//æ¸²æŸ“é¡µé¢
 		QuestionWrap formattedQuestionWrap = curQuestionWrap.format();
 		RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 		
-		//ÎÊÌâÃèÊö¶¯Ì¬²åÖµ
+		//é—®é¢˜æè¿°åŠ¨æ€æ’å€¼
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 	}
 	
 	/**
-	 * Ìø×ª´ğ°¸ÁĞ±í
+	 * è·³è½¬ç­”æ¡ˆåˆ—è¡¨
 	 * @param answersJA
 	 */
 	@JavascriptInterface
@@ -210,12 +210,12 @@ public class JSObject {
 		
 		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		
-		if(interviewQuestionaire.getQuestionaireCode().equals("LHC")){//Éú»îÈÕÀúÎÊ¾í¶¨ÖÆ
+		if(interviewQuestionaire.getQuestionaireCode().equals("LHC")){//ç”Ÿæ´»æ—¥å†é—®å·å®šåˆ¶
 			
-			//»ñÈ¡´ğ°¸²ÎÊı
+			//è·å–ç­”æ¡ˆå‚æ•°
 			List<AnswerValue> answerValueList = (List<AnswerValue>)JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
 			
-			//·â×°´ğ°¸
+			//å°è£…ç­”æ¡ˆ
 			Map<String,Object> result = new HashMap<String,Object>();
 			result.put("questionaireTitle", InterviewService.getSpecQuestionaire(interviewQuestionaire.getQuestionaireCode()).getTitle());
 			
@@ -225,7 +225,7 @@ public class JSObject {
 			}
 			result.put("answerList",answerMap);
 			
-			//äÖÈ¾Ò³Ãæ
+			//æ¸²æŸ“é¡µé¢
 			if("all".equals(type)){
 				RenderUtils.render(TemplateConstants.ANSWERS_LHC, result,null);
 			}else if("part".equals(type)){
@@ -234,35 +234,35 @@ public class JSObject {
 			
 		}else{
 			
-			//·â×°´ğ°¸Êı¾İ
+			//å°è£…ç­”æ¡ˆæ•°æ®
 			List<AnswerValue> answerValueList = (List<AnswerValue>)JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
 			ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
 			
-			//ÎÊÌâÃèÊöÌØÊâ´¦Àí
+			//é—®é¢˜æè¿°ç‰¹æ®Šå¤„ç†
 			List<Question> questionList = resultWrap.getQuestionList();
 			for(Question question : questionList){
 				
 				String description = question.getDescription();
-				description = FormatUtils.handleParaInHTML(description);//·Ö¶Î
-				description = FormatUtils.escapeQuote4JS(description);//Ë«ÒıºÅ×ªÒå
+				description = FormatUtils.handleParaInHTML(description);//åˆ†æ®µ
+				description = FormatUtils.escapeQuote4JS(description);//åŒå¼•å·è½¬ä¹‰
 				question.setDescription(description);
 			}
 			
-			//äÖÈ¾Ò³Ãæ
+			//æ¸²æŸ“é¡µé¢
 			if("all".equals(type)){
 				RenderUtils.render(TemplateConstants.ANSWERS, resultWrap,new String[]{"entryLogic","exitLogic"});
 			}else if("part".equals(type)){
 				RenderUtils.render(TemplateConstants.ANSWERS_PARTIAL, resultWrap,new String[]{"entryLogic","exitLogic"});
 			}
 			
-			//ÎÊÌâÃèÊö¶¯Ì¬²åÖµ
+			//é—®é¢˜æè¿°åŠ¨æ€æ’å€¼
 			JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 		}
 		
 	}
 	
 	/**
-	 * »ñÈ¡·ÃÎÊ´ğ°¸
+	 * è·å–è®¿é—®ç­”æ¡ˆ
 	 * @param answerCode
 	 * @return
 	 */
@@ -278,143 +278,143 @@ public class JSObject {
 	}
 	
 	/**
-	 * ±£´æ´ğ°¸
+	 * ä¿å­˜ç­”æ¡ˆ
 	 * @param answersJS
 	 */
 	@JavascriptInterface
 	public void saveAnswers(String answersJS){
 		
-		//±£´æµ±Ç°ÎÊ¾í´ğ°¸
+		//ä¿å­˜å½“å‰é—®å·ç­”æ¡ˆ
 		List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 		InterviewService.saveAnswers(answerValueMap);
 		
-		//¸üĞÂµ±Ç°ÎÊ¾í¼ÇÂ¼
+		//æ›´æ–°å½“å‰é—®å·è®°å½•
 		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DONE);
 		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurTime());
 		InterviewService.updateInterviewQuestionaire(interviewQuestionaire);
 		
-		//»ñÈ¡ÏÂÒ»¸öÎÊ¾í
+		//è·å–ä¸‹ä¸€ä¸ªé—®å·
 		Questionaire nextQuestionaire = InterviewService.getNextQuestionaire();
 		if(nextQuestionaire == null){
 			
-			//Í£Ö¹Â¼Òô
+			//åœæ­¢å½•éŸ³
 			AudioUtils.stop();
 			
-			//¸üĞÂ·ÃÌ¸¼ÇÂ¼
+			//æ›´æ–°è®¿è°ˆè®°å½•
 			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 			curInterviewBasic.setStatus(InterviewBasic.STATUS_DONE);
 			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
 			InterviewService.updateInterviewBasic(curInterviewBasic);
 			
-			//Ìø×ªÊ×Ò³
+			//è·³è½¬é¦–é¡µ
 			SysqApplication.jumpToActivity(IndexActivity.class);
 			
 		}else{
 			
-			//ĞÂ½¨ÏÂÒ»¸öÎÊ¾í¼ÇÂ¼
+			//æ–°å»ºä¸‹ä¸€ä¸ªé—®å·è®°å½•
 			InterviewQuestionaire nextInterviewQuestionaire = InterviewService.newInterviewQuestionaire(nextQuestionaire);
 			
-			//ÉèÖÃÉÏÏÂÎÄ
+			//è®¾ç½®ä¸Šä¸‹æ–‡
 			InterviewContext.setCurInterviewQuestionaire(nextInterviewQuestionaire);
 			
-			//Çå¿ÕÎÊÌâ·µ»ØÕ»
+			//æ¸…ç©ºé—®é¢˜è¿”å›æ ˆ
 			InterviewContext.clearQuestion();
 			
-			//¸üĞÂ·ÃÌ¸¼ÇÂ¼
+			//æ›´æ–°è®¿è°ˆè®°å½•
 			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 			curInterviewBasic.setCurQuestionaireCode(nextQuestionaire.getCode());
 			curInterviewBasic.setNextQuestionCode("");
 			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
 			InterviewService.updateInterviewBasic(curInterviewBasic);
 			
-			//äÖÈ¾Ò³Ãæ
+			//æ¸²æŸ“é¡µé¢
 			nextQuestionaire.setIntroduction(FormatUtils.handleParaInHTML(nextQuestionaire.getIntroduction()));
 			RenderUtils.render(TemplateConstants.QUESTIONAIRE, nextQuestionaire,null);
 		}
 	}
 	
 	/**
-	 * ½áÊø·ÃÌ¸
+	 * ç»“æŸè®¿è°ˆ
 	 */
 	@JavascriptInterface
 	public void quitInterview(String answersJS){
 		
-		//Í£Ö¹Â¼Òô
+		//åœæ­¢å½•éŸ³
 		AudioUtils.stop();
 		
-		if(!StringUtils.isEmpty(answersJS)){////±£´æÎÊ¾í´ğ°¸
+		if(!StringUtils.isEmpty(answersJS)){////ä¿å­˜é—®å·ç­”æ¡ˆ
 			List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 			InterviewService.saveAnswers(answerValueMap);
 		}
 		
-		//¸üĞÂ·ÃÎÊ¼ÇÂ¼
+		//æ›´æ–°è®¿é—®è®°å½•
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 		curInterviewBasic.setStatus(InterviewBasic.STATUS_BREAK);
 		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
-		//¸üĞÂÎÊ¾í¼ÇÂ¼
+		//æ›´æ–°é—®å·è®°å½•
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		curInterviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_BREAK);
 		curInterviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurTime());
 		InterviewService.updateInterviewQuestionaire(curInterviewQuestionaire);
 		
-		//Ìø×ªÖ÷Ò³
+		//è·³è½¬ä¸»é¡µ
 		SysqApplication.jumpToActivity(IndexActivity.class);
 	}
 	
 	/**
-	 * ÔİÍ£·ÃÌ¸
+	 * æš‚åœè®¿è°ˆ
 	 * @param answersJS
 	 */
 	@JavascriptInterface
 	public void pauseInterview(String answersJS){
 		
-		//Í£Ö¹Â¼Òô
+		//åœæ­¢å½•éŸ³
 		AudioUtils.stop();
 		
-		if(!StringUtils.isEmpty(answersJS)){//±£´æµ±Ç°ÎÊ¾í´ğ°¸
+		if(!StringUtils.isEmpty(answersJS)){//ä¿å­˜å½“å‰é—®å·ç­”æ¡ˆ
 			List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 			InterviewService.saveAnswers(answerValueMap);
 		}
 		
-		//¸üĞÂ·ÃÎÊ¼ÇÂ¼
+		//æ›´æ–°è®¿é—®è®°å½•
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 		curInterviewBasic.setNextQuestionCode(InterviewContext.getTopQuestion().getCode());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
-		//Ìø×ªÖ÷Ò³
+		//è·³è½¬ä¸»é¡µ
 		SysqApplication.jumpToActivity(IndexActivity.class);
 	}
 	
 	/**
-	 * ÖØ×ö
+	 * é‡åš
 	 */
 	@JavascriptInterface
 	public void redoQuestionaire(){
 		
-		//Çå¿ÕÎÊÌâ·µ»ØÕ»
+		//æ¸…ç©ºé—®é¢˜è¿”å›æ ˆ
 		InterviewContext.clearQuestion();
 		
-		//Ìø×ªµÚÒ»¸öÎÊÌâ
+		//è·³è½¬ç¬¬ä¸€ä¸ªé—®é¢˜
 		this.jumpToFirstQuestion();
 	}
 	
 	/**
-	 * ·µ»ØÖ÷Ò³
+	 * è¿”å›ä¸»é¡µ
 	 */
 	@JavascriptInterface
 	public void jumpToIndex(){
 		
-		//Í£Ö¹Â¼Òô
+		//åœæ­¢å½•éŸ³
 		AudioUtils.stop();
 		
 		SysqApplication.jumpToActivity(IndexActivity.class);
 	}
 	
 	/**
-	 * µ¯³öÌáÊ¾¿ò
+	 * å¼¹å‡ºæç¤ºæ¡†
 	 * @param msg
 	 */
 	@JavascriptInterface
@@ -423,7 +423,7 @@ public class JSObject {
 	}
 	
 	/**
-	 * Ò³Ãæµ÷ÊÔ
+	 * é¡µé¢è°ƒè¯•
 	 * @param msg
 	 */
 	@JavascriptInterface

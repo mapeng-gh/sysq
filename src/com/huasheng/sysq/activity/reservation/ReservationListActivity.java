@@ -76,24 +76,24 @@ public class ReservationListActivity extends Activity implements OnClickListener
 
 	@Override
 	public void onClick(final View view) {
-		if(view.getId() == R.id.reservation_list_add){//Ìí¼Ó
+		if(view.getId() == R.id.reservation_list_add){//æ·»åŠ 
 			startActivity(new Intent(this,ReservationAddActivity.class));
-		}else if(view.getId() == R.id.reservation_list_previous){//ÉÏÒ»Ò³
+		}else if(view.getId() == R.id.reservation_list_previous){//ä¸Šä¸€é¡µ
 			if(this.currentPage == 1){
-				Toast.makeText(this, "ÒÑ¾­µ½µÚÒ»Ò³",Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "å·²ç»åˆ°ç¬¬ä¸€é¡µ",Toast.LENGTH_SHORT).show();
 			}else{
 				Page<Reservation> page = ReservationService.searchReservation(searchStr,this.currentPage-1,Page.PAGE_SIZE);
 				this.refreshListView(page);
 			}
 			
-		}else if(view.getId() == R.id.reservation_list_next){//ÏÂÒ»Ò³
+		}else if(view.getId() == R.id.reservation_list_next){//ä¸‹ä¸€é¡µ
 			if(this.currentPage == this.totalPage){
-				Toast.makeText(this, "ÒÑ¾­µ½×îºóÒ»Ò³",Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "å·²ç»åˆ°æœ€åä¸€é¡µ",Toast.LENGTH_SHORT).show();
 			}else{
 				Page<Reservation> page = ReservationService.searchReservation(searchStr,this.currentPage+1,Page.PAGE_SIZE);
 				this.refreshListView(page);
 			}
-		}else if(view.getId() == R.id.reservation_list_search){//ËÑË÷
+		}else if(view.getId() == R.id.reservation_list_search){//æœç´¢
 			searchStr = searchET.getText().toString();
 			Page<Reservation> page = ReservationService.searchReservation(searchStr, 1, Page.PAGE_SIZE);
 			this.refreshListView(page);

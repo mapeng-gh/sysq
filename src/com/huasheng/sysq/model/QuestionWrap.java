@@ -14,10 +14,10 @@ public class QuestionWrap {
 	public QuestionWrap clone(){
 		QuestionWrap newQuestionWrap = new QuestionWrap();
 		
-		//ÎÊ¾íÇ³¿½±´
+		//é—®å·æµ…æ‹·è´
 		newQuestionWrap.setQuestionaire(this.questionaire);
 		
-		//ÎÊÌâÉî¿½±´
+		//é—®é¢˜æ·±æ‹·è´
 		Question newQuestion = new Question();
 		newQuestion.setId(this.question.getId());
 		newQuestion.setCode(this.question.getCode());
@@ -31,12 +31,12 @@ public class QuestionWrap {
 		newQuestion.setVersionId(this.question.getVersionId());
 		newQuestionWrap.setQuestion(newQuestion);
 		
-		//´ğ°¸²¿·ÖÉî¿½±´
+		//ç­”æ¡ˆéƒ¨åˆ†æ·±æ‹·è´
 		List<AnswerWrap> newAnswerWrapList = new ArrayList<AnswerWrap>();
 		for(AnswerWrap answerWrap : this.answerWrapList){
 			AnswerWrap newAnswerWrap  = new AnswerWrap();
 			
-			//answerÉî¿½±´
+			//answeræ·±æ‹·è´
 			Answer newAnswer = new Answer();
 			newAnswer.setId(answerWrap.getAnswer().getId());
 			newAnswer.setLabel(answerWrap.getAnswer().getLabel());
@@ -52,7 +52,7 @@ public class QuestionWrap {
 			newAnswer.setVersionId(answerWrap.getAnswer().getVersionId());
 			newAnswerWrap.setAnswer(newAnswer);
 			
-			//optionsÇ³¿½±´
+			//optionsæµ…æ‹·è´
 			newAnswerWrap.setRadioOptions(answerWrap.getRadioOptions());
 			newAnswerWrap.setSliderOption(answerWrap.getSliderOption());
 			newAnswerWrap.setDropDownListOptions(answerWrap.getDropDownListOptions());
@@ -69,13 +69,13 @@ public class QuestionWrap {
 		
 		QuestionWrap newQuestionWrap = this.clone();
 		
-		//ÎÊÌâÃèÊö¡¢ÍË³öÂß¼­
+		//é—®é¢˜æè¿°ã€é€€å‡ºé€»è¾‘
 		Question newQuestion = newQuestionWrap.getQuestion();
 		newQuestion.setDescription(FormatUtils.handleParaInHTML(newQuestion.getDescription()));
 		newQuestion.setDescription(FormatUtils.escapeQuote4JS(newQuestion.getDescription()));
 		newQuestion.setExitLogic(FormatUtils.escapeQuote4HTML(newQuestion.getExitLogic()));
 		
-		//´ğ°¸°ó¶¨ÊÂ¼ş
+		//ç­”æ¡ˆç»‘å®šäº‹ä»¶
 		List<AnswerWrap> newAnswerWrapList = newQuestionWrap.getAnswerWrapList();
 		for(AnswerWrap newAnswerWrap : newAnswerWrapList){
 			Answer newAnswer = newAnswerWrap.getAnswer();

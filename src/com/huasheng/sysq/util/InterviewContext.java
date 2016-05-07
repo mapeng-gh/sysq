@@ -11,14 +11,14 @@ import com.huasheng.sysq.model.Question;
 
 public class InterviewContext {
 
-	private static InterviewBasic curInterviewBasic;//µ±Ç°·ÃÎÊ¼ÇÂ¼
-	private static InterviewQuestionaire curInterviewQuestionaire;//µ±Ç°·ÃÎÊÎÊ¾í
+	private static InterviewBasic curInterviewBasic;//å½“å‰è®¿é—®è®°å½•
+	private static InterviewQuestionaire curInterviewQuestionaire;//å½“å‰è®¿é—®é—®å·
 	private static List<Question> questionBackStack = new ArrayList<Question>();
 	
 	private static WebView webView;
 	
 	/**
-	 * ================Çå¿ÕÉÏÏÂÎÄĞÅÏ¢===================
+	 * ================æ¸…ç©ºä¸Šä¸‹æ–‡ä¿¡æ¯===================
 	 */
 	public static void clearInterviewContext(){
 		curInterviewBasic = null;
@@ -32,7 +32,7 @@ public class InterviewContext {
 	}
 	
 	/**
-	 * ================ÎÊÌâ·µ»ØÕ»²Ù×÷===================
+	 * ================é—®é¢˜è¿”å›æ ˆæ“ä½œ===================
 	 */
 	public static void pushQuestion(Question question){
 		questionBackStack.add(question);
@@ -71,7 +71,7 @@ public class InterviewContext {
 	}
 	
 	/**
-	 * ================ÉèÖÃ/»ñÈ¡ÉÏÏÂÎÄ===================
+	 * ================è®¾ç½®/è·å–ä¸Šä¸‹æ–‡===================
 	 */
 	public static InterviewBasic getCurInterviewBasic() {
 		return curInterviewBasic;

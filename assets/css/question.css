@@ -7,7 +7,7 @@ div.question{
 }
 
 
-/**Í·²¿**/
+/**å¤´éƒ¨**/
 div.question div.header{
 	background-color: #338EE7;
 	padding: 5px 0 5px 5px;
@@ -15,7 +15,7 @@ div.question div.header{
 	font-weight: bold;
 }
 
-/**¹¤¾ßÀ¸**/
+/**å·¥å…·æ **/
 div.question div.toolbar{
 	margin-top: 20px;
 	text-align: right;
@@ -32,7 +32,7 @@ div.question div.contents{
 	overflow-y:auto;
 }
 
-/**ÎÊÌâ**/
+/**é—®é¢˜**/
 div.question div.description{
 	margin-top: 20px;
 }
@@ -42,7 +42,7 @@ div.question div.description p{
 	line-height: 150%;
 }
 
-/**´ğ°¸**/
+/**ç­”æ¡ˆ**/
 div.question div.answers{
 	margin-top:20px;
 	padding-left: 20px;
@@ -54,34 +54,34 @@ div.question div.answers div.answer div.content{
 	margin-top:20px;
 }
 
-	/**µ¥Ñ¡°´Å¥**/
+	/**å•é€‰æŒ‰é’®**/
 div.answer div.content span.radio-option{
 	margin-right:50px;
 }
 div.answer div.content div.radio-option{
 	margin-top:10px;
 }
-	/**»¬¶¯¿é**/
+	/**æ»‘åŠ¨å—**/
 div.answer div.content div.slider-value{
 	text-align:center;
 }
-	/**ÈÕÆÚ**/
+	/**æ—¥æœŸ**/
 div.answer div.content input[type='range']{
 	width:95%;
 }
-	/**ÎÄ±¾Óò**/
+	/**æ–‡æœ¬åŸŸ**/
 div.answer div.content textarea{
 	width:100%;
 	height:150px;
 	border-radius:5px;
 	padding:10px;
 }
-	/**ÏÂÀ­¿ò**/
+	/**ä¸‹æ‹‰æ¡†**/
 div.answer div.content select{
 	width:200px;
 }
 
-/**µ×²¿**/
+/**åº•éƒ¨**/
 div.question div.footer{
 	width:100%;
 	height:30px;

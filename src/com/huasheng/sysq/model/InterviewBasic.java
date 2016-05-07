@@ -3,7 +3,7 @@ package com.huasheng.sysq.model;
 import java.io.Serializable;
 
 /**
- * ·ÃÎÊ¼ÇÂ¼±í
+ * è®¿é—®è®°å½•è¡¨
  * @author map
  *
  */

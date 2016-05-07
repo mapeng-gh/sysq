@@ -38,22 +38,22 @@ public class InterviewBasicDB {
 	
 	public static List<InterviewBasic> search(InterviewBasic interview,String searchType,Integer offset,Integer limit){
 		
-		//处理过滤条件
+		//澶勭悊杩囨护鏉′欢
 		String selection = (String)whereSql(interview,searchType).get("selection");
 		String[] selectionArgs = (String[])whereSql(interview,searchType).get("selectionArgs");
 		
-		//处理分页
+		//澶勭悊鍒嗛〉
 		String limitStr = null;
 		if(offset != null && limit != null){
 			limitStr = offset + "," + limit;
 		}
 		
-		//遍历数据
+		//閬嶅巻鏁版嵁
 		Cursor cursor = SysQOpenHelper.getDatabase().query(TableConstants.TABLE_INTERVIEW_BASIC, null, selection, selectionArgs, null, null,null,limitStr);
 		List<InterviewBasic> data = new ArrayList<InterviewBasic>();
 		if(cursor.moveToFirst()){
 			do{
-				data.add(fillObjectFromDB(cursor));//填充数据
+				data.add(fillObjectFromDB(cursor));//濉厖鏁版嵁
 			}while(cursor.moveToNext());
 		}
 		cursor.close();
@@ -90,9 +90,9 @@ public class InterviewBasicDB {
 	}
 	
 	/**
-	 * 动态生成selection和selectionArgs
+	 * 鍔ㄦ�佺敓鎴恠election鍜宻electionArgs
 	 * 
-	 * 目前只处理了name
+	 * 鐩墠鍙鐞嗕簡name
 	 * 
 	 * @param reservation
 	 * @return
@@ -133,7 +133,7 @@ public class InterviewBasicDB {
 	
 	public static int size(InterviewBasic interview,String searchType){
 		
-		//处理过滤条件
+		//澶勭悊杩囨护鏉′欢
 		String selection = (String)whereSql(interview,searchType).get("selection");
 		String[] selectionArgs = (String[])whereSql(interview,searchType).get("selectionArgs");
 		

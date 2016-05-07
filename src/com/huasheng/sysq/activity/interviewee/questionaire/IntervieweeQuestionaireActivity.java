@@ -48,7 +48,7 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_interviewee_questionaire);
 		
-		//»ñÈ¡´«µİ²ÎÊıinterviewBasicId
+		//è·å–ä¼ é€’å‚æ•°interviewBasicId
 		this.interviewBasicId = this.getIntent().getIntExtra("interviewBasicId", -1);
 		
 		containerLL = (LinearLayout)findViewById(R.id.ll_interviewee_questionaire_container);
@@ -61,34 +61,34 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		interviewBasicLL.setOnClickListener(this);
 		interviewDNALL.setOnClickListener(this);
 		
-		//Ä¬ÈÏÏÔÊ¾ÎÊ¾íÁĞ±í
+		//é»˜è®¤æ˜¾ç¤ºé—®å·åˆ—è¡¨
 		this.questionaireListPage();
 	}
 
 	@Override
 	public void onClick(View view) {
 		
-		if(view.getId() == R.id.ll_interviewee_questionaire_list){//ÎÊ¾íÁĞ±í
+		if(view.getId() == R.id.ll_interviewee_questionaire_list){//é—®å·åˆ—è¡¨
 			
 			this.questionaireListPage();
 			
-		}else if(view.getId() == R.id.ll_interviewee_questionaire_basic){//ÊÜ·ÃÕßĞÅÏ¢
+		}else if(view.getId() == R.id.ll_interviewee_questionaire_basic){//å—è®¿è€…ä¿¡æ¯
 			
 			this.intervieweeBasicPage();
 			
-		}else if(view.getId() == R.id.ll_interviewee_questionaire_dna){//DNAÑù±¾	
+		}else if(view.getId() == R.id.ll_interviewee_questionaire_dna){//DNAæ ·æœ¬	
 			
 			this.intervieweeDNAPage();
 			
-		}else if(view.getId() == R.id.btn_interviewee_questionaire_basic_submit){//ĞŞ¸ÄÊÜ·ÃÕßĞÅÏ¢
+		}else if(view.getId() == R.id.btn_interviewee_questionaire_basic_submit){//ä¿®æ”¹å—è®¿è€…ä¿¡æ¯
 			
 			this.saveIntervieweeBasic();
 			
-		}else if(view.getId() == R.id.btn_interviewee_questionaire_dna_submit){//±£´æDNAĞÅÏ¢
+		}else if(view.getId() == R.id.btn_interviewee_questionaire_dna_submit){//ä¿å­˜DNAä¿¡æ¯
 			
 			this.saveIntervieweeDNA();
 			
-		}else if(view.getId() == R.id.tv_interviewee_questionaire_list_item_view){//²é¿´´ğ°¸ÁĞ±í
+		}else if(view.getId() == R.id.tv_interviewee_questionaire_list_item_view){//æŸ¥çœ‹ç­”æ¡ˆåˆ—è¡¨
 			
 			String questionaireCode = (String)view.getTag();
 			this.viewAnswers(questionaireCode);
@@ -178,7 +178,7 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 			String dnas = StringUtils.join(dnaList,",");
 			interviewBasic.setDna(dnas);
 			InterviewService.updateInterviewBasic(interviewBasic);
-			SysqApplication.showMessage("ĞŞ¸Ä³É¹¦");
+			SysqApplication.showMessage("ä¿®æ”¹æˆåŠŸ");
 		}
 	}
 	
@@ -217,38 +217,38 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		interviewBasic.setRemark(remarkET.getText().toString());
 		
 		InterviewService.updateInterviewBasic(interviewBasic);
-		SysqApplication.showMessage("ĞŞ¸Ä³É¹¦");
+		SysqApplication.showMessage("ä¿®æ”¹æˆåŠŸ");
 	}
 	
 	private void questionaireListPage(){
 		
-		//¼ÓÔØ¾²Ì¬Ò³Ãæ
+		//åŠ è½½é™æ€é¡µé¢
 		LayoutInflater inflater = getLayoutInflater();
 		View view = inflater.inflate(R.layout.interviewee_questionaire_list, null);
 		
-		//¼ÓÔØÊı¾İ
+		//åŠ è½½æ•°æ®
 		List<InterviewQuestionaireWrap> interviewQuestionaireWrapList = InterviewService.getInterviewQuestionaireList(this.interviewBasicId);
 		
-		//Êı¾İ°ó¶¨
+		//æ•°æ®ç»‘å®š
 		ListView interviewQuestionaireListView = (ListView)view.findViewById(R.id.lv_interviewee_questionaire_list);
 		IntervieweeQuestionaireAdapter adapter = new IntervieweeQuestionaireAdapter(this,R.layout.item_interviewee_questionaire,interviewQuestionaireWrapList,this);
 		interviewQuestionaireListView.setAdapter(adapter);
 		
-		//äÖÈ¾
+		//æ¸²æŸ“
 		this.containerLL.removeAllViews();
 		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 	}
 	
 	private void intervieweeBasicPage(){
 		
-		//¼ÓÔØ¾²Ì¬Ò³Ãæ
+		//åŠ è½½é™æ€é¡µé¢
 		LayoutInflater inflater = getLayoutInflater();
 		View view = inflater.inflate(R.layout.interviewee_questionaire_basic, null);
 		
-		//¼ÓÔØÊı¾İ
+		//åŠ è½½æ•°æ®
 		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		
-		//Êı¾İ°ó¶¨
+		//æ•°æ®ç»‘å®š
 		EditText userNameET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_basic_username);
 		userNameET.setText(interviewBasic.getUsername());
 		
@@ -279,18 +279,18 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		EditText remarkET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_basic_remark);
 		remarkET.setText(interviewBasic.getRemark());
 		
-		//äÖÈ¾
+		//æ¸²æŸ“
 		this.containerLL.removeAllViews();
 		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		
-		//°ó¶¨ÊÂ¼ş
+		//ç»‘å®šäº‹ä»¶
 		Button submitBtn = (Button)view.findViewById(R.id.btn_interviewee_questionaire_basic_submit);
 		submitBtn.setOnClickListener(this);
 	}
 	
 	private void intervieweeDNAPage(){
 		
-		//¼ÓÔØ¾²Ì¬Ò³Ãæ
+		//åŠ è½½é™æ€é¡µé¢
 		LayoutInflater inflater = getLayoutInflater();
 		View view = inflater.inflate(R.layout.interviewee_questionaire_dna, null);
 		
@@ -299,10 +299,10 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 		this.sample3ET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_dna_sample3);
 		this.sample4ET = (EditText)view.findViewById(R.id.et_interviewee_questionaire_dna_sample4);
 		
-		//¼ÓÔØÊı¾İ
+		//åŠ è½½æ•°æ®
 		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		
-		//Êı¾İ°ó¶¨
+		//æ•°æ®ç»‘å®š
 		if(!StringUtils.isEmpty(interviewBasic.getDna())){
 			String[] dnaArray = interviewBasic.getDna().split(",");
 			if(dnaArray != null && dnaArray.length > 0){
@@ -317,11 +317,11 @@ public class IntervieweeQuestionaireActivity extends Activity implements OnClick
 			}
 		}
 		
-		//äÖÈ¾
+		//æ¸²æŸ“
 		this.containerLL.removeAllViews();
 		this.containerLL.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		
-		//°ó¶¨ÊÂ¼ş
+		//ç»‘å®šäº‹ä»¶
 		ImageButton sample1ImgBtn = (ImageButton)view.findViewById(R.id.btn_interviewee_detail_dna_sample1);
 		ImageButton sample2ImgBtn = (ImageButton)view.findViewById(R.id.btn_interviewee_detail_dna_sample2);
 		ImageButton sample3ImgBtn = (ImageButton)view.findViewById(R.id.btn_interviewee_detail_dna_sample3);

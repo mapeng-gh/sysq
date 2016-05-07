@@ -13,7 +13,7 @@ public class DateTimeUtils {
 	}
 	
 	/**
-	 * »ñÈ¡µ±Ç°Ê±¼ä£¨yyyy-MM-dd hh:mm£©
+	 * è·å–å½“å‰æ—¶é—´ï¼ˆyyyy-MM-dd hh:mmï¼‰
 	 * @return
 	 */
 	public static String getCurTime(){
@@ -23,7 +23,7 @@ public class DateTimeUtils {
 	}
 	
 	/**
-	 * »ñÈ¡µ±Ç°ÈÕÆÚ£¨yyyy-MM-dd£©
+	 * è·å–å½“å‰æ—¥æœŸï¼ˆyyyy-MM-ddï¼‰
 	 * @return
 	 */
 	public static String getCurDate(){

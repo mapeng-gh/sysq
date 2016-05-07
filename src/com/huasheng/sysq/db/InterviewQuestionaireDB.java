@@ -31,7 +31,7 @@ public class InterviewQuestionaireDB {
 	}
 	
 	/**
-	 * ²éÑ¯·ÃÎÊ¼ÇÂ¼ÏÂËùÓĞÎÊ¾í¼ÇÂ¼
+	 * æŸ¥è¯¢è®¿é—®è®°å½•ä¸‹æ‰€æœ‰é—®å·è®°å½•
 	 * @param interviewBasicId
 	 * @param versionId
 	 * @return

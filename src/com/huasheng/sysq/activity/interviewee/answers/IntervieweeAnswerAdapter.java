@@ -26,10 +26,10 @@ public class IntervieweeAnswerAdapter extends ArrayAdapter<InterviewAnswerWrap>{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		//获取数据
+		//鑾峰彇鏁版嵁
 		InterviewAnswerWrap interviewAnswerWrap = getItem(position);
 		
-		//实例化一个view
+		//瀹炰緥鍖栦竴涓獀iew
 		View view;
 		if(convertView == null){
 			view = LayoutInflater.from(getContext()).inflate(this.resource, null);
@@ -37,7 +37,7 @@ public class IntervieweeAnswerAdapter extends ArrayAdapter<InterviewAnswerWrap>{
 			view = convertView;
 		}
 		
-		//绑定数据
+		//缁戝畾鏁版嵁
 		TextView answerLabelTV = (TextView)view.findViewById(R.id.tv_interviewee_answers_answer_label);
 		answerLabelTV.setText(interviewAnswerWrap.getAnswer().getLabel());
 		

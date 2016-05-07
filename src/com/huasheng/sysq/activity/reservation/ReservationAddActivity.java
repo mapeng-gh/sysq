@@ -64,7 +64,7 @@ public class ReservationAddActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View view) {
-		if(view.getId() == R.id.reservation_add_select_date_btn){//Ñ¡ÔñÔ¤Ô¼ÈÕÆÚ
+		if(view.getId() == R.id.reservation_add_select_date_btn){//é€‰æ‹©é¢„çº¦æ—¥æœŸ
 			Calendar now = Calendar.getInstance();
 			int year = now.get(Calendar.YEAR);
 			int month = now.get(Calendar.MONTH);
@@ -101,28 +101,28 @@ public class ReservationAddActivity extends Activity implements OnClickListener{
 			
 			String username = usernameET.getText().toString();
 			if(StringUtils.isEmpty(StringUtils.trim(username))){
-				SysqApplication.showMessage("ĞÕÃû²»ÄÜÎª¿Õ");
+				SysqApplication.showMessage("å§“åä¸èƒ½ä¸ºç©º");
 				return;
 			}
 			reservation.setUsername(username);
 			
 			String identityCard = identityCardET.getText().toString();
 			if(!RegexUtils.test("[0-9]{18}", identityCard)){
-				SysqApplication.showMessage("ÇëÌîĞ´18Î»ÕıÈ·µÄÉí·İÖ¤ºÅ");
+				SysqApplication.showMessage("è¯·å¡«å†™18ä½æ­£ç¡®çš„èº«ä»½è¯å·");
 				return;
 			}
 			reservation.setIdentityCard(identityCard);
 			
 			String mobile = mobileET.getText().toString();
 			if(!RegexUtils.test("[0-9]{10,11}",mobile)){
-				SysqApplication.showMessage("ÇëÌîĞ´10»ò11Î»ÕıÈ·µç»°ºÅÂë");
+				SysqApplication.showMessage("è¯·å¡«å†™10æˆ–11ä½æ­£ç¡®ç”µè¯å·ç ");
 				return;
 			}
 			reservation.setMobile(mobile);
 			
 			String familyMobile = familyMobileET.getText().toString();
 			if(!RegexUtils.test("[0-9]{10,11}",familyMobile)){
-				SysqApplication.showMessage("ÇëÌîĞ´10»ò11Î»ÕıÈ·Ç×Êôµç»°ºÅÂë");
+				SysqApplication.showMessage("è¯·å¡«å†™10æˆ–11ä½æ­£ç¡®äº²å±ç”µè¯å·ç ");
 				return;
 			}
 			reservation.setFamilyMobile(familyMobile);
@@ -133,7 +133,7 @@ public class ReservationAddActivity extends Activity implements OnClickListener{
 			
 			String bookDate = bookDateET.getText().toString();
 			if(StringUtils.isEmpty(bookDate)){
-				SysqApplication.showMessage("ÇëÌîĞ´Ô¤Ô¼Ê±¼ä");
+				SysqApplication.showMessage("è¯·å¡«å†™é¢„çº¦æ—¶é—´");
 				return;
 			}
 			reservation.setBookDate(bookDate);

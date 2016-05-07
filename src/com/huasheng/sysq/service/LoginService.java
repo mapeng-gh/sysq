@@ -9,16 +9,16 @@ public class LoginService {
 		
 		Interviewer interviewer = InterviewerDB.findByLoginName(loginName);
 		
-		if(interviewer == null){//ÓÃ»§²»´æÔÚ
+		if(interviewer == null){//ç”¨æˆ·ä¸å­˜åœ¨
 			
 			return null;
 		}
 		
-		if(interviewer.getPassword().equals(password)){//ÑéÖ¤Í¨¹ı
+		if(interviewer.getPassword().equals(password)){//éªŒè¯é€šè¿‡
 			
 			return interviewer;
 			
-		}else{//ÃÜÂë´íÎó
+		}else{//å¯†ç é”™è¯¯
 			
 			return null;
 		}

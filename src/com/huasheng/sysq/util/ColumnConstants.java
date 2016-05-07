@@ -3,7 +3,7 @@ package com.huasheng.sysq.util;
 public class ColumnConstants {
 
 	/**
-	 * ·ÃÎÊÕßÁĞÃû
+	 * è®¿é—®è€…åˆ—å
 	 */
 	public static final String COLUMN_INTERVIEWER_LOGIN_NAME = "login_name";
 	public static final String COLUMN_INTERVIEWER_PASSWORD = "password";
@@ -13,7 +13,7 @@ public class ColumnConstants {
 	public static final String COLUMN_INTERVIEWER_WORKING_PLACE = "working_place";
 	
 	/**
-	 * Ô¤Ô¼±íÁĞÃû
+	 * é¢„çº¦è¡¨åˆ—å
 	 */
 	public static final String COLUMN_RESERVATION_USERNAME = "username";
 	public static final String COLUMN_RESERVATION_IDENTITY_CARD = "identity_card";
@@ -24,7 +24,7 @@ public class ColumnConstants {
 	public static final String COLUMN_RESERVATION_STATUS = "status";
 	
 	/**
-	 * °æ±¾±íÁĞÃû
+	 * ç‰ˆæœ¬è¡¨åˆ—å
 	 */
 	public static final String COLUMN_VERSION_NAME = "name";
 	public static final String COLUMN_VERSION_PUBLISH_DATE = "publish_date";
@@ -32,7 +32,7 @@ public class ColumnConstants {
 	public static final String COLUMN_VERSION_IS_CURRENT = "is_current";
 	
 	/**
-	 * ÎÊ¾í±íÁĞÃû
+	 * é—®å·è¡¨åˆ—å
 	 */
 	public static final String COLUMN_QUESTIONAIRE_CODE = "code";
 	public static final String COLUMN_QUESTIONAIRE_TITLE = "title";
@@ -43,7 +43,7 @@ public class ColumnConstants {
 	public static final String COLUMN_QUESTIONAIRE_VERSION_ID = "version_id";
 	
 	/**
-	 * ÎÊÌâ±íÁĞÃû
+	 * é—®é¢˜è¡¨åˆ—å
 	 */
 	public static final String COLUMN_QUESTION_CODE = "code";
 	public static final String COLUMN_QUESTION_DESCRIPTION = "description";
@@ -56,7 +56,7 @@ public class ColumnConstants {
 	public static final String COLUMN_QUESTION_VERSION_ID = "version_id";
 	
 	/**
-	 * ´ğ°¸±íÁĞÃû
+	 * ç­”æ¡ˆè¡¨åˆ—å
 	 */
 	public static final String COLUMN_ANSWER_CODE = "code";
 	public static final String COLUMN_ANSWER_LABEL = "label";
@@ -71,7 +71,7 @@ public class ColumnConstants {
 	public static final String COLUMN_ANSWER_VERSION_ID = "version_id";
 	
 	/**
-	 * ·ÃÌ¸»ù±¾±íÁĞÃû
+	 * è®¿è°ˆåŸºæœ¬è¡¨åˆ—å
 	 */
 	public static final String COLUMN_INTERVIEW_BASIC_USERNAME = "username";
 	public static final String COLUMN_INTERVIEW_BASIC_IDENTITY_CARD = "identity_card";
@@ -95,7 +95,7 @@ public class ColumnConstants {
 	public static final String COLUMN_INTERVIEW_BASIC_VERSION_ID = "version_id";
 	
 	/**
-	 * ·ÃÌ¸ÎÊ¾í±í
+	 * è®¿è°ˆé—®å·è¡¨
 	 */
 	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID = "interview_basic_id";
 	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_QUESTIONAIRE_CODE = "questionaire_code";
@@ -106,7 +106,7 @@ public class ColumnConstants {
 	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_VERSION_ID = "version_id";
 	
 	/**
-	 * ·ÃÌ¸ÎÊÌâ±í
+	 * è®¿è°ˆé—®é¢˜è¡¨
 	 */
 	public static final String COLUMN_INTERVIEW_QUESTION_INTERVIEW_BASIC_ID = "interview_basic_id";
 	public static final String COLUMN_INTERVIEW_QUESTION_QUESTIONAIRE_CODE = "questionaire_code";
@@ -115,7 +115,7 @@ public class ColumnConstants {
 	public static final String COLUMN_INTERVIEW_QUESTION_VERSION_ID = "version_id";
 	
 	/**
-	 * ·ÃÌ¸´ğ°¸±í
+	 * è®¿è°ˆç­”æ¡ˆè¡¨
 	 */
 	public static final String COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID = "interview_basic_id";
 	public static final String COLUMN_INTERVIEW_ANSWER_QUESTION_CODE = "question_code";

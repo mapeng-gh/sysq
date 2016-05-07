@@ -20,7 +20,7 @@ public class SysqApplication extends Application{
 	}
 	
 	/**
-	 * Ìø×ªµ½»î¶¯
+	 * è·³è½¬åˆ°æ´»åŠ¨
 	 * @param activityClass
 	 */
 	public static void jumpToActivity(Class activityClass){
@@ -30,7 +30,7 @@ public class SysqApplication extends Application{
 	}
 	
 	/**
-	 * µ¯³öToast
+	 * å¼¹å‡ºToast
 	 * @param message
 	 */
 	public static void showMessage(String message){

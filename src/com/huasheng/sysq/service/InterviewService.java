@@ -38,18 +38,18 @@ import com.huasheng.sysq.util.SysqContext;
 public class InterviewService {
 
 	/**
-	 * ĞÂ½¨·ÃÎÊ¼ÇÂ¼
+	 * æ–°å»ºè®¿é—®è®°å½•
 	 * @param interview
 	 */
 	public static InterviewBasic newInterviewBasic(InterviewBasic interviewBasic){
 		
-		//¼ÇÂ¼ÊÜ·ÃÕßĞÅÏ¢¡¢·ÃÎÊ×´Ì¬ĞÅÏ¢
+		//è®°å½•å—è®¿è€…ä¿¡æ¯ã€è®¿é—®çŠ¶æ€ä¿¡æ¯
 		interviewBasic.setInterviewerId(SysqContext.getInterviewer().getId());
 		interviewBasic.setVersionId(SysqContext.getCurrentVersion().getId());
 		interviewBasic.setStartTime(DateTimeUtils.getCurTime());
 		interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
 		
-		//±£´æ
+		//ä¿å­˜
 		int id = InterviewBasicDB.insert(interviewBasic);
 		interviewBasic.setId(id);
 		
@@ -57,7 +57,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * ¸üĞÂ·ÃÎÊ¼ÇÂ¼
+	 * æ›´æ–°è®¿é—®è®°å½•
 	 * @param interviewBasic
 	 */
 	public static void updateInterviewBasic(InterviewBasic interviewBasic){
@@ -65,7 +65,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * ËÑË÷·ÃÌ¸¼ÇÂ¼
+	 * æœç´¢è®¿è°ˆè®°å½•
 	 * @param searchStr
 	 * @param pageNo
 	 * @param pageSize
@@ -73,26 +73,26 @@ public class InterviewService {
 	 */
 	public static Page<InterviewBasic> searchInterviewBasic(String searchStr,Integer pageNo,Integer pageSize){
 		
-		//¹¹ÔìËÑË÷¶ÔÏó
+		//æ„é€ æœç´¢å¯¹è±¡
 		InterviewBasic interview = new InterviewBasic();
 		interview.setUsername(searchStr);
 		interview.setDna(searchStr);
 		
-		//·ÖÒ³¼ÆËã
+		//åˆ†é¡µè®¡ç®—
 		Integer offset = null;
 		Integer limit = pageSize;
 		offset = (pageNo - 1) * pageSize;
 		
-		//Êı¾İ²éÑ¯
+		//æ•°æ®æŸ¥è¯¢
 		List<InterviewBasic> data = InterviewBasicDB.search(interview, "or", offset, limit);
 		
-		//¹¹Ôìpage
+		//æ„é€ page
 		Page<InterviewBasic> page = new Page<InterviewBasic>();
 		page.setData(data);
 		page.setPageNo(pageNo);
 		page.setPageSize(pageSize);
 		
-		//¼ÆËã×ÜÒ³Êı
+		//è®¡ç®—æ€»é¡µæ•°
 		int size = InterviewBasicDB.size(interview, "or");
 		int totalPages = size % pageSize == 0 ? size / pageSize : size / pageSize + 1;
 		page.setTotalPages(totalPages);
@@ -101,7 +101,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * »ñÈ¡Î¨Ò»·ÃÎÊ¼ÇÂ¼
+	 * è·å–å”¯ä¸€è®¿é—®è®°å½•
 	 * @param id
 	 * @return
 	 */
@@ -110,7 +110,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * Ìí¼ÓÎÊ¾í¼ÇÂ¼
+	 * æ·»åŠ é—®å·è®°å½•
 	 * @param questionaire
 	 * @return
 	 */
@@ -131,7 +131,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * ¸üĞÂÎÊ¾í¼ÇÂ¼
+	 * æ›´æ–°é—®å·è®°å½•
 	 * @param interviewQuestionaire
 	 */
 	public static void updateInterviewQuestionaire(InterviewQuestionaire interviewQuestionaire){
@@ -139,7 +139,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * ²éÑ¯Î¨Ò»ÎÊ¾í¼ÇÂ¼
+	 * æŸ¥è¯¢å”¯ä¸€é—®å·è®°å½•
 	 * @param interviewBasicId
 	 * @param questionaireCode
 	 * @return
@@ -155,18 +155,18 @@ public class InterviewService {
 	}
 	
 	/**
-	 * ²éÑ¯ÎÊ¾í¼ÇÂ¼ÁĞ±í
+	 * æŸ¥è¯¢é—®å·è®°å½•åˆ—è¡¨
 	 * @param interviewBasicId
 	 * @return
 	 */
 	public static List<InterviewQuestionaireWrap> getInterviewQuestionaireList(int interviewBasicId){
-		//»ñÈ¡µ±Ç°°æ±¾
+		//è·å–å½“å‰ç‰ˆæœ¬
 		Version curVersion = SysqContext.getCurrentVersion();
 		
-		//²éÑ¯·ÃÎÊÎÊ¾í
+		//æŸ¥è¯¢è®¿é—®é—®å·
 		List<InterviewQuestionaire> interviewQuestionaireList = InterviewQuestionaireDB.selectByInterviewBasicId(interviewBasicId);
 		
-		//°ü×°ÎÊ¾í
+		//åŒ…è£…é—®å·
 		List<InterviewQuestionaireWrap> interviewQuestionaireWrapList = new ArrayList<InterviewQuestionaireWrap>();
 		for(InterviewQuestionaire interviewQuestionaire : interviewQuestionaireList){
 			Questionaire questionaire = QuestionaireDB.selectByCode(interviewQuestionaire.getQuestionaireCode(), curVersion.getId());
@@ -177,7 +177,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * ²éÑ¯ÎÊÌâ¼ÇÂ¼ÁĞ±í
+	 * æŸ¥è¯¢é—®é¢˜è®°å½•åˆ—è¡¨
 	 * @param interviewBasicId
 	 * @param questionaireCode
 	 * @return
@@ -187,7 +187,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * ²éÑ¯ÎÊÌâ¼ÇÂ¼ÁĞ±í£¨°ü×°£©
+	 * æŸ¥è¯¢é—®é¢˜è®°å½•åˆ—è¡¨ï¼ˆåŒ…è£…ï¼‰
 	 * @param interviewBasicId
 	 * @param questionaireCode
 	 * @return
@@ -220,7 +220,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * »ñÈ¡´ğ°¸¼ÇÂ¼ÁĞ±í
+	 * è·å–ç­”æ¡ˆè®°å½•åˆ—è¡¨
 	 * @param interviewBasicId
 	 * @return
 	 */
@@ -229,7 +229,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * ²éÑ¯´ğ°¸¼ÇÂ¼ÁĞ±í
+	 * æŸ¥è¯¢ç­”æ¡ˆè®°å½•åˆ—è¡¨
 	 * @param interviewBasicId
 	 * @param questionCode
 	 * @return
@@ -239,13 +239,13 @@ public class InterviewService {
 	}
 	
 	/**
-	 * »ñÈ¡´ğ°¸¼ÇÂ¼
+	 * è·å–ç­”æ¡ˆè®°å½•
 	 * @param answerCode
 	 * @return
 	 */
 	public static InterviewAnswer getInterviewAnswer(int interviewBasicId,String answerCode){
 		
-		//²éÑ¯
+		//æŸ¥è¯¢
 		List<InterviewAnswer> interviewAnswerList = InterviewAnswerDB.selectByInterview(interviewBasicId);
 		for(InterviewAnswer interviewAnswer : interviewAnswerList){
 			if(interviewAnswer.getAnswerCode().equals(answerCode)){
@@ -256,32 +256,32 @@ public class InterviewService {
 	}
 	
 	/**
-	 * É¾³ıÖ¸¶¨·ÃÎÊÎÊÌâÖ®ºóËùÓĞÎÊ¾í¼ÇÂ¼¡¢ÎÊÌâ¼ÇÂ¼¡¢´ğ°¸¼ÇÂ¼
+	 * åˆ é™¤æŒ‡å®šè®¿é—®é—®é¢˜ä¹‹åæ‰€æœ‰é—®å·è®°å½•ã€é—®é¢˜è®°å½•ã€ç­”æ¡ˆè®°å½•
 	 * @param interviewBasicId
 	 * @param questionaireCode
 	 * @param questionCode
 	 */
 	public static void clearInterviewAfterQuestion(int interviewBasicId,String questionaireCode,String questionCode){
 		
-		//É¾³ı±¾ÎÊ¾íÖ®ºóËùÓĞ·ÃÎÊ¼ÇÂ¼
+		//åˆ é™¤æœ¬é—®å·ä¹‹åæ‰€æœ‰è®¿é—®è®°å½•
 		boolean isStart = false;
 		List<InterviewQuestionaire> interviewQuestionaireList = InterviewQuestionaireDB.selectByInterviewBasicId(interviewBasicId);
 		for(InterviewQuestionaire interviewQuestionaire : interviewQuestionaireList){
 			if(interviewQuestionaire.getQuestionaireCode().equals(questionaireCode)){
 				isStart = true;
 			}else{
-				if(isStart){//¿ªÊ¼É¾³ı
+				if(isStart){//å¼€å§‹åˆ é™¤
 					List<InterviewQuestion> interviewQuestionList = InterviewQuestionDB.selectByQuestionaire(interviewBasicId, interviewQuestionaire.getQuestionaireCode());
 					for(InterviewQuestion interviewQuestion : interviewQuestionList){
-						InterviewAnswerDB.deleteByInterviewQuestion(interviewBasicId, interviewQuestion.getQuestionCode());//ÅúÁ¿É¾³ı·ÃÎÊ´ğ°¸
+						InterviewAnswerDB.deleteByInterviewQuestion(interviewBasicId, interviewQuestion.getQuestionCode());//æ‰¹é‡åˆ é™¤è®¿é—®ç­”æ¡ˆ
 					}
-					InterviewQuestionDB.deleteByInterviewQuestionaire(interviewBasicId, interviewQuestionaire.getQuestionaireCode());//ÅúÁ¿É¾³ı·ÃÎÊÎÊÌâ
-					InterviewQuestionaireDB.delete(interviewBasicId, interviewQuestionaire.getQuestionaireCode());//É¾³ıÎÊ¾í¼ÇÂ¼
+					InterviewQuestionDB.deleteByInterviewQuestionaire(interviewBasicId, interviewQuestionaire.getQuestionaireCode());//æ‰¹é‡åˆ é™¤è®¿é—®é—®é¢˜
+					InterviewQuestionaireDB.delete(interviewBasicId, interviewQuestionaire.getQuestionaireCode());//åˆ é™¤é—®å·è®°å½•
 				}
 			}
 		}
 		
-		//É¾³ı±¾ÎÊ¾í¸ÃÎÊÌâÖ®ºó£¨°üÀ¨±¾ÎÊÌâ£©µÄ·ÃÎÊÎÊÌâ¡¢·ÃÎÊ´ğ°¸
+		//åˆ é™¤æœ¬é—®å·è¯¥é—®é¢˜ä¹‹åï¼ˆåŒ…æ‹¬æœ¬é—®é¢˜ï¼‰çš„è®¿é—®é—®é¢˜ã€è®¿é—®ç­”æ¡ˆ
 		isStart = false;
 		List<InterviewQuestion> interviewQuestionList = InterviewQuestionDB.selectByQuestionaire(interviewBasicId, questionaireCode);
 		for(InterviewQuestion interviewQuestion : interviewQuestionList){
@@ -289,36 +289,36 @@ public class InterviewService {
 				isStart = true;
 			}
 			if(isStart){
-				InterviewAnswerDB.deleteByInterviewQuestion(interviewBasicId, interviewQuestion.getQuestionCode());//ÅúÁ¿É¾³ı·ÃÎÊ´ğ°¸
-				InterviewQuestionDB.delete(interviewBasicId, interviewQuestion.getQuestionCode());//É¾³ı·ÃÎÊ´ğ°¸
+				InterviewAnswerDB.deleteByInterviewQuestion(interviewBasicId, interviewQuestion.getQuestionCode());//æ‰¹é‡åˆ é™¤è®¿é—®ç­”æ¡ˆ
+				InterviewQuestionDB.delete(interviewBasicId, interviewQuestion.getQuestionCode());//åˆ é™¤è®¿é—®ç­”æ¡ˆ
 			}
 		}
 	}
 	
 	/**
-	 * »ñÈ¡´ğ°¸ÁĞ±í
+	 * è·å–ç­”æ¡ˆåˆ—è¡¨
 	 * @param answerValueMap
 	 * @return
 	 */
 	public static ResultWrap getAnswerList(List<AnswerValue> answerValueListParam){
 		
-		//»ñÈ¡µ±Ç°ÎÊ¾í¡¢µ±Ç°°æ±¾ºÅ
+		//è·å–å½“å‰é—®å·ã€å½“å‰ç‰ˆæœ¬å·
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
 		
 		ResultWrap resultWrap = new ResultWrap();
 		
-		//ÉèÖÃÎÊ¾í
+		//è®¾ç½®é—®å·
 		resultWrap.setQuestionaire(QuestionaireDB.selectByCode(curInterviewQuestionaire.getQuestionaireCode(), curVersion.getId()));
 		
-		//ÉèÖÃÎÊÌâÁĞ±íºÍ¶ÔÓ¦µÄ´ğ°¸
+		//è®¾ç½®é—®é¢˜åˆ—è¡¨å’Œå¯¹åº”çš„ç­”æ¡ˆ
 		List<Question> showQuestionList = new ArrayList<Question>();
 		Map<String,List<AnswerValue>> answerOfQuestionMap = new HashMap<String,List<AnswerValue>>();
 		
 		List<Question> questionList = QuestionDB.getList(curInterviewQuestionaire.getQuestionaireCode(),curVersion.getId(),Question.QUESTION_NOT_END);
 		for(Question question : questionList){
 			
-			//Ìô³öÎÊÌâ¶ÔÓ¦µÄËùÓĞ´ğ°¸
+			//æŒ‘å‡ºé—®é¢˜å¯¹åº”çš„æ‰€æœ‰ç­”æ¡ˆ
 			List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
 			for(AnswerValue answerValueParam : answerValueListParam){
 				if(answerValueParam.getQuestionCode().equals(question.getCode())){
@@ -326,7 +326,7 @@ public class InterviewService {
 				}
 			}
 			
-			//Ìø¹ıµÄÎÊÌâ²»ÏÔÊ¾ÔÚ´ğ°¸ÁĞ±í
+			//è·³è¿‡çš„é—®é¢˜ä¸æ˜¾ç¤ºåœ¨ç­”æ¡ˆåˆ—è¡¨
 			if(answerValueList.size() > 0){
 				showQuestionList.add(question);
 				answerOfQuestionMap.put(question.getCode(), answerValueList);
@@ -341,12 +341,12 @@ public class InterviewService {
 	}
 	
 	/**
-	 * ±£´æ´ğ°¸
+	 * ä¿å­˜ç­”æ¡ˆ
 	 * @param answerMap
 	 */
 	public static void saveAnswers(List<AnswerValue> answerValueList){
 		
-		//Çå³ı·ÃÎÊÎÊ¾íÏÂËùÓĞ·ÃÎÊÎÊÌâ¡¢·ÃÎÊ´ğ°¸
+		//æ¸…é™¤è®¿é—®é—®å·ä¸‹æ‰€æœ‰è®¿é—®é—®é¢˜ã€è®¿é—®ç­”æ¡ˆ
 		InterviewBasic interviewBasic = InterviewContext.getCurInterviewBasic();
 		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		
@@ -356,7 +356,7 @@ public class InterviewService {
 			InterviewAnswerDB.deleteByInterviewQuestion(interviewBasic.getId(),interviewQuestion.getQuestionCode());
 		}
 		
-		//±£´æinterviewQuestion£¨Ö÷Òª¼ÇÂ¼·ÃÌ¸µÄÎÊÌâ£©
+		//ä¿å­˜interviewQuestionï¼ˆä¸»è¦è®°å½•è®¿è°ˆçš„é—®é¢˜ï¼‰
 		Set<String> questionCodeSet = new HashSet<String>();
 		for(AnswerValue answerValue : answerValueList){
 			questionCodeSet.add(answerValue.getQuestionCode());
@@ -371,7 +371,7 @@ public class InterviewService {
 			InterviewQuestionDB.insert(interviewQuestion);
 		}
 		
-		//±£´æinterviewAnswer
+		//ä¿å­˜interviewAnswer
 		for(AnswerValue answerValue : answerValueList){
 			InterviewAnswer interviewAnswer = new InterviewAnswer();
 			interviewAnswer.setInterviewBasicId(InterviewContext.getCurInterviewBasic().getId());
@@ -386,38 +386,38 @@ public class InterviewService {
 	}
 	
 	/**
-	 * »ñÈ¡µÚÒ»¸öÎÊÌâ
+	 * è·å–ç¬¬ä¸€ä¸ªé—®é¢˜
 	 * @param questionaireCode
 	 * @return
 	 */
 	public static QuestionWrap getFirstQuestion(){
 		
-		//»ñÈ¡µ±Ç°ÎÊ¾í¡¢µ±Ç°°æ±¾ºÅ
+		//è·å–å½“å‰é—®å·ã€å½“å‰ç‰ˆæœ¬å·
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
 		
-		//²éÑ¯µÚÒ»¸öÎÊÌâ
+		//æŸ¥è¯¢ç¬¬ä¸€ä¸ªé—®é¢˜
 		List<Question> questionList = QuestionDB.getList(curInterviewQuestionaire.getQuestionaireCode(),curVersion.getId(),Question.QUESTION_NOT_END);
 		Question firstQuestion = questionList.get(0);
 		
-		//°ü×°³ÉquestionWrap
+		//åŒ…è£…æˆquestionWrap
 		QuestionWrap questionWrap = wrap(firstQuestion);
 				
 		return questionWrap;
 	}
 	
 	/**
-	 * »ñÈ¡ÉÏÒ»Ìâ
+	 * è·å–ä¸Šä¸€é¢˜
 	 * @return
 	 */
 	public static QuestionWrap getPreviousQuestion(){
 		
-		//»ñÈ¡µ±Ç°ÎÊ¾í¡¢µ±Ç°°æ±¾¡¢µ±Ç°ÎÊÌâ
+		//è·å–å½“å‰é—®å·ã€å½“å‰ç‰ˆæœ¬ã€å½“å‰é—®é¢˜
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
 		Question curQuestion = InterviewContext.getTopQuestion();
 		
-		//»ñÈ¡ÉÏÒ»question
+		//è·å–ä¸Šä¸€question
 		Question previousQuestion = null;
 		List<Question> questionList = QuestionDB.getList(curInterviewQuestionaire.getQuestionaireCode(),curVersion.getId(),Question.QUESTION_NOT_END);
 		for(int i=0;i<questionList.size();i++){
@@ -430,25 +430,25 @@ public class InterviewService {
 			}
 		}
 		
-		//°ü×°³ÉquestionWrap
+		//åŒ…è£…æˆquestionWrap
 		QuestionWrap questionWrap = wrap(previousQuestion);
 		return questionWrap;
 	}
 	
 	/**
-	 * »ñÈ¡ÏÂÒ»¸öÎÊÌâ
+	 * è·å–ä¸‹ä¸€ä¸ªé—®é¢˜
 	 * @param questionaireCode
 	 * @param questionCode
 	 * @return
 	 */
 	public static QuestionWrap getNextQuestion(){
 		
-		//»ñÈ¡µ±Ç°ÎÊ¾í¡¢µ±Ç°°æ±¾ºÅ¡¢µ±Ç°ÎÊÌâ
+		//è·å–å½“å‰é—®å·ã€å½“å‰ç‰ˆæœ¬å·ã€å½“å‰é—®é¢˜
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
 		Question curQuestion = InterviewContext.getTopQuestion();
 		
-		//»ñÈ¡ÏÂÒ»¸öquestion
+		//è·å–ä¸‹ä¸€ä¸ªquestion
 		Question nextQuestion = null;
 		List<Question> questionList = QuestionDB.getList(curInterviewQuestionaire.getQuestionaireCode(),curVersion.getId(),Question.QUESTION_NOT_END);
 		for(int i=0;i<questionList.size();i++){
@@ -458,25 +458,25 @@ public class InterviewService {
 			}
 		}
 		
-		//°ü×°³ÉquestionWrap
+		//åŒ…è£…æˆquestionWrap
 		QuestionWrap questionWrap = wrap(nextQuestion);
 		return questionWrap;
 	}
 	
 	/**
-	 * »ñÈ¡Ö¸¶¨ÎÊÌâ
+	 * è·å–æŒ‡å®šé—®é¢˜
 	 * @param questionCode
 	 * @return
 	 */
 	public static QuestionWrap getSpecQuestion(String questionCode){
 		
-		//»ñÈ¡µ±Ç°ÎÊ¾í¡¢µ±Ç°°æ±¾
+		//è·å–å½“å‰é—®å·ã€å½“å‰ç‰ˆæœ¬
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
 		
 		Question specQuestion = null;
 		
-		//²éÑ¯Ö¸¶¨ÎÊÌâ
+		//æŸ¥è¯¢æŒ‡å®šé—®é¢˜
 		List<Question> questionList = QuestionDB.getList(curInterviewQuestionaire.getQuestionaireCode(),curVersion.getId(),Question.QUESTION_NOT_END);
 		for(Question question : questionList){
 			if(question.getCode().equals(questionCode)){
@@ -485,30 +485,30 @@ public class InterviewService {
 			}
 		}
 		
-		if(specQuestion == null){//Ö¸¶¨ÎÊÌâ²»´æÔÚ
-			throw new RuntimeException("ÎÊÌâ[" + questionCode + "]²»´æÔÚ");
+		if(specQuestion == null){//æŒ‡å®šé—®é¢˜ä¸å­˜åœ¨
+			throw new RuntimeException("é—®é¢˜[" + questionCode + "]ä¸å­˜åœ¨");
 		}
 		
-		//°ü×°³ÉquestionWrap
+		//åŒ…è£…æˆquestionWrap
 		QuestionWrap questionWrap = wrap(specQuestion);
 		return questionWrap;
 		
 	}
 	
 	/**
-	 * »ñÈ¡Ö¸¶¨½áÊøÎÊÌâ
+	 * è·å–æŒ‡å®šç»“æŸé—®é¢˜
 	 * @param questionCode
 	 * @return
 	 */
 	public static QuestionWrap getSpecEndQuestion(String questionCode){
 		
-		//»ñÈ¡µ±Ç°ÎÊ¾í¡¢µ±Ç°°æ±¾
+		//è·å–å½“å‰é—®å·ã€å½“å‰ç‰ˆæœ¬
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
 		
 		Question specQuestion = null;
 		
-		//²éÑ¯Ö¸¶¨ÎÊÌâ
+		//æŸ¥è¯¢æŒ‡å®šé—®é¢˜
 		List<Question> questionList = QuestionDB.getList(curInterviewQuestionaire.getQuestionaireCode(),curVersion.getId(),Question.QUESTION_END);
 		for(Question question : questionList){
 			if(question.getCode().equals(questionCode)){
@@ -517,11 +517,11 @@ public class InterviewService {
 			}
 		}
 		
-		if(specQuestion == null){//Ö¸¶¨ÎÊÌâ²»´æÔÚ
-			throw new RuntimeException("ÎÊÌâ[" + questionCode + "]²»´æÔÚ");
+		if(specQuestion == null){//æŒ‡å®šé—®é¢˜ä¸å­˜åœ¨
+			throw new RuntimeException("é—®é¢˜[" + questionCode + "]ä¸å­˜åœ¨");
 		}
 		
-		//°ü×°³ÉquestionWrap
+		//åŒ…è£…æˆquestionWrap
 		QuestionWrap questionWrap = wrap(specQuestion);
 		return questionWrap;
 		
@@ -529,21 +529,21 @@ public class InterviewService {
 	
 	public static QuestionWrap wrap(Question question){
 		
-		//»ñÈ¡µ±Ç°ÎÊ¾í¡¢µ±Ç°°æ±¾ºÅ
+		//è·å–å½“å‰é—®å·ã€å½“å‰ç‰ˆæœ¬å·
 		String curQuestionaireCode = InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode();
 		Version curVersion = SysqContext.getCurrentVersion();
 		
 		QuestionWrap questionWrap = new QuestionWrap();
 		
-		//ÉèÖÃÎÊ¾í
+		//è®¾ç½®é—®å·
 		
 		Questionaire curQuestionaire = QuestionaireDB.selectByCode(curQuestionaireCode,curVersion.getId());
 		questionWrap.setQuestionaire(curQuestionaire);
 		
-		//ÉèÖÃÎÊÌâ
+		//è®¾ç½®é—®é¢˜
 		questionWrap.setQuestion(question);
 		
-		//ÉèÖÃ´ğ°¸
+		//è®¾ç½®ç­”æ¡ˆ
 		List<AnswerWrap> answerWrapList = new ArrayList<AnswerWrap>();
 		List<Answer> answerList = AnswerDB.getList(question.getCode(),curVersion.getId());
 		for(Answer answer : answerList){
@@ -555,20 +555,20 @@ public class InterviewService {
 	}
 	
 	/**
-	 * »ñÈ¡µÚÒ»¸öÎÊ¾í
+	 * è·å–ç¬¬ä¸€ä¸ªé—®å·
 	 * @return
 	 */
 	public static Questionaire getFirstQuestionaire(){
 		
-		//»ñÈ¡µ±Ç°·ÃÎÊ¼ÇÂ¼¡¢µ±Ç°°æ±¾ºÅ
+		//è·å–å½“å‰è®¿é—®è®°å½•ã€å½“å‰ç‰ˆæœ¬å·
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 		Version curVersion = SysqContext.getCurrentVersion();
 		
-		//»ñÈ¡µÚÒ»¸öÎÊ¾í
+		//è·å–ç¬¬ä¸€ä¸ªé—®å·
 		Questionaire firstQuestionaire = null;
 		List<Questionaire> questionaireList = QuestionaireDB.getList(curVersion.getId(),curInterviewBasic.getType());
 		if(questionaireList == null || questionaireList.size() <= 0){
-			throw new RuntimeException("°æ±¾ºÅ£º" + curVersion.getId() + " ÎÊ¾íÀàĞÍ£º" + curInterviewBasic.getType() + " ÏÂÃ»ÓĞÎÊ¾í");
+			throw new RuntimeException("ç‰ˆæœ¬å·ï¼š" + curVersion.getId() + " é—®å·ç±»å‹ï¼š" + curInterviewBasic.getType() + " ä¸‹æ²¡æœ‰é—®å·");
 		}
 		firstQuestionaire = questionaireList.get(0);
 		
@@ -576,17 +576,17 @@ public class InterviewService {
 	}
 	
 	/**
-	 * »ñÈ¡ÏÂÒ»¸öÎÊ¾í
+	 * è·å–ä¸‹ä¸€ä¸ªé—®å·
 	 * @return
 	 */
 	public static Questionaire getNextQuestionaire(){
 		
-		//»ñÈ¡µ±Ç°·ÃÌ¸¡¢µ±Ç°ÎÊ¾í¡¢µ±Ç°°æ±¾
+		//è·å–å½“å‰è®¿è°ˆã€å½“å‰é—®å·ã€å½“å‰ç‰ˆæœ¬
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
 		
-		//»ñÈ¡ÏÂÒ»¸öÎÊ¾í
+		//è·å–ä¸‹ä¸€ä¸ªé—®å·
 		Questionaire nextQuestionaire = null;
 		List<Questionaire> questionaireList = QuestionaireDB.getList(curVersion.getId(),curInterviewBasic.getType());
 		for(int i = 0;i<questionaireList.size();i++){
@@ -604,7 +604,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * »ñÈ¡Ö¸¶¨ÎÊ¾í
+	 * è·å–æŒ‡å®šé—®å·
 	 * @param questionaireCode
 	 * @return
 	 */
@@ -613,7 +613,7 @@ public class InterviewService {
 	}
 	
 	/**
-	 * »ñÈ¡ÏµÍ³ÎÊ¾íµ±Ç°°æ±¾ºÅ
+	 * è·å–ç³»ç»Ÿé—®å·å½“å‰ç‰ˆæœ¬å·
 	 * @return
 	 */
 	public static Version getCurrentVersion(){

@@ -22,14 +22,14 @@ import com.huasheng.sysq.util.TableConstants;
 public class StaticsService {
 
 	/**
-	 * ²¡ÀıÍ³¼Æ
+	 * ç—…ä¾‹ç»Ÿè®¡
 	 * @return
 	 */
 	public static List<Map<String,String>> reportInterview(){
 		
 		List<Map<String,String>> data = new ArrayList<Map<String,String>>();
 		
-		//±¾ÈË
+		//æœ¬äºº
 		int myTodayCase = 0;
 		int myTodayContrast = 0;
 		int myAllCase = 0;
@@ -77,7 +77,7 @@ public class StaticsService {
 		myAllContrast = Integer.parseInt(StaticsDB.execSQL(myAllContrastSQL,myAllContrastSQLArgs).get(0).get("myAllContrast"));
 		
 		
-		//ÆäËûÒ½Éú
+		//å…¶ä»–åŒ»ç”Ÿ
 		int othersTodayCase = 0;
 		int othersTodayContrast = 0;
 		int othersAllCase = 0;
@@ -125,7 +125,7 @@ public class StaticsService {
 		othersAllContrast = Integer.parseInt(StaticsDB.execSQL(othersAllContrastSQL,othersAllContrastSQLArgs).get(0).get("othersAllContrast"));
 		
 		Map<String,String> totalRow = new HashMap<String,String>();
-		totalRow.put("title", "×Ü¼Æ");
+		totalRow.put("title", "æ€»è®¡");
 		totalRow.put("all",Integer.toString(myAllCase + myAllContrast + othersAllCase + othersAllContrast));
 		totalRow.put("todayCase",Integer.toString(myTodayCase + othersTodayCase));
 		totalRow.put("allCase",Integer.toString(myAllCase + othersAllCase));
@@ -134,7 +134,7 @@ public class StaticsService {
 		data.add(totalRow);
 		
 		Map<String,String> myRow = new HashMap<String,String>();
-		myRow.put("title", "Äú");
+		myRow.put("title", "æ‚¨");
 		myRow.put("all", Integer.toString(myAllCase + myAllContrast));
 		myRow.put("todayCase", Integer.toString(myTodayCase));
 		myRow.put("allCase", Integer.toString(myAllCase));
@@ -143,7 +143,7 @@ public class StaticsService {
 		data.add(myRow);
 		
 		Map<String,String> othersRow = new HashMap<String,String>();
-		othersRow.put("title", "ÆäËûÒ½Éú");
+		othersRow.put("title", "å…¶ä»–åŒ»ç”Ÿ");
 		othersRow.put("all", Integer.toString(othersAllCase + othersAllContrast));
 		othersRow.put("todayCase", Integer.toString(othersTodayCase));
 		othersRow.put("allCase", Integer.toString(othersAllCase));
@@ -155,7 +155,7 @@ public class StaticsService {
 	}
 	
 	/**
-	 * DNAÍ³¼Æ
+	 * DNAç»Ÿè®¡
 	 * @return
 	 */
 	public static List<Map<String,String>> reportDNA(){
@@ -218,7 +218,7 @@ public class StaticsService {
 		
 		Map<String,String> row = new HashMap<String,String>();
 		
-		row.put("title", "×Ü¼Æ");
+		row.put("title", "æ€»è®¡");
 		row.put("all",Integer.toString(all));
 		row.put("today",Integer.toString(today));
 		row.put("before",Integer.toString(all - today));
@@ -229,14 +229,14 @@ public class StaticsService {
 	}
 	
 	/**
-	 * ÎÊ¾íÍ³¼Æ
+	 * é—®å·ç»Ÿè®¡
 	 * @return
 	 */
 	public static List<Map<String,String>> reportQuestionaire(){
 		
 		List<Map<String,String>> data = new ArrayList<Map<String,String>>();
 		
-		//±¾ÈË
+		//æœ¬äºº
 		int myAll = 0;
 		int myDone = 0;
 		
@@ -257,7 +257,7 @@ public class StaticsService {
 		String[] myDoneSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
 		myDone = Integer.parseInt(StaticsDB.execSQL(myDoneSQL, myDoneSQLArgs).get(0).get("myDone"));
 		
-		//ÆäËû
+		//å…¶ä»–
 		int othersAll = 0;
 		int othersDone = 0;
 		
@@ -279,19 +279,19 @@ public class StaticsService {
 		othersDone = Integer.parseInt(StaticsDB.execSQL(othersDoneSQL, othersDoneSQLArgs).get(0).get("othersDone"));
 		
 		Map<String,String> totalRow = new HashMap<String,String>();
-		totalRow.put("title","×Ü¼Æ");
+		totalRow.put("title","æ€»è®¡");
 		totalRow.put("all",Integer.toString(myAll + othersAll));
 		totalRow.put("done", Integer.toString(myDone + othersDone));
 		data.add(totalRow);
 		
 		Map<String,String> myRow = new HashMap<String,String>();
-		myRow.put("title", "Äú");
+		myRow.put("title", "æ‚¨");
 		myRow.put("all", Integer.toString(myAll));
 		myRow.put("done", Integer.toString(myDone));
 		data.add(myRow);
 		
 		Map<String,String> othersRow = new HashMap<String,String>();
-		othersRow.put("title", "ÆäËûÒ½Éú");
+		othersRow.put("title", "å…¶ä»–åŒ»ç”Ÿ");
 		othersRow.put("all", Integer.toString(othersAll));
 		othersRow.put("done", Integer.toString(othersDone));
 		data.add(othersRow);
@@ -300,7 +300,7 @@ public class StaticsService {
 	}
 	
 	/**
-	 * ²É·ÃÕßÍ³¼Æ
+	 * é‡‡è®¿è€…ç»Ÿè®¡
 	 * @return
 	 */
 	public static List<Interviewer> reportInterviewer(){

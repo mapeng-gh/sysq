@@ -49,10 +49,10 @@ public class LoginActivity extends Activity implements OnClickListener{
 			Interviewer interviewer = LoginService.login(loginName, password);
 			
 			if(interviewer == null){
-				Toast.makeText(SysqApplication.getContext(), "ÕÊºÅ»òÃÜÂë²»ÕıÈ·", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SysqApplication.getContext(), "å¸å·æˆ–å¯†ç ä¸æ­£ç¡®", Toast.LENGTH_SHORT).show();
 			}else{
 				
-				//±£´æÉÏÏÂÎÄ£¨µ±Ç°ÓÃ»§¡¢°æ±¾ºÅ£©
+				//ä¿å­˜ä¸Šä¸‹æ–‡ï¼ˆå½“å‰ç”¨æˆ·ã€ç‰ˆæœ¬å·ï¼‰
 				SysqContext.setInterviewer(interviewer);
 				SysqContext.setCurrentVersion(InterviewService.getCurrentVersion());
 				

@@ -27,10 +27,10 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		//»ñÈ¡Êı¾İ
+		//è·å–æ•°æ®
 		InterviewBasic interviewBasic = getItem(position);
 		
-		//ÊµÀı»¯Ò»¸öview
+		//å®ä¾‹åŒ–ä¸€ä¸ªview
 		View interviewView;
 		if(convertView == null){
 			interviewView = LayoutInflater.from(getContext()).inflate(this.resource, null);
@@ -38,7 +38,7 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 			interviewView = convertView;
 		}
 		
-		//°ó¶¨Êı¾İ
+		//ç»‘å®šæ•°æ®
 		TextView idTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_id);
 		idTV.setText(interviewBasic.getId()+"");
 		
@@ -53,31 +53,31 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 		
 		TextView typeTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_type);
 		if(interviewBasic.getType() == InterviewConstants.TYPE_CASE){
-			typeTV.setText("²¡Àı");
+			typeTV.setText("ç—…ä¾‹");
 		}else if(interviewBasic.getType() == InterviewConstants.TYPE_CONTRAST){
-			typeTV.setText("¶ÔÕÕ");
+			typeTV.setText("å¯¹ç…§");
 		}
 		
 		TextView statusTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_status);
 		if(interviewBasic.getStatus() == InterviewBasic.STATUS_DOING){
-			statusTV.setText("ÕıÔÚ½øĞĞ");
+			statusTV.setText("æ­£åœ¨è¿›è¡Œ");
 		}else if(interviewBasic.getStatus() == InterviewBasic.STATUS_BREAK){
-			statusTV.setText("ÒÑ½áÊø");
+			statusTV.setText("å·²ç»“æŸ");
 		}else if(interviewBasic.getStatus() == InterviewBasic.STATUS_DONE){
-			statusTV.setText("ÒÑÍê³É");
+			statusTV.setText("å·²å®Œæˆ");
 		}
 		
-		//°ó¶¨ÊÂ¼ş
+		//ç»‘å®šäº‹ä»¶
 		TextView viewTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_view);
 		viewTV.setOnClickListener(this.activity);
 		viewTV.setTag(interviewBasic.getId());
 		
-		//¿ØÖÆ¡°¼ÌĞø¡±ÏÔÊ¾
+		//æ§åˆ¶â€œç»§ç»­â€æ˜¾ç¤º
 		TextView continueTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_continue);
 		if(interviewBasic.getStatus() == InterviewBasic.STATUS_DOING){
 			continueTV.setVisibility(View.VISIBLE);
 			
-			//°ó¶¨¡°¼ÌĞø¡±ÊÂ¼ş
+			//ç»‘å®šâ€œç»§ç»­â€äº‹ä»¶
 			continueTV.setOnClickListener(this.activity);
 			continueTV.setTag(interviewBasic.getId());
 			

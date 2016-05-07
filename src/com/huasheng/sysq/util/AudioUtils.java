@@ -10,10 +10,10 @@ import android.os.StatFs;
 public class AudioUtils {
 
 	private static MediaRecorder mediaRecorder;
-	private static String audioFilePath;	//ÕıÔÚÂ¼ÒôÎÄ¼ş
+	private static String audioFilePath;	//æ­£åœ¨å½•éŸ³æ–‡ä»¶
 	private static boolean isStarted = false;
 	private static final long MIN_STORAGE_CAPABILITY = 200 * 1000 * 1000; // 200M
-	private static final String AUDIO_STORAGE_DIR = "sysq" + File.separator + "audio";//Â¼ÒôÎÄ¼ş´æ´¢Ä¿Â¼
+	private static final String AUDIO_STORAGE_DIR = "sysq" + File.separator + "audio";//å½•éŸ³æ–‡ä»¶å­˜å‚¨ç›®å½•
 	
 	
 	private static long getStorageCapability(){
@@ -25,17 +25,17 @@ public class AudioUtils {
 	
 	private static String genFilePath(String username){
 		
-		//¼ì²âÂ¼ÒôÄ¿Â¼ÊÇ·ñ´æÔÚ
+		//æ£€æµ‹å½•éŸ³ç›®å½•æ˜¯å¦å­˜åœ¨
 		File audioDir = new File(Environment.getExternalStorageDirectory(),AUDIO_STORAGE_DIR);
 		if(!audioDir.exists()){
 			audioDir.mkdirs();
 		}
 		
-		//¸ù¾İ¹æÔòÉú³ÉÎÄ¼şÃû
+		//æ ¹æ®è§„åˆ™ç”Ÿæˆæ–‡ä»¶å
 		String curTime = DateTimeUtils.getCurTime();
 		String filename = username + "_" + curTime + "_endTime" + ".aac";
 		
-		//¼ì²âÎÄ¼şÊÇ·ñÒÑ´æÔÚ
+		//æ£€æµ‹æ–‡ä»¶æ˜¯å¦å·²å­˜åœ¨
 		File audioFile = new File(audioDir,filename);
 		if(audioFile.exists()){
 			audioFile.delete();
@@ -43,7 +43,7 @@ public class AudioUtils {
 		try{
 			audioFile.createNewFile();
 		}catch(IOException e){
-			throw new RuntimeException("Éú³ÉÂ¼ÒôÎÄ¼şÊ§°Ü", e);
+			throw new RuntimeException("ç”Ÿæˆå½•éŸ³æ–‡ä»¶å¤±è´¥", e);
 		}
 		
 		audioFilePath = audioFile.getAbsolutePath();
@@ -55,9 +55,9 @@ public class AudioUtils {
 			
 			if(!isStarted){
 				
-				//ÊÖ»ú´æ´¢ÈİÁ¿²»µÃĞ¡ÓÚ200M
+				//æ‰‹æœºå­˜å‚¨å®¹é‡ä¸å¾—å°äº200M
 				if(getStorageCapability() < MIN_STORAGE_CAPABILITY){
-					SysqApplication.showMessage("Â¼ÒôÆô¶¯Ê§°Ü£¬ÊÖ»ú´æ´¢ÈİÁ¿²»µÃĞ¡ÓÚ200M");
+					SysqApplication.showMessage("å½•éŸ³å¯åŠ¨å¤±è´¥ï¼Œæ‰‹æœºå­˜å‚¨å®¹é‡ä¸å¾—å°äº200M");
 					isStarted = false;
 					return;
 				}
@@ -73,13 +73,13 @@ public class AudioUtils {
 				
 				isStarted = true;
 				
-				SysqApplication.showMessage("Â¼ÒôÆô¶¯³É¹¦");
+				SysqApplication.showMessage("å½•éŸ³å¯åŠ¨æˆåŠŸ");
 				
 			}
 			
 		}catch(Exception e){
 			isStarted = false;
-			SysqApplication.showMessage("Â¼ÒôÆô¶¯Ê§°Ü:" + e.toString());
+			SysqApplication.showMessage("å½•éŸ³å¯åŠ¨å¤±è´¥:" + e.toString());
 		}
 	}
 	
@@ -94,17 +94,17 @@ public class AudioUtils {
 				
 				isStarted = false;
 				
-				//ÎÄ¼şÖØÃüÃû£¨Ìí¼Ó½áÊøÊ±¼ä£©
+				//æ–‡ä»¶é‡å‘½åï¼ˆæ·»åŠ ç»“æŸæ—¶é—´ï¼‰
 				File auditFile = new File(audioFilePath);
 				audioFilePath = audioFilePath.replace("endTime",DateTimeUtils.getCurTime());
 				auditFile.renameTo(new File(audioFilePath));
 				
-				SysqApplication.showMessage("Â¼ÒôÍ£Ö¹³É¹¦");
+				SysqApplication.showMessage("å½•éŸ³åœæ­¢æˆåŠŸ");
 			}
 			
 			
 		}catch(Exception e){
-			SysqApplication.showMessage("Â¼ÒôÍ£Ö¹Ê§°Ü:" + e.toString());
+			SysqApplication.showMessage("å½•éŸ³åœæ­¢å¤±è´¥:" + e.toString());
 		}
 		
 	}

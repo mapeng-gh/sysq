@@ -39,7 +39,7 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 		interviewBasicId = intent.getIntExtra("interviewBasicId", -1);
 		questionaireCode = intent.getStringExtra("questionaireCode");
 		
-		if(questionaireCode.equals("LHC")){//Éú»îÈÕÀúÎÊ¾í´ğ°¸¶¨ÖÆ
+		if(questionaireCode.equals("LHC")){//ç”Ÿæ´»æ—¥å†é—®å·ç­”æ¡ˆå®šåˆ¶
 			showLHCAnswers();
 		}else{
 			showAnswers();
@@ -50,29 +50,29 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 		
 		setContentView(R.layout.activity_interviewee_answers_lhc);
 		
-		//²éÑ¯·ÃÎÊ´ğ°¸
+		//æŸ¥è¯¢è®¿é—®ç­”æ¡ˆ
 		List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(this.interviewBasicId);
 		
-		if(interviewAnswerList == null || interviewAnswerList.size() <= 0){//Ã»ÓĞÈÎºÎ´ğ°¸£¨Ã»¿ªÊ¼´ğÌâ£©
+		if(interviewAnswerList == null || interviewAnswerList.size() <= 0){//æ²¡æœ‰ä»»ä½•ç­”æ¡ˆï¼ˆæ²¡å¼€å§‹ç­”é¢˜ï¼‰
 			return;
 		}
 		
-		//äÖÈ¾±í¸ñÊı¾İ
+		//æ¸²æŸ“è¡¨æ ¼æ•°æ®
 		answersLL = (LinearLayout)findViewById(R.id.ll_interviewee_answers_lhc);
 		for(int i=0;i<answersLL.getChildCount();i++){
 			View rowView = answersLL.getChildAt(i);
-			if(rowView instanceof LinearLayout){//ºöÂÔĞĞ·Ö¸îÏß
+			if(rowView instanceof LinearLayout){//å¿½ç•¥è¡Œåˆ†å‰²çº¿
 				LinearLayout ll = (LinearLayout)rowView;
 				for(int j=0;j<ll.getChildCount();j++){
 					View cellView = ll.getChildAt(j);
-					if(cellView instanceof TextView){//ºöÂÔÁĞ·Ö¸îÏß
+					if(cellView instanceof TextView){//å¿½ç•¥åˆ—åˆ†å‰²çº¿
 						TextView tv = (TextView)cellView;
-						if(StringUtils.isEmpty(tv.getText())){//¹Ì¶¨ÖµµÄTextView²»´¦Àí
+						if(StringUtils.isEmpty(tv.getText())){//å›ºå®šå€¼çš„TextViewä¸å¤„ç†
 							final String tag = (String)tv.getTag();
 							String text = searchAnswerValue(tag,interviewAnswerList);
 							tv.setText(text);
 							
-							//°ó¶¨ÊÂ¼ş
+							//ç»‘å®šäº‹ä»¶
 							if(!StringUtils.isEmpty(text)){
 								
 								tv.setOnClickListener(new OnClickListener() {
@@ -83,7 +83,7 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 										String answerCode = tag.contains(",") ? tag.split(",")[0] : tag;
 										String questionCode = InterviewService.getInterviewAnswer(IntervieweeAnswerActivity.this.interviewBasicId, answerCode).getQuestionCode();
 										
-										//Ìø×ªÎÊÌâÒ³Ãæ
+										//è·³è½¬é—®é¢˜é¡µé¢
 										Intent intent = new Intent(IntervieweeAnswerActivity.this,InterviewActivity.class);
 										intent.putExtra("operateType", "modify");
 										intent.putExtra("interviewBasicId", IntervieweeAnswerActivity.this.interviewBasicId);
@@ -134,7 +134,7 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 		
 		List<InterviewQuestionWrap> interviewQuestionWrapList = InterviewService.getWrapInterviewQuestionList(this.interviewBasicId, this.questionaireCode);
 		
-		//´¦ÀíÎÊÌâ·Ö¶Î¡¢²åÖµ
+		//å¤„ç†é—®é¢˜åˆ†æ®µã€æ’å€¼
 		for(InterviewQuestionWrap interviewQuestionWrap : interviewQuestionWrapList){
 			interviewQuestionWrap.getQuestion().setDescription(this.handleQuestionDescription(interviewQuestionWrap.getQuestion().getDescription()));
 		}
@@ -145,10 +145,10 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 	
 	private String handleQuestionDescription(String description){
 		
-		//·Ö¶Î
+		//åˆ†æ®µ
 		description = FormatUtils.handPara4App(description);
 		
-		//²åÖµ
+		//æ’å€¼
 		while(description.indexOf("<span") != -1){
 			int spanStart = description.indexOf("<span");
 			int spanEnd = description.indexOf("</span>");
