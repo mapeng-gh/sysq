@@ -56,6 +56,7 @@ public class QuestionWrap {
 			newAnswerWrap.setRadioOptions(answerWrap.getRadioOptions());
 			newAnswerWrap.setSliderOption(answerWrap.getSliderOption());
 			newAnswerWrap.setDropDownListOptions(answerWrap.getDropDownListOptions());
+			newAnswerWrap.setSpinBoxOption(answerWrap.getSpinBoxOption());
 			
 			newAnswerWrapList.add(newAnswerWrap);
 		}

@@ -81,6 +81,13 @@ div.answer div.content select{
 	width:200px;
 }
 
+	/**数字框**/
+div.answer div.content input[type='number']{
+	width:200px;
+	padding:5px;
+	font-size:18px;
+}
+
 /**底部**/
 div.question div.footer{
 	width:100%;

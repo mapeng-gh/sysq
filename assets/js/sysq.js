@@ -85,6 +85,12 @@ function getLocalAnswerValue(){
 			var $date = $answer.find("input[type='date']");
 			value = $date.val();
 			text = value;
+			
+		}else if(type == "spinbox"){//数字框
+			
+			var $number = $answer.find("input[type='number']");
+			value = $number.val();
+			text = value;
 		}
 		
 		localAnswers.push({"code":code,"label":label,"value":value,"text":text,"seqNum":seqNum,"questionCode":questionCode});
@@ -271,6 +277,8 @@ function resumeAnswers(answersJS){
 			answer$.find("textarea").val(answer.value);
 		}else if(type == "calendar"){
 			answer$.find("input[type='date']").val(answer.value);
+		}else if(type == "spinbox"){
+			answer$.find("input[type='number']").val(answer.value);
 		}
 	}
 }

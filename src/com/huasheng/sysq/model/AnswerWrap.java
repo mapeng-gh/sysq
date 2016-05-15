@@ -14,6 +14,7 @@ public class AnswerWrap {
 	private List<Map<String,String>> radioOptions;
 	private Map<String,String> sliderOption;
 	private List<Map<String,String>> dropDownListOptions;
+	private Map<String,String> spinBoxOption;
 	
 	public AnswerWrap(){
 		
@@ -35,6 +36,10 @@ public class AnswerWrap {
 			Type type = new TypeToken<List<Map<String,String>>>(){}.getType();
 			Gson gson = new Gson();
 			this.dropDownListOptions = gson.fromJson(answer.getExtra(), type);
+		}else if(answer.getType().equals(Answer.TYPE_SPIN_BOX)){
+			Type type = new TypeToken<Map<String,String>>(){}.getType();
+			Gson gson = new Gson();
+			this.spinBoxOption = gson.fromJson(answer.getExtra(), type);	
 		}
 	}
 
@@ -68,5 +73,13 @@ public class AnswerWrap {
 
 	public void setDropDownListOptions(List<Map<String, String>> dropDownListOptions) {
 		this.dropDownListOptions = dropDownListOptions;
+	}
+
+	public Map<String, String> getSpinBoxOption() {
+		return spinBoxOption;
+	}
+
+	public void setSpinBoxOption(Map<String, String> spinBoxOption) {
+		this.spinBoxOption = spinBoxOption;
 	}
 }

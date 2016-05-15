@@ -78,6 +78,10 @@
 							
 								<textarea class="size-answer-text" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}></textarea>
 								
+							{{else if answerWrap.answer.type == "spinbox"}}		<!-- 数字框 -->
+							
+								<input type="number"  min="{{answerWrap.spinBoxOption.start}}" max="{{answerWrap.spinBoxOption.end}}" step="{{answerWrap.spinBoxOption.step}}"/>
+								
 							{{/if}}
 						
 						</div>

@@ -24,6 +24,7 @@ public class Answer {
 	public static final String TYPE_SLIDER = "slider";
 	public static final String TYPE_DROPDOWNLIST = "dropdownlist";
 	public static final String TYPE_CHECKBOX = "checkbox";
+	public static final String TYPE_SPIN_BOX = "spinbox";
 	
 	public int getId() {
 		return id;
