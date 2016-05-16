@@ -1,13 +1,18 @@
 package com.huasheng.sysq.util;
 
-import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -15,137 +20,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SysQOpenHelper extends SQLiteOpenHelper{
 	
+	private static final String TAG = SysQOpenHelper.class.getSimpleName();
+	
+	private static final String DB_NAME = "sysq.db";
+	private static final int VERSION = 1;
 	private static SQLiteDatabase db;
-	
-	public static final String CREATE_INTERVIEWER = "create table " + TableConstants.TABLE_INTERVIEWER + 
-			"(" +
-				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_INTERVIEWER_LOGIN_NAME + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEWER_PASSWORD + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEWER_USERNAME + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEWER_MOBILE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEWER_EMAIL + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEWER_WORKING_PLACE + " varchar" +
-			")";
-	public static final String CRETE_RESERVATION = "create table " + TableConstants.TABLE_RESERVATION + 
-			"(" +
-				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_RESERVATION_USERNAME + " varchar," +
-				ColumnConstants.COLUMN_RESERVATION_IDENTITY_CARD + " varchar," +
-				ColumnConstants.COLUMN_RESERVATION_MOBILE + " varchar," +
-				ColumnConstants.COLUMN_RESERVATION_TYPE + " integer," +
-				ColumnConstants.COLUMN_RESERVATION_BOOK_DATE + " varchar," +
-				ColumnConstants.COLUMN_RESERVATION_FAMILY_MOBILE + " varchar" +
-			")";
-	public static final String CREATE_VERSION = "create table " + TableConstants.TABLE_VERSION +
-			"(" +
-				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_VERSION_NAME + " varchar," +
-				ColumnConstants.COLUMN_VERSION_PUBLISH_DATE + " varchar," +
-				ColumnConstants.COLUMN_VERSION_REMARK + " varchar," +
-				ColumnConstants.COLUMN_VERSION_IS_CURRENT + " integer" +
-			")";
-	public static final String CREATE_QUESTIONAIRE = "create table " + TableConstants.TABLE_QUESTIONAIRE +
-			"(" +
-				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_QUESTIONAIRE_CODE + " varchar," +
-				ColumnConstants.COLUMN_QUESTIONAIRE_TITLE + " varchar," +
-				ColumnConstants.COLUMN_QUESTIONAIRE_INTRODUCTION + " varchar," +
-				ColumnConstants.COLUMN_QUESTIONAIRE_REMARK + " varchar," +
-				ColumnConstants.COLUMN_QUESTIONAIRE_TYPE + " integer," +
-				ColumnConstants.COLUMN_QUESTIONAIRE_SEQ_NUM + " integer," +
-				ColumnConstants.COLUMN_QUESTIONAIRE_VERSION_ID + " integer" +
-			")";
-	public static final String CREATE_QUESTION = "create table " + TableConstants.TABLE_QUESTION + 
-			"(" +
-				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_QUESTION_CODE + " varchar," +
-				ColumnConstants.COLUMN_QUESTION_DESCRIPTION + " varchar," +
-				ColumnConstants.COLUMN_QUESTION_REMARK + " varchar," +
-				ColumnConstants.COLUMN_QUESTION_IS_END + " integer," +
-				ColumnConstants.COLUMN_QUESTION_SEQ_NUM + " integer," +
-				ColumnConstants.COLUMN_QUESTION_QUESTIONAIRE_CODE + " varchar," +
-				ColumnConstants.COLUMN_QUESTION_ENTRY_LOGIC + " varchar," +
-				ColumnConstants.COLUMN_QUESTION_EXIT_LOGIC + " varchar," +
-				ColumnConstants.COLUMN_QUESTION_VERSION_ID + " integer" +
-			")";
-	public static final String CREATE_ANSWER = "create table " + TableConstants.TABLE_ANSWER +
-			"(" +
-				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_ANSWER_CODE + " varchar," +
-				ColumnConstants.COLUMN_ANSWER_LABEL + " varchar," +
-				ColumnConstants.COLUMN_ANSWER_TYPE + " varchar," +
-				ColumnConstants.COLUMN_ANSWER_EXTRA + " varchar," +
-				ColumnConstants.COLUMN_ANSWER_SHOW_TYPE + " varchar," +
-				ColumnConstants.COLUMN_ANSWER_IS_SHOW + " integer," +
-				ColumnConstants.COLUMN_ANSWER_EVENT_TYPE + " varchar," +
-				ColumnConstants.COLUMN_ANSWER_EVENT_EXECUTE + " varchar," +
-				ColumnConstants.COLUMN_ANSWER_SEQ_NUM + " integer," +
-				ColumnConstants.COLUMN_ANSWER_QUESTION_CODE + " varchar," +
-				ColumnConstants.COLUMN_ANSWER_VERSION_ID + " integer" +
-			")";
-	public static final String CREATE_INTERVIEW_BASIC = "create table " + TableConstants.TABLE_INTERVIEW_BASIC +
-			"(" +
-				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_USERNAME + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_IDENTITY_CARD + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_MOBILE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_PROVINCE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_CITY + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_ADDRESS + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_POST_CODE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_FAMILY_MOBILE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_FAMILY_ADDRESS + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_REMARK + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_DNA + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_IS_TEST + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_STATUS + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_CUR_QUESTIONAIRE_CODE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_NEXT_QUESTION_CODE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_LAST_MODIFYED_TIME + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_VERSION_ID + " integer" +
-			")";
-	
-	public static final String CREATE_INTERVIEW_QUESTIONAIRE = "create table " + TableConstants.TABLE_INTERVIEW_QUESTIONAIRE +
-			"(" +
-				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_QUESTIONAIRE_CODE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_START_TIME + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_LAST_MODIFIED_TIME + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_SEQ_NUM + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_VERSION_ID + " integer" +
-			")";
-	
-	public static final String CREATE_INTERVIEW_QUESTION = "create table " + TableConstants.TABLE_INTERVIEW_QUESTION +
-			"(" +
-				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTION_INTERVIEW_BASIC_ID + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTION_QUESTIONAIRE_CODE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTION_QUESTION_CODE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTION_SEQ_NUM + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTION_VERSION_ID + " integer" +
-			")";
-	
-	public static final String CREATE_INTERVIEW_ANSWER = "create table " + TableConstants.TABLE_INTERVIEW_ANSWER +
-			"(" +
-				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_ANSWER_QUESTION_CODE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_LABEL + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_CODE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_VALUE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_TEXT + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_ANSWER_ANSWER_SEQ_NUM + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTION_VERSION_ID + " integer" +
-			")";
-	
-	public static final String DB_NAME = "sysq.db";
-	public static final int VERSION = 1;
 	
 	public SysQOpenHelper(Context context, String name, CursorFactory factory,
 			int version) {
@@ -154,61 +33,113 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(CREATE_INTERVIEWER);
-		db.execSQL(CRETE_RESERVATION);
-		db.execSQL(CREATE_VERSION);
-		db.execSQL(CREATE_QUESTIONAIRE);
-		db.execSQL(CREATE_QUESTION);
-		db.execSQL(CREATE_ANSWER);
-		db.execSQL(CREATE_INTERVIEW_BASIC);
-		db.execSQL(CREATE_INTERVIEW_QUESTIONAIRE);
-		db.execSQL(CREATE_INTERVIEW_QUESTION);
-		db.execSQL(CREATE_INTERVIEW_ANSWER);
-		this.initData(db);
+		this.db = db;
+		
+		db.execSQL(TableConstants.CREATE_INTERVIEWER);
+		db.execSQL(TableConstants.CRETE_RESERVATION);
+		db.execSQL(TableConstants.CREATE_VERSION);
+		db.execSQL(TableConstants.CREATE_QUESTIONAIRE);
+		db.execSQL(TableConstants.CREATE_QUESTION);
+		db.execSQL(TableConstants.CREATE_ANSWER);
+		db.execSQL(TableConstants.CREATE_INTERVIEW_BASIC);
+		db.execSQL(TableConstants.CREATE_INTERVIEW_QUESTIONAIRE);
+		db.execSQL(TableConstants.CREATE_INTERVIEW_QUESTION);
+		db.execSQL(TableConstants.CREATE_INTERVIEW_ANSWER);
+		
+		this.initData();
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		
 	}
 	
+	/**
+	 * 获取SQLiteDatabase单例
+	 * @return
+	 */
 	public static SQLiteDatabase getDatabase(){
 		if(db == null){
-			db = new SysQOpenHelper(SysqApplication.getContext(),DB_NAME,null,VERSION).getWritableDatabase();
+			new SysQOpenHelper(SysqApplication.getContext(),DB_NAME,null,VERSION).getWritableDatabase();
 		}
 		return db;
 	}
-
-	public void initData(SQLiteDatabase db){
-		
-		String[] dataFiles = new String[]{"data/interviewer.sql","data/version.sql","data/questionaire.sql","data/question.sql","data/answer.sql"};
-//		String[] dataFiles = new String[]{"data/test.sql"};
-		AssetManager assetManager = SysqApplication.getContext().getAssets();
-		BufferedReader reader = null;
-		
+	
+	/**
+	 * 插入数据文件
+	 * @param dataFilePath
+	 * @throws FileNotFoundException 
+	 */
+	public static void insert(String dataFilePath){
+		LogUtils.info(TAG, "data file '" + dataFilePath + "' is inserting");
+		InputStream is = null;
 		try{
-			for(String dataFile : dataFiles){
-				reader = new BufferedReader(new InputStreamReader(assetManager.open(dataFile), "utf-8"));
-				String line;
-				while((line=reader.readLine()) != null){
-					LogUtils.debug("SysQOpenHelper", line);
-					db.execSQL(line);
+			is = new FileInputStream(new File(dataFilePath));
+			insert(new FileInputStream(new File(dataFilePath)));
+			LogUtils.info(TAG, "data file '" + dataFilePath + "' is inserted");
+		}catch(Exception e){
+			throw new RuntimeException("insert data file error : " + dataFilePath, e);
+		}finally{
+			if(is != null){
+				try{
+					is.close();
+				}catch(Exception e){}
+			}
+		}
+	}
+	
+	/**
+	 * 插入数据文件流
+	 * @param is
+	 */
+	private static void insert(InputStream is){
+		try{
+			List<String> lines = IOUtils.readLines(is, "UTF-8");
+			if(lines == null || lines.size() <= 0){
+				LogUtils.warn(TAG,"数据文件为空");
+				return;
+			}
+			for(String line : lines){
+				if(!StringUtils.isEmpty(line)){
+					try{
+						db.execSQL(line);
+					}catch(SQLException e){
+						throw new RuntimeException("sql error : [" + line +"]", e);
+					}
+					
 				}
 			}
-			LogUtils.debug("SysQOpenHelper","数据导入完成");
 		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			if(reader != null){
-				try {
-					reader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+			throw new RuntimeException("read lines error", e);
+		}
+	}
+
+	/**
+	 * 数据库数据初始化
+	 * @param db
+	 */
+	public void initData(){
+		
+		String[] dataFiles = new String[]{"data/interviewer.sql","data/version.sql","data/questionaire.sql","data/question.sql","data/answer.sql"};
+		AssetManager assetManager = SysqApplication.getContext().getAssets();
+		for(String dataFile : dataFiles){
+			LogUtils.info(TAG, "data file '" + dataFile + "' is inserting");
+			InputStream is = null;
+			try{
+				is = assetManager.open(dataFile);
+				insert(is);
+				LogUtils.info(TAG, "data file '" + dataFile + "' is inserted");
+			}catch(IOException e){
+				throw new RuntimeException("open data file error : " + dataFile, e);
+			}catch(RuntimeException e){
+				throw e;
+			}finally{
+				if(is != null){
+					try{
+						is.close();
+					}catch(Exception e){}
 				}
 			}
 		}
-		
-		
 	}
 
 }
