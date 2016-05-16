@@ -35,18 +35,17 @@ div.results div.body div.content{
 	margin-top: 10px;
 }
 div.results div.body div.content div.ques{
-	margin-top: 10px;
+	padding: 10px 0;
 	border-bottom: 1px grey solid;
 	
 }
 div.results div.body div.content div.ques div.description p{
-	text-indent: 20px;
-	margin-top: 10px;
-	line-height: 150%;
+	margin-top: 5px;
 	font-size:20px;
+	word-wrap: break-word;
 }
 div.results div.body div.content div.answers{
-	margin-top:10px;
+	margin-top:15px;
 	padding-left:40px;
 }
 div.results div.body div.content div.operations{
@@ -56,11 +55,11 @@ div.results div.body div.content div.operations{
 }
 div.results div.body div.content div.answers div.answer{
 	margin-top:10px;
-	padding: 0 10 0 10px;
 }
-div.results div.body div.content div.answers div.answer span.label{
-	float:left;
+div.results div.body div.content div.answers div.answer div.label{
+	word-wrap: break-word;
 }
-div.results div.body div.content div.answers div.answer span.text{
-	float:right;
+div.results div.body div.content div.answers div.answer div.text{
+	color:#338EE7;
+	word-wrap: break-word;
 }

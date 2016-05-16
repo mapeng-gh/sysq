@@ -408,3 +408,32 @@ function insertQuestionFragment(){
 function jumpToIndex(){
 	appservice.jumpToIndex();
 }
+
+/**
+ * 检查空值
+ */
+function checkNull(){
+	var isValid = true;
+	$("div.answer").each(function(){
+		var $answer = $(this);
+		if(!$answer.hasClass("nodisplay")){//隐藏不需检查
+			var type = $answer.data("type");
+			if(type == "spinbox"){
+				var value = $answer.find("input[type='number']").val();
+				if(!/^\d+$/.test(value)){
+					showMsg("请输入正确的数字");
+					isValid = false;
+					return false;
+				}
+			}else if(type == "calendar"){
+				var value = $answer.find("input[type='date']").val();
+				if(value == ""){
+					showMsg("请输入日期");
+					isValid = false;
+					return false;
+				}
+			}
+		}
+	});
+	return isValid;
+}

@@ -96,7 +96,7 @@
 	
 	<div class="footer">
 		<input type="button" value="上一题" class="btn-previous" onclick="jumpToPreviousQuestion()"/>
-		<input type="button" value="下一题" class="btn-next" onclick="{{question.exitLogic}}"/>
+		<input type="button" value="下一题" class="btn-next" onclick="if(checkNull()===false){return;}{{question.exitLogic}}"/>
 	</div>
 	
 </div>

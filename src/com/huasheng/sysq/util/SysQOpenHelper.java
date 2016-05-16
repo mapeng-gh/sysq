@@ -33,8 +33,6 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		this.db = db;
-		
 		db.execSQL(TableConstants.CREATE_INTERVIEWER);
 		db.execSQL(TableConstants.CRETE_RESERVATION);
 		db.execSQL(TableConstants.CREATE_VERSION);
@@ -46,7 +44,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 		db.execSQL(TableConstants.CREATE_INTERVIEW_QUESTION);
 		db.execSQL(TableConstants.CREATE_INTERVIEW_ANSWER);
 		
-		this.initData();
+		this.initData(db);
 	}
 
 	@Override
@@ -59,7 +57,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	 */
 	public static SQLiteDatabase getDatabase(){
 		if(db == null){
-			new SysQOpenHelper(SysqApplication.getContext(),DB_NAME,null,VERSION).getWritableDatabase();
+			db = new SysQOpenHelper(SysqApplication.getContext(),DB_NAME,null,VERSION).getWritableDatabase();
 		}
 		return db;
 	}
@@ -69,12 +67,12 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	 * @param dataFilePath
 	 * @throws FileNotFoundException 
 	 */
-	public static void insert(String dataFilePath){
+	public static void insert(String dataFilePath,SQLiteDatabase db){
 		LogUtils.info(TAG, "data file '" + dataFilePath + "' is inserting");
 		InputStream is = null;
 		try{
 			is = new FileInputStream(new File(dataFilePath));
-			insert(new FileInputStream(new File(dataFilePath)));
+			insert(new FileInputStream(new File(dataFilePath)),db);
 			LogUtils.info(TAG, "data file '" + dataFilePath + "' is inserted");
 		}catch(Exception e){
 			throw new RuntimeException("insert data file error : " + dataFilePath, e);
@@ -91,7 +89,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	 * 插入数据文件流
 	 * @param is
 	 */
-	private static void insert(InputStream is){
+	private static void insert(InputStream is,SQLiteDatabase db){
 		try{
 			List<String> lines = IOUtils.readLines(is, "UTF-8");
 			if(lines == null || lines.size() <= 0){
@@ -117,7 +115,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	 * 数据库数据初始化
 	 * @param db
 	 */
-	public void initData(){
+	public void initData(SQLiteDatabase db){
 		
 		String[] dataFiles = new String[]{"data/interviewer.sql","data/version.sql","data/questionaire.sql","data/question.sql","data/answer.sql"};
 		AssetManager assetManager = SysqApplication.getContext().getAssets();
@@ -126,7 +124,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 			InputStream is = null;
 			try{
 				is = assetManager.open(dataFile);
-				insert(is);
+				insert(is,db);
 				LogUtils.info(TAG, "data file '" + dataFile + "' is inserted");
 			}catch(IOException e){
 				throw new RuntimeException("open data file error : " + dataFile, e);

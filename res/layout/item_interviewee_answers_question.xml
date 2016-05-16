@@ -3,20 +3,22 @@
     android:id="@+id/ll_interviewee_answers_question"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
     
     <TextView 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_interviewee_answers_qustion_description"
         android:lineSpacingExtra="3dp"
-        android:textSize="18sp"/>
+        android:textSize="20sp"/>
     
     <ListView 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lv_interviewee_answers_answer"
-        android:layout_marginTop="10dp">
+        android:paddingLeft="20dp">
         
     </ListView>
 

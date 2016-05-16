@@ -26,8 +26,8 @@
 						
 							<div class="answer">
 							
-								<span class="label size-answer-label">{{answerValue.label}}</span>
-								<span class="text size-answer-text">{{answerValue.text}}</span>
+								<div class="label size-answer-label">{{answerValue.label}}</div>
+								<div class="text size-answer-text">{{answerValue.text}}</div>
 								
 							</div>
 							
