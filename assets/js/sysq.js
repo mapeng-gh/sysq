@@ -1,5 +1,9 @@
 var isReplay = false;
 
+window.onerror = function(errorMsg,filename,lineNumber,columnNumber,error){
+	appservice4Log.error("sysq",errorMsg + " at " + filename + "(" + lineNumber + "," + columnNumber + ")");
+}
+
 /**
  * 页面渲染
  * @param tpl
@@ -7,17 +11,17 @@ var isReplay = false;
  */
 function renderContent(tpl,data){
 	
-	appservice.debug("renderContent",tpl);
+	appservice4Log.debug("renderContent",tpl);
 	var render = template.compile(tpl);
-	appservice.debug("renderContent","template compile success");
+	appservice4Log.debug("renderContent","template compile success");
 	
-	appservice.debug("renderContent",data);
+	appservice4Log.debug("renderContent",data);
 	data = JSON.parse(data);
-	appservice.debug("renderContent","data parse success");
+	appservice4Log.debug("renderContent","data parse success");
 	
 	var html = render(data);
-	appservice.debug("renderContent","template render success");
-	appservice.debug("renderContent",html);
+	appservice4Log.debug("renderContent","template render success");
+	appservice4Log.debug("renderContent",html);
 	
 	$("#content").html(html);
 }
@@ -162,7 +166,7 @@ function saveToAnswers(){
 		}
 	}
 	
-	appservice.debug("saveToAnswers","answers = " + JSON.stringify(answers));
+	appservice4Log.debug("saveToAnswers","answers = " + JSON.stringify(answers));
 }
 
 /**
@@ -327,7 +331,7 @@ function editQuestion(questionCode){
 		}
 	}
 	answers = answers.slice(0,i);
-	appservice.debug("editQuestion",JSON.stringify(answers));
+	appservice4Log.debug("editQuestion",JSON.stringify(answers));
 	
 	appservice.jumpToSpecQuestion(questionCode);
 }

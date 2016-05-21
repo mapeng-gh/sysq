@@ -29,6 +29,7 @@ import com.huasheng.sysq.util.FormatUtils;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.JSFuncInvokeUtils;
 import com.huasheng.sysq.util.JSObject;
+import com.huasheng.sysq.util.JSObject4Log;
 import com.huasheng.sysq.util.JsonUtils;
 import com.huasheng.sysq.util.RenderUtils;
 import com.huasheng.sysq.util.TemplateConstants;
@@ -55,6 +56,8 @@ public class InterviewActivity extends Activity{
 		interviewWV = (WebView)findViewById(R.id.interview_web_view);
 		
 		interviewWV.getSettings().setJavaScriptEnabled(true);//启用js
+		
+		interviewWV.getSettings().setAllowFileAccessFromFileURLs(true);
 		
 		interviewWV.setWebViewClient(new WebViewClient(){
 
@@ -98,6 +101,7 @@ public class InterviewActivity extends Activity{
 		InterviewContext.setWebView(interviewWV);//保存到上下文
 		
 		interviewWV.addJavascriptInterface(new JSObject(), "appservice");//注册JSObject
+		interviewWV.addJavascriptInterface(new JSObject4Log(), "appservice4Log");//注册JSObject
 		
 		interviewWV.loadUrl("file:///android_asset/interview.html");
 	}

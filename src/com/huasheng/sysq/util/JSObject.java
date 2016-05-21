@@ -422,12 +422,4 @@ public class JSObject {
 		SysqApplication.showMessage(msg);
 	}
 	
-	/**
-	 * 页面调试
-	 * @param msg
-	 */
-	@JavascriptInterface
-	public void debug(String tag,String msg){
-		LogUtils.debug(tag, msg);
-	}
 }
