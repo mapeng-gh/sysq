@@ -79,14 +79,12 @@ public class InterviewerDNAActivity extends Activity implements OnClickListener{
 			InterviewBasic interviewBasic = (InterviewBasic)getIntent().getSerializableExtra("interview");
 			collectData(interviewBasic);
 			InterviewService.newInterviewBasic(interviewBasic);
-			SysqApplication.showMessage("保存成功");
 			
 			//保存到上下文
 			InterviewContext.setCurInterviewBasic(interviewBasic);
 			
 			//跳转问卷页
-			Intent intent = new Intent(this,InterviewActivity.class);
-			startActivity(intent);
+			SysqApplication.jumpToActivity(InterviewActivity.class);
 			
 		}else if(view.getId() == R.id.btn_interview_dna_sample1){
 			

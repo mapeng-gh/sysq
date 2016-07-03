@@ -1,7 +1,6 @@
 package com.huasheng.sysq.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,10 +11,11 @@ import android.widget.Toast;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
-import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.service.LoginService;
+import com.huasheng.sysq.service.SystemUpdateService;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
+import com.huasheng.sysq.util.SystemUpdateUtils;
 
 public class LoginActivity extends Activity implements OnClickListener{
 	
@@ -25,6 +25,10 @@ public class LoginActivity extends Activity implements OnClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		//检查更新
+		SystemUpdateUtils.checkUpdate(this,false);
+		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_login);
@@ -54,12 +58,15 @@ public class LoginActivity extends Activity implements OnClickListener{
 				
 				//保存上下文（当前用户、版本号）
 				SysqContext.setInterviewer(interviewer);
-				SysqContext.setCurrentVersion(InterviewService.getCurrentVersion());
+				SysqContext.setCurrentVersion(SystemUpdateService.getCurrentInterviewVersion());
 				
-				Intent intent = new Intent(SysqApplication.getContext(), IndexActivity.class);
-				startActivity(intent);
+				//跳转首页
+				SysqApplication.jumpToActivity(IndexActivity.class);
 			}
 		}
 	}
-
+	
+	@Override
+	public void onBackPressed() {//防止后退、再次进入系统
+	}
 }

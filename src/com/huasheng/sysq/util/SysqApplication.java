@@ -52,7 +52,7 @@ public class SysqApplication extends Application{
 	 * @param message
 	 */
 	public static void showMessage(String message){
-		Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+		Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 	}
 
 }

@@ -611,13 +611,4 @@ public class InterviewService {
 	public static Questionaire getSpecQuestionaire(String questionaireCode){
 		return QuestionaireDB.selectByCode(questionaireCode,SysqContext.getCurrentVersion().getId());
 	}
-	
-	/**
-	 * 获取系统问卷当前版本号
-	 * @return
-	 */
-	public static Version getCurrentVersion(){
-		return VersionDB.getCurVersion();
-	}
-	
 }

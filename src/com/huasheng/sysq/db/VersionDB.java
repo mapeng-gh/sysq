@@ -1,5 +1,9 @@
 package com.huasheng.sysq.db;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.huasheng.sysq.model.Version;
@@ -9,19 +13,50 @@ import com.huasheng.sysq.util.TableConstants;
 
 public class VersionDB {
 
-	public static Version getCurVersion(){
+	public static List<Version> select(){
 		Cursor cursor = SysQOpenHelper.getDatabase().query(
-				TableConstants.TABLE_VERSION,null,"is_current = 1",null,null,null,null);
-		Version curVersion = null;
-		if(cursor.moveToNext()){
-			curVersion = new Version();
-			curVersion.setId(cursor.getInt(cursor.getColumnIndex("id")));
-			curVersion.setName(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_VERSION_NAME)));
-			curVersion.setPublishDate(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_VERSION_PUBLISH_DATE)));
-			curVersion.setRemark(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_VERSION_REMARK)));
-			curVersion.setIsCurrent(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_VERSION_IS_CURRENT)));
+				TableConstants.TABLE_VERSION,null,null,null,null,null,null);
+		List<Version> versionList = new ArrayList<Version>();
+		while(cursor.moveToNext()){
+			Version version = fillObjectFromDB(cursor);
+			versionList.add(version);
 		}
 		cursor.close();
-		return curVersion;
+		return versionList;
+	}
+	
+	public static Version select(int versionId){
+		Cursor cursor = SysQOpenHelper.getDatabase().query(
+				TableConstants.TABLE_VERSION,null,"id=?",new String[]{Integer.toString(versionId)},null,null,null);
+		Version version = null;
+		if(cursor.moveToNext()){
+			version = fillObjectFromDB(cursor);
+		}
+		cursor.close();
+		return version;
+	}
+	
+	private static Version fillObjectFromDB(Cursor cursor){
+		Version version = new Version();
+		version.setId(cursor.getInt(cursor.getColumnIndex("id")));
+		version.setName(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_VERSION_NAME)));
+		version.setPublishDate(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_VERSION_PUBLISH_DATE)));
+		version.setRemark(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_VERSION_REMARK)));
+		version.setIsCurrent(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_VERSION_IS_CURRENT)));
+		return version;
+	}
+	
+	public static void update(Version version){
+		ContentValues values = fillDBFromObject(version);
+		SysQOpenHelper.getDatabase().update(TableConstants.TABLE_VERSION, values,"id=?",new String[]{Integer.toString(version.getId())});
+	}
+	
+	private static ContentValues fillDBFromObject(Version version){
+		ContentValues values = new ContentValues();
+		values.put(ColumnConstants.COLUMN_VERSION_NAME, version.getName());
+		values.put(ColumnConstants.COLUMN_VERSION_PUBLISH_DATE, version.getPublishDate());
+		values.put(ColumnConstants.COLUMN_VERSION_REMARK, version.getRemark());
+		values.put(ColumnConstants.COLUMN_VERSION_IS_CURRENT, version.getIsCurrent());
+		return values;
 	}
 }

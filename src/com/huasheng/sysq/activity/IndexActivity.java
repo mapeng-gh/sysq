@@ -16,7 +16,9 @@ import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
 import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 import com.huasheng.sysq.util.InterviewContext;
+import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
+import com.huasheng.sysq.util.SystemUpdateUtils;
 
 public class IndexActivity extends Activity implements OnClickListener{
 	
@@ -72,7 +74,9 @@ public class IndexActivity extends Activity implements OnClickListener{
 			Intent intent = new Intent(this,ReportActivity.class);
 			startActivity(intent);
 			
-		}else if(view.getId() == R.id.ll_index_system_update){
+		}else if(view.getId() == R.id.ll_index_system_update){//系统更新
+			
+			SystemUpdateUtils.checkUpdate(this,true);
 			
 		}else if(view.getId() == R.id.ll_index_interview){//开始访谈
 			
@@ -110,9 +114,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 				InterviewContext.clearInterviewContext();
 				
 				//跳转登录
-				Intent loginIntent = new Intent(IndexActivity.this,LoginActivity.class);
-				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				IndexActivity.this.startActivity(loginIntent);
+				SysqApplication.jumpToActivity(LoginActivity.class);
 			}
 		});
 		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
