@@ -19,6 +19,7 @@ import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.SystemUpdateUtils;
+import com.huasheng.sysq.util.UploadUtils;
 
 public class IndexActivity extends Activity implements OnClickListener{
 	
@@ -93,7 +94,9 @@ public class IndexActivity extends Activity implements OnClickListener{
 			Intent intent = new Intent(this,IntervieweeActivity.class);
 			startActivity(intent);
 			
-		}else if(view.getId() == R.id.ll_index_data_upload){
+		}else if(view.getId() == R.id.ll_index_data_upload){//上传
+			
+			UploadUtils.upload(this);
 			
 		}else if(view.getId() == R.id.ll_index_help){
 			

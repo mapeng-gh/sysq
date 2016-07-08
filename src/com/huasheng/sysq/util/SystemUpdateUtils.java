@@ -271,7 +271,7 @@ public class SystemUpdateUtils {
 	 */
 	private static void download(String url,File destFile){
 		
-		//since4.3 use ClosableHttpClient
+		//3.x use HttpClient,4.x use DefaultHttpClient,4.3 use ClosableHttpClient
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		InputStream is = null;
 		

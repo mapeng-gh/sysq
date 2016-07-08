@@ -97,7 +97,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 				return;
 			}
 			for(String line : lines){
-				if(!StringUtils.isEmpty(line)){
+				if(!StringUtils.isEmpty(line) && !line.startsWith("--")){
 					try{
 						db.execSQL(line);
 					}catch(SQLException e){
