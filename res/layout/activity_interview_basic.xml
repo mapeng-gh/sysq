@@ -83,6 +83,13 @@
                style="@style/interview_interviewer_basic_edittext"
                android:background="@drawable/edittext_border"
                android:layout_gravity="center_vertical"/>
+           <TextView 
+	           	android:layout_width="0dp"
+	           	android:layout_weight="1"
+	           	android:layout_height="wrap_content"
+	           	android:text="@string/interview_interviewer_basic_province_hint"
+	           	style="@style/interview_interviewer_basic_hint"
+	           	android:layout_gravity="center_vertical"/>
 	</LinearLayout>
 	
     <LinearLayout 
@@ -213,6 +220,13 @@
                style="@style/interview_interviewer_basic_edittext"
                android:background="@drawable/edittext_border"
                android:layout_gravity="center_vertical"/>
+           <TextView 
+	           	android:layout_width="0dp"
+	           	android:layout_weight="1"
+	           	android:layout_height="wrap_content"
+	           	android:text="@string/interview_interviewer_basic_family_mobile_hint"
+	           	style="@style/interview_interviewer_basic_hint"
+	           	android:layout_gravity="center_vertical"/>
     </LinearLayout>
     
     <LinearLayout 

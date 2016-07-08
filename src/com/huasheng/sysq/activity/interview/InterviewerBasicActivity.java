@@ -1,7 +1,5 @@
 package com.huasheng.sysq.activity.interview;
 
-import org.apache.commons.lang3.StringUtils;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -73,69 +71,69 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 	private InterviewBasic collectData(){
 		InterviewBasic interviewBasic = new InterviewBasic();
 		
-		String username = userET.getText().toString();
-		if(StringUtils.isEmpty(StringUtils.trim(username))){
-			SysqApplication.showMessage("姓名不能为空");
+		String username = userET.getText().toString().trim();
+		if(username.length() < 2){
+			SysqApplication.showMessage("姓名不正确");
 			return null;
 		}
 		interviewBasic.setUsername(username);
 		
-		String identityCard = identityCardET.getText().toString();
+		String identityCard = identityCardET.getText().toString().trim();
 		if(!RegexUtils.test("[0-9A-Za-z]{18}", identityCard)){
-			SysqApplication.showMessage("身份证必须是18位数字和字母组合");
+			SysqApplication.showMessage("身份证号码不正确");
 			return null;
 		}
 		interviewBasic.setIdentityCard(identityCard);
 		
-		String province = provinceET.getText().toString();
-		if(StringUtils.isEmpty(StringUtils.trim(province))){
-			SysqApplication.showMessage("省/自治区/直辖市不能为空");
+		String province = provinceET.getText().toString().trim();
+		if(province.length() <1){
+			SysqApplication.showMessage("省/自治区/直辖市不正确");
 			return null;
 		}
 		interviewBasic.setProvince(province);
 		
-		String city = cityET.getText().toString();
-		if(StringUtils.isEmpty(StringUtils.trim(city))){
-			SysqApplication.showMessage("市/县/区不能为空");
+		String city = cityET.getText().toString().trim();
+		if(city.length() < 1){
+			SysqApplication.showMessage("市/县/区不正确");
 			return null;
 		}
 		interviewBasic.setCity(city);
 		
-		String address = addressET.getText().toString();
-		if(StringUtils.isEmpty(StringUtils.trim(address))){
-			SysqApplication.showMessage("联系地址不能为空");
+		String address = addressET.getText().toString().trim();
+		if(address.length() < 1){
+			SysqApplication.showMessage("联系地址不正确");
 			return null;
 		}
 		interviewBasic.setAddress(address);
 		
-		String postCode = postCodeET.getText().toString();
+		String postCode = postCodeET.getText().toString().trim();
 		if(!RegexUtils.test("[0-9]{6}", postCode)){
-			SysqApplication.showMessage("邮编必须是6位数字");
+			SysqApplication.showMessage("邮政编码不正确");
 			return null;
 		}
 		interviewBasic.setPostCode(postCode);
 		
-		String mobile = mobileET.getText().toString();
-		if(!RegexUtils.test("[0-9]{10,11}", mobile)){
-			SysqApplication.showMessage("请输入正确的座机号码或者手机号码");
+		String mobile = mobileET.getText().toString().trim();
+		if(!RegexUtils.test("[0-9]{10,12}", mobile)){
+			SysqApplication.showMessage("联系电话不正确");
 			return null;
 		}
 		interviewBasic.setMobile(mobile);
 		
-		String familyAddress = familyAddressET.getText().toString();
-		interviewBasic.setFamilyAddress(StringUtils.trim(familyAddress));
+		String familyAddress = familyAddressET.getText().toString().trim();
+		interviewBasic.setFamilyAddress(familyAddress);
 		
-		String familyMobile = familyMobileET.getText().toString();
-		if(!StringUtils.isEmpty(familyMobile)){
-			if(!RegexUtils.test("1[0-9]{10}", familyMobile)){
-				SysqApplication.showMessage("亲属联系电话必须是以1开头的11位数字");
+		String familyMobile = familyMobileET.getText().toString().trim();
+		if(familyMobile.length()>0){
+			if(!RegexUtils.test("[0-9]{10,12}", familyMobile)){
+				SysqApplication.showMessage("亲属联系电话不正确");
 				return null;
 			}
 		}
 		interviewBasic.setFamilyMobile(familyMobile);
 
-		String remark = remarkET.getText().toString();
-		interviewBasic.setRemark(StringUtils.trim(remark));
+		String remark = remarkET.getText().toString().trim();
+		interviewBasic.setRemark(remark);
 		
 		return interviewBasic;
 	}

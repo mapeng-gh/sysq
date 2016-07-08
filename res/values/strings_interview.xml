@@ -15,12 +15,14 @@
     <string name="interview_interviewer_basic_family_mobile">亲属联系电话：</string>
     <string name="interview_interviewer_basic_remark">备注：</string>
     
-    <string name="interview_interviewer_basic_username_hint">2-10个中文字</string>
-    <string name="interview_interviewer_basic_identity_card_hint">18位</string>
-    <string name="interview_interviewer_basic_city_hint">2-10个中文字</string>
-    <string name="interview_interviewer_basic_address_hint">5-50个中文字</string>
-    <string name="interview_interviewer_basic_post_code_hint">6位数字</string>
-    <string name="interview_interviewer_basic_mobile_hint">10或11位数字</string>
+    <string name="interview_interviewer_basic_username_hint">*至少2个中文字</string>
+    <string name="interview_interviewer_basic_identity_card_hint">*18位数字或字母组合</string>
+    <string name="interview_interviewer_basic_province_hint">*</string>
+    <string name="interview_interviewer_basic_city_hint">*2-10个中文字</string>
+    <string name="interview_interviewer_basic_address_hint">*5-50个中文字</string>
+    <string name="interview_interviewer_basic_post_code_hint">*6位数字</string>
+    <string name="interview_interviewer_basic_mobile_hint">*10到12位数字</string>
+    <string name="interview_interviewer_basic_family_mobile_hint">10到12位数字</string>
     <string name="interview_interviewer_basic_remark_hint">病例卡号、住院卡号</string>
     
     <string name="interview_interviewer_basic_submit">下一步</string>
