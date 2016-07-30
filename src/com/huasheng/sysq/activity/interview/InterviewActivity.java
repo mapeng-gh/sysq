@@ -43,12 +43,18 @@ public class InterviewActivity extends Activity{
 	private int interviewBasicId;
 	private String questionaireCode;
 	private String questionCode;
-
+	
+	public  static InterviewActivity instance;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_interview);
+		
+		//供外部使用context
+		this.instance = this;
 		
 		//初始化外部参数
 		this.initParam();

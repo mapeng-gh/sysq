@@ -304,6 +304,19 @@ function pauseInterview(){
 function showMsg(msg){
 	appservice.showMsg(msg);
 }
+function showDialog(title,content){
+	appservice.showDialog(title,content);
+}
+
+/**
+ * 添加社会阶层编码
+ * @param title
+ * @param content
+ */
+function addSocialCode(title,content){
+	$("div.question div.description").after('<div><a href="javascript:void(0)" onclick="showDialog(\''+title+'\',\''+content+'\')">'+title+'</a></div>');
+}
+
 
 /**
  * 跳转指定问题

@@ -6,10 +6,15 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.view.Gravity;
 import android.webkit.JavascriptInterface;
 
 import com.google.gson.reflect.TypeToken;
 import com.huasheng.sysq.activity.IndexActivity;
+import com.huasheng.sysq.activity.interview.InterviewActivity;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewBasic;
@@ -420,6 +425,28 @@ public class JSObject {
 	@JavascriptInterface
 	public void showMsg(String msg){
 		SysqApplication.showMessage(msg);
+	}
+	
+	/**
+	 * 弹出对话框
+	 * @param title
+	 * @param content
+	 */
+	@JavascriptInterface
+	public void showDialog(String title,String content){
+		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(InterviewActivity.instance);
+		dialogBuilder.setTitle(title);
+		content = FormatUtils.handPara4App(content);//将标签<para>换成\n
+		dialogBuilder.setMessage(content);
+		dialogBuilder.setPositiveButton("确定", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		AlertDialog dialog = dialogBuilder.create();
+		dialog.getWindow().setLayout(500, 500);
+		dialog.getWindow().setGravity(Gravity.CENTER_VERTICAL|Gravity.RIGHT);
+		dialog.show();
 	}
 	
 }
