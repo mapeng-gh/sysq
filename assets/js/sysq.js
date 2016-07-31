@@ -451,7 +451,7 @@ function jumpToIndex(){
 /**
  * 检查空值
  */
-function checkNull(){
+function checkData(){
 	
 	var isValid = true;
 	
@@ -464,11 +464,32 @@ function checkNull(){
 		
 		var type = $answer.data("type");
 		if(type == "spinbox"){//数字框
-			var value = $answer.find("input[type='number']").val();
+			
+			var numInput$ = $answer.find("input[type='number']");
+			var value = numInput$.val();
+			var start = numInput$.data("start");
+			var end = numInput$.data("end");
+			
 			if(!/^\d+$/.test(value)){
 				showMsg("请输入正确的数字");
 				isValid = false;
 				return false;
+			}
+			
+			if(start){
+				if(parseInt(value) < parseInt(start)){
+					showMsg("请输入大于或等于"+start+"的数");
+					isValid = false;
+					return false;
+				}
+			}
+			
+			if(end){
+				if(parseInt(value) > parseInt(end)){
+					showMsg("请输入小于或等于"+end+"的数");
+					isValid = false;
+					return false;
+				}
 			}
 			
 		}else if(type == "calendar"){//日期

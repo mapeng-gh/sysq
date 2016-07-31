@@ -102,7 +102,7 @@
 								
 							{{else if answerWrap.answer.type == "spinbox"}}		<!-- 数字框 -->
 							
-								<input type="number"  min="{{answerWrap.spinBoxOption.start}}" max="{{answerWrap.spinBoxOption.end}}" step="{{answerWrap.spinBoxOption.step}}"/>
+								<input type="number"  data-start="{{answerWrap.spinBoxOption.start}}" data-end="{{answerWrap.spinBoxOption.end}}" data-step="{{answerWrap.spinBoxOption.step}}"/>
 								
 							{{/if}}
 						
@@ -118,7 +118,7 @@
 	
 	<div class="footer">
 		<input type="button" value="上一题" class="btn-previous" onclick="jumpToPreviousQuestion()"/>
-		<input type="button" value="下一题" class="btn-next" onclick="if(checkNull()===false){return;}{{question.exitLogic}}"/>
+		<input type="button" value="下一题" class="btn-next" onclick="if(checkData()===false){return;}{{question.exitLogic}}"/>
 	</div>
 	
 </div>

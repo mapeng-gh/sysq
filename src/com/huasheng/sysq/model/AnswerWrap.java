@@ -1,6 +1,7 @@
 package com.huasheng.sysq.model;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public class AnswerWrap {
 	private List<Map<String,String>> radioOptions;
 	private Map<String,String> sliderOption;
 	private List<Map<String,String>> dropDownListOptions;
-	private Map<String,String> spinBoxOption;
+	private Map<String,String> spinBoxOption = new HashMap<String,String>();
 	private List<Map<String,String>> checkboxOptions;
 	
 	public AnswerWrap(){
@@ -38,9 +39,11 @@ public class AnswerWrap {
 			Gson gson = new Gson();
 			this.dropDownListOptions = gson.fromJson(answer.getExtra(), type);
 		}else if(answer.getType().equals(Answer.TYPE_SPIN_BOX)){
-			Type type = new TypeToken<Map<String,String>>(){}.getType();
-			Gson gson = new Gson();
-			this.spinBoxOption = gson.fromJson(answer.getExtra(), type);	
+			if(answer.getExtra() != null && answer.getExtra().trim().length() > 0){
+				Type type = new TypeToken<Map<String,String>>(){}.getType();
+				Gson gson = new Gson();
+				this.spinBoxOption = gson.fromJson(answer.getExtra(), type);	
+			}
 		}else if(answer.getType().equals(Answer.TYPE_CHECKBOX)){
 			Type type = new TypeToken<List<Map<String,String>>>(){}.getType();
 			Gson gson = new Gson();
