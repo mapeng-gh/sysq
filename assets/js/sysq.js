@@ -118,7 +118,12 @@ function getLocalAnswerValue(){
  * @param answerCode
  */
 function getAnswerValue(answerCode){
-	return getAnswer(answerCode)["value"];
+	var value = getAnswer(answerCode)["value"];
+	if(isNaN(value)){
+		return value;
+	}else{//转化成数字
+		return parseFloat(value);
+	}
 }
 
 /**
