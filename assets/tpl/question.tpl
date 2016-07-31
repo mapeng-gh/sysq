@@ -48,6 +48,28 @@
 									{{/each}}
 								
 								{{/if}}
+								
+							{{else if answerWrap.answer.type == "checkbox"}}		<!-- 多选框 -->
+							
+								{{if answerWrap.answer.showType == "horizontal"}}  <!-- 横向   -->
+								
+									{{each answerWrap.checkboxOptions as checkboxOption i}}
+										<span class="checkbox-option">
+											<input type="checkbox"  value="{{checkboxOption.value}}" />
+											<span class="size-answer-text">{{checkboxOption.text}}</span>
+										</span>
+									{{/each}}	
+												
+								{{else}} 	<!-- 纵向  -->
+								
+									{{each answerWrap.checkboxOptions as checkboxOption i}}
+										<div class="checkbox-option">
+											<input type="checkbox"  value="{{checkboxOption.value}}" />
+											<span class="size-answer-text">{{checkboxOption.text}}</span>
+										</div>
+									{{/each}}
+								
+								{{/if}}
 							
 							{{else if answerWrap.answer.type == "slider"}}	<!-- 滑动块 -->
 							

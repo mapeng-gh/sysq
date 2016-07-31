@@ -15,6 +15,7 @@ public class AnswerWrap {
 	private Map<String,String> sliderOption;
 	private List<Map<String,String>> dropDownListOptions;
 	private Map<String,String> spinBoxOption;
+	private List<Map<String,String>> checkboxOptions;
 	
 	public AnswerWrap(){
 		
@@ -40,6 +41,10 @@ public class AnswerWrap {
 			Type type = new TypeToken<Map<String,String>>(){}.getType();
 			Gson gson = new Gson();
 			this.spinBoxOption = gson.fromJson(answer.getExtra(), type);	
+		}else if(answer.getType().equals(Answer.TYPE_CHECKBOX)){
+			Type type = new TypeToken<List<Map<String,String>>>(){}.getType();
+			Gson gson = new Gson();
+			this.checkboxOptions = gson.fromJson(answer.getExtra(), type);
 		}
 	}
 
@@ -81,5 +86,13 @@ public class AnswerWrap {
 
 	public void setSpinBoxOption(Map<String, String> spinBoxOption) {
 		this.spinBoxOption = spinBoxOption;
+	}
+
+	public List<Map<String, String>> getCheckboxOptions() {
+		return checkboxOptions;
+	}
+
+	public void setCheckboxOptions(List<Map<String, String>> checkboxOptions) {
+		this.checkboxOptions = checkboxOptions;
 	}
 }

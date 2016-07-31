@@ -55,12 +55,21 @@ div.question div.answers div.answer div.content{
 }
 
 	/**单选按钮**/
+div.answer div.content span.checkbox-option{
+	margin-right:50px;
+}
+div.answer div.content div.checkbox-option{
+	margin-top:10px;
+}
+
+	/**多选按钮**/
 div.answer div.content span.radio-option{
 	margin-right:50px;
 }
 div.answer div.content div.radio-option{
 	margin-top:10px;
 }
+
 	/**滑动块**/
 div.answer div.content div.slider-value{
 	text-align:center;

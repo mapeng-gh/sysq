@@ -95,6 +95,16 @@ function getLocalAnswerValue(){
 			var $number = $answer.find("input[type='number']");
 			value = $number.val();
 			text = value;
+			
+		}else if(type == "checkbox"){//多选框
+			
+			var valueArray = [],textArray = [];
+			$answer.find("input[type='checkbox']:checked").each(function(){
+				valueArray.push($(this).val());
+				textArray.push($(this).next().text());
+			});
+			value = valueArray.join(",");
+			text = textArray.join(",");
 		}
 		
 		localAnswers.push({"code":code,"label":label,"value":value,"text":text,"seqNum":seqNum,"questionCode":questionCode});
@@ -283,6 +293,13 @@ function resumeAnswers(answersJS){
 			answer$.find("input[type='date']").val(answer.value);
 		}else if(type == "spinbox"){
 			answer$.find("input[type='number']").val(answer.value);
+		}else if(type == "checkbox"){
+			var valueArray = answer.value.split(",");
+			answer$.find("input[type='checkbox']").each(function(){
+				if(valueArray.indexOf($(this).val()) != -1){
+					$(this).prop("checked",true);
+				}
+			});
 		}
 	}
 }
@@ -430,27 +447,41 @@ function jumpToIndex(){
  * 检查空值
  */
 function checkNull(){
+	
 	var isValid = true;
+	
 	$("div.answer").each(function(){
+		
 		var $answer = $(this);
-		if(!$answer.hasClass("nodisplay")){//隐藏不需检查
-			var type = $answer.data("type");
-			if(type == "spinbox"){
-				var value = $answer.find("input[type='number']").val();
-				if(!/^\d+$/.test(value)){
-					showMsg("请输入正确的数字");
-					isValid = false;
-					return false;
-				}
-			}else if(type == "calendar"){
-				var value = $answer.find("input[type='date']").val();
-				if(value == ""){
-					showMsg("请输入日期");
-					isValid = false;
-					return false;
-				}
+		if($answer.hasClass("nodisplay")){//隐藏不需检查
+			return;
+		}
+		
+		var type = $answer.data("type");
+		if(type == "spinbox"){//数字框
+			var value = $answer.find("input[type='number']").val();
+			if(!/^\d+$/.test(value)){
+				showMsg("请输入正确的数字");
+				isValid = false;
+				return false;
+			}
+			
+		}else if(type == "calendar"){//日期
+			var value = $answer.find("input[type='date']").val();
+			if(value == ""){
+				showMsg("请输入日期");
+				isValid = false;
+				return false;
+			}
+			
+		}else if(type == "checkbox"){//多选
+			if($answer.find("input[type='checkbox']:checked").length == 0){
+				showMsg("请至少选择一个");
+				isValid = false;
+				return false;
 			}
 		}
 	});
+	
 	return isValid;
 }
