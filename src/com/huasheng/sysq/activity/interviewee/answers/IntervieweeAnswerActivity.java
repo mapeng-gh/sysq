@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,9 +19,10 @@ import com.huasheng.sysq.activity.interview.InterviewActivity;
 import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewQuestionWrap;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.FormatUtils;
 
-public class IntervieweeAnswerActivity extends Activity implements OnClickListener{
+public class IntervieweeAnswerActivity extends BaseActivity implements OnClickListener{
 	
 	private int interviewBasicId;
 	private String questionaireCode;

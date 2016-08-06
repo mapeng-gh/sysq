@@ -1,6 +1,5 @@
 package com.huasheng.sysq.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,11 +12,13 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.LoginService;
 import com.huasheng.sysq.service.SystemUpdateService;
+import com.huasheng.sysq.util.ActivityCollector;
+import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.SystemUpdateUtils;
 
-public class LoginActivity extends Activity implements OnClickListener{
+public class LoginActivity extends BaseActivity implements OnClickListener{
 	
 	private EditText userET;
 	private EditText pwdET;
@@ -67,6 +68,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	}
 	
 	@Override
-	public void onBackPressed() {//防止后退、再次进入系统
+	public void onBackPressed() {
+		ActivityCollector.finishAll();
 	}
 }

@@ -2,7 +2,6 @@ package com.huasheng.sysq.activity;
 
 import org.apache.commons.lang3.StringUtils;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,18 +14,18 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.UserCenterService;
+import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 
-public class UserCenterActivity extends Activity implements OnClickListener{
+public class UserCenterActivity extends BaseActivity implements OnClickListener{
 	
 	private LinearLayout containerLL;
 	

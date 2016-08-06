@@ -19,12 +19,13 @@ import android.widget.RadioButton;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.InterviewConstants;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.ScanConstants;
 import com.huasheng.sysq.util.SysqApplication;
 
-public class InterviewerDNAActivity extends Activity implements OnClickListener{
+public class InterviewerDNAActivity extends BaseActivity implements OnClickListener{
 	
 	
 	private EditText sample1ET;

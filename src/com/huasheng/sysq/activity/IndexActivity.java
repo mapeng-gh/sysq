@@ -1,10 +1,10 @@
 package com.huasheng.sysq.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -15,13 +15,14 @@ import com.huasheng.sysq.activity.interview.InterviewerBasicActivity;
 import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
 import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
+import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.SystemUpdateUtils;
 import com.huasheng.sysq.util.UploadUtils;
 
-public class IndexActivity extends Activity implements OnClickListener{
+public class IndexActivity extends BaseActivity implements OnClickListener{
 	
 	private LinearLayout reservationLL;
 	private LinearLayout dataStaticsLL;
@@ -96,7 +97,29 @@ public class IndexActivity extends Activity implements OnClickListener{
 			
 		}else if(view.getId() == R.id.ll_index_data_upload){//上传
 			
-			UploadUtils.upload(this);
+			AlertDialog.Builder uploadDialogBuilder = new AlertDialog.Builder(this);
+			uploadDialogBuilder.setTitle("上传");
+			uploadDialogBuilder.setMessage("正在上传中，请稍候...");
+			uploadDialogBuilder.setCancelable(false);
+			final AlertDialog uploadDialog = uploadDialogBuilder.create();
+			uploadDialog.show();
+			
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					//Can't create handler inside thread that has not called Looper.prepare()
+					Looper.prepare();
+					try{
+						UploadUtils.upload();
+						SysqApplication.showMessage("上传成功");
+					}catch(Exception e){
+						SysqApplication.showMessage("上传失败：" + e.getMessage());
+					}finally{
+						uploadDialog.dismiss();
+					}
+					Looper.loop();
+				}
+			}).start();
 			
 		}else if(view.getId() == R.id.ll_index_help){
 			

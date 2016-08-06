@@ -24,10 +24,11 @@ import com.huasheng.sysq.activity.interviewee.answers.IntervieweeAnswerActivity;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionaireWrap;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.ScanConstants;
 import com.huasheng.sysq.util.SysqApplication;
 
-public class IntervieweeQuestionaireActivity extends Activity implements OnClickListener{
+public class IntervieweeQuestionaireActivity extends BaseActivity implements OnClickListener{
 	
 	private int interviewBasicId;
 	

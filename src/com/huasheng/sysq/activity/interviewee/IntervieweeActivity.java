@@ -21,9 +21,10 @@ import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionai
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.Page;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.ScanConstants;
 
-public class IntervieweeActivity extends Activity implements OnClickListener{
+public class IntervieweeActivity extends BaseActivity implements OnClickListener{
 	
 	private ListView listView;
 	private IntervieweeAdapter adapter;

@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 import org.apache.commons.lang3.StringUtils;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
@@ -24,11 +23,12 @@ import android.widget.TimePicker;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.db.ReservationDB;
 import com.huasheng.sysq.model.Reservation;
+import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.RegexUtils;
 import com.huasheng.sysq.util.SysqApplication;
 
-public class ReservationAddActivity extends Activity implements OnClickListener{
+public class ReservationAddActivity extends BaseActivity implements OnClickListener{
 	
 	private TextView selectDateBtn;
 	private EditText bookDateET;

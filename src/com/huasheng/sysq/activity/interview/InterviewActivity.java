@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
@@ -24,6 +23,7 @@ import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.AudioUtils;
+import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.FormatUtils;
 import com.huasheng.sysq.util.InterviewContext;
@@ -34,7 +34,7 @@ import com.huasheng.sysq.util.JsonUtils;
 import com.huasheng.sysq.util.RenderUtils;
 import com.huasheng.sysq.util.TemplateConstants;
 
-public class InterviewActivity extends Activity{
+public class InterviewActivity extends BaseActivity{
 	
 	private WebView interviewWV;
 	

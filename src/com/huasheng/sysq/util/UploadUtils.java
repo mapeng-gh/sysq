@@ -4,19 +4,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Environment;
 
 public class UploadUtils {
 	
-	public static final String AUDIO_STORAGE_DIR = Environment.getExternalStorageDirectory() + File.separator + "sysq" + File.separator + "log";//录音文件存储目录
-	
+	/**
+	 * 读取配置信息
+	 * @return
+	 */
 	private static Properties loadConfig(){
 		Properties props = new Properties();
 		InputStream is = UploadUtils.class.getClassLoader().getResourceAsStream("ftp.properties");
@@ -33,67 +35,74 @@ public class UploadUtils {
 		}
 		return props;
 	}
-
-	private static void upload(File[] files){
-		//读取配置
+	
+	/**
+	 * 连接服务器
+	 * @param ip
+	 * @param port
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	private static FTPClient openConnection(){
+		
 		Properties props = loadConfig();
 		String ip = props.getProperty("ip");
 		int port = Integer.parseInt(props.getProperty("port"));
 		String username = props.getProperty("username");
 		String password = props.getProperty("password");
-		String remoteDir = props.getProperty("remoteDir");
 		
-		//上传
-		FTPClient ftpClient = new FTPClient(); 
+		FTPClient ftpClient = new FTPClient();
 		try{
 			ftpClient.connect(ip, port);
-		}catch(Exception e){
-			SysqApplication.showMessage("连接服务器错误");
-			return;
-		}
-		
-		try{
 			boolean loginResult = ftpClient.login(username, password);  
-			int returnCode = ftpClient.getReplyCode();
-			if (loginResult && FTPReply.isPositiveCompletion(returnCode)){
-				//ftpClient.changeWorkingDirectory(remoteDir);
-				for(File file : files){
-					InputStream is = new FileInputStream(file);
-					ftpClient.storeFile(file.getName(),is);
-					is.close();
-				}
-				ftpClient.disconnect();
-			}else{
-				SysqApplication.showMessage("登录服务器失败");
-				return;
+			if(loginResult && FTPReply.isPositiveCompletion(ftpClient.getReplyCode())){
+				return ftpClient;
 			}
+			throw new RuntimeException("连接FTP服务器错误");
 		}catch(Exception e){
-			e.printStackTrace();
+			throw new RuntimeException("连接FTP服务器错误", e);
 		}
-		
 	}
 	
-	public static void upload(Context context){
-		
-		File auditDir = new File(AUDIO_STORAGE_DIR);
-		final File[] files = auditDir.listFiles();
-		if(files != null && files.length > 0){
-			
-			//上传dialog
-			AlertDialog.Builder uploadDialogBuilder = new AlertDialog.Builder(context);
-			uploadDialogBuilder.setTitle("上传");
-			uploadDialogBuilder.setMessage("正在上传中，请稍候...");
-			uploadDialogBuilder.setCancelable(false);
-			AlertDialog uploadDialog = uploadDialogBuilder.create();
-			uploadDialog.show();
-			
-			//新起线程防止阻塞dialog
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					upload(files);
+	/**
+	 * 准备文件
+	 * @return
+	 */
+	private static File[] prepareFiles(){
+		File[] files = new File(Environment.getExternalStorageDirectory() + File.separator + "sysq" + File.separator + "log").listFiles();
+		return files;
+	}
+	
+	/**
+	 * 上传文件
+	 * @param files
+	 */
+	public static void upload(){
+		FTPClient ftpClient = openConnection();
+		List<InputStream> inputStreamList = new ArrayList<InputStream>();
+		try{
+			File[] files = prepareFiles();
+			for(File file : files){
+				InputStream is = new FileInputStream(file);
+				ftpClient.storeFile(file.getName(),is);
+				inputStreamList.add(is);
+			}
+		}catch(Exception e){
+			throw new RuntimeException("上传文件错误", e);
+		}finally{
+			for(InputStream is : inputStreamList){
+				try{
+					is.close();
+				}catch(Exception e){
 				}
-			}).start();
+			}
+			if(ftpClient.isConnected()){
+				try{
+					ftpClient.disconnect();
+				}catch(Exception e){
+				}
+			}
 		}
 	}
 }
