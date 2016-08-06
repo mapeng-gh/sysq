@@ -4,9 +4,6 @@ import java.lang.Thread.UncaughtExceptionHandler;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Looper;
-import android.util.Log;
 import android.widget.Toast;
 
 public class SysqApplication extends Application{
@@ -35,16 +32,6 @@ public class SysqApplication extends Application{
 	
 	public static Context getContext(){
 		return context;
-	}
-	
-	/**
-	 * 跳转到活动
-	 * @param activityClass
-	 */
-	public static void jumpToActivity(Class activityClass){
-		Intent intent = new Intent(getContext(),activityClass);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		getContext().startActivity(intent);
 	}
 	
 	/**

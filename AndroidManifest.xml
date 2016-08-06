@@ -38,6 +38,7 @@
         <!-- login -->
         <activity
             android:name=".activity.LoginActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -47,7 +48,7 @@
         </activity>
         
         <!-- index -->
-        <activity android:name=".activity.IndexActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name=".activity.IndexActivity" android:launchMode="singleTask" android:screenOrientation="landscape"></activity>
         
         <!-- reservation -->
          <activity android:name=".activity.reservation.ReservationAddActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>

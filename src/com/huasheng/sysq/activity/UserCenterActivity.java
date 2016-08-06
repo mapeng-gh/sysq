@@ -153,6 +153,7 @@ public class UserCenterActivity extends BaseActivity implements OnClickListener{
 	}
 	
 	private void logout(){
+		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("确定退出系统吗？");
 		builder.setIcon(android.R.drawable.ic_dialog_info);
@@ -165,8 +166,7 @@ public class UserCenterActivity extends BaseActivity implements OnClickListener{
 				InterviewContext.clearInterviewContext();
 				
 				//跳转登录
-				Intent loginIntent = new Intent(UserCenterActivity.this,LoginActivity.class);
-				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				Intent loginIntent  = new Intent(UserCenterActivity.this,LoginActivity.class);
 				UserCenterActivity.this.startActivity(loginIntent);
 			}
 		});

@@ -164,7 +164,9 @@ public class SystemUpdateUtils {
 									
 									//跳转登录
 									if(isJumpToLogin && newInterviewVersionCode > curInterviewVersionCode && newAppVersionCode == curAppVersionCode){
-										SysqApplication.jumpToActivity(LoginActivity.class);
+										Intent loginIntent = new Intent(SysqApplication.getContext(),LoginActivity.class);
+										loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+										SysqApplication.getContext().startActivity(loginIntent);
 									}
 								}
 							}).start();

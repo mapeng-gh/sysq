@@ -23,7 +23,6 @@ import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.InterviewConstants;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.ScanConstants;
-import com.huasheng.sysq.util.SysqApplication;
 
 public class InterviewerDNAActivity extends BaseActivity implements OnClickListener{
 	
@@ -85,7 +84,8 @@ public class InterviewerDNAActivity extends BaseActivity implements OnClickListe
 			InterviewContext.setCurInterviewBasic(interviewBasic);
 			
 			//跳转问卷页
-			SysqApplication.jumpToActivity(InterviewActivity.class);
+			Intent interviewIntent = new Intent(this,InterviewActivity.class);
+			this.startActivity(interviewIntent);
 			
 		}else if(view.getId() == R.id.btn_interview_dna_sample1){
 			

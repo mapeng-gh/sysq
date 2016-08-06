@@ -128,6 +128,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 
 	@Override
 	public void onBackPressed() {
+		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("确定退出系统吗？");
 		builder.setIcon(android.R.drawable.ic_dialog_info);
@@ -140,7 +141,8 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 				InterviewContext.clearInterviewContext();
 				
 				//跳转登录
-				SysqApplication.jumpToActivity(LoginActivity.class);
+				Intent loginIntent = new Intent(IndexActivity.this,LoginActivity.class);
+				IndexActivity.this.startActivity(loginIntent);
 			}
 		});
 		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -149,8 +151,11 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 			};
 		});
 		builder.show();
+		
+		
 	}
 	
 	
-
+	
+	
 }

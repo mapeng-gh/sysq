@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.view.Gravity;
 import android.webkit.JavascriptInterface;
 
@@ -313,7 +314,9 @@ public class JSObject {
 			InterviewService.updateInterviewBasic(curInterviewBasic);
 			
 			//跳转首页
-			SysqApplication.jumpToActivity(IndexActivity.class);
+			Intent indexIntent = new Intent(SysqApplication.getContext(),IndexActivity.class);
+			indexIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			SysqApplication.getContext().startActivity(indexIntent);
 			
 		}else{
 			
@@ -366,7 +369,9 @@ public class JSObject {
 		InterviewService.updateInterviewQuestionaire(curInterviewQuestionaire);
 		
 		//跳转主页
-		SysqApplication.jumpToActivity(IndexActivity.class);
+		Intent indexIntent = new Intent(SysqApplication.getContext(),IndexActivity.class);
+		indexIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		SysqApplication.getContext().startActivity(indexIntent);
 	}
 	
 	/**
@@ -390,7 +395,9 @@ public class JSObject {
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
 		//跳转主页
-		SysqApplication.jumpToActivity(IndexActivity.class);
+		Intent indexIntent = new Intent(SysqApplication.getContext(),IndexActivity.class);
+		indexIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		SysqApplication.getContext().startActivity(indexIntent);
 	}
 	
 	/**
@@ -415,7 +422,9 @@ public class JSObject {
 		//停止录音
 		AudioUtils.stop();
 		
-		SysqApplication.jumpToActivity(IndexActivity.class);
+		Intent indexIntent = new Intent(SysqApplication.getContext(),IndexActivity.class);
+		indexIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+		SysqApplication.getContext().startActivity(indexIntent);
 	}
 	
 	/**

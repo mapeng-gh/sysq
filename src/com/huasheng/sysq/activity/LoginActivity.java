@@ -1,5 +1,6 @@
 package com.huasheng.sysq.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,7 +13,6 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.LoginService;
 import com.huasheng.sysq.service.SystemUpdateService;
-import com.huasheng.sysq.util.ActivityCollector;
 import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
@@ -62,13 +62,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 				SysqContext.setCurrentVersion(SystemUpdateService.getCurrentInterviewVersion());
 				
 				//跳转首页
-				SysqApplication.jumpToActivity(IndexActivity.class);
+				Intent indexIntent = new Intent(this,IndexActivity.class);
+				this.startActivity(indexIntent);
 			}
 		}
-	}
-	
-	@Override
-	public void onBackPressed() {
-		ActivityCollector.finishAll();
 	}
 }
