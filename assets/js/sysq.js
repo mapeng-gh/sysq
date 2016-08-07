@@ -336,7 +336,9 @@ function showDialog(title,content){
  * @param content
  */
 function addSocialCode(title,content){
-	$("div.question div.description").after('<div><a href="javascript:void(0)" onclick="showDialog(\''+title+'\',\''+content+'\')">'+title+'</a></div>');
+	if(!isReplay || (isReplay && isLastQuestion)){
+		$("div.question div.description").after('<div><a href="javascript:void(0)" onclick="showDialog(\''+title+'\',\''+content+'\')">'+title+'</a></div>');
+	}
 }
 
 

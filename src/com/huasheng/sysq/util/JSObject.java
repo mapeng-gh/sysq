@@ -99,11 +99,15 @@ public class JSObject {
 		JSFuncInvokeUtils.invoke("isReplay=true;");
 		List<Question> questionList = InterviewContext.getQuestionList();
 		for(Question question : questionList){
+			if(question.getCode().equals(prevQuestion.getCode())){
+				JSFuncInvokeUtils.invoke("isLastQuestion=true;");
+			}
 			JSFuncInvokeUtils.invoke(question.getEntryLogic());
 			if(!question.getCode().equals(prevQuestion.getCode())){//上一个问题不需执行退出逻辑
 				JSFuncInvokeUtils.invoke(question.getExitLogic());
 			}
 		}
+		JSFuncInvokeUtils.invoke("isLastQuestion=false;");
 		JSFuncInvokeUtils.invoke("isReplay=false;");
 		
 		//问题描述动态插值
@@ -158,11 +162,15 @@ public class JSObject {
 			JSFuncInvokeUtils.invoke("isReplay=true;");
 			List<Question> questionList = InterviewContext.getQuestionList();
 			for(Question question : questionList){
+				if(question.getCode().equals(specQuestion.getCode())){
+					JSFuncInvokeUtils.invoke("isLastQuestion=true;");
+				}
 				JSFuncInvokeUtils.invoke(question.getEntryLogic());
 				if(!question.getCode().equals(specQuestion.getCode())){//上一个问题不需执行退出逻辑
 					JSFuncInvokeUtils.invoke(question.getExitLogic());
 				}
 			}
+			JSFuncInvokeUtils.invoke("isLastQuestion=false;");
 			JSFuncInvokeUtils.invoke("isReplay=false;");
 			
 			//问题描述动态插值

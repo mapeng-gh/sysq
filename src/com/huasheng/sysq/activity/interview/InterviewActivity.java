@@ -176,11 +176,15 @@ public class InterviewActivity extends BaseActivity{
 		JSFuncInvokeUtils.invoke("isReplay=true;");
 		List<Question> backQuestionList = InterviewContext.getQuestionList();
 		for(Question question : backQuestionList){
+			if(question.getCode().equals(questionCode)){
+				JSFuncInvokeUtils.invoke("isLastQuestion=true;");
+			}
 			JSFuncInvokeUtils.invoke(question.getEntryLogic());
 			if(!question.getCode().equals(questionCode)){//上一个问题不需执行退出逻辑
 				JSFuncInvokeUtils.invoke(question.getExitLogic());
 			}
 		}
+		JSFuncInvokeUtils.invoke("isLastQuestion=false;");
 		JSFuncInvokeUtils.invoke("isReplay=false;");
 		
 		//问题描述动态插值
@@ -261,11 +265,15 @@ public class InterviewActivity extends BaseActivity{
 		JSFuncInvokeUtils.invoke("isReplay=true;");
 		List<Question> backQuestionList = InterviewContext.getQuestionList();
 		for(Question question : backQuestionList){
+			if(question.getCode().equals(questionCode)){
+				JSFuncInvokeUtils.invoke("isLastQuestion=true;");
+			}
 			JSFuncInvokeUtils.invoke(question.getEntryLogic());
 			if(!question.getCode().equals(questionCode)){//上一个问题不需执行退出逻辑
 				JSFuncInvokeUtils.invoke(question.getExitLogic());
 			}
 		}
+		JSFuncInvokeUtils.invoke("isLastQuestion=false;");
 		JSFuncInvokeUtils.invoke("isReplay=false;");
 		
 		//问题描述动态插值
