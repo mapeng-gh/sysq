@@ -3,6 +3,8 @@ package com.huasheng.sysq.util;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.StatFs;
@@ -25,21 +27,18 @@ public class AudioUtils {
 	
 	private static String genFilePath(String username){
 		
-		//检测录音目录是否存在
+		//目录检查
 		File audioDir = new File(Environment.getExternalStorageDirectory(),AUDIO_STORAGE_DIR);
 		if(!audioDir.exists()){
-			audioDir.mkdirs();
+			audioDir.mkdir();
 		}
 		
-		//根据规则生成文件名
-		String curTime = DateTimeUtils.getCurDateTime();
-		String filename = username + "_" + curTime + "_endTime" + ".aac";
+		//文件名规则
+		String curTime = DateTimeUtils.getCustomDateTime("yyyyMMddHHmmss");
+		String filename = username + "_" + curTime + ".aac";
 		
-		//检测文件是否已存在
+		//新建文件
 		File audioFile = new File(audioDir,filename);
-		if(audioFile.exists()){
-			audioFile.delete();
-		}
 		try{
 			audioFile.createNewFile();
 		}catch(IOException e){
@@ -74,7 +73,6 @@ public class AudioUtils {
 				isStarted = true;
 				
 				SysqApplication.showMessage("录音启动成功");
-				
 			}
 			
 		}catch(Exception e){
@@ -87,22 +85,12 @@ public class AudioUtils {
 		
 		try{
 			if(isStarted){
-				
 				mediaRecorder.stop();  
 				mediaRecorder.release(); 
 				mediaRecorder = null;
-				
 				isStarted = false;
-				
-				//文件重命名（添加结束时间）
-				File auditFile = new File(audioFilePath);
-				audioFilePath = audioFilePath.replace("endTime",DateTimeUtils.getCurDateTime());
-				auditFile.renameTo(new File(audioFilePath));
-				
 				SysqApplication.showMessage("录音停止成功");
 			}
-			
-			
 		}catch(Exception e){
 			SysqApplication.showMessage("录音停止失败:" + e.toString());
 		}
