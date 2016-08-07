@@ -66,9 +66,13 @@ public class SystemUpdateUtils {
 			@Override
 			public void run() {
 				
-				//清空文件夹
+				//准备临时目录
 				try{
-					FileUtils.cleanDirectory(UPDATE_DIR);
+					if(UPDATE_DIR.exists()){
+						FileUtils.cleanDirectory(UPDATE_DIR);
+					}else{
+						UPDATE_DIR.mkdir();
+					}
 				}catch(IOException e){}
 				
 				//下载配置文件
