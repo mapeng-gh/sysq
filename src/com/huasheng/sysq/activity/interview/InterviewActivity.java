@@ -122,7 +122,7 @@ public class InterviewActivity extends BaseActivity{
 		interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
 		interviewBasic.setCurQuestionaireCode(this.questionaireCode);
 		interviewBasic.setNextQuestionCode(this.questionCode);
-		interviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
+		interviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 		InterviewService.updateInterviewBasic(interviewBasic);
 		
 		//保存问卷记录到上下文
@@ -131,7 +131,7 @@ public class InterviewActivity extends BaseActivity{
 		
 		//修改问卷记录状态
 		interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DOING);
-		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurTime());
+		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 		InterviewService.updateInterviewQuestionaire(interviewQuestionaire);
 		
 		//恢复问题返回栈
@@ -305,7 +305,7 @@ public class InterviewActivity extends BaseActivity{
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 		curInterviewBasic.setCurQuestionaireCode(firstQuestionaire.getCode());
 		curInterviewBasic.setNextQuestionCode("");
-		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
+		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
 		//渲染页面

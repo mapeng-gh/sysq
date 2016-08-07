@@ -13,22 +13,25 @@ public class DateTimeUtils {
 	}
 	
 	/**
-	 * 获取当前时间（yyyy-MM-dd hh:mm）
+	 * 获取自定义格式当前时间
+	 * @param format
 	 * @return
 	 */
-	public static String getCurTime(){
+	public static String getCustomDateTime(String format){
 		Date curDate = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat(format);
 		return dateFormat.format(curDate);
 	}
 	
-	/**
-	 * 获取当前日期（yyyy-MM-dd）
-	 * @return
-	 */
+	public static String getCurDateTime(){
+		return getCustomDateTime("yyyy-MM-dd HH:mm:ss");
+	}
+	
 	public static String getCurDate(){
-		Date curDate = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		return dateFormat.format(curDate);
+		return getCustomDateTime("yyyy-MM-dd");
+	}
+	
+	public static String getCurTime(){
+		return getCustomDateTime("HH:mm:ss");
 	}
 }

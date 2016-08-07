@@ -24,7 +24,7 @@ public class LogUtils {
 		if(isDebugEnabled){
 			Log.i(tag, msg);
 		}else{
-			writeLog("[info]" + "["+DateTimeUtils.getCurTime() + "] " + msg + System.getProperty("line.separator"));
+			writeLog("[info]" + "["+DateTimeUtils.getCurDateTime() + "] " + msg + System.getProperty("line.separator"));
 		}
 	}
 	
@@ -32,7 +32,7 @@ public class LogUtils {
 		if(isDebugEnabled){
 			Log.w(tag, msg);
 		}else{
-			writeLog("[warn]" + "["+DateTimeUtils.getCurTime() + "] " + msg + System.getProperty("line.separator"));
+			writeLog("[warn]" + "["+DateTimeUtils.getCurDateTime() + "] " + msg + System.getProperty("line.separator"));
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class LogUtils {
 		if(isDebugEnabled){
 			Log.e(tag, msg);
 		}else{
-			writeLog("[error]" + "["+DateTimeUtils.getCurTime() + "] " + msg + System.getProperty("line.separator"));
+			writeLog("[error]" + "["+DateTimeUtils.getCurDateTime() + "] " + msg + System.getProperty("line.separator"));
 		}
 	}
 	

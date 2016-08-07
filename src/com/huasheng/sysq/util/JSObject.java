@@ -297,7 +297,7 @@ public class JSObject {
 		//更新当前问卷记录
 		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DONE);
-		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurTime());
+		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 		InterviewService.updateInterviewQuestionaire(interviewQuestionaire);
 		
 		//获取下一个问卷
@@ -310,7 +310,7 @@ public class JSObject {
 			//更新访谈记录
 			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 			curInterviewBasic.setStatus(InterviewBasic.STATUS_DONE);
-			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
+			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 			InterviewService.updateInterviewBasic(curInterviewBasic);
 			
 			//跳转首页
@@ -333,7 +333,7 @@ public class JSObject {
 			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 			curInterviewBasic.setCurQuestionaireCode(nextQuestionaire.getCode());
 			curInterviewBasic.setNextQuestionCode("");
-			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
+			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 			InterviewService.updateInterviewBasic(curInterviewBasic);
 			
 			//渲染页面
@@ -359,13 +359,13 @@ public class JSObject {
 		//更新访问记录
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 		curInterviewBasic.setStatus(InterviewBasic.STATUS_BREAK);
-		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurTime());
+		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
 		//更新问卷记录
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		curInterviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_BREAK);
-		curInterviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurTime());
+		curInterviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 		InterviewService.updateInterviewQuestionaire(curInterviewQuestionaire);
 		
 		//跳转主页

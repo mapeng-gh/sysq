@@ -46,7 +46,7 @@ public class InterviewService {
 		//记录受访者信息、访问状态信息
 		interviewBasic.setInterviewerId(SysqContext.getInterviewer().getId());
 		interviewBasic.setVersionId(SysqContext.getCurrentVersion().getId());
-		interviewBasic.setStartTime(DateTimeUtils.getCurTime());
+		interviewBasic.setStartTime(DateTimeUtils.getCurDateTime());
 		interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
 		
 		//保存
@@ -119,8 +119,8 @@ public class InterviewService {
 		InterviewQuestionaire interviewQuestionaire = new InterviewQuestionaire();
 		interviewQuestionaire.setInterviewBasicId(InterviewContext.getCurInterviewBasic().getId());
 		interviewQuestionaire.setQuestionaireCode(questionaire.getCode());
-		interviewQuestionaire.setStartTime(DateTimeUtils.getCurTime());
-		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurTime());
+		interviewQuestionaire.setStartTime(DateTimeUtils.getCurDateTime());
+		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 		interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DOING);
 		interviewQuestionaire.setSeqNum(questionaire.getSeqNum());
 		interviewQuestionaire.setVersionId(SysqContext.getCurrentVersion().getId());

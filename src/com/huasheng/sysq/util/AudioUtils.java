@@ -32,7 +32,7 @@ public class AudioUtils {
 		}
 		
 		//根据规则生成文件名
-		String curTime = DateTimeUtils.getCurTime();
+		String curTime = DateTimeUtils.getCurDateTime();
 		String filename = username + "_" + curTime + "_endTime" + ".aac";
 		
 		//检测文件是否已存在
@@ -96,7 +96,7 @@ public class AudioUtils {
 				
 				//文件重命名（添加结束时间）
 				File auditFile = new File(audioFilePath);
-				audioFilePath = audioFilePath.replace("endTime",DateTimeUtils.getCurTime());
+				audioFilePath = audioFilePath.replace("endTime",DateTimeUtils.getCurDateTime());
 				auditFile.renameTo(new File(audioFilePath));
 				
 				SysqApplication.showMessage("录音停止成功");
