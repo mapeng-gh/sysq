@@ -9,7 +9,7 @@
     
     <string name="index_search">受访者查询</string>
     <string name="index_upload">上传数据</string>
-    <string name="index_help">帮助</string>
+    <string name="index_help">设置</string>
     
     <dimen name="index_title_text_size">20sp</dimen>
     

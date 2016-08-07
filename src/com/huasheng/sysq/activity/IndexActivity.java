@@ -97,7 +97,9 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 			
 		}else if(view.getId() == R.id.ll_index_data_upload){//上传
 			
-			AlertDialog.Builder uploadDialogBuilder = new AlertDialog.Builder(this);
+			SysqApplication.showMessage("功能有待完善，请稍候...");
+			
+			/*AlertDialog.Builder uploadDialogBuilder = new AlertDialog.Builder(this);
 			uploadDialogBuilder.setTitle("上传");
 			uploadDialogBuilder.setMessage("正在上传中，请稍候...");
 			uploadDialogBuilder.setCancelable(false);
@@ -119,10 +121,10 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 					}
 					Looper.loop();
 				}
-			}).start();
+			}).start();*/
 			
 		}else if(view.getId() == R.id.ll_index_help){
-			
+			SysqApplication.showMessage("功能有待完善，请稍候...");
 		}
 	}
 
