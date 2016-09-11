@@ -74,6 +74,8 @@
          
          <!-- report -->
          <activity android:name=".activity.report.ReportActivity" android:screenOrientation="landscape"></activity>
+         
+         <activity android:name=".activity.settings.FTPActivity"  android:screenOrientation="landscape"></activity>
     
     </application>
 

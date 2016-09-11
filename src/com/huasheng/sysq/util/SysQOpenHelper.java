@@ -22,7 +22,6 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	
 	private static final String TAG = SysQOpenHelper.class.getSimpleName();
 	
-	private static final String DB_NAME = "sysq.db";
 	private static final int VERSION = 1;
 	private static SQLiteDatabase db;
 	
@@ -57,7 +56,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	 */
 	public static SQLiteDatabase getDatabase(){
 		if(db == null){
-			db = new SysQOpenHelper(SysqApplication.getContext(),DB_NAME,null,VERSION).getWritableDatabase();
+			db = new SysQOpenHelper(SysqApplication.getContext(),PathConstants.getDBPath(),null,VERSION).getWritableDatabase();
 		}
 		return db;
 	}

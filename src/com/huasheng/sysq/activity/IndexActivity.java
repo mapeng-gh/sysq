@@ -4,17 +4,20 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.activity.interview.InterviewerBasicActivity;
 import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
 import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
+import com.huasheng.sysq.activity.settings.FTPActivity;
 import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqApplication;
@@ -32,9 +35,13 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 	private LinearLayout interviewerSearchLL;
 	private LinearLayout dataUploadLL;
 	private LinearLayout helpLL;
+	
+	private Handler handler;
+	private String toastMsg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_index);
@@ -63,10 +70,20 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 		helpLL = (LinearLayout)findViewById(R.id.ll_index_help);
 		helpLL.setOnClickListener(this);
 		
+		//处理消息
+		handler = new Handler(){
+			public void handleMessage(Message msg) {
+				if(msg.what == 1){
+					Toast.makeText(IndexActivity.this,toastMsg, Toast.LENGTH_LONG).show();
+				}
+				super.handleMessage(msg);
+			}
+		};
 	}
 
 	@Override
 	public void onClick(View view) {
+		
 		if(view.getId() == R.id.ll_index_reservation){//预约管理
 			
 			startActivity(new Intent(this,ReservationListActivity.class));
@@ -97,35 +114,67 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 			
 		}else if(view.getId() == R.id.ll_index_data_upload){//上传
 			
-			SysqApplication.showMessage("功能有待完善，请稍候...");
+			this.upload();
 			
-			/*AlertDialog.Builder uploadDialogBuilder = new AlertDialog.Builder(this);
-			uploadDialogBuilder.setTitle("上传");
-			uploadDialogBuilder.setMessage("正在上传中，请稍候...");
-			uploadDialogBuilder.setCancelable(false);
-			final AlertDialog uploadDialog = uploadDialogBuilder.create();
-			uploadDialog.show();
+		}else if(view.getId() == R.id.ll_index_help){
 			
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					//Can't create handler inside thread that has not called Looper.prepare()
-					Looper.prepare();
+			Intent ftpIntent = new Intent(this,FTPActivity.class);
+			super.startActivity(ftpIntent);
+		}
+	}
+	
+	/**
+	 * 上传文件
+	 */
+	private void upload(){
+		
+		//主线程不允许进行网络访问
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				try{
+					
+					//检查配置信息
+					UploadUtils.checkEnv();
+					
+					//显示进度条
+					AlertDialog.Builder uploadDialogBuilder = new AlertDialog.Builder(IndexActivity.this);
+					uploadDialogBuilder.setTitle("上传");
+					uploadDialogBuilder.setMessage("正在上传中，请稍候...");
+					uploadDialogBuilder.setCancelable(false);
+					final AlertDialog uploadDialog = uploadDialogBuilder.create();
+					uploadDialog.show();
+					
+					//上传文件
 					try{
 						UploadUtils.upload();
 						SysqApplication.showMessage("上传成功");
+						
 					}catch(Exception e){
-						SysqApplication.showMessage("上传失败：" + e.getMessage());
+						
+						//给主线程发送消息显示toast错误信息
+						toastMsg = e.getMessage();
+						Message msg = new Message();
+						msg.what = 1;
+						handler.sendMessage(msg);
+						
 					}finally{
 						uploadDialog.dismiss();
 					}
-					Looper.loop();
+					
+				}catch(Exception e){
+					
+					//给主线程发送消息显示toast错误信息
+					toastMsg = e.getMessage();
+					Message msg = new Message();
+					msg.what = 1;
+					handler.sendMessage(msg);
 				}
-			}).start();*/
-			
-		}else if(view.getId() == R.id.ll_index_help){
-			SysqApplication.showMessage("功能有待完善，请稍候...");
-		}
+			}
+		}).start();
+		
 	}
 
 	@Override
@@ -156,8 +205,5 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 		
 		
 	}
-	
-	
-	
 	
 }

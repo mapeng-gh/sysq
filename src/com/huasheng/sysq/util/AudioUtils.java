@@ -3,8 +3,6 @@ package com.huasheng.sysq.util;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
-
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.StatFs;
@@ -27,18 +25,12 @@ public class AudioUtils {
 	
 	private static String genFilePath(String username){
 		
-		//目录检查
-		File audioDir = new File(Environment.getExternalStorageDirectory(),AUDIO_STORAGE_DIR);
-		if(!audioDir.exists()){
-			audioDir.mkdir();
-		}
-		
 		//文件名规则
 		String curTime = DateTimeUtils.getCustomDateTime("yyyyMMddHHmmss");
 		String filename = username + "_" + curTime + ".aac";
 		
 		//新建文件
-		File audioFile = new File(audioDir,filename);
+		File audioFile = new File(PathConstants.getAudioDir(),filename);
 		try{
 			audioFile.createNewFile();
 		}catch(IOException e){

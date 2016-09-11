@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+	<LinearLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerInParent="true"
+	    android:orientation="vertical">
+	    
+	     <TextView 
+	         android:layout_width="wrap_content" 
+	         android:layout_height="wrap_content" 
+	         android:layout_gravity="center_horizontal" 
+	         android:layout_marginBottom="100dp" 
+	         android:text="请完成FTP服务器相关设置" 
+	         android:textSize="20sp"/>
+	    
+	    <LinearLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        style="@style/ftp_form_item_layout">
+	        
+	        <TextView 
+	           style="@style/ftp_form_item_label"
+	           android:text="@string/ftp_ip"/>
+	       <EditText 
+	           android:id="@+id/et_ftp_ip"
+	           style="@style/ftp_form_item_edittext"/>
+	       <TextView 
+	           style="@style/ftp_form_item_hint"
+	           android:text="@string/ftp_ip_hint"/>
+	        
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        style="@style/ftp_form_item_layout">
+	        
+	        <TextView 
+	           style="@style/ftp_form_item_label"
+	           android:text="@string/ftp_port"/>
+	       <EditText 
+	           android:id="@+id/et_ftp_port"
+	           style="@style/ftp_form_item_edittext"/>
+	       <TextView 
+	           style="@style/ftp_form_item_hint"
+	          android:text="@string/ftp_port_hint"/>
+	        
+	    </LinearLayout>
+	    
+	     <LinearLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        style="@style/ftp_form_item_layout">
+	       
+	          <TextView 
+	           style="@style/ftp_form_item_label"
+	           android:text="@string/ftp_username"/>
+	       <EditText 
+	           android:id="@+id/et_ftp_username"
+	           style="@style/ftp_form_item_edittext"/>
+	       <TextView 
+	           style="@style/ftp_form_item_hint"
+	           android:text="@string/ftp_username_hint"/>
+	        
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	       
+	         <TextView 
+	           style="@style/ftp_form_item_label"
+	           android:text="@string/ftp_password"/>
+	       <EditText 
+	           android:id="@+id/et_ftp_password"
+	           style="@style/ftp_form_item_edittext"
+	           android:password="true"/>
+	       <TextView 
+	           style="@style/ftp_form_item_hint"
+	           android:text="@string/ftp_password_hint"/>
+	        
+	    </LinearLayout>
+	    
+	    <Button
+	        android:layout_width="300dp"
+            android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:layout_marginTop="100dp"
+            android:id="@+id/btn_ft_submit"
+            android:text="保存"
+            android:background="#0096DC"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"/>
+	    
+	</LinearLayout>
+
+</RelativeLayout>
