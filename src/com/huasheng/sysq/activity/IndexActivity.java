@@ -18,6 +18,7 @@ import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
 import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 import com.huasheng.sysq.activity.settings.FTPActivity;
+import com.huasheng.sysq.activity.usercenter.UserCenterActivity;
 import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqApplication;

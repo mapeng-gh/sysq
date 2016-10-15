@@ -63,7 +63,7 @@
          <activity android:name=".activity.interview.InterviewActivity" android:screenOrientation="landscape" android:configChanges="screenSize|keyboardHidden|orientation"></activity>
          
          <!-- usercenter -->
-         <activity android:name=".activity.UserCenterActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>
+         <activity android:name="com.huasheng.sysq.activity.usercenter.UserCenterActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>
          
          <!-- interviewee search -->
          <activity android:name=".activity.interviewee.IntervieweeActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>

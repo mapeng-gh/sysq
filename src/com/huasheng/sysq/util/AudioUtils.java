@@ -10,10 +10,8 @@ import android.os.StatFs;
 public class AudioUtils {
 
 	private static MediaRecorder mediaRecorder;
-	private static String audioFilePath;	//正在录音文件
 	private static boolean isStarted = false;
 	private static final long MIN_STORAGE_CAPABILITY = 200 * 1000 * 1000; // 200M
-	private static final String AUDIO_STORAGE_DIR = "sysq" + File.separator + "audio";//录音文件存储目录
 	
 	
 	private static long getStorageCapability(){
@@ -27,7 +25,7 @@ public class AudioUtils {
 		
 		//文件名规则
 		String curTime = DateTimeUtils.getCustomDateTime("yyyyMMddHHmmss");
-		String filename = username + "_" + curTime + ".aac";
+		String filename = curTime + "_" + username +  ".aac";
 		
 		//新建文件
 		File audioFile = new File(PathConstants.getAudioDir(),filename);
@@ -37,8 +35,7 @@ public class AudioUtils {
 			throw new RuntimeException("生成录音文件失败", e);
 		}
 		
-		audioFilePath = audioFile.getAbsolutePath();
-		return audioFilePath;
+		return audioFile.getAbsolutePath();
 	}
 	
 	public static void start(String username){

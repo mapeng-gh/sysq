@@ -1,4 +1,4 @@
-package com.huasheng.sysq.activity;
+package com.huasheng.sysq.activity.usercenter;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.activity.LoginActivity;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.UserCenterService;
 import com.huasheng.sysq.util.BaseActivity;
