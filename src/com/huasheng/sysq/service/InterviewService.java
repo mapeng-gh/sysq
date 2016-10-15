@@ -131,6 +131,14 @@ public class InterviewService {
 	}
 	
 	/**
+	 * 删除访问记录
+	 * @param questionaireCode
+	 */
+	public static void deleteInterviewQuestionaire(String questionaireCode){
+		InterviewQuestionaireDB.delete(InterviewContext.getCurInterviewBasic().getId(), questionaireCode);
+	}
+	
+	/**
 	 * 更新问卷记录
 	 * @param interviewQuestionaire
 	 */

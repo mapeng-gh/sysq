@@ -79,12 +79,12 @@ public class InterviewActivity extends BaseActivity{
 					
 				}else if("continue".equals(InterviewActivity.this.operateType)){
 					
-					//开始录音
-					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
-					
 					//保存访问记录到上下文
 					InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(InterviewActivity.this.interviewBasicId);
 					InterviewContext.setCurInterviewBasic(interviewBasic);
+					
+					//开始录音
+					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
 					
 					if(StringUtils.isEmpty(interviewBasic.getNextQuestionCode())){//当前位置在问卷介绍页
 						
@@ -96,10 +96,10 @@ public class InterviewActivity extends BaseActivity{
 					}
 				}else if("modify".equals(InterviewActivity.this.operateType)){
 					
+					modifyQuestion();
+					
 					//开始录音
 					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
-					
-					modifyQuestion();
 				}
 			}
 		});

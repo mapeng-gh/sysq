@@ -359,9 +359,19 @@ public class JSObject {
 		//停止录音
 		AudioUtils.stop();
 		
-		if(!StringUtils.isEmpty(answersJS)){////保存问卷答案
+		if(!StringUtils.isEmpty(answersJS)){//保存问卷答案
+			
 			List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 			InterviewService.saveAnswers(answerValueMap);
+			
+			//更新问卷记录
+			InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
+			curInterviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_BREAK);
+			curInterviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+			InterviewService.updateInterviewQuestionaire(curInterviewQuestionaire);
+			
+		}else{//删除问卷记录
+			InterviewService.deleteInterviewQuestionaire(InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 		}
 		
 		//更新访问记录
@@ -369,12 +379,6 @@ public class JSObject {
 		curInterviewBasic.setStatus(InterviewBasic.STATUS_BREAK);
 		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
-		
-		//更新问卷记录
-		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
-		curInterviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_BREAK);
-		curInterviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
-		InterviewService.updateInterviewQuestionaire(curInterviewQuestionaire);
 		
 		//跳转主页
 		Intent indexIntent = new Intent(SysqApplication.getContext(),IndexActivity.class);
