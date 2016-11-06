@@ -85,6 +85,16 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 			continueTV.setVisibility(View.GONE);
 		}
 		
+		//结束原因
+		TextView quitReasonTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_quit_reason);
+		if(interviewBasic.getStatus() == InterviewBasic.STATUS_BREAK){
+			quitReasonTV.setVisibility(View.VISIBLE);
+			quitReasonTV.setOnClickListener(this.activity);
+			quitReasonTV.setTag(interviewBasic.getQuitReason());
+		}else{
+			quitReasonTV.setVisibility(View.GONE);
+		}
+		
 		return interviewView;
 	}
 

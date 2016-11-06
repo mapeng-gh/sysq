@@ -244,8 +244,26 @@ function redoQuestionaire(){
  */
 function quitInterview(){
 	
+	//提示输入结束原因
+	var quitReason = prompt("访谈结束原因");
+	
+	if(quitReason == null){//取消
+		return;
+	}
+	
+	if(quitReason != null && quitReason.trim().length == 0){//未填原因
+		showMsg("请填写结束本次访谈的原因");
+		return;
+	}
+	
+	if(quitReason.trim().length > 600){//最大长度600
+		showMsg("结束原因最大字数不能超过600");
+		return;
+	}
+	
+	//结束访谈
 	var answersJS = answers.length == 0 ? "" : JSON.stringify(answers);
-	appservice.quitInterview(answersJS);
+	appservice.quitInterview(answersJS,quitReason.trim());
 	
 }
 

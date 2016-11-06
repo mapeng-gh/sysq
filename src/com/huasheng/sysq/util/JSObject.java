@@ -354,7 +354,7 @@ public class JSObject {
 	 * 结束访谈
 	 */
 	@JavascriptInterface
-	public void quitInterview(String answersJS){
+	public void quitInterview(String answersJS,String quitReason){
 		
 		//停止录音
 		AudioUtils.stop();
@@ -377,6 +377,7 @@ public class JSObject {
 		//更新访问记录
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 		curInterviewBasic.setStatus(InterviewBasic.STATUS_BREAK);
+		curInterviewBasic.setQuitReason(quitReason);
 		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		

@@ -93,6 +93,7 @@ public class ColumnConstants {
 	public static final String COLUMN_INTERVIEW_BASIC_NEXT_QUESTION_CODE = "next_question_code";
 	public static final String COLUMN_INTERVIEW_BASIC_LAST_MODIFYED_TIME = "last_modified_time";
 	public static final String COLUMN_INTERVIEW_BASIC_VERSION_ID = "version_id";
+	public static final String COLUMN_INTERVIEW_BASIC_QUIT_REASON = "quit_reason";
 	
 	/**
 	 * 访谈问卷表

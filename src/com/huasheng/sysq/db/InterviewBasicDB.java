@@ -85,6 +85,7 @@ public class InterviewBasicDB {
 		interviewBasic.setNextQuestionCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_NEXT_QUESTION_CODE)));
 		interviewBasic.setLastModifiedTime(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_LAST_MODIFYED_TIME)));
 		interviewBasic.setVersionId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_VERSION_ID)));
+		interviewBasic.setQuitReason(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_BASIC_QUIT_REASON)));
 		
 		return interviewBasic;
 	}
@@ -163,6 +164,7 @@ public class InterviewBasicDB {
 		values.put(ColumnConstants.COLUMN_INTERVIEW_BASIC_CUR_QUESTIONAIRE_CODE, interviewBasic.getCurQuestionaireCode());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_BASIC_NEXT_QUESTION_CODE, interviewBasic.getNextQuestionCode());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_BASIC_VERSION_ID, interviewBasic.getVersionId());
+		values.put(ColumnConstants.COLUMN_INTERVIEW_BASIC_QUIT_REASON, interviewBasic.getQuitReason());
 		return values;
 	}
 }

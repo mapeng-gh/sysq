@@ -80,11 +80,22 @@
                 android:textColor="#338EE7"
                 android:textSize="17sp"/>
             
+            
             <TextView 
                 android:id="@+id/tv_interviewee_item_continue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="继续"
+                android:textColor="#338EE7"
+                android:textSize="17sp"
+                android:layout_marginLeft="15dp"
+                android:visibility="gone"/>
+            
+            <TextView 
+                android:id="@+id/tv_interviewee_item_quit_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="结束原因"
                 android:textColor="#338EE7"
                 android:textSize="17sp"
                 android:layout_marginLeft="15dp"

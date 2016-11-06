@@ -108,7 +108,8 @@ public class TableConstants {
 				ColumnConstants.COLUMN_INTERVIEW_BASIC_CUR_QUESTIONAIRE_CODE + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_BASIC_NEXT_QUESTION_CODE + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_BASIC_LAST_MODIFYED_TIME + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_VERSION_ID + " integer" +
+				ColumnConstants.COLUMN_INTERVIEW_BASIC_VERSION_ID + " integer," +
+				ColumnConstants.COLUMN_INTERVIEW_BASIC_QUIT_REASON + " varchar" +
 			")";
 	
 	public static final String CREATE_INTERVIEW_QUESTIONAIRE = "create table " + TableConstants.TABLE_INTERVIEW_QUESTIONAIRE +

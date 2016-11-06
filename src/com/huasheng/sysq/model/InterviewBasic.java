@@ -32,6 +32,7 @@ public class InterviewBasic implements Serializable{
 	private String nextQuestionCode;
 	private String lastModifiedTime;
 	private int versionId;
+	private String quitReason;
 	
 	public static final int STATUS_DOING = 1;
 	public static final int STATUS_BREAK = 2;
@@ -165,6 +166,12 @@ public class InterviewBasic implements Serializable{
 	}
 	public void setNextQuestionCode(String nextQuestionCode) {
 		this.nextQuestionCode = nextQuestionCode;
+	}
+	public String getQuitReason() {
+		return quitReason;
+	}
+	public void setQuitReason(String quitReason) {
+		this.quitReason = quitReason;
 	}
 	
 }

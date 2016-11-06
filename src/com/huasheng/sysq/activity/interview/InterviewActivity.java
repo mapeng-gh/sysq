@@ -5,11 +5,17 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
+import android.webkit.JsPromptResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.db.InterviewQuestionDB;
@@ -65,6 +71,8 @@ public class InterviewActivity extends BaseActivity{
 		
 		interviewWV.getSettings().setAllowFileAccessFromFileURLs(true);
 		
+		this.setWebChromeClient4WebView();
+		
 		interviewWV.setWebViewClient(new WebViewClient(){
 
 			@Override
@@ -110,6 +118,45 @@ public class InterviewActivity extends BaseActivity{
 		interviewWV.addJavascriptInterface(new JSObject4Log(), "appservice4Log");//注册JSObject
 		
 		interviewWV.loadUrl("file:///android_asset/interview.html");
+	}
+	
+	/**
+	 * 定制js函数：alert、confirm、prompt
+	 */
+	private void setWebChromeClient4WebView(){
+		this.interviewWV.setWebChromeClient(new WebChromeClient(){
+
+			@Override
+			public boolean onJsPrompt(WebView view, String url, String message,
+					String defaultValue, final JsPromptResult result) {
+				
+                AlertDialog.Builder promptBuilder = new AlertDialog.Builder(InterviewActivity.this);  
+                promptBuilder.setTitle(message);
+                final EditText et = new EditText(InterviewActivity.this);
+                promptBuilder.setView(et);  
+                promptBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  
+                    @Override  
+                    public void onClick(DialogInterface dialog, int which) {  
+                        String value = et.getText().toString();
+                        result.confirm(value);  
+                    }  
+                });  
+                promptBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {  
+                    @Override  
+                    public void onClick(DialogInterface dialog, int which) {  
+                        result.cancel();  
+                    }  
+                });  
+                AlertDialog promptDialog = promptBuilder.create();
+                
+                //禁用“back”键、“外部区域”取消对话框
+                promptDialog.setCancelable(false);
+                promptDialog.setCanceledOnTouchOutside(false);
+                
+                promptDialog.show();  
+                return true;  
+			}
+		});
 	}
 	
 	private void modifyQuestion(){
