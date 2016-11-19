@@ -69,7 +69,8 @@ public class TableConstants {
 				ColumnConstants.COLUMN_QUESTION_QUESTIONAIRE_CODE + " varchar," +
 				ColumnConstants.COLUMN_QUESTION_ENTRY_LOGIC + " varchar," +
 				ColumnConstants.COLUMN_QUESTION_EXIT_LOGIC + " varchar," +
-				ColumnConstants.COLUMN_QUESTION_VERSION_ID + " integer" +
+				ColumnConstants.COLUMN_QUESTION_VERSION_ID + " integer," +
+				ColumnConstants.COLUMN_QUESTION_ASSOCIATE_QUESTION_CODE + " varchar" +
 			")";
 	public static final String CREATE_ANSWER = "create table " + TableConstants.TABLE_ANSWER +
 			"(" +

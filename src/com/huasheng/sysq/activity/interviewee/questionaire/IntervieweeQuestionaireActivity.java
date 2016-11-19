@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
 import com.huasheng.sysq.activity.interviewee.answers.IntervieweeAnswerActivity;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionaireWrap;
@@ -334,6 +336,12 @@ public class IntervieweeQuestionaireActivity extends BaseActivity implements OnC
 		
 		Button submitBtn = (Button)view.findViewById(R.id.btn_interviewee_questionaire_dna_submit);
 		submitBtn.setOnClickListener(this);
+	}
+	
+	@Override
+	public void onBackPressed() {//返回到受访者一览
+		Intent intent = new Intent(this,IntervieweeActivity.class);
+		this.startActivity(intent);
 	}
 
 }

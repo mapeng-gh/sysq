@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.activity.IndexActivity;
 import com.huasheng.sysq.activity.interview.InterviewActivity;
 import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionaireActivity;
 import com.huasheng.sysq.model.InterviewBasic;
@@ -205,6 +207,12 @@ public class IntervieweeActivity extends BaseActivity implements OnClickListener
 			currentTV.setText(page.getPageNo()+"");
 			totalTV.setText(page.getTotalPages()+"");
 		}
+	}
+	
+	@Override
+	public void onBackPressed() {//返回到主页
+		Intent intent = new Intent(this,IndexActivity.class);
+		this.startActivity(intent);
 	}
 
 }

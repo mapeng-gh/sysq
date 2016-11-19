@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.webkit.JsPromptResult;
 import android.webkit.WebChromeClient;
@@ -19,6 +18,7 @@ import android.widget.EditText;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.db.InterviewQuestionDB;
+import com.huasheng.sysq.db.QuestionDB;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewBasic;
@@ -38,6 +38,7 @@ import com.huasheng.sysq.util.JSObject;
 import com.huasheng.sysq.util.JSObject4Log;
 import com.huasheng.sysq.util.JsonUtils;
 import com.huasheng.sysq.util.RenderUtils;
+import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.TemplateConstants;
 
 public class InterviewActivity extends BaseActivity{
@@ -161,43 +162,32 @@ public class InterviewActivity extends BaseActivity{
 	
 	private void modifyQuestion(){
 		
+		Question modifyQuestion = QuestionDB.selectByCode(this.questionCode, SysqContext.getCurrentVersion().getId());
+		if(StringUtils.isEmpty(StringUtils.trim(modifyQuestion.getAssociateQuestionCode()))){//修改无关联问题
+			modifySingleQuestion();
+		}else{//修改有关联问题
+			modifyAssociatedQuestion();
+		}
+	}
+	
+	/**
+	 * 修改单个问题
+	 */
+	private void modifySingleQuestion(){
+		
 		//保存访问记录到上下文
 		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		InterviewContext.setCurInterviewBasic(interviewBasic);
 		
-		//修改访问记录状态
-		interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
-		interviewBasic.setCurQuestionaireCode(this.questionaireCode);
-		interviewBasic.setNextQuestionCode(this.questionCode);
-		interviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
-		InterviewService.updateInterviewBasic(interviewBasic);
-		
 		//保存问卷记录到上下文
-		InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(interviewBasic.getId(),this.questionaireCode);
+		InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(this.interviewBasicId,this.questionaireCode);
 		InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
 		
-		//修改问卷记录状态
-		interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DOING);
-		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
-		InterviewService.updateInterviewQuestionaire(interviewQuestionaire);
 		
-		//恢复问题返回栈
-		List<Question> questionList = new ArrayList<Question>();
-		List<InterviewQuestion> interviewQuestionList = InterviewService.getInterviewQuestionList(interviewBasic.getId(), questionaireCode);
-		for(InterviewQuestion interviewQuestion : interviewQuestionList){
-			questionList.add(InterviewService.getSpecQuestion(interviewQuestion.getQuestionCode()).getQuestion());
-			if(interviewQuestion.getQuestionCode().equals(this.questionCode)){
-				break;
-			}
-		}
-		InterviewContext.setQuestionList(questionList);
-		
-		//删除之后的问卷记录、问题记录、答案记录
-		InterviewService.clearInterviewAfterQuestion(this.interviewBasicId, this.questionaireCode, this.questionCode);
 		
 		//恢复答案
 		List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
-		List<InterviewQuestion> existInterviewQuestionList = InterviewQuestionDB.selectByQuestionaire(interviewBasicId, questionaireCode);
+		List<InterviewQuestion> existInterviewQuestionList = InterviewQuestionDB.selectByQuestionaire(this.interviewBasicId, this.questionaireCode);
 		for(InterviewQuestion interviewQuestion : existInterviewQuestionList){
 			List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(interviewBasic.getId(), interviewQuestion.getQuestionCode());
 			for(InterviewAnswer interviewAnswer : interviewAnswerList){
@@ -215,28 +205,95 @@ public class InterviewActivity extends BaseActivity{
 		JSFuncInvokeUtils.invoke(jsStr);
 		
 		//渲染页面
-		QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
+		QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(this.questionCode);
 		QuestionWrap formattedQuestionWrap = specQuestionWrap.format();
-		RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
+		RenderUtils.render(TemplateConstants.QUESTION_MODIFY, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 		
-		//还原现场
-		JSFuncInvokeUtils.invoke("isReplay=true;");
-		List<Question> backQuestionList = InterviewContext.getQuestionList();
-		for(Question question : backQuestionList){
-			if(question.getCode().equals(questionCode)){
-				JSFuncInvokeUtils.invoke("isLastQuestion=true;");
-			}
-			JSFuncInvokeUtils.invoke(question.getEntryLogic());
-			if(!question.getCode().equals(questionCode)){//上一个问题不需执行退出逻辑
-				JSFuncInvokeUtils.invoke(question.getExitLogic());
-			}
-		}
-		JSFuncInvokeUtils.invoke("isLastQuestion=false;");
-		JSFuncInvokeUtils.invoke("isReplay=false;");
+		//此处省略掉“恢复现场”
 		
 		//问题描述动态插值
 		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
-		
+	}
+	
+	/**
+	 * 修改有关联问题
+	 */
+	private void modifyAssociatedQuestion(){
+		//保存访问记录到上下文
+			InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
+			InterviewContext.setCurInterviewBasic(interviewBasic);
+			
+			//修改访问记录状态
+			interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
+			interviewBasic.setCurQuestionaireCode(this.questionaireCode);
+			interviewBasic.setNextQuestionCode(this.questionCode);
+			interviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+			InterviewService.updateInterviewBasic(interviewBasic);
+			
+			//保存问卷记录到上下文
+			InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(interviewBasic.getId(),this.questionaireCode);
+			InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
+			
+			//修改问卷记录状态
+			interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DOING);
+			interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+			InterviewService.updateInterviewQuestionaire(interviewQuestionaire);
+			
+			//恢复问题返回栈
+			List<Question> questionList = new ArrayList<Question>();
+			List<InterviewQuestion> interviewQuestionList = InterviewService.getInterviewQuestionList(interviewBasic.getId(), questionaireCode);
+			for(InterviewQuestion interviewQuestion : interviewQuestionList){
+				questionList.add(InterviewService.getSpecQuestion(interviewQuestion.getQuestionCode()).getQuestion());
+				if(interviewQuestion.getQuestionCode().equals(this.questionCode)){
+					break;
+				}
+			}
+			InterviewContext.setQuestionList(questionList);
+			
+			//删除之后的问卷记录、问题记录、答案记录
+			InterviewService.clearInterviewAfterQuestion(this.interviewBasicId, this.questionaireCode, this.questionCode);
+			
+			//恢复答案
+			List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
+			List<InterviewQuestion> existInterviewQuestionList = InterviewQuestionDB.selectByQuestionaire(interviewBasicId, questionaireCode);
+			for(InterviewQuestion interviewQuestion : existInterviewQuestionList){
+				List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(interviewBasic.getId(), interviewQuestion.getQuestionCode());
+				for(InterviewAnswer interviewAnswer : interviewAnswerList){
+					AnswerValue answerValue = new AnswerValue();
+					answerValue.setLabel(interviewAnswer.getAnswerLabel());
+					answerValue.setCode(interviewAnswer.getAnswerCode());
+					answerValue.setValue(interviewAnswer.getAnswerValue());
+					answerValue.setText(interviewAnswer.getAnswerText());
+					answerValue.setSeqNum(interviewAnswer.getAnswerSeqNum());
+					answerValue.setQuestionCode(interviewAnswer.getQuestionCode());
+					answerValueList.add(answerValue);
+				}
+			}
+			String jsStr = "answers=JSON.parse(\\'" + JsonUtils.toJson(answerValueList, null) + "\\')";
+			JSFuncInvokeUtils.invoke(jsStr);
+			
+			//渲染页面
+			QuestionWrap specQuestionWrap = InterviewService.getSpecQuestion(questionCode);
+			QuestionWrap formattedQuestionWrap = specQuestionWrap.format();
+			RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
+			
+			//还原现场
+			JSFuncInvokeUtils.invoke("isReplay=true;");
+			List<Question> backQuestionList = InterviewContext.getQuestionList();
+			for(Question question : backQuestionList){
+				if(question.getCode().equals(questionCode)){
+					JSFuncInvokeUtils.invoke("isLastQuestion=true;");
+				}
+				JSFuncInvokeUtils.invoke(question.getEntryLogic());
+				if(!question.getCode().equals(questionCode)){//上一个问题不需执行退出逻辑
+					JSFuncInvokeUtils.invoke(question.getExitLogic());
+				}
+			}
+			JSFuncInvokeUtils.invoke("isLastQuestion=false;");
+			JSFuncInvokeUtils.invoke("isReplay=false;");
+			
+			//问题描述动态插值
+			JSFuncInvokeUtils.invoke("insertQuestionFragment();");
 	}
 	
 	private void initParam(){

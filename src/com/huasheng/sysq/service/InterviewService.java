@@ -394,6 +394,30 @@ public class InterviewService {
 	}
 	
 	/**
+	 * 更新单个问题答案（修改无关联问题）
+	 * @param answerValue
+	 */
+	public static void updateSingleQuestionAnswers(List<AnswerValue> answerValueList){
+		
+		//先删除答案
+		String questionCode = answerValueList.get(0).getQuestionCode();
+		InterviewAnswerDB.deleteByInterviewQuestion(InterviewContext.getCurInterviewBasic().getId(), questionCode);
+		
+		//后添加答案
+		for(AnswerValue answerValue : answerValueList){
+			InterviewAnswer interviewAnswer = new InterviewAnswer();
+			interviewAnswer.setInterviewBasicId(InterviewContext.getCurInterviewBasic().getId());
+			interviewAnswer.setQuestionCode(answerValue.getQuestionCode());
+			interviewAnswer.setAnswerLabel(answerValue.getLabel());
+			interviewAnswer.setAnswerCode(answerValue.getCode());
+			interviewAnswer.setAnswerValue(answerValue.getValue());
+			interviewAnswer.setAnswerText(answerValue.getText());
+			interviewAnswer.setAnswerSeqNum(answerValue.getSeqNum());
+			InterviewAnswerDB.insert(interviewAnswer);
+		}
+	}
+	
+	/**
 	 * 获取第一个问题
 	 * @param questionaireCode
 	 * @return

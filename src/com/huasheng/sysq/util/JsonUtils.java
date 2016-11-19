@@ -33,7 +33,7 @@ public class JsonUtils {
 		return gson.toJson(obj);
 	}
 	
-	public static Object fromJson(String json,Type type){
+	public static <T> T fromJson(String json,Type type){
 		Gson gson = new Gson();
 		return gson.fromJson(json, type);
 	}

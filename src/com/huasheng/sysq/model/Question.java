@@ -17,6 +17,7 @@ public class Question {
 	private String entryLogic;
 	private String exitLogic;
 	private int versionId;
+	private String associateQuestionCode;
 	
 	public static final int QUESTION_END = 1;
 	public static final int QUESTION_NOT_END = 0;
@@ -80,5 +81,11 @@ public class Question {
 	}
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+	public String getAssociateQuestionCode() {
+		return associateQuestionCode;
+	}
+	public void setAssociateQuestionCode(String associateQuestionCode) {
+		this.associateQuestionCode = associateQuestionCode;
 	}
 }

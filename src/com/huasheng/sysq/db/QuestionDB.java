@@ -55,6 +55,7 @@ public class QuestionDB {
 		question.setEntryLogic(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTION_ENTRY_LOGIC)));
 		question.setExitLogic(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTION_EXIT_LOGIC)));
 		question.setVersionId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTION_VERSION_ID)));
+		question.setAssociateQuestionCode(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_QUESTION_ASSOCIATE_QUESTION_CODE)));
 		return question;
 	}
 }

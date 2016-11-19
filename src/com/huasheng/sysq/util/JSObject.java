@@ -16,6 +16,7 @@ import android.webkit.JavascriptInterface;
 import com.google.gson.reflect.TypeToken;
 import com.huasheng.sysq.activity.IndexActivity;
 import com.huasheng.sysq.activity.interview.InterviewActivity;
+import com.huasheng.sysq.activity.interviewee.answers.IntervieweeAnswerActivity;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewBasic;
@@ -227,7 +228,7 @@ public class JSObject {
 		if(interviewQuestionaire.getQuestionaireCode().equals("LHC")){//生活日历问卷定制
 			
 			//获取答案参数
-			List<AnswerValue> answerValueList = (List<AnswerValue>)JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
+			List<AnswerValue> answerValueList = JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
 			
 			//封装答案
 			Map<String,Object> result = new HashMap<String,Object>();
@@ -249,7 +250,7 @@ public class JSObject {
 		}else{
 			
 			//封装答案数据
-			List<AnswerValue> answerValueList = (List<AnswerValue>)JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
+			List<AnswerValue> answerValueList = JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
 			ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
 			
 			//问题描述特殊处理
@@ -299,7 +300,7 @@ public class JSObject {
 	public void saveAnswers(String answersJS){
 		
 		//保存当前问卷答案
-		List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+		List<AnswerValue> answerValueMap = JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 		InterviewService.saveAnswers(answerValueMap);
 		
 		//更新当前问卷记录
@@ -351,6 +352,43 @@ public class JSObject {
 	}
 	
 	/**
+	 * 更新单个问题答案（修改非关联问题）
+	 * @param answersJS
+	 */
+	@JavascriptInterface
+	public void updateSingleQuestionAnswers(String answersJS){
+		
+		//保存答案
+		List<AnswerValue> answerValueList = JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+		InterviewService.updateSingleQuestionAnswers(answerValueList);
+		
+		//提示修改成功
+		SysqApplication.showMessage("答案修改成功");
+		
+		//停止录音
+		AudioUtils.stop();
+		
+		//跳转答案列表（app）
+		Intent intent = new Intent(SysqApplication.getContext(),IntervieweeAnswerActivity.class);
+		intent.putExtra("interviewBasicId", InterviewContext.getCurInterviewBasic().getId());
+		intent.putExtra("questionaireCode",InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//Calling startActivity() from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK
+		SysqApplication.getContext().startActivity(intent);
+	}
+	
+	/**
+	 * 跳转答案列表（app）
+	 */
+	@JavascriptInterface
+	public void jumpToAnswerList4App(){
+		Intent intent = new Intent(SysqApplication.getContext(),IntervieweeAnswerActivity.class);
+		intent.putExtra("interviewBasicId", InterviewContext.getCurInterviewBasic().getId());
+		intent.putExtra("questionaireCode",InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//Calling startActivity() from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK
+		SysqApplication.getContext().startActivity(intent);
+	}
+	
+	/**
 	 * 结束访谈
 	 */
 	@JavascriptInterface
@@ -361,7 +399,7 @@ public class JSObject {
 		
 		if(!StringUtils.isEmpty(answersJS)){//保存问卷答案
 			
-			List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+			List<AnswerValue> answerValueMap = JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 			InterviewService.saveAnswers(answerValueMap);
 			
 			//更新问卷记录
@@ -398,7 +436,7 @@ public class JSObject {
 		AudioUtils.stop();
 		
 		if(!StringUtils.isEmpty(answersJS)){//保存当前问卷答案
-			List<AnswerValue> answerValueMap = (List<AnswerValue>)JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+			List<AnswerValue> answerValueMap = JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
 			InterviewService.saveAnswers(answerValueMap);
 		}
 		

@@ -54,6 +54,7 @@ public class ColumnConstants {
 	public static final String COLUMN_QUESTION_ENTRY_LOGIC = "entry_logic";
 	public static final String COLUMN_QUESTION_EXIT_LOGIC = "exit_logic";
 	public static final String COLUMN_QUESTION_VERSION_ID = "version_id";
+	public static final String COLUMN_QUESTION_ASSOCIATE_QUESTION_CODE = "associate_question_code";
 	
 	/**
 	 * 答案表列名

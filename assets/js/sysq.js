@@ -531,3 +531,24 @@ function checkData(){
 	
 	return isValid;
 }
+
+/**
+ * 调整答案列表（app）
+ */
+function jumpToAnswerList4App(){
+	appservice.jumpToAnswerList4App();
+}
+
+/**
+ * 更新单个问题答案
+ */
+function updateSingleQuestionAnswers(){
+	
+	//空校验
+	if(!checkData()){
+		return;
+	}
+	
+	var localAnswers = getLocalAnswerValue();
+	appservice.updateSingleQuestionAnswers(JSON.stringify(localAnswers));
+}

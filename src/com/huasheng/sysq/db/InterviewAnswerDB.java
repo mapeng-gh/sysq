@@ -22,6 +22,11 @@ public class InterviewAnswerDB {
 		SysQOpenHelper.getDatabase().delete(TableConstants.TABLE_INTERVIEW_ANSWER, ColumnConstants.COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID + "=?" + " and " + ColumnConstants.COLUMN_INTERVIEW_ANSWER_QUESTION_CODE + "=?",new String[]{interviewBasicId + "",questionCode});
 	}
 	
+	public static void update(InterviewAnswer interviewAnswer){
+		ContentValues values = fillDBFromObject(interviewAnswer);
+		SysQOpenHelper.getDatabase().update(TableConstants.TABLE_INTERVIEW_ANSWER, values,"id=?",new String[]{interviewAnswer.getId()+""});
+	}
+	
 	public static List<InterviewAnswer> selectByQuestion(int interviewBasicId,String questionCode){
 		Cursor cursor = SysQOpenHelper.getDatabase().query(
 				TableConstants.TABLE_INTERVIEW_ANSWER,

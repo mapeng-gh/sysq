@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,12 +17,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.activity.IndexActivity;
+import com.huasheng.sysq.activity.LoginActivity;
 import com.huasheng.sysq.activity.interview.InterviewActivity;
+import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionaireActivity;
+import com.huasheng.sysq.db.InterviewBasicDB;
 import com.huasheng.sysq.model.InterviewAnswer;
+import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionWrap;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.FormatUtils;
+import com.huasheng.sysq.util.InterviewContext;
+import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.util.SysqContext;
 
 public class IntervieweeAnswerActivity extends BaseActivity implements OnClickListener{
 	
@@ -166,16 +176,49 @@ public class IntervieweeAnswerActivity extends BaseActivity implements OnClickLi
 	}
 
 	@Override
-	public void onClick(View view) {
+	public void onClick(final View view) {
 		if(view.getId() == R.id.ll_interviewee_answers_question){
-			String questionCode = (String)view.getTag();
-			Intent intent = new Intent(this,InterviewActivity.class);
-			intent.putExtra("operateType", "modify");
-			intent.putExtra("interviewBasicId", this.interviewBasicId);
-			intent.putExtra("questionaireCode", this.questionaireCode);
-			intent.putExtra("questionCode", questionCode);
-			this.startActivity(intent);
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("确定修改该问题吗？");
+			builder.setIcon(android.R.drawable.ic_dialog_info);
+			builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					
+					//检查访谈记录状态（状态为“中断结束”的问题不允许修改答案）
+					InterviewBasic interviewBasic = InterviewBasicDB.selectById(IntervieweeAnswerActivity.this.interviewBasicId);
+					if(interviewBasic.getStatus() == InterviewBasic.STATUS_BREAK){
+						SysqApplication.showMessage("该访谈已中止，不允许修改问题");
+						return;
+					}
+					
+					String questionCode = (String)view.getTag();
+					Intent intent = new Intent(IntervieweeAnswerActivity.this,InterviewActivity.class);
+					intent.putExtra("operateType", "modify");
+					intent.putExtra("interviewBasicId", IntervieweeAnswerActivity.this.interviewBasicId);
+					intent.putExtra("questionaireCode", IntervieweeAnswerActivity.this.questionaireCode);
+					intent.putExtra("questionCode", questionCode);
+					IntervieweeAnswerActivity.this.startActivity(intent);
+				
+				}
+			});
+			builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				};
+			});
+			AlertDialog dialog = builder.create();
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
 		}
 	}
 
+	@Override
+	public void onBackPressed() {//返回到问卷列表页
+		Intent intent = new Intent(this,IntervieweeQuestionaireActivity.class);
+		intent.putExtra("interviewBasicId", this.interviewBasicId);
+		this.startActivity(intent);
+	}
 }
