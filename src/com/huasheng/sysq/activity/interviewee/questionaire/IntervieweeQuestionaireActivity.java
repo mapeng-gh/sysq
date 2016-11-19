@@ -6,9 +6,10 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -96,6 +97,11 @@ public class IntervieweeQuestionaireActivity extends BaseActivity implements OnC
 			String questionaireCode = (String)view.getTag();
 			this.viewAnswers(questionaireCode);
 			
+		}else if(view.getId() == R.id.tv_interviewee_questionaire_list_item_view_remark){//查看备注
+			
+			String remark = (String)view.getTag();
+			this.viewRemark(remark);
+			
 		}else if(view.getId() == R.id.btn_interviewee_detail_dna_sample1){
 			
 			Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
@@ -116,6 +122,26 @@ public class IntervieweeQuestionaireActivity extends BaseActivity implements OnC
 			Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
 			this.startActivityForResult(intent, 4);
 		}
+	}
+	
+	/**
+	 * 查看备注
+	 * @param remark
+	 */
+	private void viewRemark(String remark){
+		AlertDialog.Builder quitReasonBuilder = new AlertDialog.Builder(this);
+		quitReasonBuilder.setTitle("备注");
+		quitReasonBuilder.setMessage(remark);
+		quitReasonBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				//close
+			}
+		});
+		AlertDialog quitReasonDialog = quitReasonBuilder.create();
+		quitReasonDialog.setCancelable(false);
+		quitReasonDialog.setCanceledOnTouchOutside(false);
+		quitReasonDialog.show();
 	}
 	
 	@Override

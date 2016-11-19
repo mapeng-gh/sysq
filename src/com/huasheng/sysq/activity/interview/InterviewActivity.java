@@ -103,10 +103,15 @@ public class InterviewActivity extends BaseActivity{
 						
 						resumeQuestion(interviewBasic);
 					}
-				}else if("modify".equals(InterviewActivity.this.operateType)){
+				}else if("modifySingleQuestion".equals(InterviewActivity.this.operateType)){//修改单个问题
 					
-					modifyQuestion();
+					modifySingleQuestion();
+					//开始录音
+					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
 					
+				}else if("modifySingleQuestion".equals(InterviewActivity.this.operateType)){//修改关联问题
+					
+					modifyAssociatedQuestion();
 					//开始录音
 					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
 				}
@@ -160,16 +165,6 @@ public class InterviewActivity extends BaseActivity{
 		});
 	}
 	
-	private void modifyQuestion(){
-		
-		Question modifyQuestion = QuestionDB.selectByCode(this.questionCode, SysqContext.getCurrentVersion().getId());
-		if(StringUtils.isEmpty(StringUtils.trim(modifyQuestion.getAssociateQuestionCode()))){//修改无关联问题
-			modifySingleQuestion();
-		}else{//修改有关联问题
-			modifyAssociatedQuestion();
-		}
-	}
-	
 	/**
 	 * 修改单个问题
 	 */
@@ -182,8 +177,6 @@ public class InterviewActivity extends BaseActivity{
 		//保存问卷记录到上下文
 		InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(this.interviewBasicId,this.questionaireCode);
 		InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
-		
-		
 		
 		//恢复答案
 		List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
@@ -310,7 +303,7 @@ public class InterviewActivity extends BaseActivity{
 				
 				this.interviewBasicId = intent.getIntExtra("interviewBasicId", -1);
 				
-			}else if("modify".equals(operateType)){
+			}else if("modifySingleQuestion".equals(operateType) || "modifyAssociatedQuestion".equals(operateType)){
 				
 				this.interviewBasicId = intent.getIntExtra("interviewBasicId", -1);
 				this.questionaireCode = intent.getStringExtra("questionaireCode");

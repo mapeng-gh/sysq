@@ -122,7 +122,9 @@ public class TableConstants {
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_LAST_MODIFIED_TIME + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_SEQ_NUM + " integer," +
-				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_VERSION_ID + " integer" +
+				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_VERSION_ID + " integer," +
+				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_REMARK + " varchar" +
+				
 			")";
 	
 	public static final String CREATE_INTERVIEW_QUESTION = "create table " + TableConstants.TABLE_INTERVIEW_QUESTION +

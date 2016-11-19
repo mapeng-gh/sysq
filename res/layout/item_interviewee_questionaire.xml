@@ -48,6 +48,15 @@
                 android:textColor="#338EE7"
                 android:textSize="17sp"/>
             
+            <TextView 
+                android:id="@+id/tv_interviewee_questionaire_list_item_view_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看备注"
+                 android:layout_marginLeft="15dp"
+                android:textColor="#338EE7"
+                android:textSize="17sp"/>
+            
         </LinearLayout>
         
     </RelativeLayout>

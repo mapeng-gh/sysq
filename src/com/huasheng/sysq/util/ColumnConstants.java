@@ -106,6 +106,7 @@ public class ColumnConstants {
 	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_STATUS = "status";
 	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_SEQ_NUM = "seq_num";
 	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_VERSION_ID = "version_id";
+	public static final String COLUMN_INTERVIEW_QUESTIONAIRE_REMARK = "remark";
 	
 	/**
 	 * 访谈问题表

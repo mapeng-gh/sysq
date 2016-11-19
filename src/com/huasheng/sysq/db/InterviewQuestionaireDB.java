@@ -54,6 +54,27 @@ public class InterviewQuestionaireDB {
 		return interviewQuestionaireList;
 	}
 	
+	/**
+	 * 查询访谈记录下某个访谈问卷
+	 * @param interviewBasicId
+	 * @param questionaireCode
+	 * @return
+	 */
+	public static InterviewQuestionaire select(int interviewBasicId,String questionaireCode){
+		Cursor cursor = SysQOpenHelper.getDatabase().query(
+				TableConstants.TABLE_INTERVIEW_QUESTIONAIRE,
+				null,
+				ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID + "=?" + " and " + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_QUESTIONAIRE_CODE + "=?",
+				new String[]{interviewBasicId + "",questionaireCode},
+				null,null,"seq_num asc");
+		InterviewQuestionaire interviewQuestionaire = null;
+		if(cursor.moveToNext()){
+			interviewQuestionaire = fillObjectFromDB(cursor);
+		}
+		cursor.close();
+		return interviewQuestionaire;
+	}
+	
 	private static InterviewQuestionaire fillObjectFromDB(Cursor cursor){
 		InterviewQuestionaire interviewQuestionaire = new InterviewQuestionaire();
 		interviewQuestionaire.setId(cursor.getInt(cursor.getColumnIndex("id")));
@@ -64,6 +85,7 @@ public class InterviewQuestionaireDB {
 		interviewQuestionaire.setStatus(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS)));
 		interviewQuestionaire.setSeqNum(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_SEQ_NUM)));
 		interviewQuestionaire.setVersionId(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_VERSION_ID)));
+		interviewQuestionaire.setRemark(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_REMARK)));
 		return interviewQuestionaire;
 	}
 	
@@ -76,6 +98,7 @@ public class InterviewQuestionaireDB {
 		values.put(ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS, interviewQuestionaire.getStatus());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_SEQ_NUM, interviewQuestionaire.getSeqNum());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_VERSION_ID, interviewQuestionaire.getVersionId());
+		values.put(ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_REMARK, interviewQuestionaire.getRemark());
 		return values;
 	}
 }

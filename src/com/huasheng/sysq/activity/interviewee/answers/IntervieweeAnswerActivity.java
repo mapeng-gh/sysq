@@ -22,9 +22,11 @@ import com.huasheng.sysq.activity.LoginActivity;
 import com.huasheng.sysq.activity.interview.InterviewActivity;
 import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionaireActivity;
 import com.huasheng.sysq.db.InterviewBasicDB;
+import com.huasheng.sysq.db.QuestionDB;
 import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionWrap;
+import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.FormatUtils;
@@ -179,6 +181,7 @@ public class IntervieweeAnswerActivity extends BaseActivity implements OnClickLi
 	public void onClick(final View view) {
 		if(view.getId() == R.id.ll_interviewee_answers_question){
 			
+			//询问是否确认修改问题
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("确定修改该问题吗？");
 			builder.setIcon(android.R.drawable.ic_dialog_info);
@@ -193,14 +196,35 @@ public class IntervieweeAnswerActivity extends BaseActivity implements OnClickLi
 						return;
 					}
 					
-					String questionCode = (String)view.getTag();
-					Intent intent = new Intent(IntervieweeAnswerActivity.this,InterviewActivity.class);
-					intent.putExtra("operateType", "modify");
-					intent.putExtra("interviewBasicId", IntervieweeAnswerActivity.this.interviewBasicId);
-					intent.putExtra("questionaireCode", IntervieweeAnswerActivity.this.questionaireCode);
-					intent.putExtra("questionCode", questionCode);
-					IntervieweeAnswerActivity.this.startActivity(intent);
-				
+					//关联问题检查
+					final String questionCode = (String)view.getTag();
+					Question modifyQuestion = QuestionDB.selectByCode(questionCode, SysqContext.getCurrentVersion().getId());
+					if(StringUtils.isEmpty(StringUtils.trim(modifyQuestion.getAssociateQuestionCode()))){//无关联问题
+						jumpToModifySingleQuestionPage(questionCode);
+						
+					}else{//有关联问题
+						
+						//询问是否修改后续关联问题
+						AlertDialog.Builder isSingleBuilder = new AlertDialog.Builder(IntervieweeAnswerActivity.this);
+						isSingleBuilder.setTitle("确定修改该问题后续关联问题吗？");
+						isSingleBuilder.setIcon(android.R.drawable.ic_dialog_info);
+						isSingleBuilder.setPositiveButton("修改", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								jumpToModifyAssociatedQuestionPage(questionCode);
+							}
+						});
+						isSingleBuilder.setNegativeButton("不修改", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								jumpToModifySingleQuestionPage(questionCode);
+							};
+						});
+						AlertDialog isSingleDialog = isSingleBuilder.create();
+						isSingleDialog.setCancelable(false);
+						isSingleDialog.setCanceledOnTouchOutside(false);
+						isSingleDialog.show();
+					}
 				}
 			});
 			builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -213,6 +237,26 @@ public class IntervieweeAnswerActivity extends BaseActivity implements OnClickLi
 			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 		}
+	}
+	
+	//跳转修改单个问题页面
+	private void jumpToModifySingleQuestionPage(String questionCode){
+		Intent intent = new Intent(this,InterviewActivity.class);
+		intent.putExtra("operateType", "modifySingleQuestion");
+		intent.putExtra("interviewBasicId", IntervieweeAnswerActivity.this.interviewBasicId);
+		intent.putExtra("questionaireCode", IntervieweeAnswerActivity.this.questionaireCode);
+		intent.putExtra("questionCode", questionCode);
+		IntervieweeAnswerActivity.this.startActivity(intent);
+	}
+	
+	//跳转修改关联问题页面
+	private void jumpToModifyAssociatedQuestionPage(String questionCode){
+		Intent intent = new Intent(IntervieweeAnswerActivity.this,InterviewActivity.class);
+		intent.putExtra("operateType", "modifyAssociatedQuestion");
+		intent.putExtra("interviewBasicId", IntervieweeAnswerActivity.this.interviewBasicId);
+		intent.putExtra("questionaireCode", IntervieweeAnswerActivity.this.questionaireCode);
+		intent.putExtra("questionCode", questionCode);
+		IntervieweeAnswerActivity.this.startActivity(intent);
 	}
 
 	@Override

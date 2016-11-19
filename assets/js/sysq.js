@@ -549,6 +549,24 @@ function updateSingleQuestionAnswers(){
 		return;
 	}
 	
+	//填写修改备注
+	var modifyReason = prompt("请您为该问题填写修改备注信息");
+	
+	if(modifyReason == null){//取消
+		showMsg("请您为该问题填写修改备注信息");
+		return;
+	}
+	
+	if(modifyReason != null && modifyReason.trim().length == 0){//未填原因
+		showMsg("请填写结束本次访谈的原因");
+		return;
+	}
+	
+	if(modifyReason.trim().length > 600){//最大长度600
+		showMsg("备注最大字数不能超过600");
+		return;
+	}
+	
 	var localAnswers = getLocalAnswerValue();
-	appservice.updateSingleQuestionAnswers(JSON.stringify(localAnswers));
+	appservice.updateSingleQuestionAnswers(JSON.stringify(localAnswers),modifyReason);
 }

@@ -54,10 +54,15 @@ public class IntervieweeQuestionaireAdapter extends ArrayAdapter<InterviewQuesti
 		TextView lastModifiedTimeTV = (TextView)view.findViewById(R.id.tv_interviewee_questionaire_list_item_last_modified_time);
 		lastModifiedTimeTV.setText(interviewQuestionaireWrap.getInterviewQuestionaire().getLastModifiedTime());
 		
-		//绑定事件
+		//绑定事件：查看答案
 		TextView viewTV = (TextView)view.findViewById(R.id.tv_interviewee_questionaire_list_item_view);
 		viewTV.setOnClickListener(this.activity);
 		viewTV.setTag(interviewQuestionaireWrap.getQuestionaire().getCode());
+		
+		//绑定事件：查看答案
+		TextView viewRemarkTV = (TextView)view.findViewById(R.id.tv_interviewee_questionaire_list_item_view_remark);
+		viewRemarkTV.setOnClickListener(this.activity);
+		viewRemarkTV.setTag(interviewQuestionaireWrap.getInterviewQuestionaire().getRemark());
 		
 		return view;
 	}

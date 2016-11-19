@@ -356,11 +356,11 @@ public class JSObject {
 	 * @param answersJS
 	 */
 	@JavascriptInterface
-	public void updateSingleQuestionAnswers(String answersJS){
+	public void updateSingleQuestionAnswers(String answersJS,String remark){
 		
 		//保存答案
 		List<AnswerValue> answerValueList = JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
-		InterviewService.updateSingleQuestionAnswers(answerValueList);
+		InterviewService.updateSingleQuestionAnswers(answerValueList,remark);
 		
 		//提示修改成功
 		SysqApplication.showMessage("答案修改成功");

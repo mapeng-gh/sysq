@@ -10,6 +10,7 @@ public class InterviewQuestionaire {
 	private int status;
 	private int seqNum;
 	private int versionId;
+	private String remark;
 	
 	public static final int STATUS_DOING = 1;
 	public static final int STATUS_BREAK = 2;
@@ -62,6 +63,12 @@ public class InterviewQuestionaire {
 	}
 	public void setSeqNum(int seqNum) {
 		this.seqNum = seqNum;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 }

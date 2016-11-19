@@ -397,7 +397,7 @@ public class InterviewService {
 	 * 更新单个问题答案（修改无关联问题）
 	 * @param answerValue
 	 */
-	public static void updateSingleQuestionAnswers(List<AnswerValue> answerValueList){
+	public static void updateSingleQuestionAnswers(List<AnswerValue> answerValueList,String remark){
 		
 		//先删除答案
 		String questionCode = answerValueList.get(0).getQuestionCode();
@@ -415,6 +415,12 @@ public class InterviewService {
 			interviewAnswer.setAnswerSeqNum(answerValue.getSeqNum());
 			InterviewAnswerDB.insert(interviewAnswer);
 		}
+		
+		//插入问卷备注信息
+		InterviewQuestionaire interviewQuestionaire = InterviewQuestionaireDB.select(InterviewContext.getCurInterviewBasic().getId(), InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
+		interviewQuestionaire.setRemark(remark);
+		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+		InterviewQuestionaireDB.update(interviewQuestionaire);
 	}
 	
 	/**
