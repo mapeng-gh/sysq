@@ -452,6 +452,9 @@ public class JSObject {
 		intent.putExtra("questionaireCode",InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		SysqApplication.getContext().startActivity(intent);
+		
+		//清除访谈上下文
+		InterviewContext.clearInterviewContext();
 	}
 	
 	/**
@@ -477,6 +480,9 @@ public class JSObject {
 		intent.putExtra("questionaireCode",InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//Calling startActivity() from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK
 		SysqApplication.getContext().startActivity(intent);
+		
+		//清除访谈上下文
+		InterviewContext.clearInterviewContext();
 	}
 	
 	/**
@@ -489,6 +495,9 @@ public class JSObject {
 		intent.putExtra("questionaireCode",InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//Calling startActivity() from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK
 		SysqApplication.getContext().startActivity(intent);
+		
+		//清除访谈上下文
+		InterviewContext.clearInterviewContext();
 	}
 	
 	/**
@@ -526,6 +535,9 @@ public class JSObject {
 		Intent indexIntent = new Intent(SysqApplication.getContext(),IndexActivity.class);
 		indexIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		SysqApplication.getContext().startActivity(indexIntent);
+		
+		//清除访谈上下文
+		InterviewContext.clearInterviewContext();
 	}
 	
 	/**
