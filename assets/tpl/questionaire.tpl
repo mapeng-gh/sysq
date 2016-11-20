@@ -6,7 +6,7 @@
 		{{introduction}}
 	</div>
 	<div class="footer">
-		<input type="button" value="开始" class="btn-start" onclick="startInterview()"/>
-		<input type="button" value="返回主页" class="btn-index" onclick="jumpToIndex()"/>
+		<input type="button" value="开始" class="btn-bottom-toolbar" onclick="startInterview()"/>
+		<input type="button" value="返回主页" class="btn-bottom-toolbar" onclick="jumpToIndex()"/>
 	</div>
 </div>

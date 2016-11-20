@@ -105,22 +105,5 @@ div.question div.footer{
 	bottom:0;
 	text-align:center;
 }
-div.question div.footer input.btn-previous{
-	width:150px;
-	background-color: #338EE7;
-	border: none;
-	margin-right: 50px;
-	padding:5px 0;
-	font-size:20px;
-	color:#FFF;
-}
-div.question div.footer input.btn-next{
-	width:150px;
-	background-color: #338EE7;
-	border: none;
-	padding:5px 0;
-	font-size:20px;
-	color:#FFF;
-}
 
 

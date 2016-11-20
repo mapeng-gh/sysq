@@ -26,21 +26,4 @@ div.questionaire div.footer{
 	height:30px;
 	text-align:center;
 }
-div.questionaire div.footer input.btn-start{
-	width:150px;
-	background-color: #338EE7;
-	border: none;
-	margin-right: 50px;
-	padding:5px 0;
-	font-size:20px;
-	color:#FFF;
-}
-div.questionaire div.footer input.btn-index{
-	width:200px;
-	background-color: #338EE7;
-	border: none;
-	padding:5px 0;
-	font-size:20px;
-	color:#FFF;
-}
 

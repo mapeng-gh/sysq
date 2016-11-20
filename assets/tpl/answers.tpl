@@ -40,14 +40,6 @@
 					</div>
 					
 					<div style="clear:both;"></div>
-					
-					<!--
-					<div class="operations">
-					
-						<input type="button" value="编辑"/>
-					
-					</div>
-					-->
 				
 				</div>
 			

@@ -14,28 +14,43 @@
 }
 
 
-/** 文字样式 **/
+/** 问卷标题 **/
 .size-title{
 	font-size:22px;
 }
+
+/** 问卷描述、问题描述 **/
 .size-description{
-	font-size:20px;
+	font-size:22px;
 }
+
+/** 答案label、答案text **/
 .size-answer-label{
-	font-size:20px;
+	font-size:22px;
 }
 .size-answer-text{
-	font-size:20px;
+	font-size:22px;
 }
 
 
-/** 按钮样式 **/
+/** 顶部工具栏 **/
 .btn-toolbar{
-	font-size:18px;
+	font-size:20px;
 	border:1px solid #338EE7;
 	background-color: #FFF;
 	color:#338EE7;
 	padding:5px;
+}
+
+/** 底部工具栏 **/
+.btn-bottom-toolbar{
+	width:150px;
+	background-color: #338EE7;
+	border: none;
+	margin-right: 50px;
+	padding:5px 0;
+	font-size:22px;
+	color:#FFF;
 }
 
 .btn-switch{

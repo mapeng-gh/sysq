@@ -117,8 +117,8 @@
 	</div>
 	
 	<div class="footer">
-		<input type="button" value="上一题" class="btn-previous" onclick="jumpToPreviousQuestion()"/>
-		<input type="button" value="下一题" class="btn-next" onclick="if(checkData()===false){return;}{{question.exitLogic}}"/>
+		<input type="button" value="上一题" class="btn-bottom-toolbar" onclick="jumpToPreviousQuestion()"/>
+		<input type="button" value="下一题" class="btn-bottom-toolbar" onclick="if(checkData()===false){return;}{{question.exitLogic}}"/>
 	</div>
 	
 </div>
