@@ -232,6 +232,33 @@ function saveQuestionaire(){
 }
 
 /**
+ * 保存修改关联问题问卷
+ */
+function saveModifyQuestionaire(){
+	
+	//填写修改备注
+	var modifyReason = prompt("请您为该次修改填写备注信息");
+	
+	if(modifyReason == null){//取消
+		showMsg("请您为该次修改填写备注信息");
+		return;
+	}
+	
+	if(modifyReason != null && modifyReason.trim().length == 0){//未填原因
+		showMsg("备注不能为空");
+		return;
+	}
+	
+	if(modifyReason.trim().length > 600){//最大长度600
+		showMsg("备注最大字数不能超过600");
+		return;
+	}
+	
+	//保存答案
+	appservice.saveModifyAssociatedQuestionAnswers(JSON.stringify(answers),modifyReason);
+}
+
+/**
  * 重做问卷
  */
 function redoQuestionaire(){

@@ -14,7 +14,6 @@ import com.huasheng.sysq.db.InterviewQuestionDB;
 import com.huasheng.sysq.db.InterviewQuestionaireDB;
 import com.huasheng.sysq.db.QuestionDB;
 import com.huasheng.sysq.db.QuestionaireDB;
-import com.huasheng.sysq.db.VersionDB;
 import com.huasheng.sysq.model.Answer;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.AnswerWrap;
@@ -563,6 +562,16 @@ public class InterviewService {
 		QuestionWrap questionWrap = wrap(specQuestion);
 		return questionWrap;
 		
+	}
+	
+	/**
+	 * 获取问题列表
+	 * @return
+	 */
+	public static List<Question> getQuestionList(){
+		
+		List<Question> questionList = QuestionDB.getList(InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode(),SysqContext.getCurrentVersion().getId(),Question.QUESTION_NOT_END);
+		return questionList;
 	}
 	
 	public static QuestionWrap wrap(Question question){

@@ -67,8 +67,14 @@ public class JSObject {
 		InterviewContext.pushQuestion(nextQuestionWrap.getQuestion());
 		
 		//页面渲染
+		String template = "";
+		if(InterviewContext.getOperateType() == InterviewContext.OPERATE_TYPE_NORMAL){
+			template = TemplateConstants.QUESTION;
+		}else if(InterviewContext.getOperateType() == InterviewContext.OPERATE_TYPE_MODIFY){
+			template = TemplateConstants.QUESTION_ASSOCIATED_MODIFY;
+		}
 		QuestionWrap formattedQuestionWrap = nextQuestionWrap.format();
-		RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
+		RenderUtils.render(template, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 		
 		//执行进入逻辑代码
 		if(!StringUtils.isEmpty(StringUtils.trim(nextQuestionWrap.getQuestion().getEntryLogic()))){
@@ -85,6 +91,11 @@ public class JSObject {
 	@JavascriptInterface
 	public void jumpToPreviousQuestion(String answersJS){
 		
+		if(InterviewContext.getQuestionList().size() < 2){//修改答案时会用到
+			SysqApplication.showMessage("已经是修改的第一题");
+			return;
+		}
+		
 		//从返回栈获取上一个问题
 		InterviewContext.popQuestion();
 		Question prevQuestion = InterviewContext.getTopQuestion();
@@ -94,7 +105,13 @@ public class JSObject {
 		
 		//渲染页面
 		QuestionWrap formattedQuestionWrap = prevQuestionWrap.format();
-		RenderUtils.render(TemplateConstants.QUESTION, formattedQuestionWrap,new String[]{"extra","entryLogic"});
+		String template = "";
+		if(InterviewContext.getOperateType() == InterviewContext.OPERATE_TYPE_NORMAL){
+			template = TemplateConstants.QUESTION;
+		}else if(InterviewContext.getOperateType() == InterviewContext.OPERATE_TYPE_MODIFY){
+			template = TemplateConstants.QUESTION_ASSOCIATED_MODIFY;
+		}
+		RenderUtils.render(template, formattedQuestionWrap,new String[]{"extra","entryLogic"});
 		
 		//还原现场
 		JSFuncInvokeUtils.invoke("isReplay=true;");
@@ -226,54 +243,109 @@ public class JSObject {
 		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		
 		if(interviewQuestionaire.getQuestionaireCode().equals("LHC")){//生活日历问卷定制
-			
-			//获取答案参数
-			List<AnswerValue> answerValueList = JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
-			
-			//封装答案
-			Map<String,Object> result = new HashMap<String,Object>();
-			result.put("questionaireTitle", InterviewService.getSpecQuestionaire(interviewQuestionaire.getQuestionaireCode()).getTitle());
-			
-			Map<String,AnswerValue> answerMap = new HashMap<String,AnswerValue>();
-			for(AnswerValue answerValue : answerValueList){
-				answerMap.put(answerValue.getCode(), answerValue);
-			}
-			result.put("answerList",answerMap);
-			
-			//渲染页面
-			if("all".equals(type)){
-				RenderUtils.render(TemplateConstants.ANSWERS_LHC, result,null);
-			}else if("part".equals(type)){
-				RenderUtils.render(TemplateConstants.ANSWERS_LHC_PARTIAL, result,null);
-			}
+			this.jumpToLHCAnswerList(answersJA, type);
 			
 		}else{
 			
-			//封装答案数据
-			List<AnswerValue> answerValueList = JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
-			ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
-			
-			//问题描述特殊处理
-			List<Question> questionList = resultWrap.getQuestionList();
-			for(Question question : questionList){
+			if(InterviewContext.getOperateType() == InterviewContext.OPERATE_TYPE_NORMAL){//正常访谈
+				this.jumpToNormalAnswerList(answersJA, type);
 				
-				String description = question.getDescription();
-				description = FormatUtils.handleParaInHTML(description);//分段
-				description = FormatUtils.escapeQuote4JS(description);//双引号转义
-				question.setDescription(description);
+			}else if(InterviewContext.getOperateType() == InterviewContext.OPERATE_TYPE_MODIFY){//修改关联问题
+				this.jumpToModifyAssociatedQuestionAnswerList(answersJA, type);
 			}
+		}
+	}
+	
+	/**
+	 * 跳转修改问题答案列表
+	 * @param answersJA
+	 * @param type
+	 */
+	private void jumpToModifyAssociatedQuestionAnswerList(String answersJA,String type){
+		
+		//封装答案数据
+		List<AnswerValue> answerValueList = JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
+		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
+		
+		//问题描述特殊处理
+		List<Question> questionList = resultWrap.getQuestionList();
+		for(Question question : questionList){
 			
-			//渲染页面
-			if("all".equals(type)){
-				RenderUtils.render(TemplateConstants.ANSWERS, resultWrap,new String[]{"entryLogic","exitLogic"});
-			}else if("part".equals(type)){
-				RenderUtils.render(TemplateConstants.ANSWERS_PARTIAL, resultWrap,new String[]{"entryLogic","exitLogic"});
-			}
-			
-			//问题描述动态插值
-			JSFuncInvokeUtils.invoke("insertQuestionFragment();");
+			String description = question.getDescription();
+			description = FormatUtils.handleParaInHTML(description);//分段
+			description = FormatUtils.escapeQuote4JS(description);//双引号转义
+			question.setDescription(description);
 		}
 		
+		//渲染页面
+		if("all".equals(type)){
+			RenderUtils.render(TemplateConstants.ANSWERS_ASSOCIATED_MODIFY, resultWrap,new String[]{"entryLogic","exitLogic"});
+		}
+		
+		//问题描述动态插值
+		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
+	}
+	
+	/**
+	 * 跳转正常访谈答案列表
+	 * @param answersJA
+	 * @param type
+	 */
+	private void jumpToNormalAnswerList(String answersJA,String type){
+		
+		//封装答案数据
+		List<AnswerValue> answerValueList = JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
+		ResultWrap resultWrap = InterviewService.getAnswerList(answerValueList);
+		
+		//问题描述特殊处理
+		List<Question> questionList = resultWrap.getQuestionList();
+		for(Question question : questionList){
+			
+			String description = question.getDescription();
+			description = FormatUtils.handleParaInHTML(description);//分段
+			description = FormatUtils.escapeQuote4JS(description);//双引号转义
+			question.setDescription(description);
+		}
+		
+		//渲染页面
+		if("all".equals(type)){
+			RenderUtils.render(TemplateConstants.ANSWERS, resultWrap,new String[]{"entryLogic","exitLogic"});
+		}else if("part".equals(type)){
+			RenderUtils.render(TemplateConstants.ANSWERS_PARTIAL, resultWrap,new String[]{"entryLogic","exitLogic"});
+		}
+		
+		//问题描述动态插值
+		JSFuncInvokeUtils.invoke("insertQuestionFragment();");
+	}
+	
+	/**
+	 * 跳转LHC定制问卷答案列表
+	 * @param answersJA
+	 * @param type
+	 */
+	private void jumpToLHCAnswerList(String answersJA,String type){
+		
+		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
+		
+		//获取答案参数
+		List<AnswerValue> answerValueList = JsonUtils.fromJson(answersJA, new TypeToken<List<AnswerValue>>(){}.getType());
+		
+		//封装答案
+		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("questionaireTitle", InterviewService.getSpecQuestionaire(interviewQuestionaire.getQuestionaireCode()).getTitle());
+		
+		Map<String,AnswerValue> answerMap = new HashMap<String,AnswerValue>();
+		for(AnswerValue answerValue : answerValueList){
+			answerMap.put(answerValue.getCode(), answerValue);
+		}
+		result.put("answerList",answerMap);
+		
+		//渲染页面
+		if("all".equals(type)){
+			RenderUtils.render(TemplateConstants.ANSWERS_LHC, result,null);
+		}else if("part".equals(type)){
+			RenderUtils.render(TemplateConstants.ANSWERS_LHC_PARTIAL, result,null);
+		}
 	}
 	
 	/**
@@ -349,6 +421,37 @@ public class JSObject {
 			nextQuestionaire.setIntroduction(FormatUtils.handleParaInHTML(nextQuestionaire.getIntroduction()));
 			RenderUtils.render(TemplateConstants.QUESTIONAIRE, nextQuestionaire,null);
 		}
+	}
+	
+	/**
+	 * 保存修改关联问题答案
+	 * @param answersJS
+	 * @param modifyReason
+	 */
+	@JavascriptInterface
+	public void saveModifyAssociatedQuestionAnswers(String answersJS,String modifyReason){
+		
+		//保存当前问卷答案
+		List<AnswerValue> answerValueList = JsonUtils.fromJson(answersJS, new TypeToken<List<AnswerValue>>(){}.getType());
+		InterviewService.saveAnswers(answerValueList);
+		
+		//添加问卷备注
+		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
+		interviewQuestionaire.setRemark(modifyReason);
+		InterviewService.updateInterviewQuestionaire(interviewQuestionaire);
+		
+		//提示修改成功
+		SysqApplication.showMessage("答案修改成功");
+		
+		//停止录音
+		AudioUtils.stop();
+		
+		//跳转答案列表（app）
+		Intent intent = new Intent(SysqApplication.getContext(),IntervieweeAnswerActivity.class);
+		intent.putExtra("interviewBasicId", InterviewContext.getCurInterviewBasic().getId());
+		intent.putExtra("questionaireCode",InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		SysqApplication.getContext().startActivity(intent);
 	}
 	
 	/**
@@ -444,6 +547,9 @@ public class JSObject {
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
 		curInterviewBasic.setNextQuestionCode(InterviewContext.getTopQuestion().getCode());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
+		
+		//清空访问上下文
+		InterviewContext.clearInterviewContext();
 		
 		//跳转主页
 		Intent indexIntent = new Intent(SysqApplication.getContext(),IndexActivity.class);

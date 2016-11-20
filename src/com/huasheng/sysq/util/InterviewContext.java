@@ -11,11 +11,23 @@ import com.huasheng.sysq.model.Question;
 
 public class InterviewContext {
 
+	private static int operateType;
 	private static InterviewBasic curInterviewBasic;//当前访问记录
 	private static InterviewQuestionaire curInterviewQuestionaire;//当前访问问卷
 	private static List<Question> questionBackStack = new ArrayList<Question>();
 	
 	private static WebView webView;
+	
+	public static final int OPERATE_TYPE_NORMAL = 1;
+	public static final int OPERATE_TYPE_MODIFY= 2;
+	
+	public static void setOperateType(int operateType){
+		InterviewContext.operateType = operateType;
+	}
+	
+	public static int getOperateType(){
+		return InterviewContext.operateType;
+	}
 	
 	/**
 	 * ================清空上下文信息===================
