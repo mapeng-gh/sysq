@@ -61,6 +61,17 @@ public class InterviewBasicDB {
 		return data;
 	}
 	
+	public static List<InterviewBasic> getList(){
+		List<InterviewBasic> interviewBasicList = new ArrayList<InterviewBasic>();
+		Cursor cursor = SysQOpenHelper.getDatabase().query(TableConstants.TABLE_INTERVIEW_BASIC, null, null, null, null, null,null);
+		while(cursor.moveToNext()){
+			InterviewBasic interviewBasic = fillObjectFromDB(cursor);
+			interviewBasicList.add(interviewBasic);
+		}
+		cursor.close();
+		return interviewBasicList;
+	}
+	
 	private static InterviewBasic fillObjectFromDB(Cursor cursor){
 		
 		InterviewBasic interviewBasic = new InterviewBasic();

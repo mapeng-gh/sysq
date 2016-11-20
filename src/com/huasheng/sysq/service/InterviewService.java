@@ -100,6 +100,14 @@ public class InterviewService {
 	}
 	
 	/**
+	 * 获取所有访谈记录
+	 * @return
+	 */
+	public static List<InterviewBasic> getAllInterviewBasic(){
+		return InterviewBasicDB.getList();
+	}
+	
+	/**
 	 * 获取唯一访问记录
 	 * @param id
 	 * @return

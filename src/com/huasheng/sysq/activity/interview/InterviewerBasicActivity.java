@@ -1,5 +1,7 @@
 package com.huasheng.sysq.activity.interview;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.RegexUtils;
 import com.huasheng.sysq.util.SysqApplication;
@@ -71,6 +74,7 @@ public class InterviewerBasicActivity extends BaseActivity implements OnClickLis
 	private InterviewBasic collectData(){
 		InterviewBasic interviewBasic = new InterviewBasic();
 		
+		//姓名
 		String username = userET.getText().toString().trim();
 		if(username.length() < 2){
 			SysqApplication.showMessage("姓名不正确");
@@ -78,13 +82,24 @@ public class InterviewerBasicActivity extends BaseActivity implements OnClickLis
 		}
 		interviewBasic.setUsername(username);
 		
+		//身份证
 		String identityCard = identityCardET.getText().toString().trim();
 		if(!RegexUtils.test("[0-9A-Za-z]{18}", identityCard)){
 			SysqApplication.showMessage("身份证号码不正确");
 			return null;
 		}
+		List<InterviewBasic> interviewBasicList = InterviewService.getAllInterviewBasic();
+		if(interviewBasicList != null && interviewBasicList.size() > 0){
+			for(InterviewBasic existInterviewBasic : interviewBasicList){
+				if(identityCard.equals(existInterviewBasic.getIdentityCard())){
+					SysqApplication.showMessage("身份证号码已存在");
+					return null;
+				}
+			}
+		}
 		interviewBasic.setIdentityCard(identityCard);
 		
+		//省/自治区/直辖市
 		String province = provinceET.getText().toString().trim();
 		if(province.length() <1){
 			SysqApplication.showMessage("省/自治区/直辖市不正确");
@@ -92,6 +107,7 @@ public class InterviewerBasicActivity extends BaseActivity implements OnClickLis
 		}
 		interviewBasic.setProvince(province);
 		
+		//市/县/区
 		String city = cityET.getText().toString().trim();
 		if(city.length() < 1){
 			SysqApplication.showMessage("市/县/区不正确");
@@ -99,6 +115,7 @@ public class InterviewerBasicActivity extends BaseActivity implements OnClickLis
 		}
 		interviewBasic.setCity(city);
 		
+		//联系地址
 		String address = addressET.getText().toString().trim();
 		if(address.length() < 1){
 			SysqApplication.showMessage("联系地址不正确");
@@ -106,6 +123,7 @@ public class InterviewerBasicActivity extends BaseActivity implements OnClickLis
 		}
 		interviewBasic.setAddress(address);
 		
+		//邮政编码
 		String postCode = postCodeET.getText().toString().trim();
 		if(!RegexUtils.test("[0-9]{6}", postCode)){
 			SysqApplication.showMessage("邮政编码不正确");
@@ -113,6 +131,7 @@ public class InterviewerBasicActivity extends BaseActivity implements OnClickLis
 		}
 		interviewBasic.setPostCode(postCode);
 		
+		//联系电话
 		String mobile = mobileET.getText().toString().trim();
 		if(!RegexUtils.test("[0-9]{10,12}", mobile)){
 			SysqApplication.showMessage("联系电话不正确");
@@ -123,6 +142,7 @@ public class InterviewerBasicActivity extends BaseActivity implements OnClickLis
 		String familyAddress = familyAddressET.getText().toString().trim();
 		interviewBasic.setFamilyAddress(familyAddress);
 		
+		//亲属联系电话
 		String familyMobile = familyMobileET.getText().toString().trim();
 		if(familyMobile.length()>0){
 			if(!RegexUtils.test("[0-9]{10,12}", familyMobile)){
