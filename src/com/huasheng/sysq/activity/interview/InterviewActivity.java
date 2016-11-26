@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.webkit.JsPromptResult;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -171,6 +172,35 @@ public class InterviewActivity extends BaseActivity{
                 promptDialog.setCanceledOnTouchOutside(false);
                 
                 promptDialog.show();  
+                return true;  
+			}
+
+			@Override
+			public boolean onJsConfirm(WebView view, String url,String message, final JsResult result) {
+				
+				AlertDialog.Builder confirmBuilder = new AlertDialog.Builder(InterviewActivity.this);  
+				confirmBuilder.setTitle("确认");
+				confirmBuilder.setMessage(message);
+				confirmBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  
+                    @Override  
+                    public void onClick(DialogInterface dialog, int which) {  
+                        result.confirm();  
+                    }  
+                });  
+				confirmBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {  
+                    @Override  
+                    public void onClick(DialogInterface dialog, int which) {  
+                        result.cancel();  
+                    }  
+                });  
+                AlertDialog confirmDialog = confirmBuilder.create();
+                
+                //禁用“back”键、“外部区域”取消对话框
+                confirmDialog.setCancelable(false);
+                confirmDialog.setCanceledOnTouchOutside(false);
+                
+                confirmDialog.show();  
+                
                 return true;  
 			}
 		});

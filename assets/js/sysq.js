@@ -416,6 +416,10 @@ function jumpToSpecQuestion(questionCode){
  */
 function editQuestion(questionCode){
 	
+	//弹出确认框
+	var r = confirm("您确定修改该问题吗？");
+	if(!r)	return;
+	
 	//清空该问题以及之后问题的所有答案
 	for(var i=0;i<answers.length;i++){
 		if(answers[i]["questionCode"] == questionCode){
@@ -423,8 +427,8 @@ function editQuestion(questionCode){
 		}
 	}
 	answers = answers.slice(0,i);
-	appservice4Log.debug("editQuestion",JSON.stringify(answers));
 	
+	//跳转问题
 	appservice.jumpToSpecQuestion(questionCode);
 }
 
