@@ -13,7 +13,7 @@
 	</div>
 		
 	<div class="footer">
-		<input type="button" value="结束访谈" class="btn-bottom-toolbar" onclick="quitInterview()"/>
+		<input type="button" value="结束访谈" class="btn-bottom-toolbar" onclick="quitInterview4NoReason()"/>
 	</div>
 	
 </div>

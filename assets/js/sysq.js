@@ -267,7 +267,7 @@ function redoQuestionaire(){
 }
 
 /**
- * 退出访谈
+ * 退出访谈（主动结束，须填写结束原因）
  */
 function quitInterview(){
 	
@@ -292,6 +292,16 @@ function quitInterview(){
 	var answersJS = answers.length == 0 ? "" : JSON.stringify(answers);
 	appservice.quitInterview(answersJS,quitReason.trim());
 	
+}
+
+/**
+ * 退出访谈：不需结束原因
+ */
+function quitInterview4NoReason(){
+	
+	//结束访谈
+	var answersJS = answers.length == 0 ? "" : JSON.stringify(answers);
+	appservice.quitInterview(answersJS,"");
 }
 
 /**

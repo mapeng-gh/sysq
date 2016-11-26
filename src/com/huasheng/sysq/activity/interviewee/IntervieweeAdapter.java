@@ -2,6 +2,8 @@ package com.huasheng.sysq.activity.interviewee;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +89,7 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 		
 		//结束原因
 		TextView quitReasonTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_quit_reason);
-		if(interviewBasic.getStatus() == InterviewBasic.STATUS_BREAK){
+		if(interviewBasic.getStatus() == InterviewBasic.STATUS_BREAK && !StringUtils.isEmpty(interviewBasic.getQuitReason())){
 			quitReasonTV.setVisibility(View.VISIBLE);
 			quitReasonTV.setOnClickListener(this.activity);
 			quitReasonTV.setTag(interviewBasic.getQuitReason());
