@@ -490,6 +490,7 @@ public class JSObject {
 	 */
 	@JavascriptInterface
 	public void jumpToAnswerList4App(){
+		
 		Intent intent = new Intent(SysqApplication.getContext(),IntervieweeAnswerActivity.class);
 		intent.putExtra("interviewBasicId", InterviewContext.getCurInterviewBasic().getId());
 		intent.putExtra("questionaireCode",InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
@@ -498,6 +499,9 @@ public class JSObject {
 		
 		//清除访谈上下文
 		InterviewContext.clearInterviewContext();
+		
+		//停止录音
+		AudioUtils.stop();
 	}
 	
 	/**
