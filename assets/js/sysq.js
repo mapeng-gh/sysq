@@ -437,10 +437,6 @@ function editQuestion(questionCode){
  * @param answerCode
  */
 function showAnswer(answerCode){
-	if(isReplay){
-		return;
-	}
-	
 	var $answer = $("div.answer[data-code='"+answerCode+"']");
 	if($answer.hasClass("nodisplay")){
 		$answer.removeClass("nodisplay");
@@ -452,10 +448,6 @@ function showAnswer(answerCode){
  * @param answerCode
  */
 function hideAnswer(answerCode){
-	if(isReplay){
-		return;
-	}
-	
 	var $answer = $("div.answer[data-code='"+answerCode+"']");
 	if(!$answer.hasClass("nodisplay")){
 		$answer.addClass("nodisplay");
@@ -474,6 +466,11 @@ function resumeQuestionaire(){
  * @param endQuestionCode
  */
 function jumpToEnd(endQuestionCode){
+	
+	//弹出确认框
+	var r = confirm("选择本答案表示本访谈对象不符合入组要求，本访谈将结束，确定吗？");
+	if(!r)	return;
+	
 	saveToAnswers();
 	appservice.jumpToEndQuestion(endQuestionCode);
 }
@@ -497,8 +494,12 @@ function calculateAge(dateStr){
 function insertQuestionFragment(){
 	$("div.description span").each(function(){
 		var answerCode = $(this).attr("name");
-		var answerText = getAnswer(answerCode)["text"];
-		$(this).html(answerText);
+		var type = $(this).attr("type");
+		if(type == "value"){
+			$(this).html(getAnswerValue(answerCode));
+		}else if(type == "text"){
+			$(this).html(getAnswerText(answerCode));
+		}
 	});
 }
 
@@ -564,6 +565,12 @@ function checkData(){
 		}else if(type == "checkbox"){//多选
 			if($answer.find("input[type='checkbox']:checked").length == 0){
 				showMsg("请至少选择一个");
+				isValid = false;
+				return false;
+			}
+		}else if(type == "radiogroup"){//单选
+			if($answer.find("input[type='radio']:checked").length == 0){
+				showMsg("请选择一个");
 				isValid = false;
 				return false;
 			}

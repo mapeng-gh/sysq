@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +39,6 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 	private LinearLayout helpLL;
 	
 	private Handler handler;
-	private String toastMsg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 		handler = new Handler(){
 			public void handleMessage(Message msg) {
 				if(msg.what == 1){
-					Toast.makeText(IndexActivity.this,toastMsg, Toast.LENGTH_LONG).show();
+					Toast.makeText(IndexActivity.this,msg.obj.toString(), Toast.LENGTH_LONG).show();
 				}
 				super.handleMessage(msg);
 			}
@@ -140,37 +140,25 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 					//检查配置信息
 					UploadUtils.checkEnv();
 					
-					//显示进度条
-					AlertDialog.Builder uploadDialogBuilder = new AlertDialog.Builder(IndexActivity.this);
-					uploadDialogBuilder.setTitle("上传");
-					uploadDialogBuilder.setMessage("正在上传中，请稍候...");
-					uploadDialogBuilder.setCancelable(false);
-					final AlertDialog uploadDialog = uploadDialogBuilder.create();
-					uploadDialog.show();
+					Message uploadingMsg = new Message();
+					uploadingMsg.what = 1;
+					uploadingMsg.obj = "正在上传中，请稍候...";
+					handler.sendMessage(uploadingMsg);
 					
 					//上传文件
-					try{
-						UploadUtils.upload();
-						SysqApplication.showMessage("上传成功");
-						
-					}catch(Exception e){
-						
-						//给主线程发送消息显示toast错误信息
-						toastMsg = e.getMessage();
-						Message msg = new Message();
-						msg.what = 1;
-						handler.sendMessage(msg);
-						
-					}finally{
-						uploadDialog.dismiss();
-					}
+					UploadUtils.upload();
+					
+					Message uploadSuccessMsg = new Message();
+					uploadSuccessMsg.what = 1;
+					uploadSuccessMsg.obj = "上传成功";
+					handler.sendMessage(uploadSuccessMsg);
 					
 				}catch(Exception e){
 					
 					//给主线程发送消息显示toast错误信息
-					toastMsg = e.getMessage();
 					Message msg = new Message();
 					msg.what = 1;
+					msg.obj = e.getMessage();
 					handler.sendMessage(msg);
 				}
 			}

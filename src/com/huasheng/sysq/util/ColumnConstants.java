@@ -95,6 +95,7 @@ public class ColumnConstants {
 	public static final String COLUMN_INTERVIEW_BASIC_LAST_MODIFYED_TIME = "last_modified_time";
 	public static final String COLUMN_INTERVIEW_BASIC_VERSION_ID = "version_id";
 	public static final String COLUMN_INTERVIEW_BASIC_QUIT_REASON = "quit_reason";
+	public static final String COLUMN_INTERVIEW_BASIC_IS_UPLOAD = "is_upload";
 	
 	/**
 	 * 访谈问卷表

@@ -3,6 +3,8 @@ package com.huasheng.sysq.util;
 import java.io.File;
 import java.io.IOException;
 
+import com.huasheng.sysq.model.InterviewBasic;
+
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.StatFs;
@@ -21,11 +23,11 @@ public class AudioUtils {
 		return available;
 	}
 	
-	private static String genFilePath(String username){
+	private static String genFilePath(InterviewBasic interviewBasic){
 		
 		//文件名规则
 		String curTime = DateTimeUtils.getCustomDateTime("yyyyMMddHHmmss");
-		String filename = curTime + "_" + username +  ".aac";
+		String filename = interviewBasic.getIdentityCard() + "_" + interviewBasic.getUsername() + "_" + curTime + ".aac";
 		
 		//新建文件
 		File audioFile = new File(PathConstants.getAudioDir(),filename);
@@ -38,7 +40,7 @@ public class AudioUtils {
 		return audioFile.getAbsolutePath();
 	}
 	
-	public static void start(String username){
+	public static void start(InterviewBasic interviewBasic){
 		try{
 			
 			if(!isStarted){
@@ -54,7 +56,7 @@ public class AudioUtils {
 				mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 				mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
 				mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-				mediaRecorder.setOutputFile(genFilePath(username));
+				mediaRecorder.setOutputFile(genFilePath(interviewBasic));
 				
 				mediaRecorder.prepare();
 				mediaRecorder.start();

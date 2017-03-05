@@ -33,7 +33,7 @@
 								
 									{{each answerWrap.radioOptions as radioOption i}}
 										<span class="radio-option">
-											<input type="radio" name="{{answerWrap.answer.code}}" {{i == 0 ? checked="checked":""}} value="{{radioOption.value}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
+											<input type="radio" name="{{answerWrap.answer.code}}"  value="{{radioOption.value}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
 											<span class="size-answer-text">{{radioOption.text}}</span>
 										</span>
 									{{/each}}	
@@ -42,7 +42,7 @@
 								
 									{{each answerWrap.radioOptions as radioOption i}}
 										<div class="radio-option">
-											<input type="radio" name="{{answerWrap.answer.code}}" {{i == 0 ? checked="checked":""}} value="{{radioOption.value}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
+											<input type="radio" name="{{answerWrap.answer.code}}"  value="{{radioOption.value}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
 											<span class="size-answer-text">{{radioOption.text}}</span>
 										</div>
 									{{/each}}

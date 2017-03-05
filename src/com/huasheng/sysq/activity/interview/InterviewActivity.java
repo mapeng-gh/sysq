@@ -84,7 +84,7 @@ public class InterviewActivity extends BaseActivity{
 					InterviewContext.setOperateType(InterviewContext.OPERATE_TYPE_NORMAL);
 					
 					//开始录音
-					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
+					AudioUtils.start(InterviewContext.getCurInterviewBasic());
 					
 					jumpToFirstQuestionaire();
 					
@@ -98,7 +98,7 @@ public class InterviewActivity extends BaseActivity{
 					InterviewContext.setCurInterviewBasic(interviewBasic);
 					
 					//开始录音
-					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
+					AudioUtils.start(InterviewContext.getCurInterviewBasic());
 					
 					if(StringUtils.isEmpty(interviewBasic.getNextQuestionCode())){//当前位置在问卷介绍页
 						
@@ -115,7 +115,7 @@ public class InterviewActivity extends BaseActivity{
 					
 					modifySingleQuestion();
 					//开始录音
-					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
+					AudioUtils.start(InterviewContext.getCurInterviewBasic());
 					
 				}else if("modifyAssociatedQuestion".equals(InterviewActivity.this.operateType)){//修改关联问题
 					
@@ -125,7 +125,7 @@ public class InterviewActivity extends BaseActivity{
 					modifyAssociatedQuestion();
 					
 					//开始录音
-					AudioUtils.start(InterviewContext.getCurInterviewBasic().getUsername());
+					AudioUtils.start(InterviewContext.getCurInterviewBasic());
 				}
 			}
 		});

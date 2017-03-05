@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:background="#338EE7"
-                android:text="口腔刮片统计"
+                android:text="血液样本统计"
                 android:textColor="#FFF"
                 android:textSize="20sp"/>
             

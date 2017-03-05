@@ -47,6 +47,7 @@ public class InterviewService {
 		interviewBasic.setVersionId(SysqContext.getCurrentVersion().getId());
 		interviewBasic.setStartTime(DateTimeUtils.getCurDateTime());
 		interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
+		interviewBasic.setIsUpload(InterviewBasic.UPLOAD_NO);
 		
 		//保存
 		int id = InterviewBasicDB.insert(interviewBasic);
@@ -105,6 +106,25 @@ public class InterviewService {
 	 */
 	public static List<InterviewBasic> getAllInterviewBasic(){
 		return InterviewBasicDB.getList();
+	}
+	
+	/**
+	 * 获取未上传的访谈记录
+	 * @return
+	 */
+	public static List<InterviewBasic> getUnUploadInterviewBasic(){
+		List<InterviewBasic> unUploadInterviewBasicList = new ArrayList<InterviewBasic>();
+		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList();
+		if(interviewBasicList != null && interviewBasicList.size() > 0){
+			for(InterviewBasic interviewBasic : interviewBasicList){
+				if(interviewBasic.getIsTest() == InterviewBasic.TEST_NO && 
+						interviewBasic.getStatus() == InterviewBasic.STATUS_DONE && 
+						interviewBasic.getIsUpload() == InterviewBasic.UPLOAD_NO){
+					unUploadInterviewBasicList.add(interviewBasic);
+				}
+			}
+		}
+		return unUploadInterviewBasicList;
 	}
 	
 	/**
@@ -396,6 +416,7 @@ public class InterviewService {
 			interviewAnswer.setAnswerValue(answerValue.getValue());
 			interviewAnswer.setAnswerText(answerValue.getText());
 			interviewAnswer.setAnswerSeqNum(answerValue.getSeqNum());
+			interviewAnswer.setVersionId(SysqContext.getCurrentVersion().getId());
 			InterviewAnswerDB.insert(interviewAnswer);
 		}
 	}
@@ -420,6 +441,7 @@ public class InterviewService {
 			interviewAnswer.setAnswerValue(answerValue.getValue());
 			interviewAnswer.setAnswerText(answerValue.getText());
 			interviewAnswer.setAnswerSeqNum(answerValue.getSeqNum());
+			interviewAnswer.setVersionId(SysqContext.getCurrentVersion().getId());
 			InterviewAnswerDB.insert(interviewAnswer);
 		}
 		

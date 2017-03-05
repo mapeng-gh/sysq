@@ -27,6 +27,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 发作次数 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -148,6 +149,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 发生年龄 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -194,7 +196,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.3.1.2"
+	                android:tag="LHC.3.1"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -205,7 +207,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.4.1.2"
+	                android:tag="LHC.4.1"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -216,7 +218,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.5.1.2"
+	                android:tag="LHC.5.1"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -227,7 +229,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.6.1.2"
+	                android:tag="LHC.6.1"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -238,7 +240,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.7.1.2"
+	                android:tag="LHC.7.1"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	             
 	             <View style="@style/list_item_cell_seperator"/>
@@ -249,7 +251,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.8.1.2"
+	                android:tag="LHC.8.1"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	             
 	             <View style="@style/list_item_cell_seperator"/>
@@ -269,6 +271,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 是否最严重 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -293,7 +296,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.1.1.b"
+	                android:tag="LHC.1.1.a"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -304,7 +307,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.2.1.b"
+	                android:tag="LHC.2.1.a"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -315,7 +318,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.3.1.b"
+	                android:tag="LHC.3.1.a"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -326,7 +329,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.4.1.b"
+	                android:tag="LHC.4.1.a"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -337,7 +340,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.5.1.b"
+	                android:tag="LHC.5.1.a"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -348,7 +351,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.6.1.b"/>
+	                android:tag="LHC.6.1.a"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
 	              
@@ -358,7 +361,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.7.1.b"/>
+	                android:tag="LHC.7.1.a"/>
 	             
 	             <View style="@style/list_item_cell_seperator"/>
 	              
@@ -368,7 +371,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.8.1.a"
+	                android:tag=""
 	                style="@style/interviewee_answers_lhc_cell"/>
 	             
 	             <View style="@style/list_item_cell_seperator"/>
@@ -388,6 +391,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 由于事件还是具体原因 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -508,6 +512,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 持续时间：周 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -521,7 +526,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:text="Duration: weeks, months or years\n持续时间：年、月、周"
+	                android:text="Duration: weeks, months or years\n持续时间：周"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -532,7 +537,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.1.3.y,LHC.1.3.m,LHC.1.3.w"
+	                android:tag="LHC.1.3.w"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -543,7 +548,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.2.3.y,LHC.2.3.m,LHC.2.3.w"
+	                android:tag="LHC.2.3.w"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -554,7 +559,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.3.3.y,LHC.3.3.m,LHC.3.3.w"/>
+	                android:tag="LHC.3.3.w"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
 	            
@@ -564,7 +569,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.4.3.y,LHC.4.3.m,LHC.4.3.w"
+	                android:tag="LHC.4.3.w"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -575,7 +580,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.5.3.y,LHC.5.3.m,LHC.5.3.w"
+	                android:tag="LHC.5.3.w"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -586,7 +591,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.6.3.y,LHC.6.3.m,LHC.6.3.w"
+	                android:tag="LHC.6.3.w"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	            
 	            <View style="@style/list_item_cell_seperator"/>
@@ -597,7 +602,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.7.3.y,LHC.7.3.m,LHC.7.3.w"
+	                android:tag="LHC.7.3.w"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	             
 	             <View style="@style/list_item_cell_seperator"/>
@@ -608,7 +613,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.8.3.y,LHC.8.3.m,LHC.8.3.w"
+	                android:tag="LHC.8.3.w"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	             
 	             <View style="@style/list_item_cell_seperator"/>
@@ -619,7 +624,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_vertical"
 	                android:gravity="center"
-	                android:tag="LHC.9.3.y,LHC.9.3.m,LHC.9.3.w"
+	                android:tag="LHC.9.3.w"
 	                style="@style/interviewee_answers_lhc_cell"/>
 	              
 	              <View style="@style/list_item_cell_seperator"/>
@@ -628,6 +633,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!--  接受治疗与否 -->
 	         <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -748,6 +754,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 治疗效果如何 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -868,6 +875,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 夫妻分居/离婚 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -988,6 +996,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 严重创伤或车祸 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -1108,6 +1117,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 失业/下岗/退休 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -1228,6 +1238,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 配偶死亡或患重病 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -1348,6 +1359,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 营企业或家庭经济破产 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -1468,6 +1480,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 家庭其他成员死亡或患重病 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -1588,6 +1601,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 遭到暴力打击/被强暴 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -1708,6 +1722,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 严重自然灾害（如旱、涝等） -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -1828,6 +1843,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 严重的家庭内部矛盾及冲突 -->
 	         <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -1948,6 +1964,7 @@
 	        
 	        <View style="@style/list_item_row_seperator"/>
 	        
+	        <!-- 丧失经济来源/负债度日 -->
 	        <LinearLayout 
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"

@@ -30,7 +30,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Looper;
 import android.text.TextUtils;
 
@@ -40,7 +39,6 @@ import com.huasheng.sysq.service.SystemUpdateService;
 public class SystemUpdateUtils {
 	
 	public static final String CONFIG_ADDRESS = "http://o77m1ke38.bkt.clouddn.com/version.properties";//配置文件地址
-	public static final File UPDATE_DIR = new File(Environment.getExternalStorageDirectory(),"sysq" + File.separator + "update");//临时目录
 	
 	/**
 	 * 检查更新
@@ -66,17 +64,15 @@ public class SystemUpdateUtils {
 			@Override
 			public void run() {
 				
-				//准备临时目录
+				//清空临时目录
 				try{
-					if(UPDATE_DIR.exists()){
-						FileUtils.cleanDirectory(UPDATE_DIR);
-					}else{
-						UPDATE_DIR.mkdir();
-					}
-				}catch(IOException e){}
+					FileUtils.cleanDirectory(new File(PathConstants.getTmpDir()));
+				}catch(Exception e){
+					//ignore
+				}
 				
 				//下载配置文件
-				File configFileTmp = new File(UPDATE_DIR,"version.properties"); 
+				File configFileTmp = new File(PathConstants.getTmpDir(),"version.properties"); 
 				download(CONFIG_ADDRESS+"?v="+new Date().getTime(),configFileTmp);
 				
 				//读取配置信息
@@ -143,10 +139,10 @@ public class SystemUpdateUtils {
 									
 									//更新问卷
 									if(newInterviewVersionCode > curInterviewVersionCode){
-										File zipFileTmp = new File(UPDATE_DIR,"interview.zip");
+										File zipFileTmp = new File(PathConstants.getTmpDir(),"interview.zip");
 										download(zipDownloadUrl+"?v="+new Date().getTime(),zipFileTmp);
 										
-										File tmpUnzipDir = new File(UPDATE_DIR,"unzip");
+										File tmpUnzipDir = new File(PathConstants.getTmpDir(),"unzip");
 										unzip(zipFileTmp,tmpUnzipDir);
 										
 										File[] files = tmpUnzipDir.listFiles();
@@ -159,7 +155,7 @@ public class SystemUpdateUtils {
 									
 									//更新app
 									if(newAppVersionCode > curAppVersionCode){
-										File appDownloadFile = new File(UPDATE_DIR,"sysq.apk");
+										File appDownloadFile = new File(PathConstants.getTmpDir(),"sysq.apk");
 										download(appDownload+"?v="+new Date().getTime(),appDownloadFile);
 										installApk(appDownloadFile);
 									}

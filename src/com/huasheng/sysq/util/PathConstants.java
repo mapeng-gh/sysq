@@ -29,11 +29,11 @@ public class PathConstants {
 	 * @return
 	 */
 	public static String getAudioDir(){
-		File dbDir = new File(Environment.getExternalStorageDirectory() + File.separator + "sysq" + File.separator + "audio");
-		if(!dbDir.exists()){
-			dbDir.mkdirs();
+		File audioDir = new File(Environment.getExternalStorageDirectory() + File.separator + "sysq" + File.separator + "audio");
+		if(!audioDir.exists()){
+			audioDir.mkdirs();
 		}
-		return dbDir.getPath();
+		return audioDir.getPath();
 	}
 	
 	/**
@@ -58,5 +58,17 @@ public class PathConstants {
 		}
 		
 		return ftpConfigFile.getPath();
+	}
+	
+	/**
+	 * 获取临时目录
+	 * @return
+	 */
+	public static String getTmpDir(){
+		File tmpDir = new File(Environment.getExternalStorageDirectory() + File.separator + "sysq" + File.separator + "tmp");
+		if(!tmpDir.exists()){
+			tmpDir.mkdirs();
+		}
+		return tmpDir.getPath();
 	}
 }
