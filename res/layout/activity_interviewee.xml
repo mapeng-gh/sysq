@@ -16,12 +16,13 @@
         
         <EditText 
             android:id="@+id/et_interviewee_search"
-            android:layout_width="250dp"
+            android:layout_width="300dp"
             android:layout_height="35dp"
             android:padding="5dp"
             android:background="@drawable/edittext_border"
             android:singleLine="true"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:hint="请输入姓名或者扫描DNA条形码"/>
         
         <ImageButton 
             android:id="@+id/btn_interviewee_barcode"

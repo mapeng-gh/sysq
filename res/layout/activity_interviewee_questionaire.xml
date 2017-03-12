@@ -6,92 +6,52 @@
     android:padding="50dp">
     
     <LinearLayout 
-        android:id="@+id/ll_interviewee_questionaire_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-	    android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+	    <TextView 
+	        style="@style/interviewee_questionaire_list_head"
+	        android:layout_weight="@string/interviewee_questionaire_list_head_title_weight"
+	        android:text="@string/interviewee_questionaire_list_head_title_label"/>
+	    
+	    <TextView 
+	        style="@style/interviewee_questionaire_list_head"
+	        android:layout_weight="@string/interviewee_questionaire_list_head_status_weight"
+	        android:text="@string/interviewee_questionaire_list_head_status_label"/>
+	    
+	    <TextView 
+	        style="@style/interviewee_questionaire_list_head"
+	        android:layout_weight="@string/interviewee_questionaire_list_head_last_modified_time_weight"
+	        android:text="@string/interviewee_questionaire_list_head_last_modified_time_label"/>
+	    
+	    <TextView 
+	        style="@style/interviewee_questionaire_list_head"
+	        android:layout_weight="@string/interviewee_questionaire_list_head_operation_weight"
+	        android:text="@string/interviewee_questionaire_list_head_operation_label"/>
+	    
     </LinearLayout>
     
     <LinearLayout 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="10dp">
         
-        <LinearLayout 
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-            
-            <LinearLayout 
-                android:id="@+id/ll_interviewee_questionaire_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginRight="70dp"
-                android:layout_gravity="center_vertical">
-                
-                <ImageView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/interviewee_questionaire_list"
-                    android:layout_gravity="center_horizontal"/>
-                <TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/interviewee_questionaire_list"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="20sp"/>
-                
-            </LinearLayout>
-            
-            <LinearLayout 
-                android:id="@+id/ll_interviewee_questionaire_basic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginRight="70dp"
-                android:layout_gravity="center_vertical">
-                
-                <ImageView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/interviewee_questionaire_basic"
-                    android:layout_gravity="center_horizontal"/>
-                <TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/interviewee_questionaire_basic"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="20sp"/>
-                
-            </LinearLayout>
-            
-            <LinearLayout 
-                android:id="@+id/ll_interviewee_questionaire_dna"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical">
-                
-                <ImageView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/interviewee_questionaire_dna"
-                    android:layout_gravity="center_horizontal"/>
-                <TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/interviewee_questionaire_dna"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="20sp"/>
-                
-          </LinearLayout>
-            
-        </LinearLayout>
-        	
-    </LinearLayout>
+         <View style="@style/list_item_row_seperator"/>
+         
+	    <ListView 
+	        android:id="@+id/lv_interviewee_questionaire_list"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:divider="#808080"
+	        android:dividerHeight="1dp">
+	        
+	    </ListView>
+	    
+	    <View style="@style/list_item_row_seperator"/>
+	    
+   	</LinearLayout>
 
 </LinearLayout>

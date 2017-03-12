@@ -25,18 +25,19 @@ public class AudioUtils {
 	
 	private static String genFilePath(InterviewBasic interviewBasic){
 		
-		//文件名规则
-		String curTime = DateTimeUtils.getCustomDateTime("yyyyMMddHHmmss");
-		String filename = interviewBasic.getIdentityCard() + "_" + interviewBasic.getUsername() + "_" + curTime + ".aac";
-		
-		//新建文件
-		File audioFile = new File(PathConstants.getAudioDir(),filename);
-		try{
-			audioFile.createNewFile();
-		}catch(IOException e){
-			throw new RuntimeException("生成录音文件失败", e);
+		File audioDir = new File(PathConstants.getAudioDir(),interviewBasic.getUsername());
+		if(!audioDir.exists()){
+			audioDir.mkdirs();
 		}
 		
+		File audioFile = new File(audioDir,DateTimeUtils.getCustomDateTime("yyyyMMddHHmmss") + ".aac");
+		try{
+			if(audioFile.exists()){
+				audioFile.delete();
+			}
+			audioFile.createNewFile();
+		}catch(IOException e){
+		}
 		return audioFile.getAbsolutePath();
 	}
 	

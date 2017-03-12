@@ -1,4 +1,4 @@
-package com.huasheng.sysq.activity.interviewee.answers;
+package com.huasheng.sysq.activity.interviewee.questionaire;
 
 import java.util.ArrayList;
 import java.util.List;

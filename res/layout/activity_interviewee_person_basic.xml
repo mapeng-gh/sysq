@@ -2,25 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" >
     
-    <!-- 标题 -->
-    <RelativeLayout 
+   <!-- 标题 -->
+   <RelativeLayout 
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="130dp">
         <TextView 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerInParent="true"
-	        android:text="请输入受访者个人信息，单击“开始访谈”按钮，进入访谈"
-	        android:textColor="#0096DC"
-	        android:textSize="25sp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="基本信息"
+            android:textColor="#0096DC"
+            android:textSize="40sp"/>
     </RelativeLayout>
     
-    <!-- 表单：姓名 -->
+   <!-- 表单：姓名 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interview_layout">
+        style="@style/interviewee_questionaire_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -29,13 +29,13 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/interview_label"
+		           style="@style/interviewee_questionaire_basic_label"
 		           android:text="姓名："/>
 		       <EditText 
-		           android:id="@+id/interviewer_basic_username"
-		           style="@style/interview_edittext"/>
+		           android:id="@+id/et_interviewee_questionaire_basic_username"
+		           style="@style/interviewee_questionaire_basic_edittext"/>
 		       <TextView 
-		           style="@style/interview_hint"
+		           style="@style/interviewee_questionaire_basic_hint"
 		           android:text="*至少为2个汉字"/>
             
         </LinearLayout>
@@ -45,7 +45,7 @@
     <!-- 表单：身份证号 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interview_layout">
+        style="@style/interviewee_questionaire_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -54,13 +54,13 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/interview_label"
+		           style="@style/interviewee_questionaire_basic_label"
 		           android:text="身份证号码："/>
 		       <EditText 
-		           android:id="@+id/interviewer_basic_identity_card"
-		           style="@style/interview_edittext"/>
+		           android:id="@+id/et_interviewee_questionaire_basic_identity_card"
+		           style="@style/interviewee_questionaire_basic_edittext"/>
 		       <TextView 
-		           style="@style/interview_hint"
+		           style="@style/interviewee_questionaire_basic_hint"
 		           android:text="*18位数字或字母的组合"/>
             
         </LinearLayout>
@@ -70,7 +70,7 @@
     <!-- 表单：省/自治区/直辖市 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interview_layout">
+        style="@style/interviewee_questionaire_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -79,13 +79,13 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/interview_label"
+		           style="@style/interviewee_questionaire_basic_label"
 		           android:text="省/自治区/直辖市："/>
 		       <EditText 
-		           android:id="@+id/interviewer_basic_province"
-		           style="@style/interview_edittext"/>
+		           android:id="@+id/et_interviewee_questionaire_basic_province"
+		           style="@style/interviewee_questionaire_basic_edittext"/>
 		       <TextView 
-		           style="@style/interview_hint"
+		           style="@style/interviewee_questionaire_basic_hint"
 		           android:text="*"/>
             
         </LinearLayout>
@@ -95,7 +95,7 @@
     <!-- 表单：市/县/区 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interview_layout">
+        style="@style/interviewee_questionaire_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -104,13 +104,13 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/interview_label"
+		           style="@style/interviewee_questionaire_basic_label"
 		           android:text="市/县/区："/>
 		       <EditText 
-		           android:id="@+id/interviewer_basic_city"
-		           style="@style/interview_edittext"/>
+		           android:id="@+id/et_interviewee_questionaire_basic_city"
+		           style="@style/interviewee_questionaire_basic_edittext"/>
 		       <TextView 
-		           style="@style/interview_hint"
+		           style="@style/interviewee_questionaire_basic_hint"
 		           android:text="*"/>
             
         </LinearLayout>
@@ -120,7 +120,7 @@
     <!-- 表单：联系地址 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interview_layout">
+        style="@style/interviewee_questionaire_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -129,13 +129,13 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/interview_label"
+		           style="@style/interviewee_questionaire_basic_label"
 		           android:text="联系地址："/>
 		       <EditText 
-		           android:id="@+id/interviewer_basic_address"
-		           style="@style/interview_edittext"/>
+		           android:id="@+id/et_interviewee_questionaire_basic_address"
+		           style="@style/interviewee_questionaire_basic_edittext"/>
 		       <TextView 
-		           style="@style/interview_hint"
+		           style="@style/interviewee_questionaire_basic_hint"
 		           android:text="*"/>
             
         </LinearLayout>
@@ -145,7 +145,7 @@
     <!-- 表单：邮政编码 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interview_layout">
+        style="@style/interviewee_questionaire_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -154,13 +154,13 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/interview_label"
+		           style="@style/interviewee_questionaire_basic_label"
 		           android:text="邮政编码："/>
 		       <EditText 
-		           android:id="@+id/interviewer_basic_post_code"
-		           style="@style/interview_edittext"/>
+		           android:id="@+id/et_interviewee_questionaire_basic_post_code"
+		           style="@style/interviewee_questionaire_basic_edittext"/>
 		       <TextView 
-		           style="@style/interview_hint"
+		           style="@style/interviewee_questionaire_basic_hint"
 		           android:text="*6位数字"/>
             
         </LinearLayout>
@@ -170,7 +170,7 @@
     <!-- 表单：联系电话 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interview_layout">
+        style="@style/interviewee_questionaire_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -179,23 +179,23 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/interview_label"
+		           style="@style/interviewee_questionaire_basic_label"
 		           android:text="联系电话："/>
 		       <EditText 
-		           android:id="@+id/interviewer_basic_mobile"
+		           android:id="@+id/et_interviewee_questionaire_basic_mobile"
 		           style="@style/interviewee_questionaire_basic_edittext"/>
 		       <TextView 
-		           style="@style/interview_hint"
+		           style="@style/interviewee_questionaire_basic_hint"
 		           android:text="*10-12位数字（支持手机、座机，座机须带区号）"/>
             
         </LinearLayout>
         
     </RelativeLayout>
     
-	<!-- 表单：本地亲属联系地址 -->
+    <!-- 表单：本地亲属联系地址 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interview_layout">
+        style="@style/interviewee_questionaire_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -204,13 +204,13 @@
             android:orientation="horizontal">
             
            <TextView 
-		           style="@style/interview_label"
+		           style="@style/interviewee_questionaire_basic_label"
 		           android:text="本地亲属联系地址："/>
 		       <EditText 
-		           android:id="@+id/interviewer_basic_family_address"
-		           style="@style/interview_edittext"/>
+		           android:id="@+id/et_interviewee_questionaire_basic_family_address"
+		           style="@style/interviewee_questionaire_basic_edittext"/>
 		       <TextView 
-		           style="@style/interview_hint"
+		           style="@style/interviewee_questionaire_basic_hint"
 		           android:text=""/>
             
         </LinearLayout>
@@ -220,7 +220,7 @@
     <!-- 表单：本地亲属联系电话 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interview_layout">
+        style="@style/interviewee_questionaire_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -229,97 +229,14 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/interview_label"
+		           style="@style/interviewee_questionaire_basic_label"
 		           android:text="本地亲属联系电话："/>
 		       <EditText 
-		           android:id="@+id/interviewer_basic_family_mobile"
-		           style="@style/interview_edittext"/>
+		           android:id="@+id/et_interviewee_questionaire_basic_family_mobile"
+		           style="@style/interviewee_questionaire_basic_edittext"/>
 		       <TextView 
-		           style="@style/interview_hint"
+		           style="@style/interviewee_questionaire_basic_hint"
 		           android:text="10-12位数字（支持手机、座机，座机须带区号）"/>
-            
-        </LinearLayout>
-        
-    </RelativeLayout>
-    
-    <!-- 表单： 访谈类型-->
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        style="@style/interview_layout">
-        
-        <LinearLayout 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
-            
-            <TextView 
-		           style="@style/interview_label"
-		           android:text="访谈类型："/>
-		      <RadioGroup 
-	                 android:layout_width="260dp"
-	                    android:layout_height="wrap_content"
-	                android:orientation="horizontal"
-	                android:layout_gravity="center_vertical">
-	                
-	                <RadioButton 
-	                    android:id="@+id/interviewer_dna_type_true"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:checked="true"
-	                    android:text="真实访谈"/>
-	                <RadioButton 
-	                    android:id="@+id/interviewer_dna_type_test"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:text="测试"
-	                    android:layout_marginLeft="35dp"/>
-		                
-		        </RadioGroup>
-		       <TextView 
-		           style="@style/interview_hint"
-		           android:text="*"/>
-            
-        </LinearLayout>
-        
-    </RelativeLayout>
-    
-    <!-- 表单：问卷类型 -->
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        style="@style/interview_layout">
-        
-        <LinearLayout 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
-            
-            <TextView 
-		           style="@style/interview_label"
-		           android:text="问卷类型："/>
-		       <RadioGroup 
-	                 android:layout_width="260dp"
-	                  android:layout_height="wrap_content"
-	                android:orientation="horizontal"
-	                android:layout_gravity="center_vertical">
-	                
-	                <RadioButton 
-	                    android:id="@+id/interviewer_dna_questionaire_type_case"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:checked="true"
-	                    android:text="病例"/>
-	                <RadioButton 
-	                    android:id="@+id/interviewer_dna_questionaire_type_contrast"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:text="对照"
-	                    android:layout_marginLeft="65dp"/>
-		        </RadioGroup>
-		       <TextView 
-		           style="@style/interview_hint"
-		           android:text="*"/>
             
         </LinearLayout>
         
@@ -337,10 +254,10 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/interview_label"
+		           style="@style/interviewee_questionaire_basic_label"
 		           android:text="备注："/>
 		       <EditText 
-	               android:id="@+id/interviewer_basic_remark"
+	               android:id="@+id/et_interviewee_questionaire_basic_remark"
 	               android:layout_width="250dp"
 	               android:layout_height="wrap_content"
 	               android:background="@drawable/edittext_border"
@@ -351,7 +268,7 @@
 	               android:padding="10dp"/>
 		       
 		        <TextView 
-		           style="@style/interview_hint"
+		           style="@style/interviewee_questionaire_basic_hint"
 		           android:text="病例卡号、住院卡号"/>
             
         </LinearLayout>
@@ -361,19 +278,19 @@
     <!-- 表单：保存 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interview_layout">
+        style="@style/interviewee_questionaire_basic_layout">
         
         <Button
-	            android:id="@+id/interviewer_basic_submit_button"
+	            android:id="@+id/btn_interviewee_questionaire_basic_submit"
 	            android:layout_width="350dp"
 	            android:layout_height="wrap_content"
 	            android:layout_centerInParent="true"
-	            android:text="开始访谈"
+	            android:text="保存"
 	            android:background="#0096DC"
 	            android:textColor="#FFFFFF"
 	            android:textSize="25sp"
 	            android:layout_gravity="center_horizontal"/>
         
     </RelativeLayout>
-    
+
 </LinearLayout>

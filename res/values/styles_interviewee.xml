@@ -18,10 +18,7 @@
     
     <!-- interviewee questionaire basic -->
     <style name="interviewee_questionaire_basic_layout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:layout_marginBottom">50dp</item>
+        <item name="android:layout_height">100dp</item>
     </style>
     <style name="interviewee_questionaire_basic_label">
         <item name="android:layout_width">200dp</item>
@@ -35,10 +32,10 @@
         <item name="android:padding">10dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/edittext_border</item>
+        <item name="android:layout_marginLeft">15dp</item>
     </style>
     <style name="interviewee_questionaire_basic_hint">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">15dp</item>
         <item name="android:textColor">#FF0000</item>
@@ -48,31 +45,29 @@
     
     <!-- interviewee questionaire dna -->
      <style name="interviewee_questionaire_dna_layout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:layout_marginBottom">50dp</item>
+       <item name="android:layout_height">100dp</item>
     </style>
-    <style name="interviewee_questionaire_dna_label">
+    <style name="interviewee_person_dna_label">
         <item name="android:layout_width">120dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
-    <style name="interviewee_questionaire_dna_edittext">
+    <style name="interviewee_person_dna_edittext">
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">300dp</item>
         <item name="android:padding">10dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/edittext_border</item>
         <item name="android:singleLine">true</item>
+        <item name="android:editable">false</item>
     </style>
-    <style name="interviewee_questionaire_dna_btn">
+    <style name="interviewee_person_dna_imagebtn">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">50dp</item>
-        <item name="android:textColor">#338EE7</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:src">@drawable/interview_dna_scan</item>
+        <item name="android:background">#00000000</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
     

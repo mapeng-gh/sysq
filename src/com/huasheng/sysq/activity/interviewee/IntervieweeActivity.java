@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.activity.IndexActivity;
 import com.huasheng.sysq.activity.interview.InterviewActivity;
+import com.huasheng.sysq.activity.interviewee.person.IntervieweePersonNavActivity;
 import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionaireActivity;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.Page;
@@ -100,7 +101,7 @@ public class IntervieweeActivity extends BaseActivity implements OnClickListener
 			
 			this.scan();
 			
-		}else if(view.getId() == R.id.tv_interviewee_item_view){//查看问卷
+		}else if(view.getId() == R.id.tv_interviewee_item_questionaire){//查看问卷
 			
 			int interviewBasicId = (Integer)view.getTag();
 			this.viewQuestionaire(interviewBasicId);
@@ -126,6 +127,11 @@ public class IntervieweeActivity extends BaseActivity implements OnClickListener
 			quitReasonDialog.setCanceledOnTouchOutside(false);
 			quitReasonDialog.show();
 			
+		}else if(view.getId() == R.id.tv_interviewee_item_person){//个人信息
+			Intent intent = new Intent(this,IntervieweePersonNavActivity.class);
+			int interviewBasicId = (Integer)view.getTag();
+			intent.putExtra("interviewBasicId", interviewBasicId);
+			this.startActivity(intent);
 		}
 	}
 	
@@ -187,11 +193,18 @@ public class IntervieweeActivity extends BaseActivity implements OnClickListener
 	}
 	
 	private void refreshListView(Page<InterviewBasic> page){
+		
 		if(page.getData() == null || page.getData().size() == 0){
 			bodyLL.setVisibility(View.GONE);
 			paginationRL.setVisibility(View.GONE);
 			noDataTV.setVisibility(View.VISIBLE);
+			
 		}else{
+			
+			bodyLL.setVisibility(View.VISIBLE);
+			paginationRL.setVisibility(View.VISIBLE);
+			noDataTV.setVisibility(View.GONE);
+			
 			if(adapter ==null){
 				adapter = new IntervieweeAdapter(this,R.layout.item_interviewee, page.getData(),this);
 				listView.setAdapter(adapter);

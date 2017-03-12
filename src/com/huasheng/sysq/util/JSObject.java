@@ -1,9 +1,11 @@
 package com.huasheng.sysq.util;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import android.app.AlertDialog;
@@ -16,7 +18,8 @@ import android.webkit.JavascriptInterface;
 import com.google.gson.reflect.TypeToken;
 import com.huasheng.sysq.activity.IndexActivity;
 import com.huasheng.sysq.activity.interview.InterviewActivity;
-import com.huasheng.sysq.activity.interviewee.answers.IntervieweeAnswerActivity;
+import com.huasheng.sysq.activity.interviewee.person.IntervieweePerson4DNAActivity;
+import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeAnswerActivity;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewBasic;
@@ -394,10 +397,11 @@ public class JSObject {
 			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 			InterviewService.updateInterviewBasic(curInterviewBasic);
 			
-			//跳转首页
-			Intent indexIntent = new Intent(SysqApplication.getContext(),IndexActivity.class);
-			indexIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			SysqApplication.getContext().startActivity(indexIntent);
+			//跳转DNA采集
+			Intent intent = new Intent(SysqApplication.getContext(),IntervieweePerson4DNAActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.putExtra("interviewBasicId", curInterviewBasic.getId());
+			SysqApplication.getContext().startActivity(intent);
 			
 		}else{
 			
@@ -512,6 +516,12 @@ public class JSObject {
 		
 		//停止录音
 		AudioUtils.stop();
+		
+		//删除个人文件夹（包括录音文件、图片）
+		File personDir = new File(PathConstants.getAudioDir(),InterviewContext.getCurInterviewBasic().getUsername());
+		if(personDir.exists()){
+			FileUtils.deleteQuietly(personDir);
+		}
 		
 		if(!StringUtils.isEmpty(answersJS)){//保存问卷答案
 			

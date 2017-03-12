@@ -70,9 +70,14 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 		}
 		
 		//绑定事件
-		TextView viewTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_view);
+		TextView viewTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_questionaire);
 		viewTV.setOnClickListener(this.activity);
 		viewTV.setTag(interviewBasic.getId());
+		
+		//个人信息
+		TextView personTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_person);
+		personTV.setOnClickListener(this.activity);
+		personTV.setTag(interviewBasic.getId());
 		
 		//控制“继续”显示
 		TextView continueTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_continue);
