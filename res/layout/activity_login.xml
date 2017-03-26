@@ -108,7 +108,7 @@
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/edittext_border"
                     android:password="true"
-                    android:text="admin"
+                    android:text="123456"
                     android:padding="10dp"/>
                 
             </LinearLayout>

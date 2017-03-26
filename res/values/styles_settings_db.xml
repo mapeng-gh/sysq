@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <style name="settings_ftp_layout">
+    <style name="settings_db_layout">
         <item name="android:layout_height">100dp</item>
     </style>
-    <style name="settings_ftp_label">
+    <style name="settings_db_label">
         <item name="android:layout_width">170dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
-    <style name="settings_ftp_edittext">
+    <style name="settings_db_edittext">
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">250dp</item>
         <item name="android:padding">10dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:background">@drawable/edittext_border</item>
     </style>
-    <style name="settings_ftp_hint">
+    <style name="settings_db_hint">
         <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">50dp</item>

@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="FTP服务器"
+            android:text="数据库服务器"
             android:textColor="#0096DC"
             android:textSize="40sp"/>
     </RelativeLayout>
@@ -20,7 +20,7 @@
    <!-- 表单：服务器地址 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/settings_ftp_layout">
+        style="@style/settings_db_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -29,13 +29,13 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/settings_ftp_label"
+		           style="@style/settings_db_label"
 		           android:text="服务器地址："/>
 		       <EditText 
-		           android:id="@+id/settings_ftp_ip"
-		           style="@style/settings_ftp_edittext"/>
+		           android:id="@+id/settings_db_ip"
+		           style="@style/settings_db_edittext"/>
 		       <TextView 
-		           style="@style/settings_ftp_hint"
+		           style="@style/settings_db_hint"
 		           android:text="*域名或者IP地址"/>
             
         </LinearLayout>
@@ -45,7 +45,7 @@
     <!-- 表单：端口 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/settings_ftp_layout">
+        style="@style/settings_db_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -54,14 +54,39 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/settings_ftp_label"
+		           style="@style/settings_db_label"
 		           android:text="端口："/>
 		       <EditText 
-		           android:id="@+id/settings_ftp_port"
-		           style="@style/settings_ftp_edittext"/>
+		           android:id="@+id/settings_db_port"
+		           style="@style/settings_db_edittext"/>
 		       <TextView 
-		           style="@style/settings_ftp_hint"
+		           style="@style/settings_db_hint"
 		           android:text="*数字0-65535"/>
+            
+        </LinearLayout>
+        
+    </RelativeLayout>
+    
+    <!-- 表单：数据库 -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        style="@style/settings_db_layout">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+            
+            <TextView 
+		           style="@style/settings_db_label"
+		           android:text="数据库："/>
+		       <EditText 
+		           android:id="@+id/settings_db_db"
+		           style="@style/settings_db_edittext"/>
+		       <TextView 
+		           style="@style/settings_db_hint"
+		           android:text="*"/>
             
         </LinearLayout>
         
@@ -70,7 +95,7 @@
     <!-- 表单：用户名 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/settings_ftp_layout">
+        style="@style/settings_db_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -79,14 +104,14 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/settings_ftp_label"
+		           style="@style/settings_db_label"
 		           android:text="用户名："/>
 		       <EditText 
-		           android:id="@+id/settings_ftp_username"
-		           style="@style/settings_ftp_edittext"/>
+		           android:id="@+id/settings_db_username"
+		           style="@style/settings_db_edittext"/>
 		       <TextView 
-		           style="@style/settings_ftp_hint"
-		           android:text=""/>
+		           style="@style/settings_db_hint"
+		           android:text="*"/>
             
         </LinearLayout>
         
@@ -95,7 +120,7 @@
     <!-- 表单：密码 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/settings_ftp_layout">
+        style="@style/settings_db_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -104,13 +129,13 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/settings_ftp_label"
+		           style="@style/settings_db_label"
 		           android:text="密码："/>
 		       <EditText 
-		           android:id="@+id/settings_ftp_password"
-		           style="@style/settings_ftp_edittext"/>
+		           android:id="@+id/settings_db_password"
+		           style="@style/settings_db_edittext"/>
 		       <TextView 
-		           style="@style/settings_ftp_hint"
+		           style="@style/settings_db_hint"
 		           android:text=""/>
             
         </LinearLayout>
@@ -120,10 +145,10 @@
     <!-- 表单：保存 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/settings_ftp_layout">
+        style="@style/settings_db_layout">
         
         <Button
-	            android:id="@+id/settings_ftp_submit"
+	            android:id="@+id/settings_db_submit"
 	            android:layout_width="350dp"
 	            android:layout_height="wrap_content"
 	            android:layout_centerInParent="true"

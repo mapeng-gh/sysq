@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,13 +17,12 @@ import android.widget.RadioButton;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.InterviewConstants;
 import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.RegexUtils;
 import com.huasheng.sysq.util.SysqApplication;
 
-public class InterviewerBasicActivity extends BaseActivity implements OnClickListener{
+public class InterviewerBasicActivity extends Activity implements OnClickListener{
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

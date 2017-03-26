@@ -13,6 +13,7 @@
      <uses-permission android:name="android.permission.INTERNET" />
      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
      <uses-permission android:name="android.permission.CAMERA"/>
+     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -62,8 +63,12 @@
         
          <activity android:name=".activity.interview.InterviewActivity" android:screenOrientation="landscape" android:configChanges="screenSize|keyboardHidden|orientation"></activity>
          
-         <!-- usercenter -->
+         <!-- 个人中心 -->
          <activity android:name="com.huasheng.sysq.activity.usercenter.UserCenterActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>
+         <activity android:name="com.huasheng.sysq.activity.usercenter.UserCenterNavActivity" android:screenOrientation="landscape"></activity>
+         <activity android:name="com.huasheng.sysq.activity.usercenter.Usercenter4BasicActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name="com.huasheng.sysq.activity.usercenter.Usercenter4AddUserActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name="com.huasheng.sysq.activity.usercenter.Usercenter4PasswordActivity" android:screenOrientation="portrait"></activity>
          
          <!-- 受访者一览 -->
          <activity android:name=".activity.interviewee.IntervieweeActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>
@@ -72,11 +77,16 @@
          <activity android:name=".activity.interviewee.person.IntervieweePersonNavActivity" android:screenOrientation="landscape"></activity>
          <activity android:name=".activity.interviewee.person.IntervieweePerson4BasicActivity" android:screenOrientation="portrait"></activity>
          <activity android:name=".activity.interviewee.person.IntervieweePerson4DNAActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name=".activity.interviewee.person.IntervieweePerson4PhotoActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name=".activity.interviewee.person.IntervieweePerson4PhotoPreviewActivity" android:screenOrientation="portrait"></activity>
          
          <!-- report -->
          <activity android:name=".activity.report.ReportActivity" android:screenOrientation="landscape"></activity>
          
-         <activity android:name=".activity.settings.FTPActivity"  android:screenOrientation="landscape"></activity>
+         <!-- 设置 -->
+         <activity android:name=".activity.settings.SettingsNavActivity"  android:screenOrientation="landscape"></activity>
+         <activity android:name=".activity.settings.Settings4FTPActivity"  android:screenOrientation="portrait"></activity>
+         <activity android:name=".activity.settings.Settings4DBActivity"  android:screenOrientation="portrait"></activity>
     
     </application>
 

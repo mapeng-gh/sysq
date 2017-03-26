@@ -518,7 +518,7 @@ public class JSObject {
 		AudioUtils.stop();
 		
 		//删除个人文件夹（包括录音文件、图片）
-		File personDir = new File(PathConstants.getAudioDir(),InterviewContext.getCurInterviewBasic().getUsername());
+		File personDir = new File(PathConstants.getMediaDir(),InterviewContext.getCurInterviewBasic().getUsername());
 		if(personDir.exists()){
 			FileUtils.deleteQuietly(personDir);
 		}

@@ -2,6 +2,7 @@ package com.huasheng.sysq.activity.interviewee.questionaire;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,9 +16,8 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
 import com.huasheng.sysq.model.InterviewQuestionaireWrap;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.BaseActivity;
 
-public class IntervieweeQuestionaireActivity extends BaseActivity implements OnClickListener{
+public class IntervieweeQuestionaireActivity extends Activity implements OnClickListener{
 	
 	private int interviewBasicId;
 	private ListView questionaireListLV;

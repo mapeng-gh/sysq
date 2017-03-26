@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <!-- 标题 -->
+   <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="130dp">
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="图片列表"
+            android:textColor="#0096DC"
+            android:textSize="40sp"/>
+    </RelativeLayout>
+    
+   <ListView 
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="1"
+       android:id="@+id/interviewee_person_photo_lv">
+       
+   </ListView>
+   
+   <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="130dp">
+        <Button
+	            android:id="@+id/interviewee_person_photo_add_btn"
+	            android:layout_width="350dp"
+	            android:layout_height="wrap_content"
+	            android:layout_centerInParent="true"
+	            android:text="添加"
+	            android:background="#0096DC"
+	            android:textColor="#FFFFFF"
+	            android:textSize="25sp"
+	            android:layout_gravity="center_horizontal"/>
+    </RelativeLayout>
+
+</LinearLayout>

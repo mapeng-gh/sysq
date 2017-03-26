@@ -1,6 +1,5 @@
 package com.huasheng.sysq.activity.interviewee.questionaire;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -8,6 +7,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,10 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huasheng.sysq.R;
-import com.huasheng.sysq.activity.IndexActivity;
-import com.huasheng.sysq.activity.LoginActivity;
 import com.huasheng.sysq.activity.interview.InterviewActivity;
-import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionaireActivity;
 import com.huasheng.sysq.db.InterviewBasicDB;
 import com.huasheng.sysq.db.QuestionDB;
 import com.huasheng.sysq.model.InterviewAnswer;
@@ -31,13 +28,11 @@ import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionWrap;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.BaseActivity;
 import com.huasheng.sysq.util.FormatUtils;
-import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 
-public class IntervieweeAnswerActivity extends BaseActivity implements OnClickListener{
+public class IntervieweeAnswerActivity extends Activity implements OnClickListener{
 	
 	private int interviewBasicId;
 	private String questionaireCode;

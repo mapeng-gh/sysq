@@ -12,15 +12,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="FTP服务器"
+            android:text="个人信息"
             android:textColor="#0096DC"
             android:textSize="40sp"/>
     </RelativeLayout>
     
-   <!-- 表单：服务器地址 -->
+   <!-- 表单：手机号码  -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/settings_ftp_layout">
+        style="@style/usercenter_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -29,23 +29,23 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/settings_ftp_label"
-		           android:text="服务器地址："/>
+		           style="@style/usercenter_basic_label"
+		           android:text="手机号码："/>
 		       <EditText 
-		           android:id="@+id/settings_ftp_ip"
-		           style="@style/settings_ftp_edittext"/>
+		           android:id="@+id/usercenter_basic_mobile_et"
+		           style="@style/usercenter_basic_edittext"/>
 		       <TextView 
-		           style="@style/settings_ftp_hint"
-		           android:text="*域名或者IP地址"/>
+		           style="@style/usercenter_basic_hint"
+		           android:text="*系统登录帐号"/>
             
         </LinearLayout>
         
     </RelativeLayout>
     
-    <!-- 表单：端口 -->
+    <!-- 表单：姓名 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/settings_ftp_layout">
+        style="@style/usercenter_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -54,23 +54,23 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/settings_ftp_label"
-		           android:text="端口："/>
+		           style="@style/usercenter_basic_label"
+		           android:text="姓名："/>
 		       <EditText 
-		           android:id="@+id/settings_ftp_port"
-		           style="@style/settings_ftp_edittext"/>
+		           android:id="@+id/usercenter_basic_username_et"
+		           style="@style/usercenter_basic_edittext"/>
 		       <TextView 
-		           style="@style/settings_ftp_hint"
-		           android:text="*数字0-65535"/>
+		           style="@style/usercenter_basic_hint"
+		           android:text="*"/>
             
         </LinearLayout>
         
     </RelativeLayout>
     
-    <!-- 表单：用户名 -->
+    <!-- 表单：电子邮箱 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/settings_ftp_layout">
+        style="@style/usercenter_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -79,23 +79,23 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/settings_ftp_label"
-		           android:text="用户名："/>
+		           style="@style/usercenter_basic_label"
+		           android:text="电子邮箱："/>
 		       <EditText 
-		           android:id="@+id/settings_ftp_username"
-		           style="@style/settings_ftp_edittext"/>
+		           android:id="@+id/usercenter_basic_email_et"
+		           style="@style/usercenter_basic_edittext"/>
 		       <TextView 
-		           style="@style/settings_ftp_hint"
-		           android:text=""/>
+		           style="@style/usercenter_basic_hint"
+		           android:text="*"/>
             
         </LinearLayout>
         
     </RelativeLayout>
     
-    <!-- 表单：密码 -->
+    <!-- 表单：工作单位 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/settings_ftp_layout">
+        style="@style/usercenter_basic_layout">
         
         <LinearLayout 
             android:layout_width="wrap_content"
@@ -104,14 +104,14 @@
             android:orientation="horizontal">
             
             <TextView 
-		           style="@style/settings_ftp_label"
-		           android:text="密码："/>
+		           style="@style/usercenter_basic_label"
+		           android:text="工作单位："/>
 		       <EditText 
-		           android:id="@+id/settings_ftp_password"
-		           style="@style/settings_ftp_edittext"/>
+		           android:id="@+id/usercenter_basic_workingplace_et"
+		           style="@style/usercenter_basic_edittext"/>
 		       <TextView 
-		           style="@style/settings_ftp_hint"
-		           android:text=""/>
+		           style="@style/usercenter_basic_hint"
+		           android:text="*"/>
             
         </LinearLayout>
         
@@ -120,14 +120,14 @@
     <!-- 表单：保存 -->
     <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/settings_ftp_layout">
+        style="@style/usercenter_basic_layout">
         
         <Button
-	            android:id="@+id/settings_ftp_submit"
+	            android:id="@+id/usercenter_basic_submit_btn"
 	            android:layout_width="350dp"
 	            android:layout_height="wrap_content"
 	            android:layout_centerInParent="true"
-	            android:text="保存"
+	            android:text="修改"
 	            android:background="#0096DC"
 	            android:textColor="#FFFFFF"
 	            android:textSize="25sp"

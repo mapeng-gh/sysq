@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <!--  标题 -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="设置"
+            android:textColor="#0096DC"
+            android:textSize="40sp"/>
+    </RelativeLayout>
+    
+    <!-- 第一行 -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+            
+            	<!-- 第一列：FTP服务器 -->
+            	<LinearLayout 
+	                android:id="@+id/settings_nav_ftp"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:orientation="vertical">
+                
+	                 <ImageView 
+	            	    android:layout_width="wrap_content"
+	            	    android:layout_height="wrap_content"
+	            	    android:layout_gravity="center_horizontal"
+	            	    android:src="@drawable/settings_ftp"/>
+                    
+                	<TextView 
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal"
+	                    android:text="FTP服务器"
+	                    android:textSize="20sp"/>
+                
+            </LinearLayout>
+            
+            <!-- 第二列：数据库服务器 -->
+            	<LinearLayout 
+	                android:id="@+id/settings_nav_db"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:orientation="vertical"
+	                android:layout_marginLeft="150dp">
+                
+	                 <ImageView 
+	            	    android:layout_width="wrap_content"
+	            	    android:layout_height="wrap_content"
+	            	    android:layout_gravity="center_horizontal"
+	            	    android:src="@drawable/settings_db"/>
+                    
+                	<TextView 
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal"
+	                    android:text="数据库服务器"
+	                    android:textSize="20sp"/>
+                
+            </LinearLayout>
+            
+        </LinearLayout>
+        
+    </RelativeLayout>
+
+</LinearLayout>

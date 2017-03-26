@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp">
+    
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true">
+        
+	        <ImageView 
+		        android:layout_width="200dp"
+		        android:layout_height="200dp"
+		        android:id="@+id/interviewee_person_photo_img_iv"
+		        android:layout_gravity="center_vertical"/>
+	    
+	    	<TextView 
+		        android:layout_width="200dp"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center_vertical"
+		        android:layout_marginLeft="50dp"
+		        android:textSize="20sp"
+		        android:id="@+id/interviewee_person_photo_time_tv"/>
+	    
+	    	<TextView 
+		        android:layout_width="150dp"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center_vertical"
+		        android:layout_margin="50dp"
+		        android:textSize="20sp"
+		        android:textColor="#338EE7"
+		        android:text="删除"
+		        android:id="@+id/interviewee_person_photo_del_tv"/>
+        
+    </LinearLayout>
+    
+    
+
+</RelativeLayout>

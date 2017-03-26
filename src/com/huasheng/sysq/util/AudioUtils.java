@@ -25,7 +25,7 @@ public class AudioUtils {
 	
 	private static String genFilePath(InterviewBasic interviewBasic){
 		
-		File audioDir = new File(PathConstants.getAudioDir(),interviewBasic.getUsername());
+		File audioDir = new File(PathConstants.getMediaDir(),interviewBasic.getIdentityCard()+"("+interviewBasic.getUsername()+")"+File.separator+"audio");
 		if(!audioDir.exists()){
 			audioDir.mkdirs();
 		}

@@ -25,11 +25,11 @@ public class PathConstants {
 	}
 	
 	/**
-	 * 获取录音目录
+	 * 获取多媒体目录
 	 * @return
 	 */
-	public static String getAudioDir(){
-		File audioDir = new File(Environment.getExternalStorageDirectory() + File.separator + "sysq" + File.separator + "audio");
+	public static String getMediaDir(){
+		File audioDir = new File(Environment.getExternalStorageDirectory() + File.separator + "sysq" + File.separator + "media");
 		if(!audioDir.exists()){
 			audioDir.mkdirs();
 		}
@@ -37,27 +37,18 @@ public class PathConstants {
 	}
 	
 	/**
-	 * 获取ftp配置路径
+	 * 获取配置目录
 	 * @return
 	 */
-	public static String getFTPConfigPath(){
+	public static String getSettingsDir(){
 		
-		File ftpConfigDir = new File(Environment.getExternalStorageDirectory() + File.separator + "sysq" + File.separator + "ftp");
+		File ftpConfigDir = new File(Environment.getExternalStorageDirectory() + File.separator + "sysq" + File.separator + "settings");
 		
 		if(!ftpConfigDir.exists()){
 			ftpConfigDir.mkdirs();
 		}
 		
-		File ftpConfigFile = new File(ftpConfigDir,"ftp.properties");
-		if(!ftpConfigFile.exists()){
-			try{
-				ftpConfigFile.createNewFile();
-			}catch(IOException newIOE){
-				//ignore
-			}
-		}
-		
-		return ftpConfigFile.getPath();
+		return ftpConfigDir.getPath();
 	}
 	
 	/**

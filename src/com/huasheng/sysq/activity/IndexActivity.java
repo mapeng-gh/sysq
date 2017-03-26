@@ -1,11 +1,11 @@
 package com.huasheng.sysq.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,16 +18,13 @@ import com.huasheng.sysq.activity.interview.InterviewerBasicActivity;
 import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
 import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
-import com.huasheng.sysq.activity.settings.FTPActivity;
-import com.huasheng.sysq.activity.usercenter.UserCenterActivity;
-import com.huasheng.sysq.util.BaseActivity;
-import com.huasheng.sysq.util.InterviewContext;
+import com.huasheng.sysq.activity.settings.SettingsNavActivity;
+import com.huasheng.sysq.activity.usercenter.UserCenterNavActivity;
 import com.huasheng.sysq.util.SysqApplication;
-import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.SystemUpdateUtils;
 import com.huasheng.sysq.util.UploadUtils;
 
-public class IndexActivity extends BaseActivity implements OnClickListener{
+public class IndexActivity extends Activity implements OnClickListener{
 	
 	private LinearLayout reservationLL;
 	private LinearLayout dataStaticsLL;
@@ -39,6 +36,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 	private LinearLayout helpLL;
 	
 	private Handler handler;
+	private AlertDialog uploadDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +72,12 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 		//处理消息
 		handler = new Handler(){
 			public void handleMessage(Message msg) {
-				if(msg.what == 1){
-					Toast.makeText(IndexActivity.this,msg.obj.toString(), Toast.LENGTH_LONG).show();
+				if(msg.what == UploadUtils.UPLOAD_PROGRESS){
+					uploadDialog.setMessage(msg.obj.toString());
+				}else{
+					uploadDialog.dismiss();
+					Toast.makeText(IndexActivity.this, msg.obj.toString(), Toast.LENGTH_LONG).show();
 				}
-				super.handleMessage(msg);
 			}
 		};
 	}
@@ -86,41 +86,35 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 	public void onClick(View view) {
 		
 		if(view.getId() == R.id.ll_index_reservation){//预约管理
+			Intent intent = new Intent(this,ReservationListActivity.class);
+			startActivity(intent);
 			
-			startActivity(new Intent(this,ReservationListActivity.class));
-			
-		}else if(view.getId() == R.id.ll_index_statics){
-			
+		}else if(view.getId() == R.id.ll_index_statics){//数据统计
 			Intent intent = new Intent(this,ReportActivity.class);
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_system_update){//系统更新
-			
 			SystemUpdateUtils.checkUpdate(this,true);
 			
 		}else if(view.getId() == R.id.ll_index_interview){//开始访谈
-			
 			Intent intent = new Intent(this,InterviewerBasicActivity.class);
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_usercenter){//个人中心
-			
-			Intent intent = new Intent(this,UserCenterActivity.class);
+			Intent intent = new Intent(this,UserCenterNavActivity.class);
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_interviewee_search){//受访者一览
-			
 			Intent intent = new Intent(this,IntervieweeActivity.class);
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_data_upload){//上传
+//			this.upload();
+			SysqApplication.showMessage("该功能正在开发中");
 			
-			this.upload();
-			
-		}else if(view.getId() == R.id.ll_index_help){
-			
-			Intent ftpIntent = new Intent(this,FTPActivity.class);
-			super.startActivity(ftpIntent);
+		}else if(view.getId() == R.id.ll_index_help){//设置
+			Intent intent = new Intent(this,SettingsNavActivity.class);
+			super.startActivity(intent);
 		}
 	}
 	
@@ -129,43 +123,22 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void upload(){
 		
-		//主线程不允许进行网络访问
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("数据上传");
+		builder.setMessage("数据正在上传中，请稍候...");
+		this.uploadDialog = builder.create();
+		uploadDialog.setCancelable(false);
+		uploadDialog.setCanceledOnTouchOutside(false);
+		uploadDialog.show();
+		
 		new Thread(new Runnable() {
-			
 			@Override
 			public void run() {
-				
-				try{
-					
-					//检查配置信息
-					UploadUtils.checkEnv();
-					
-					Message uploadingMsg = new Message();
-					uploadingMsg.what = 1;
-					uploadingMsg.obj = "正在上传中，请稍候...";
-					handler.sendMessage(uploadingMsg);
-					
-					//上传文件
-					UploadUtils.upload();
-					
-					Message uploadSuccessMsg = new Message();
-					uploadSuccessMsg.what = 1;
-					uploadSuccessMsg.obj = "上传成功";
-					handler.sendMessage(uploadSuccessMsg);
-					
-				}catch(Exception e){
-					
-					//给主线程发送消息显示toast错误信息
-					Message msg = new Message();
-					msg.what = 1;
-					msg.obj = e.getMessage();
-					handler.sendMessage(msg);
-				}
+				UploadUtils.upload(handler);
 			}
 		}).start();
-		
 	}
-
+		
 	@Override
 	public void onBackPressed() {
 		
@@ -175,12 +148,6 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				
-				//清除上下文
-				SysqContext.clearContext();
-				InterviewContext.clearInterviewContext();
-				
-				//跳转登录
 				Intent loginIntent = new Intent(IndexActivity.this,LoginActivity.class);
 				IndexActivity.this.startActivity(loginIntent);
 			}
@@ -190,9 +157,10 @@ public class IndexActivity extends BaseActivity implements OnClickListener{
 			public void onClick(DialogInterface dialog, int which) {
 			};
 		});
-		builder.show();
-		
-		
+		AlertDialog dialog = builder.create();
+		dialog.show();
+		dialog.setCancelable(false);
+		dialog.setCanceledOnTouchOutside(false);
 	}
 	
 }

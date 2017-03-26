@@ -1,5 +1,6 @@
 package com.huasheng.sysq.activity.reservation;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,9 +20,8 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Page;
 import com.huasheng.sysq.model.Reservation;
 import com.huasheng.sysq.service.ReservationService;
-import com.huasheng.sysq.util.BaseActivity;
 
-public class ReservationListActivity extends BaseActivity implements OnClickListener{
+public class ReservationListActivity extends Activity implements OnClickListener{
 	
 	private ListView listView;
 	private ReservationAdapter adapter;

@@ -3,6 +3,7 @@ package com.huasheng.sysq.activity.report;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ListView;
@@ -10,9 +11,8 @@ import android.widget.ListView;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.StaticsService;
-import com.huasheng.sysq.util.BaseActivity;
 
-public class ReportActivity extends BaseActivity{
+public class ReportActivity extends Activity{
 	
 	private ListView interviewLV;
 	private ListView dnaLV;
