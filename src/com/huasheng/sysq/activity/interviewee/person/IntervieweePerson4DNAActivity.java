@@ -1,30 +1,36 @@
 package com.huasheng.sysq.activity.interviewee.person;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.huasheng.sysq.R;
-import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
-import com.huasheng.sysq.model.InterviewBasic;
-import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.ScanConstants;
-import com.huasheng.sysq.util.SysqApplication;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ListView;
+
+import com.huasheng.sysq.R;
+import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.ScanConstants;
+import com.huasheng.sysq.util.SysqApplication;
 
 public class IntervieweePerson4DNAActivity extends Activity implements OnClickListener{
 	
 	private int interviewBasicId;
+	private ListView dnaLV;
+	private Button addBtn;
+	
+	private static final int REQUEST_CODE_DNA = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,146 +38,153 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_interviewee_person_dna);
 		
+		//获取参数
 		Intent intent = this.getIntent();
 		this.interviewBasicId = intent.getIntExtra("interviewBasicId", -1);
 		
-		ImageButton sample1ImgBtn = (ImageButton)findViewById(R.id.btn_interview_dna_sample1);
-		ImageButton sample2ImgBtn = (ImageButton)findViewById(R.id.btn_interview_dna_sample2);
-		ImageButton sample3ImgBtn = (ImageButton)findViewById(R.id.btn_interview_dna_sample3);
-		ImageButton sample4ImgBtn = (ImageButton)findViewById(R.id.btn_interview_dna_sample4);
-		sample1ImgBtn.setOnClickListener(this);
-		sample2ImgBtn.setOnClickListener(this);
-		sample3ImgBtn.setOnClickListener(this);
-		sample4ImgBtn.setOnClickListener(this);
+		addBtn = (Button)findViewById(R.id.interviewee_person_dna_add_btn);
+		addBtn.setOnClickListener(this);
+		dnaLV = (ListView)this.findViewById(R.id.interviewee_person_dna_container_lv);
 		
-		Button submitInterviewBtn = (Button)findViewById(R.id.interviewee_person_dna_submit);
-		submitInterviewBtn.setOnClickListener(this);
+		//初始化列表
+		this.renderDNAList();
+	}
+	
+	/**
+	 * 渲染列表
+	 */
+	private void renderDNAList(){
 		
+		List<String> data = new ArrayList<String>();
+		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		String dnas = interviewBasic.getDna();
+		if(!StringUtils.isEmpty(dnas)){
+			if(dnas.contains(",")){
+				String[] dnaArray = dnas.split(",");
+				data.addAll(Arrays.asList(dnaArray));
+			}else{
+				data.add(dnas);
+			}
+		}
+		
+		//渲染
+		IntervieweePersonDNAAdapter adapter = new IntervieweePersonDNAAdapter(this, R.layout.item_interviewee_person_dna, data, this);
+		dnaLV.setAdapter(adapter);
 	}
 
 	@Override
 	public void onClick(View v) {
-		
-		String tag = v.getTag().toString();
-		if(tag.equals("scan")){//扫描DNA
-			this.scanDNA(v);
-			
-		}else{
-			if(v.getId() == R.id.interviewee_person_dna_submit){//保存DNA
-				this.saveDNA();
+		if(v.getId() == R.id.interviewee_person_dna_add_btn){//添加
+			this.addDNA();
+		}else if(v.getId() == R.id.interviewee_person_dna_del_tv){//删除
+			String delDna = (String)v.getTag();
+			this.deleteDNA(delDna);
+		}
+	}
+	
+	/**
+	 * 删除DNA
+	 */
+	private void deleteDNA(final String delDna){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("确认");
+		builder.setMessage("确定删除该DNA吗？");
+		builder.setPositiveButton("确定", new Dialog.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+				//删除
+				InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(IntervieweePerson4DNAActivity.this.interviewBasicId);
+				String dnas = interviewBasic.getDna();
+				
+				if(!dnas.contains(",")){
+					interviewBasic.setDna("");
+				}else{
+					String[] dnaArray = dnas.split(",");
+					List<String> dnaList = new ArrayList<String>();
+					for(String dna : dnaArray){
+						if(!dna.equals(delDna)){
+							dnaList.add(dna);
+						}
+					}
+					interviewBasic.setDna(StringUtils.join(dnaList,","));
+				}
+				
+				InterviewService.updateInterviewBasic(interviewBasic);
+				
+				//刷新
+				SysqApplication.showMessage("删除成功");
+				IntervieweePerson4DNAActivity.this.renderDNAList();
+			}
+		});
+		builder.setNegativeButton("取消", new Dialog.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		AlertDialog dialog = builder.create();
+		dialog.setCancelable(false);
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.show();
+	}
+	
+	/**
+	 * 添加DNA
+	 */
+	private void addDNA(){
+		Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
+		this.startActivityForResult(intent,REQUEST_CODE_DNA);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == Activity.RESULT_OK){
+			if(requestCode == REQUEST_CODE_DNA){
+				String dna = data.getStringExtra(ScanConstants.ACTION_SCAN_KEY);
+				this.saveDNA(dna);
 			}
 		}
 	}
 	
 	/**
 	 * 保存DNA
+	 * @param dna
 	 */
-	private void saveDNA(){
+	private void saveDNA(String dna){
 		
-		//校验
-		List<String> dnaList = new ArrayList<String>();
-		
-		EditText sample1ET = (EditText)findViewById(R.id.et_interview_dna_sample1);
-		String sample1 = sample1ET.getText().toString().trim();
-		if(!StringUtils.isEmpty(sample1)){
-			dnaList.add(sample1);
-		}
-		
-		EditText sample2ET = (EditText)findViewById(R.id.et_interview_dna_sample2);
-		String sample2 = sample2ET.getText().toString().trim();
-		if(!StringUtils.isEmpty(sample2)){
-			dnaList.add(sample2);
-		}
-		
-		EditText sample3ET = (EditText)findViewById(R.id.et_interview_dna_sample3);
-		String sample3 = sample3ET.getText().toString().trim();
-		if(!StringUtils.isEmpty(sample3)){
-			dnaList.add(sample3);
-		}
-		
-		EditText sample4ET = (EditText)findViewById(R.id.et_interview_dna_sample4);
-		String sample4 = sample4ET.getText().toString().trim();
-		if(!StringUtils.isEmpty(sample4)){
-			dnaList.add(sample4);
-		}
-		
-		if(dnaList.size() == 0){
-			SysqApplication.showMessage("请先扫描DNA样本");
-			return;
-		}
-		
-		//保存
 		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
-		interviewBasic.setDna(StringUtils.join(dnaList, ","));
-		InterviewService.updateInterviewBasic(interviewBasic);
-		SysqApplication.showMessage("保存成功");
-	}
-	
-	
-	/**
-	 * 扫描DNA
-	 * @param v
-	 */
-	private void scanDNA(View v){
+		String dnas = interviewBasic.getDna();
 		
-		 if(v.getId() == R.id.btn_interview_dna_sample1){
-				
-				Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
-				this.startActivityForResult(intent, 1);
-				
-			}else if(v.getId() == R.id.btn_interview_dna_sample2){
-				
-				Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
-				this.startActivityForResult(intent, 2);
-				
-			}else if(v.getId() == R.id.btn_interview_dna_sample3){
-				
-				Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
-				this.startActivityForResult(intent, 3);
-				
-			}else if(v.getId() == R.id.btn_interview_dna_sample4){
-				
-				Intent intent = new Intent(ScanConstants.INTENT_ACTION_SCAN);
-				this.startActivityForResult(intent, 4);
+		//检查DNA是否重复
+		/*if(!StringUtils.isEmpty(dnas)){
+			if(!dnas.contains(",")){
+				if(dnas.equals(dna)){
+					SysqApplication.showMessage("该DNA已存在");
+					return;
+				}
+			}else{
+				List<String> dnaList = Arrays.asList(dnas.split(","));
+				if(dnaList.contains(dna)){
+					SysqApplication.showMessage("该DNA已存在");
+					return;
+				}
 			}
-	}
-	
-	/**
-	 * 扫描回调
-	 */
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		}*/
 		
-		if(resultCode == Activity.RESULT_OK){
-			
-			if(requestCode == 1){
-				
-				String scanResult = data.getStringExtra(ScanConstants.ACTION_SCAN_KEY);
-				EditText sample1ET = (EditText)findViewById(R.id.et_interview_dna_sample1);
-				sample1ET.setText(scanResult);
-				
-			}else if(requestCode == 2){
-				
-				String scanResult = data.getStringExtra(ScanConstants.ACTION_SCAN_KEY);
-				EditText sample2ET = (EditText)findViewById(R.id.et_interview_dna_sample2);
-				sample2ET.setText(scanResult);
-				
-			}else if(requestCode == 3){
-				
-				String scanResult = data.getStringExtra(ScanConstants.ACTION_SCAN_KEY);
-				EditText sample3ET = (EditText)findViewById(R.id.et_interview_dna_sample3);
-				sample3ET.setText(scanResult);
-				
-			}else if(requestCode == 4){
-				
-				String scanResult = data.getStringExtra(ScanConstants.ACTION_SCAN_KEY);
-				EditText sample4ET = (EditText)findViewById(R.id.et_interview_dna_sample4);
-				sample4ET.setText(scanResult);
-				
-			}
+		//保存DNa
+		if(StringUtils.isEmpty(dnas)){
+			dnas = dna;
+		}else{
+			dnas = dnas + "," + dna;
 		}
+		interviewBasic.setDna(dnas);
+		InterviewService.updateInterviewBasic(interviewBasic);
+		
+		//刷新列表
+		SysqApplication.showMessage("保存成功");
+		this.renderDNAList();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		Intent intent = new Intent(this,IntervieweePersonNavActivity.class);

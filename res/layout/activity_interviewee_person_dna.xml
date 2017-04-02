@@ -17,131 +17,28 @@
             android:textSize="40sp"/>
     </RelativeLayout>
     
-   <!-- 样本1 -->
-    <RelativeLayout 
+   <ListView 
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="1"
+       android:id="@+id/interviewee_person_dna_container_lv">
+       
+   </ListView>
+   
+   <RelativeLayout 
         android:layout_width="match_parent"
-        style="@style/interviewee_questionaire_basic_layout">
-        
-        <LinearLayout 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
-            
-             <TextView 
-	                android:layout_height="wrap_content"
-	                style="@style/interviewee_person_dna_label"
-	                android:text="样本1："/>
-	            <EditText 
-	                android:id="@+id/et_interview_dna_sample1"
-	               	style="@style/interviewee_person_dna_edittext"/>
-	            <ImageButton 
-	                android:id="@+id/btn_interview_dna_sample1"
-	                style="@style/interviewee_person_dna_imagebtn"
-	                android:tag="scan"/>
-            
-        </LinearLayout>
-        
-    </RelativeLayout>
-    
-    <!-- 样本2 -->
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        style="@style/interviewee_questionaire_basic_layout">
-        
-        <LinearLayout 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
-            
-             <TextView 
-	                android:layout_height="wrap_content"
-	                style="@style/interviewee_person_dna_label"
-	                android:text="样本2："/>
-	            <EditText 
-	                android:id="@+id/et_interview_dna_sample2"
-	               	style="@style/interviewee_person_dna_edittext"/>
-	            <ImageButton 
-	                android:id="@+id/btn_interview_dna_sample2"
-	                style="@style/interviewee_person_dna_imagebtn"
-	                android:tag="scan"/>
-            
-        </LinearLayout>
-        
-    </RelativeLayout>
-    
-    <!-- 样本3 -->
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        style="@style/interviewee_questionaire_basic_layout">
-        
-        <LinearLayout 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
-            
-             <TextView 
-	                android:layout_height="wrap_content"
-	                style="@style/interviewee_person_dna_label"
-	                android:text="样本3："/>
-	            <EditText 
-	                android:id="@+id/et_interview_dna_sample3"
-	               	style="@style/interviewee_person_dna_edittext"/>
-	            <ImageButton 
-	                android:id="@+id/btn_interview_dna_sample3"
-	                style="@style/interviewee_person_dna_imagebtn"
-	                android:tag="scan"/>
-            
-        </LinearLayout>
-        
-    </RelativeLayout>
-    
-    <!-- 样本1 -->
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        style="@style/interviewee_questionaire_basic_layout">
-        
-        <LinearLayout 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
-            
-             <TextView 
-	                android:layout_height="wrap_content"
-	                style="@style/interviewee_person_dna_label"
-	                android:text="样本4："/>
-	            <EditText 
-	                android:id="@+id/et_interview_dna_sample4"
-	               	style="@style/interviewee_person_dna_edittext"/>
-	            <ImageButton 
-	                android:id="@+id/btn_interview_dna_sample4"
-	                style="@style/interviewee_person_dna_imagebtn"
-	                android:tag="scan"/>
-            
-        </LinearLayout>
-        
-    </RelativeLayout>
-    
-    <!-- 表单：保存 -->
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        style="@style/interviewee_questionaire_dna_layout">
-        
+        android:layout_height="130dp">
         <Button
-	            android:id="@+id/interviewee_person_dna_submit"
+	            android:id="@+id/interviewee_person_dna_add_btn"
 	            android:layout_width="350dp"
 	            android:layout_height="wrap_content"
 	            android:layout_centerInParent="true"
-	            android:text="保存"
+	            android:text="添加"
 	            android:background="#0096DC"
 	            android:textColor="#FFFFFF"
 	            android:textSize="25sp"
-	            android:layout_gravity="center_horizontal"
-	            android:tag="submit"/>
-        
+	            android:layout_gravity="center_horizontal"/>
     </RelativeLayout>
+   
 
 </LinearLayout>

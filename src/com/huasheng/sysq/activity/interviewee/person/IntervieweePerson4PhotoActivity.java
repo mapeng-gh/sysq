@@ -6,28 +6,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-
-import com.huasheng.sysq.R;
-import com.huasheng.sysq.model.InterviewBasic;
-import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.DateTimeUtils;
-import com.huasheng.sysq.util.InterviewContext;
-import com.huasheng.sysq.util.PathConstants;
-import com.huasheng.sysq.util.UploadUtils;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.huasheng.sysq.R;
+import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.DateTimeUtils;
+import com.huasheng.sysq.util.PathConstants;
 
 public class IntervieweePerson4PhotoActivity extends Activity implements OnClickListener{
 	

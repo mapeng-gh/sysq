@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true">
+        
+	    	<TextView 
+		        android:layout_width="450dp"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center_vertical"
+		        android:textSize="20sp"
+		        android:id="@+id/interviewee_person_dna_text_tv"/>
+	    
+	    	<TextView 
+		        android:layout_width="150dp"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center_vertical"
+		        android:textSize="20sp"
+		        android:textColor="#338EE7"
+		        android:text="删除"
+		        android:id="@+id/interviewee_person_dna_del_tv"/>
+        
+    </LinearLayout>
+    
+    
+
+</RelativeLayout>
