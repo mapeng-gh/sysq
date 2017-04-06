@@ -1,4 +1,4 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.interview;
 
 import java.io.File;
 import java.util.HashMap;
@@ -29,6 +29,10 @@ import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.DateTimeUtils;
+import com.huasheng.sysq.util.FormatUtils;
+import com.huasheng.sysq.util.PathConstants;
+import com.huasheng.sysq.util.SysqApplication;
 
 public class JSObject {
 	
@@ -358,7 +362,7 @@ public class JSObject {
 	 */
 	@JavascriptInterface
 	public String getInterviewAnswer(String answerCode){
-		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 		InterviewAnswer interviewAnswer = InterviewService.getInterviewAnswer(curInterviewBasic.getId(),answerCode);
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("value", interviewAnswer.getAnswerValue());
@@ -392,7 +396,7 @@ public class JSObject {
 			AudioUtils.stop();
 			
 			//更新访谈记录
-			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 			curInterviewBasic.setStatus(InterviewBasic.STATUS_DONE);
 			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 			InterviewService.updateInterviewBasic(curInterviewBasic);
@@ -415,7 +419,7 @@ public class JSObject {
 			InterviewContext.clearQuestion();
 			
 			//更新访谈记录
-			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 			curInterviewBasic.setCurQuestionaireCode(nextQuestionaire.getCode());
 			curInterviewBasic.setNextQuestionCode("");
 			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
@@ -452,7 +456,7 @@ public class JSObject {
 		
 		//跳转答案列表（app）
 		Intent intent = new Intent(SysqApplication.getContext(),IntervieweeAnswerActivity.class);
-		intent.putExtra("interviewBasicId", InterviewContext.getCurInterviewBasic().getId());
+		intent.putExtra("interviewBasicId", InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId());
 		intent.putExtra("questionaireCode",InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		SysqApplication.getContext().startActivity(intent);
@@ -480,7 +484,7 @@ public class JSObject {
 		
 		//跳转答案列表（app）
 		Intent intent = new Intent(SysqApplication.getContext(),IntervieweeAnswerActivity.class);
-		intent.putExtra("interviewBasicId", InterviewContext.getCurInterviewBasic().getId());
+		intent.putExtra("interviewBasicId", InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId());
 		intent.putExtra("questionaireCode",InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//Calling startActivity() from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK
 		SysqApplication.getContext().startActivity(intent);
@@ -496,7 +500,7 @@ public class JSObject {
 	public void jumpToAnswerList4App(){
 		
 		Intent intent = new Intent(SysqApplication.getContext(),IntervieweeAnswerActivity.class);
-		intent.putExtra("interviewBasicId", InterviewContext.getCurInterviewBasic().getId());
+		intent.putExtra("interviewBasicId", InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId());
 		intent.putExtra("questionaireCode",InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//Calling startActivity() from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK
 		SysqApplication.getContext().startActivity(intent);
@@ -518,7 +522,7 @@ public class JSObject {
 		AudioUtils.stop();
 		
 		//删除个人文件夹（包括录音文件、图片）
-		File personDir = new File(PathConstants.getMediaDir(),InterviewContext.getCurInterviewBasic().getUsername());
+		File personDir = new File(PathConstants.getMediaDir(),InterviewContext.getCurInterviewBasicWrap().getInterviewee().getUsername());
 		if(personDir.exists()){
 			FileUtils.deleteQuietly(personDir);
 		}
@@ -539,7 +543,7 @@ public class JSObject {
 		}
 		
 		//更新访问记录
-		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 		curInterviewBasic.setStatus(InterviewBasic.STATUS_BREAK);
 		curInterviewBasic.setQuitReason(quitReason);
 		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
@@ -570,7 +574,7 @@ public class JSObject {
 		}
 		
 		//更新访问记录
-		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 		curInterviewBasic.setNextQuestionCode(InterviewContext.getTopQuestion().getCode());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		

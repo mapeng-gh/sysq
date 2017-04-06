@@ -2,6 +2,8 @@ package com.huasheng.sysq.util;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
+import com.huasheng.sysq.util.log.LogUtils;
+
 import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;

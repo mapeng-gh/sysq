@@ -13,11 +13,11 @@ import com.huasheng.sysq.db.InterviewerDB;
 import com.huasheng.sysq.db.StaticsDB;
 import com.huasheng.sysq.model.InterviewQuestionaire;
 import com.huasheng.sysq.model.Interviewer;
-import com.huasheng.sysq.util.ColumnConstants;
 import com.huasheng.sysq.util.DateTimeUtils;
-import com.huasheng.sysq.util.InterviewConstants;
 import com.huasheng.sysq.util.SysqContext;
-import com.huasheng.sysq.util.TableConstants;
+import com.huasheng.sysq.util.db.ColumnConstants;
+import com.huasheng.sysq.util.db.TableConstants;
+import com.huasheng.sysq.util.interview.InterviewConstants;
 
 public class StaticsService {
 

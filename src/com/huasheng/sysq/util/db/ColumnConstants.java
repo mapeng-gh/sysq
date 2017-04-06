@@ -1,4 +1,4 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.db;
 
 public class ColumnConstants {
 
@@ -72,19 +72,24 @@ public class ColumnConstants {
 	public static final String COLUMN_ANSWER_VERSION_ID = "version_id";
 	
 	/**
+	 * 被访问者表
+	 */
+	public static final String COLUMN_INTERVIEWEE_USERNAME = "username";
+	public static final String COLUMN_INTERVIEWEE_IDENTITY_CARD = "identity_card";
+	public static final String COLUMN_INTERVIEWEE_MOBILE = "mobile";
+	public static final String COLUMN_INTERVIEWEE_PROVINCE = "province";
+	public static final String COLUMN_INTERVIEWEE_CITY = "city";
+	public static final String COLUMN_INTERVIEWEE_ADDRESS = "address";
+	public static final String COLUMN_INTERVIEWEE_POST_CODE = "post_code";
+	public static final String COLUMN_INTERVIEWEE_FAMILY_MOBILE = "family_mobile";
+	public static final String COLUMN_INTERVIEWEE_FAMILY_ADDRESS = "family_address";
+	public static final String COLUMN_INTERVIEWEE_REMARK = "remark";
+	public static final String COLUMN_INTERVIEWEE_DNA = "dna";
+	
+	/**
 	 * 访谈基本表列名
 	 */
-	public static final String COLUMN_INTERVIEW_BASIC_USERNAME = "username";
-	public static final String COLUMN_INTERVIEW_BASIC_IDENTITY_CARD = "identity_card";
-	public static final String COLUMN_INTERVIEW_BASIC_MOBILE = "mobile";
-	public static final String COLUMN_INTERVIEW_BASIC_PROVINCE = "province";
-	public static final String COLUMN_INTERVIEW_BASIC_CITY = "city";
-	public static final String COLUMN_INTERVIEW_BASIC_ADDRESS = "address";
-	public static final String COLUMN_INTERVIEW_BASIC_POST_CODE = "post_code";
-	public static final String COLUMN_INTERVIEW_BASIC_FAMILY_MOBILE = "family_mobile";
-	public static final String COLUMN_INTERVIEW_BASIC_FAMILY_ADDRESS = "family_address";
-	public static final String COLUMN_INTERVIEW_BASIC_REMARK = "remark";
-	public static final String COLUMN_INTERVIEW_BASIC_DNA = "dna";
+	public static final String COLUMN_INTERVIEW_BASIC_INTERVIEWEE_ID = "interviewee_id";
 	public static final String COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID = "interviewer_id";
 	public static final String COLUMN_INTERVIEW_BASIC_TYPE = "type";
 	public static final String COLUMN_INTERVIEW_BASIC_IS_TEST = "is_test";

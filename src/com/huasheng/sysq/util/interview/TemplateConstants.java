@@ -1,4 +1,4 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.interview;
 
 public class TemplateConstants {
 

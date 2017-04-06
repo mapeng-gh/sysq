@@ -16,11 +16,15 @@ import android.widget.RadioButton;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewBasicWrap;
+import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.InterviewConstants;
-import com.huasheng.sysq.util.InterviewContext;
+import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.RegexUtils;
 import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.util.SysqContext;
+import com.huasheng.sysq.util.interview.InterviewConstants;
+import com.huasheng.sysq.util.interview.InterviewContext;
 
 public class InterviewerBasicActivity extends Activity implements OnClickListener{
 	
@@ -47,16 +51,45 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 	private void submitInterivewBasic(){
 		
 		//表单校验
-		InterviewBasic interviewBasic= checkInterviewBasicFormData();
-		if(interviewBasic == null){
+		if(this.checkInterviewFormData() == false){
 			return;
 		}
 		
+		//新建被访问者
+		Interviewee interviewee = new Interviewee();
+		interviewee.setUsername( ((EditText)findViewById(R.id.interviewer_basic_username)).getText().toString().trim() );
+		interviewee.setIdentityCard( ((EditText)findViewById(R.id.interviewer_basic_identity_card)).getText().toString().trim() );
+		interviewee.setMobile( ((EditText)findViewById(R.id.interviewer_basic_mobile)).getText().toString().trim() );
+		interviewee.setProvince( ((EditText)findViewById(R.id.interviewer_basic_province)).getText().toString().trim() );
+		interviewee.setCity( ((EditText)findViewById(R.id.interviewer_basic_city)).getText().toString().trim() );
+		interviewee.setAddress(((EditText)findViewById(R.id.interviewer_basic_address)).getText().toString().trim());
+		interviewee.setPostCode(((EditText)findViewById(R.id.interviewer_basic_post_code)).getText().toString().trim());
+		interviewee.setFamilyMobile(((EditText)findViewById(R.id.interviewer_basic_family_mobile)).getText().toString().trim());
+		interviewee.setFamilyAddress(((EditText)findViewById(R.id.interviewer_basic_family_address)).getText().toString().trim());
+		interviewee.setRemark(((EditText)findViewById(R.id.interviewer_basic_remark)).getText().toString().trim());
+		InterviewService.newInterviewee(interviewee);
+		
+		
 		//新建访问记录
+		InterviewBasic interviewBasic = new InterviewBasic();
+		RadioButton isTrueRB = (RadioButton)findViewById(R.id.interviewer_dna_type_true);
+		interviewBasic.setIsTest(isTrueRB.isChecked() ? InterviewBasic.TEST_NO : InterviewBasic.TEST_YES);
+		RadioButton isCaseRB = (RadioButton)findViewById(R.id.interviewer_dna_questionaire_type_case);
+		interviewBasic.setType(isCaseRB.isChecked() ? InterviewConstants.TYPE_CASE : InterviewConstants.TYPE_CONTRAST);
+		interviewBasic.setIntervieweeId(interviewee.getId());
+		interviewBasic.setInterviewerId(SysqContext.getInterviewer().getId());
+		interviewBasic.setVersionId(SysqContext.getCurrentVersion().getId());
+		interviewBasic.setStartTime(DateTimeUtils.getCurDateTime());
+		interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
+		interviewBasic.setIsUpload(InterviewBasic.UPLOAD_NO);
 		InterviewService.newInterviewBasic(interviewBasic);
 		
 		//保存到上下文
-		InterviewContext.setCurInterviewBasic(interviewBasic);
+		InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
+		interviewBasicWrap.setInterviewBasic(interviewBasic);
+		interviewBasicWrap.setInterviewee(interviewee);
+		interviewBasicWrap.setInterviewer(SysqContext.getInterviewer());
+		InterviewContext.setCurInterviewBasicWrap(interviewBasicWrap);
 		
 		//跳转问卷页
 		Intent interviewIntent = new Intent(this,InterviewActivity.class);
@@ -67,102 +100,88 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 	 * 表单校验
 	 * @return
 	 */
-	private InterviewBasic checkInterviewBasicFormData(){
-		
-		InterviewBasic interviewBasic = new InterviewBasic();
+	private boolean checkInterviewFormData(){
 		
 		//姓名
 		EditText userNameET = (EditText)findViewById(R.id.interviewer_basic_username);
 		String userName = userNameET.getText().toString().trim();
 		if(StringUtils.isEmpty(userName)){
 			SysqApplication.showMessage("姓名不能为空");
-			return null;
+			return false;
 		}
 		if(userName.length() < 2){
 			SysqApplication.showMessage("姓名至少为两个汉字");
-			return null;
+			return false;
 		}
-		interviewBasic.setUsername(userName);
 		
 		//身份证
 		EditText identityCardET = (EditText)findViewById(R.id.interviewer_basic_identity_card);
 		String identityCard = identityCardET.getText().toString().trim();
 		if(StringUtils.isEmpty(identityCard)){
 			SysqApplication.showMessage("身份证号码不能为空");
-			return null;
+			return false;
 		}
 		if(!RegexUtils.test("[0-9A-Za-z]{18}", identityCard)){
 			SysqApplication.showMessage("身份证号码格式不正确");
-			return null;
+			return false;
 		}
-		List<InterviewBasic> interviewBasicList = InterviewService.getAllInterviewBasic();
-		if(interviewBasicList != null && interviewBasicList.size() > 0){
-			for(InterviewBasic existInterviewBasic : interviewBasicList){
-				if(identityCard.equals(existInterviewBasic.getIdentityCard())){
+		List<Interviewee> intervieweeList = InterviewService.getAllInterviewee();
+		if(intervieweeList != null && intervieweeList.size() > 0){
+			for(Interviewee existInterviewee : intervieweeList){
+				if(identityCard.equals(existInterviewee.getIdentityCard())){
 					SysqApplication.showMessage("身份证号码已存在");
-					return null;
+					return false;
 				}
 			}
 		}
-		interviewBasic.setIdentityCard(identityCard);
 		
 		//省/自治区/直辖市
 		EditText provinceET = (EditText)findViewById(R.id.interviewer_basic_province);
 		String province = provinceET.getText().toString().trim();
 		if(StringUtils.isEmpty(province)){
 			SysqApplication.showMessage("省/自治区/直辖市不能为空");
-			return null;
+			return false;
 		}
-		interviewBasic.setProvince(province);
 		
 		//市/县/区
 		EditText cityET = (EditText)findViewById(R.id.interviewer_basic_city);
 		String city = cityET.getText().toString().trim();
 		if(StringUtils.isEmpty(city)){
 			SysqApplication.showMessage("市/县/区不能为空");
-			return null;
+			return false;
 		}
-		interviewBasic.setCity(city);
 		
 		//联系地址
 		EditText addressET = (EditText)findViewById(R.id.interviewer_basic_address);
 		String address = addressET.getText().toString().trim();
 		if(StringUtils.isEmpty(address)){
 			SysqApplication.showMessage("联系地址不能为空");
-			return null;
+			return false;
 		}
-		interviewBasic.setAddress(address);
 		
 		//邮政编码
 		EditText postCodeET = (EditText)findViewById(R.id.interviewer_basic_post_code);
 		String postCode = postCodeET.getText().toString().trim();
 		if(StringUtils.isEmpty(postCode)){
 			SysqApplication.showMessage("邮政编码不能为空");
-			return null;
+			return false;
 		}
 		if(!RegexUtils.test("[0-9]{6}", postCode)){
 			SysqApplication.showMessage("邮政编码格式不正确");
-			return null;
+			return false;
 		}
-		interviewBasic.setPostCode(postCode);
 		
 		//联系电话
 		EditText mobileET = (EditText)findViewById(R.id.interviewer_basic_mobile);
 		String mobile = mobileET.getText().toString().trim();
 		if(StringUtils.isEmpty(mobile)){
 			SysqApplication.showMessage("联系电话不能为空");
-			return null;
+			return false;
 		}
 		if(!RegexUtils.test("[0-9]{10,12}", mobile)){
 			SysqApplication.showMessage("联系电话格式不正确");
-			return null;
+			return false;
 		}
-		interviewBasic.setMobile(mobile);
-		
-		//本地亲属联系地址
-		EditText familyAddressET = (EditText)findViewById(R.id.interviewer_basic_family_address);
-		String familyAddress = familyAddressET.getText().toString().trim();
-		interviewBasic.setFamilyAddress(familyAddress);
 		
 		//本地亲属联系电话
 		EditText familyMobileET = (EditText)findViewById(R.id.interviewer_basic_family_mobile);
@@ -170,26 +189,10 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 		if(!StringUtils.isEmpty(familyMobile)){
 			if(!RegexUtils.test("[0-9]{10,12}", familyMobile)){
 				SysqApplication.showMessage("本地亲属联系电话格式不正确");
-				return null;
+				return false;
 			}
 		}
-		interviewBasic.setFamilyMobile(familyMobile);
 		
-		//访谈类型
-		RadioButton isTrueRB = (RadioButton)findViewById(R.id.interviewer_dna_type_true);
-		interviewBasic.setIsTest(isTrueRB.isChecked() ? InterviewBasic.TEST_NO : InterviewBasic.TEST_YES);
-		
-		//问卷类型
-		RadioButton isCaseRB = (RadioButton)findViewById(R.id.interviewer_dna_questionaire_type_case);
-		interviewBasic.setType(isCaseRB.isChecked() ? InterviewConstants.TYPE_CASE : InterviewConstants.TYPE_CONTRAST);
-		
-		//备注
-		EditText remarkET = (EditText)findViewById(R.id.interviewer_basic_remark);
-		String remark = remarkET.getText().toString().trim();
-		interviewBasic.setRemark(remark);
-		
-		return interviewBasic;
+		return true;
 	}
-
-	
 }

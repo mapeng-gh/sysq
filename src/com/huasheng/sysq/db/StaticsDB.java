@@ -7,7 +7,7 @@ import java.util.Map;
 
 import android.database.Cursor;
 
-import com.huasheng.sysq.util.SysQOpenHelper;
+import com.huasheng.sysq.util.db.SysQOpenHelper;
 
 public class StaticsDB {
 

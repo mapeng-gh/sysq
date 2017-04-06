@@ -1,4 +1,5 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.db;
+
 
 public class TableConstants {
 
@@ -11,6 +12,7 @@ public class TableConstants {
 	public static final String TABLE_QUESTIONAIRE = "questionaire";
 	public static final String TABLE_QUESTION = "question";
 	public static final String TABLE_ANSWER = "answer";
+	public static final String TABLE_INTERVIEWEE = "interviewee";
 	public static final String TABLE_INTERVIEW_BASIC = "interview_basic";
 	public static final String TABLE_INTERVIEW_QUESTIONAIRE = "interview_questionaire";
 	public static final String TABLE_INTERVIEW_QUESTION = "interview_question";
@@ -87,20 +89,26 @@ public class TableConstants {
 				ColumnConstants.COLUMN_ANSWER_QUESTION_CODE + " varchar," +
 				ColumnConstants.COLUMN_ANSWER_VERSION_ID + " integer" +
 			")";
+	public static final String CREATE_INTERVIEWEE = "create table " + TableConstants.TABLE_INTERVIEWEE +
+			"(" +
+				"id integer primary key autoincrement," +
+				ColumnConstants.COLUMN_INTERVIEWEE_USERNAME + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEWEE_IDENTITY_CARD + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEWEE_MOBILE + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEWEE_PROVINCE + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEWEE_CITY + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEWEE_ADDRESS + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEWEE_POST_CODE + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEWEE_FAMILY_MOBILE + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEWEE_FAMILY_ADDRESS + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEWEE_REMARK + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEWEE_DNA + " varchar" +
+			")";
+	
 	public static final String CREATE_INTERVIEW_BASIC = "create table " + TableConstants.TABLE_INTERVIEW_BASIC +
 			"(" +
 				"id integer primary key autoincrement," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_USERNAME + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_IDENTITY_CARD + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_MOBILE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_PROVINCE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_CITY + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_ADDRESS + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_POST_CODE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_FAMILY_MOBILE + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_FAMILY_ADDRESS + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_REMARK + " varchar," +
-				ColumnConstants.COLUMN_INTERVIEW_BASIC_DNA + " varchar," +
+				ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWEE_ID + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_BASIC_IS_TEST + " integer," +

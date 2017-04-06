@@ -23,22 +23,23 @@ import com.huasheng.sysq.db.InterviewQuestionDB;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.InterviewQuestion;
 import com.huasheng.sysq.model.InterviewQuestionaire;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.AudioUtils;
 import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.FormatUtils;
-import com.huasheng.sysq.util.InterviewContext;
-import com.huasheng.sysq.util.JSFuncInvokeUtils;
-import com.huasheng.sysq.util.JSObject;
-import com.huasheng.sysq.util.JSObject4Log;
-import com.huasheng.sysq.util.JsonUtils;
-import com.huasheng.sysq.util.RenderUtils;
-import com.huasheng.sysq.util.TemplateConstants;
+import com.huasheng.sysq.util.interview.AudioUtils;
+import com.huasheng.sysq.util.interview.InterviewContext;
+import com.huasheng.sysq.util.interview.JSFuncInvokeUtils;
+import com.huasheng.sysq.util.interview.JSObject;
+import com.huasheng.sysq.util.interview.JsonUtils;
+import com.huasheng.sysq.util.interview.RenderUtils;
+import com.huasheng.sysq.util.interview.TemplateConstants;
+import com.huasheng.sysq.util.log.JSObject4Log;
 
 public class InterviewActivity extends Activity{
 	
@@ -84,7 +85,7 @@ public class InterviewActivity extends Activity{
 					InterviewContext.setOperateType(InterviewContext.OPERATE_TYPE_NORMAL);
 					
 					//开始录音
-					AudioUtils.start(InterviewContext.getCurInterviewBasic());
+					AudioUtils.start(InterviewContext.getCurInterviewBasicWrap());
 					
 					jumpToFirstQuestionaire();
 					
@@ -94,19 +95,19 @@ public class InterviewActivity extends Activity{
 					InterviewContext.setOperateType(InterviewContext.OPERATE_TYPE_NORMAL);
 					
 					//保存访问记录到上下文
-					InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(InterviewActivity.this.interviewBasicId);
-					InterviewContext.setCurInterviewBasic(interviewBasic);
+					InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(InterviewActivity.this.interviewBasicId);
+					InterviewContext.setCurInterviewBasicWrap(interviewBasicWrap);
 					
 					//开始录音
-					AudioUtils.start(InterviewContext.getCurInterviewBasic());
+					AudioUtils.start(InterviewContext.getCurInterviewBasicWrap());
 					
-					if(StringUtils.isEmpty(interviewBasic.getNextQuestionCode())){//当前位置在问卷介绍页
+					if(StringUtils.isEmpty(interviewBasicWrap.getInterviewBasic().getNextQuestionCode())){//当前位置在问卷介绍页
 						
-						resumeQuestionaire(interviewBasic);
+						resumeQuestionaire(interviewBasicWrap);
 						
 					}else{//当前位置在某个问题上
 						
-						resumeQuestion(interviewBasic);
+						resumeQuestion(interviewBasicWrap);
 					}
 				}else if("modifySingleQuestion".equals(InterviewActivity.this.operateType)){//修改单个问题
 					
@@ -115,7 +116,7 @@ public class InterviewActivity extends Activity{
 					
 					modifySingleQuestion();
 					//开始录音
-					AudioUtils.start(InterviewContext.getCurInterviewBasic());
+					AudioUtils.start(InterviewContext.getCurInterviewBasicWrap());
 					
 				}else if("modifyAssociatedQuestion".equals(InterviewActivity.this.operateType)){//修改关联问题
 					
@@ -125,7 +126,7 @@ public class InterviewActivity extends Activity{
 					modifyAssociatedQuestion();
 					
 					//开始录音
-					AudioUtils.start(InterviewContext.getCurInterviewBasic());
+					AudioUtils.start(InterviewContext.getCurInterviewBasicWrap());
 				}
 			}
 		});
@@ -212,8 +213,8 @@ public class InterviewActivity extends Activity{
 	private void modifySingleQuestion(){
 		
 		//保存访问记录到上下文
-		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
-		InterviewContext.setCurInterviewBasic(interviewBasic);
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		InterviewContext.setCurInterviewBasicWrap(interviewBasicWrap);
 		
 		//保存问卷记录到上下文
 		InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(this.interviewBasicId,this.questionaireCode);
@@ -223,7 +224,7 @@ public class InterviewActivity extends Activity{
 		List<AnswerValue> answerValueList = new ArrayList<AnswerValue>();
 		List<InterviewQuestion> existInterviewQuestionList = InterviewQuestionDB.selectByQuestionaire(this.interviewBasicId, this.questionaireCode);
 		for(InterviewQuestion interviewQuestion : existInterviewQuestionList){
-			List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(interviewBasic.getId(), interviewQuestion.getQuestionCode());
+			List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(interviewBasicWrap.getInterviewBasic().getId(), interviewQuestion.getQuestionCode());
 			for(InterviewAnswer interviewAnswer : interviewAnswerList){
 				AnswerValue answerValue = new AnswerValue();
 				answerValue.setLabel(interviewAnswer.getAnswerLabel());
@@ -255,11 +256,11 @@ public class InterviewActivity extends Activity{
 	private void modifyAssociatedQuestion(){
 		
 		//保存访问记录到上下文
-		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
-		InterviewContext.setCurInterviewBasic(interviewBasic);
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		InterviewContext.setCurInterviewBasicWrap(interviewBasicWrap);
 			
 		//保存问卷记录到上下文
-		InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(interviewBasic.getId(),this.questionaireCode);
+		InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(interviewBasicWrap.getInterviewBasic().getId(),this.questionaireCode);
 		InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
 		
 		//添加问题栈
@@ -273,7 +274,7 @@ public class InterviewActivity extends Activity{
 			if(interviewQuestion.getQuestionCode().equals(this.questionCode)){
 				break;
 			}
-			List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(interviewBasic.getId(), interviewQuestion.getQuestionCode());
+			List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(interviewBasicWrap.getInterviewBasic().getId(), interviewQuestion.getQuestionCode());
 			for(InterviewAnswer interviewAnswer : interviewAnswerList){
 				AnswerValue answerValue = new AnswerValue();
 				answerValue.setLabel(interviewAnswer.getAnswerLabel());
@@ -345,7 +346,9 @@ public class InterviewActivity extends Activity{
 	 * 恢复问题
 	 * @param interviewBasic
 	 */
-	private void resumeQuestion(InterviewBasic interviewBasic){
+	private void resumeQuestion(InterviewBasicWrap interviewBasicWrap){
+		
+		InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
 		
 		String questionaireCode = interviewBasic.getCurQuestionaireCode();
 		String questionCode = interviewBasic.getNextQuestionCode();
@@ -410,7 +413,9 @@ public class InterviewActivity extends Activity{
 	 * 恢复问卷
 	 * @param interviewBasic
 	 */
-	private void resumeQuestionaire(InterviewBasic interviewBasic){
+	private void resumeQuestionaire(InterviewBasicWrap interviewBasicWrap){
+		
+		InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
 		
 		//保存问卷记录到上下文
 		InterviewQuestionaire interviewQuestionaire = InterviewService.findInterviewQuestionaire(interviewBasic.getId(), interviewBasic.getCurQuestionaireCode());
@@ -435,7 +440,8 @@ public class InterviewActivity extends Activity{
 		InterviewContext.setCurInterviewQuestionaire(interviewQuestionaire);
 		
 		//更新访问记录
-		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+		InterviewBasicWrap curInterviewBasicWrap = InterviewContext.getCurInterviewBasicWrap();
+		InterviewBasic curInterviewBasic = curInterviewBasicWrap.getInterviewBasic();
 		curInterviewBasic.setCurQuestionaireCode(firstQuestionaire.getCode());
 		curInterviewBasic.setNextQuestionCode("");
 		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());

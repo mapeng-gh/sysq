@@ -1,4 +1,4 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.interview;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.huasheng.sysq.util.SysqApplication;
 
 public class RenderUtils {
 

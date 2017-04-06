@@ -19,10 +19,11 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.huasheng.sysq.R;
-import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewBasicWrap;
+import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.ScanConstants;
 import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.util.interviewee.ScanConstants;
 
 public class IntervieweePerson4DNAActivity extends Activity implements OnClickListener{
 	
@@ -56,8 +57,8 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 	private void renderDNAList(){
 		
 		List<String> data = new ArrayList<String>();
-		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
-		String dnas = interviewBasic.getDna();
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		String dnas = interviewBasicWrap.getInterviewee().getDna();
 		if(!StringUtils.isEmpty(dnas)){
 			if(dnas.contains(",")){
 				String[] dnaArray = dnas.split(",");
@@ -94,11 +95,12 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 			public void onClick(DialogInterface dialog, int which) {
 				
 				//删除
-				InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(IntervieweePerson4DNAActivity.this.interviewBasicId);
-				String dnas = interviewBasic.getDna();
+				InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(IntervieweePerson4DNAActivity.this.interviewBasicId);
+				Interviewee interviewee = interviewBasicWrap.getInterviewee();
+				String dnas = interviewee.getDna();
 				
 				if(!dnas.contains(",")){
-					interviewBasic.setDna("");
+					interviewee.setDna("");
 				}else{
 					String[] dnaArray = dnas.split(",");
 					List<String> dnaList = new ArrayList<String>();
@@ -107,10 +109,10 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 							dnaList.add(dna);
 						}
 					}
-					interviewBasic.setDna(StringUtils.join(dnaList,","));
+					interviewee.setDna(StringUtils.join(dnaList,","));
 				}
 				
-				InterviewService.updateInterviewBasic(interviewBasic);
+				InterviewService.updateInterviewee(interviewee);
 				
 				//刷新
 				SysqApplication.showMessage("删除成功");
@@ -152,11 +154,12 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 	 */
 	private void saveDNA(String dna){
 		
-		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
-		String dnas = interviewBasic.getDna();
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		Interviewee interviewee = interviewBasicWrap.getInterviewee();
+		String dnas = interviewee.getDna();
 		
 		//检查DNA是否重复
-		/*if(!StringUtils.isEmpty(dnas)){
+		if(!StringUtils.isEmpty(dnas)){
 			if(!dnas.contains(",")){
 				if(dnas.equals(dna)){
 					SysqApplication.showMessage("该DNA已存在");
@@ -169,7 +172,7 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 					return;
 				}
 			}
-		}*/
+		}
 		
 		//保存DNa
 		if(StringUtils.isEmpty(dnas)){
@@ -177,8 +180,8 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 		}else{
 			dnas = dnas + "," + dna;
 		}
-		interviewBasic.setDna(dnas);
-		InterviewService.updateInterviewBasic(interviewBasic);
+		interviewee.setDna(dnas);
+		InterviewService.updateInterviewee(interviewee);
 		
 		//刷新列表
 		SysqApplication.showMessage("保存成功");

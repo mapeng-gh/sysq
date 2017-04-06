@@ -4,21 +4,22 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.huasheng.sysq.R;
-import com.huasheng.sysq.model.InterviewBasic;
-import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.RegexUtils;
-import com.huasheng.sysq.util.SysqApplication;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Visibility;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.huasheng.sysq.R;
+import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewBasicWrap;
+import com.huasheng.sysq.model.Interviewee;
+import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.RegexUtils;
+import com.huasheng.sysq.util.SysqApplication;
 
 public class IntervieweePerson4BasicActivity extends Activity implements OnClickListener{
 	
@@ -36,8 +37,8 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		
 		//终止的访谈不允许修改
 		saveBtn = (Button)this.findViewById(R.id.btn_interviewee_questionaire_basic_submit);
-		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
-		if(interviewBasic.getStatus() == InterviewBasic.STATUS_BREAK){
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		if(interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK){
 			saveBtn.setVisibility(View.GONE);
 		}else{
 			saveBtn.setOnClickListener(this);
@@ -59,37 +60,38 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 	 */
 	private void resume4IntervieweePersonBasic(){
 		
-		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		Interviewee interviewee = interviewBasicWrap.getInterviewee();
 		
 		EditText userNameET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_username);
-		userNameET.setText(interviewBasic.getUsername());
+		userNameET.setText(interviewee.getUsername());
 		
 		EditText identityCardET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_identity_card);
-		identityCardET.setText(interviewBasic.getIdentityCard());
+		identityCardET.setText(interviewee.getIdentityCard());
 		
 		EditText provinceET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_province);
-		provinceET.setText(interviewBasic.getProvince());
+		provinceET.setText(interviewee.getProvince());
 		
 		EditText cityET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_city);
-		cityET.setText(interviewBasic.getCity());
+		cityET.setText(interviewee.getCity());
 		
 		EditText addressET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_address);
-		addressET.setText(interviewBasic.getAddress());
+		addressET.setText(interviewee.getAddress());
 		
 		EditText postCodeET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_post_code);
-		postCodeET.setText(interviewBasic.getPostCode());
+		postCodeET.setText(interviewee.getPostCode());
 		
 		EditText mobileET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_mobile);
-		mobileET.setText(interviewBasic.getMobile());
+		mobileET.setText(interviewee.getMobile());
 		
 		EditText familyAddressET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_family_address);
-		familyAddressET.setText(interviewBasic.getFamilyAddress());
+		familyAddressET.setText(interviewee.getFamilyAddress());
 		
 		EditText familyMobileET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_family_mobile);
-		familyMobileET.setText(interviewBasic.getFamilyMobile());
+		familyMobileET.setText(interviewee.getFamilyMobile());
 		
 		EditText remarkET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_remark);
-		remarkET.setText(interviewBasic.getRemark());
+		remarkET.setText(interviewee.getRemark());
 	}
 	
 	/**
@@ -97,7 +99,8 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 	 */
 	private void saveIntervieweePerson4Basic(){
 		
-		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		Interviewee interviewee = interviewBasicWrap.getInterviewee();
 		
 		//姓名
 		EditText userNameET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_username);
@@ -110,7 +113,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 			SysqApplication.showMessage("姓名至少为两个汉字");
 			return;
 		}
-		interviewBasic.setUsername(userName);
+		interviewee.setUsername(userName);
 		
 		//身份证号码
 		EditText identityCardET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_identity_card);
@@ -123,18 +126,16 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 			SysqApplication.showMessage("身份证号码格式不正确");
 			return;
 		}
-		List<InterviewBasic> interviewBasicList = InterviewService.getAllInterviewBasic();
-		if(interviewBasicList != null && interviewBasicList.size() > 0){
-			for(InterviewBasic existInterviewBasic : interviewBasicList){
-				if(existInterviewBasic.getId() != this.interviewBasicId){
-					if(existInterviewBasic.getIdentityCard().equals(identityCard)){
-						SysqApplication.showMessage("身份证号码已存在");
-						return;
-					}
+		List<Interviewee> intervieweeList = InterviewService.getAllInterviewee();
+		if(intervieweeList != null && intervieweeList.size() > 0){
+			for(Interviewee existInterviewee : intervieweeList){
+				if(!identityCard.equals(interviewee.getIdentityCard()) && identityCard.equals(existInterviewee.getIdentityCard())){
+					SysqApplication.showMessage("身份证号码已存在");
+					return;
 				}
 			}
 		}
-		interviewBasic.setIdentityCard(identityCard);
+		interviewee.setIdentityCard(identityCard);
 		
 		//省/自治区/直辖市
 		EditText provinceET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_province);
@@ -143,7 +144,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 			SysqApplication.showMessage("省/自治区/直辖市不能为空");
 			return;
 		}
-		interviewBasic.setProvince(province);
+		interviewee.setProvince(province);
 		
 		//市/县/区
 		EditText cityET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_city);
@@ -152,7 +153,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 			SysqApplication.showMessage("市/县/区不能为空");
 			return;
 		}
-		interviewBasic.setCity(city);
+		interviewee.setCity(city);
 		
 		//联系地址
 		EditText addressET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_address);
@@ -161,7 +162,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 			SysqApplication.showMessage("联系地址不能为空");
 			return;
 		}
-		interviewBasic.setAddress(address);
+		interviewee.setAddress(address);
 		
 		//邮政编码
 		EditText postCodeET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_post_code);
@@ -174,7 +175,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 			SysqApplication.showMessage("邮政编码格式不正确");
 			return;
 		}
-		interviewBasic.setPostCode(postCode);
+		interviewee.setPostCode(postCode);
 		
 		//联系电话
 		EditText mobileET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_mobile);
@@ -187,12 +188,12 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 			SysqApplication.showMessage("联系电话格式不正确");
 			return;
 		}
-		interviewBasic.setMobile(mobile);
+		interviewee.setMobile(mobile);
 		
 		//本地亲属联系地址
 		EditText familyAddressET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_family_address);
 		String familyAddress = familyAddressET.getText().toString().trim();
-		interviewBasic.setFamilyAddress(familyAddress);
+		interviewee.setFamilyAddress(familyAddress);
 		
 		//本地亲属联系电话
 		EditText familyMobileET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_family_mobile);
@@ -203,14 +204,15 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 				return;
 			}
 		}
-		interviewBasic.setFamilyMobile(familyMobile);
+		interviewee.setFamilyMobile(familyMobile);
 		
 		//备注
 		EditText remarkET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_remark);
 		String remark = remarkET.getText().toString().trim();
-		interviewBasic.setRemark(remark);
+		interviewee.setRemark(remark);
 		
-		InterviewService.updateInterviewBasic(interviewBasic);
+		//保存
+		InterviewService.updateInterviewee(interviewee);
 		SysqApplication.showMessage("保存成功");
 	}
 

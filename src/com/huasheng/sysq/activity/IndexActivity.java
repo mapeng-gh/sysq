@@ -21,8 +21,8 @@ import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 import com.huasheng.sysq.activity.settings.SettingsNavActivity;
 import com.huasheng.sysq.activity.usercenter.UserCenterNavActivity;
 import com.huasheng.sysq.util.SysqApplication;
-import com.huasheng.sysq.util.SystemUpdateUtils;
-import com.huasheng.sysq.util.UploadUtils;
+import com.huasheng.sysq.util.update.SystemUpdateUtils;
+import com.huasheng.sysq.util.upload.UploadUtils;
 
 public class IndexActivity extends Activity implements OnClickListener{
 	

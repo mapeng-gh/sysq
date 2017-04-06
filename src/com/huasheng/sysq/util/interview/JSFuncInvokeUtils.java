@@ -1,6 +1,7 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.interview;
 
 import org.apache.commons.lang3.StringUtils;
+
 
 public class JSFuncInvokeUtils {
 

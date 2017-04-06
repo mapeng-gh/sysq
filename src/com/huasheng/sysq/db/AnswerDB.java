@@ -6,9 +6,9 @@ import java.util.List;
 import android.database.Cursor;
 
 import com.huasheng.sysq.model.Answer;
-import com.huasheng.sysq.util.ColumnConstants;
-import com.huasheng.sysq.util.SysQOpenHelper;
-import com.huasheng.sysq.util.TableConstants;
+import com.huasheng.sysq.util.db.ColumnConstants;
+import com.huasheng.sysq.util.db.SysQOpenHelper;
+import com.huasheng.sysq.util.db.TableConstants;
 
 public class AnswerDB {
 

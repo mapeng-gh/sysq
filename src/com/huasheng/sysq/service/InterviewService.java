@@ -7,11 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.huasheng.sysq.db.AnswerDB;
 import com.huasheng.sysq.db.InterviewAnswerDB;
 import com.huasheng.sysq.db.InterviewBasicDB;
 import com.huasheng.sysq.db.InterviewQuestionDB;
 import com.huasheng.sysq.db.InterviewQuestionaireDB;
+import com.huasheng.sysq.db.IntervieweeDB;
+import com.huasheng.sysq.db.InterviewerDB;
 import com.huasheng.sysq.db.QuestionDB;
 import com.huasheng.sysq.db.QuestionaireDB;
 import com.huasheng.sysq.model.Answer;
@@ -20,10 +24,13 @@ import com.huasheng.sysq.model.AnswerWrap;
 import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewAnswerWrap;
 import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.InterviewQuestion;
 import com.huasheng.sysq.model.InterviewQuestionWrap;
 import com.huasheng.sysq.model.InterviewQuestionaire;
 import com.huasheng.sysq.model.InterviewQuestionaireWrap;
+import com.huasheng.sysq.model.Interviewee;
+import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.model.Page;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
@@ -31,10 +38,39 @@ import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.model.Version;
 import com.huasheng.sysq.util.DateTimeUtils;
-import com.huasheng.sysq.util.InterviewContext;
 import com.huasheng.sysq.util.SysqContext;
+import com.huasheng.sysq.util.interview.InterviewContext;
 
 public class InterviewService {
+	
+	/**
+	 * 新建被访问者
+	 * @param interviewee
+	 * @return
+	 */
+	public static Interviewee newInterviewee(Interviewee interviewee){
+		int id = IntervieweeDB.insert(interviewee);
+		interviewee.setId(id);
+		return interviewee;
+	}
+	
+	/**
+	 * 更新被访问者
+	 * @param interviewee
+	 */
+	public static void updateInterviewee(Interviewee interviewee){
+		IntervieweeDB.update(interviewee);
+	}
+	
+	/**
+	 * 查询所有被访问者
+	 * @return
+	 */
+	public static  List<Interviewee> getAllInterviewee(){
+		List<Interviewee> intervieweeList = new ArrayList<Interviewee>();
+		intervieweeList = IntervieweeDB.getList();
+		return intervieweeList;
+	}
 
 	/**
 	 * 新建访问记录
@@ -42,17 +78,8 @@ public class InterviewService {
 	 */
 	public static InterviewBasic newInterviewBasic(InterviewBasic interviewBasic){
 		
-		//记录受访者信息、访问状态信息
-		interviewBasic.setInterviewerId(SysqContext.getInterviewer().getId());
-		interviewBasic.setVersionId(SysqContext.getCurrentVersion().getId());
-		interviewBasic.setStartTime(DateTimeUtils.getCurDateTime());
-		interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
-		interviewBasic.setIsUpload(InterviewBasic.UPLOAD_NO);
-		
-		//保存
 		int id = InterviewBasicDB.insert(interviewBasic);
 		interviewBasic.setId(id);
-		
 		return interviewBasic;
 	}
 	
@@ -65,75 +92,117 @@ public class InterviewService {
 	}
 	
 	/**
-	 * 搜索访谈记录
-	 * @param searchStr
-	 * @param pageNo
-	 * @param pageSize
+	 * 获取唯一访问记录
+	 * @param id
 	 * @return
 	 */
-	public static Page<InterviewBasic> searchInterviewBasic(String searchStr,Integer pageNo,Integer pageSize){
+	public static InterviewBasicWrap findInterviewBasicById(int id){
 		
-		//构造搜索对象
-		InterviewBasic interview = new InterviewBasic();
-		interview.setUsername(searchStr);
-		interview.setDna(searchStr);
+		InterviewBasic interviewBasic = InterviewBasicDB.selectById(id);
+		Interviewee interviewee = IntervieweeDB.selectById(interviewBasic.getIntervieweeId());
+		Interviewer interviewer = InterviewerDB.selectById(interviewBasic.getInterviewerId());
 		
-		//分页计算
-		Integer offset = null;
-		Integer limit = pageSize;
-		offset = (pageNo - 1) * pageSize;
+		InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
+		interviewBasicWrap.setInterviewBasic(interviewBasic);
+		interviewBasicWrap.setInterviewee(interviewee);
+		interviewBasicWrap.setInterviewer(interviewer);
 		
-		//数据查询
-		List<InterviewBasic> data = InterviewBasicDB.search(interview, "or", offset, limit);
-		
-		//构造page
-		Page<InterviewBasic> page = new Page<InterviewBasic>();
-		page.setData(data);
-		page.setPageNo(pageNo);
-		page.setPageSize(pageSize);
-		
-		//计算总页数
-		int size = InterviewBasicDB.size(interview, "or");
-		int totalPages = size % pageSize == 0 ? size / pageSize : size / pageSize + 1;
-		page.setTotalPages(totalPages);
-		
-		return page;
+		return interviewBasicWrap;
 	}
 	
 	/**
 	 * 获取所有访谈记录
 	 * @return
 	 */
-	public static List<InterviewBasic> getAllInterviewBasic(){
-		return InterviewBasicDB.getList();
+	public static List<InterviewBasicWrap> getAllInterviewBasic(){
+		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList();
+		List<InterviewBasicWrap> interviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
+		if(interviewBasicList != null && interviewBasicList.size() > 0){
+			for(InterviewBasic interviewBasic : interviewBasicList){
+				InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
+				Interviewee interviewee = IntervieweeDB.selectById(interviewBasic.getIntervieweeId());
+				Interviewer interviewer = InterviewerDB.selectById(interviewBasic.getInterviewerId());
+				interviewBasicWrap.setInterviewBasic(interviewBasic);
+				interviewBasicWrap.setInterviewee(interviewee);
+				interviewBasicWrap.setInterviewer(interviewer);
+				interviewBasicWrapList.add(interviewBasicWrap);
+			}
+		}
+		return interviewBasicWrapList;
 	}
 	
 	/**
-	 * 获取未上传的访谈记录
+	 * 搜索访谈记录
+	 * @param searchStr
+	 * @param pageNo
+	 * @param pageSize
 	 * @return
 	 */
-	public static List<InterviewBasic> getUnUploadInterviewBasic(){
-		List<InterviewBasic> unUploadInterviewBasicList = new ArrayList<InterviewBasic>();
+	public static Page<InterviewBasicWrap> searchInterviewBasic(String searchStr,Integer pageNo,Integer pageSize){
+		
+		//分页对象
+		Page<InterviewBasicWrap> page = new Page<InterviewBasicWrap>();
+		page.setPageNo(pageNo);
+		page.setPageSize(pageSize);
+		
 		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList();
-		if(interviewBasicList != null && interviewBasicList.size() > 0){
-			for(InterviewBasic interviewBasic : interviewBasicList){
-				if(interviewBasic.getIsTest() == InterviewBasic.TEST_NO && 
-						interviewBasic.getStatus() == InterviewBasic.STATUS_DONE && 
-						interviewBasic.getIsUpload() == InterviewBasic.UPLOAD_NO){
-					unUploadInterviewBasicList.add(interviewBasic);
+		
+		//无数据
+		if(interviewBasicList == null || interviewBasicList.size() <= 0){
+			page.setData(null);
+			page.setTotalPages(0);
+			return page;
+		}
+		
+		//转化wrap
+		List<InterviewBasicWrap> interviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
+		for(InterviewBasic interviewBasic : interviewBasicList){
+			InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
+			interviewBasicWrap.setInterviewBasic(interviewBasic);
+			interviewBasicWrap.setInterviewee(IntervieweeDB.selectById(interviewBasic.getIntervieweeId()));
+			interviewBasicWrap.setInterviewer(InterviewerDB.selectById(interviewBasic.getInterviewerId()));
+			interviewBasicWrapList.add(interviewBasicWrap);
+		}
+		
+		//过滤
+		List<InterviewBasicWrap> data =  new ArrayList<InterviewBasicWrap>();
+		if(StringUtils.isEmpty(searchStr)){
+			data.addAll(interviewBasicWrapList);
+		}else{
+			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
+				if(interviewBasicWrap.getInterviewee().getUsername().contains(searchStr)){//姓名
+					data.add(interviewBasicWrap);
+					continue;
+				}
+				String dnas = interviewBasicWrap.getInterviewee().getDna();//DNA
+				if(!StringUtils.isEmpty(dnas)){
+					if(dnas.contains(",")){
+						String[] dnaArray = dnas.split(",");
+						for(String dna : dnaArray){
+							if(dna.contains(searchStr)){
+								data.add(interviewBasicWrap);
+								break;
+							}
+						}
+					}else{
+						if(dnas.contains(searchStr)){
+							data.add(interviewBasicWrap);
+							continue;
+						}
+					}
 				}
 			}
 		}
-		return unUploadInterviewBasicList;
-	}
-	
-	/**
-	 * 获取唯一访问记录
-	 * @param id
-	 * @return
-	 */
-	public static InterviewBasic findInterviewBasicById(int id){
-		return InterviewBasicDB.selectById(id);
+		
+		//分页
+		int start =  (pageNo - 1) * pageSize;
+		int end = pageNo * pageSize > data.size() ? data.size() : (start + pageSize);
+		int totalPages = data.size() % pageSize == 0 ? data.size() / pageSize : (data.size() / pageSize) + 1;
+		data = data.subList(start, end);
+		page.setData(data);
+		page.setTotalPages(totalPages);
+		
+		return page;
 	}
 	
 	/**
@@ -144,7 +213,7 @@ public class InterviewService {
 	public static InterviewQuestionaire newInterviewQuestionaire(Questionaire questionaire){
 		
 		InterviewQuestionaire interviewQuestionaire = new InterviewQuestionaire();
-		interviewQuestionaire.setInterviewBasicId(InterviewContext.getCurInterviewBasic().getId());
+		interviewQuestionaire.setInterviewBasicId(InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId());
 		interviewQuestionaire.setQuestionaireCode(questionaire.getCode());
 		interviewQuestionaire.setStartTime(DateTimeUtils.getCurDateTime());
 		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
@@ -162,7 +231,7 @@ public class InterviewService {
 	 * @param questionaireCode
 	 */
 	public static void deleteInterviewQuestionaire(String questionaireCode){
-		InterviewQuestionaireDB.delete(InterviewContext.getCurInterviewBasic().getId(), questionaireCode);
+		InterviewQuestionaireDB.delete(InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId(), questionaireCode);
 	}
 	
 	/**
@@ -382,7 +451,7 @@ public class InterviewService {
 	public static void saveAnswers(List<AnswerValue> answerValueList){
 		
 		//清除访问问卷下所有访问问题、访问答案
-		InterviewBasic interviewBasic = InterviewContext.getCurInterviewBasic();
+		InterviewBasic interviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		
 		List<InterviewQuestion> interviewQuestionList = InterviewQuestionDB.selectByQuestionaire(interviewBasic.getId(), interviewQuestionaire.getQuestionaireCode());
@@ -398,7 +467,7 @@ public class InterviewService {
 		}
 		for(String questionCode : questionCodeSet){
 			InterviewQuestion interviewQuestion = new InterviewQuestion();
-			interviewQuestion.setInterviewBasicId(InterviewContext.getCurInterviewBasic().getId());
+			interviewQuestion.setInterviewBasicId(InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId());
 			interviewQuestion.setQuestionaireCode(InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 			interviewQuestion.setQuestionCode(questionCode);
 			interviewQuestion.setSeqNum(QuestionDB.selectByCode(questionCode, SysqContext.getCurrentVersion().getId()).getSeqNum());
@@ -409,7 +478,7 @@ public class InterviewService {
 		//保存interviewAnswer
 		for(AnswerValue answerValue : answerValueList){
 			InterviewAnswer interviewAnswer = new InterviewAnswer();
-			interviewAnswer.setInterviewBasicId(InterviewContext.getCurInterviewBasic().getId());
+			interviewAnswer.setInterviewBasicId(InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId());
 			interviewAnswer.setQuestionCode(answerValue.getQuestionCode());
 			interviewAnswer.setAnswerLabel(answerValue.getLabel());
 			interviewAnswer.setAnswerCode(answerValue.getCode());
@@ -429,12 +498,12 @@ public class InterviewService {
 		
 		//先删除答案
 		String questionCode = answerValueList.get(0).getQuestionCode();
-		InterviewAnswerDB.deleteByInterviewQuestion(InterviewContext.getCurInterviewBasic().getId(), questionCode);
+		InterviewAnswerDB.deleteByInterviewQuestion(InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId(), questionCode);
 		
 		//后添加答案
 		for(AnswerValue answerValue : answerValueList){
 			InterviewAnswer interviewAnswer = new InterviewAnswer();
-			interviewAnswer.setInterviewBasicId(InterviewContext.getCurInterviewBasic().getId());
+			interviewAnswer.setInterviewBasicId(InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId());
 			interviewAnswer.setQuestionCode(answerValue.getQuestionCode());
 			interviewAnswer.setAnswerLabel(answerValue.getLabel());
 			interviewAnswer.setAnswerCode(answerValue.getCode());
@@ -446,7 +515,7 @@ public class InterviewService {
 		}
 		
 		//插入问卷备注信息
-		InterviewQuestionaire interviewQuestionaire = InterviewQuestionaireDB.select(InterviewContext.getCurInterviewBasic().getId(), InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
+		InterviewQuestionaire interviewQuestionaire = InterviewQuestionaireDB.select(InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId(), InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 		interviewQuestionaire.setRemark(remark);
 		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
 		InterviewQuestionaireDB.update(interviewQuestionaire);
@@ -638,7 +707,7 @@ public class InterviewService {
 	public static Questionaire getFirstQuestionaire(){
 		
 		//获取当前访问记录、当前版本号
-		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 		Version curVersion = SysqContext.getCurrentVersion();
 		
 		//获取第一个问卷
@@ -659,7 +728,7 @@ public class InterviewService {
 	public static Questionaire getNextQuestionaire(){
 		
 		//获取当前访谈、当前问卷、当前版本
-		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasic();
+		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 		InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		Version curVersion = SysqContext.getCurrentVersion();
 		

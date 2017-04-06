@@ -1,4 +1,4 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.upload;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,7 +28,12 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewBasicWrap;
+import com.huasheng.sysq.model.Interviewee;
+import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.PathConstants;
+import com.huasheng.sysq.util.SysqApplication;
 
 public class UploadUtils {
 	
@@ -165,18 +170,18 @@ public class UploadUtils {
 	public static void upload(Handler handler){
 		
 		//获取上传数据（真实数据、已完成、未上传）
-		List<InterviewBasic> uploadInterviewBasicList = new ArrayList<InterviewBasic>();
-		List<InterviewBasic> interviewBasicList = InterviewService.getAllInterviewBasic();
-		if(interviewBasicList != null && interviewBasicList.size() > 0){
-			for(InterviewBasic interviewBasic : interviewBasicList){
-				if(interviewBasic.getIsTest() == InterviewBasic.TEST_NO 
-						&& interviewBasic.getStatus() == InterviewBasic.STATUS_DONE 
-						&& interviewBasic.getIsUpload() == InterviewBasic.UPLOAD_NO){
-					uploadInterviewBasicList.add(interviewBasic);
+		List<InterviewBasicWrap> uploadInterviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
+		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
+			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
+				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
+						&& interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE 
+						&& interviewBasicWrap.getInterviewBasic().getIsUpload() == InterviewBasic.UPLOAD_NO){
+					uploadInterviewBasicWrapList.add(interviewBasicWrap);
 				}
 			}
 		}
-		if(uploadInterviewBasicList.size() == 0){
+		if(uploadInterviewBasicWrapList.size() == 0){
 			sendMessage(handler,UPLOAD_NO_DATA,"暂无可上传访谈记录");
 			return;
 		}
@@ -250,9 +255,13 @@ public class UploadUtils {
 		
 		//上传
 		int index = 0;	//上传进度
-		sendMessage(handler,UPLOAD_PROGRESS,"数据正在上传中，请稍候..."+"0/"+uploadInterviewBasicList.size());
+		sendMessage(handler,UPLOAD_PROGRESS,"数据正在上传中，请稍候..."+"0/"+uploadInterviewBasicWrapList.size());
 		String operateType = "";
-		for(InterviewBasic interviewBasic : uploadInterviewBasicList){
+		for(InterviewBasicWrap interviewBasicWrap : uploadInterviewBasicWrapList){
+			InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
+			Interviewee interviewee = interviewBasicWrap.getInterviewee();
+			Interviewer interviewer = interviewBasicWrap.getInterviewer();
+			
 			PreparedStatement pst = null;
 			InputStream zipIS = null;
 			try{
@@ -260,12 +269,12 @@ public class UploadUtils {
 				//上传数据库数据
 				operateType = "db";
 				pst = conn.prepareStatement("insert into test(username) values (?)");
-				pst.setString(1, interviewBasic.getUsername());
+				pst.setString(1, interviewee.getUsername());
 				pst.execute();
 				
 				//多媒体文件：打包
 				operateType = "ftp";
-				File mediaDir = new File(PathConstants.getMediaDir(),interviewBasic.getIdentityCard()+"("+interviewBasic.getUsername()+")");
+				File mediaDir = new File(PathConstants.getMediaDir(),interviewee.getIdentityCard()+"("+interviewee.getUsername()+")");
 				File zipFile = new File(PathConstants.getTmpDir(),mediaDir.getName()+".zip");
 				ZipUtil.zip(mediaDir.getPath(), zipFile.getPath());
 				
@@ -280,7 +289,7 @@ public class UploadUtils {
 				
 				//更新上传进度
 				index++;
-				sendMessage(handler,UPLOAD_PROGRESS,"数据正在上传中，请稍候..."+index+"/"+uploadInterviewBasicList.size());
+				sendMessage(handler,UPLOAD_PROGRESS,"数据正在上传中，请稍候..."+index+"/"+uploadInterviewBasicWrapList.size());
 			}catch(Exception e){
 				try{
 					conn.rollback();		//事务：回滚
@@ -313,7 +322,7 @@ public class UploadUtils {
 		}
 		
 		//上传完成
-		if(index == uploadInterviewBasicList.size()){
+		if(index == uploadInterviewBasicWrapList.size()){
 			sendMessage(handler,UPLOAD_FINISH,"上传完成");
 		}
 		

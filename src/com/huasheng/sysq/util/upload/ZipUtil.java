@@ -1,4 +1,4 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.upload;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

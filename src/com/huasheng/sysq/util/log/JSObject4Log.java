@@ -1,4 +1,5 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.log;
+
 
 import android.webkit.JavascriptInterface;
 

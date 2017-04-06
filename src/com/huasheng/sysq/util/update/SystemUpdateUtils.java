@@ -1,4 +1,4 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.update;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +35,9 @@ import android.text.TextUtils;
 
 import com.huasheng.sysq.activity.LoginActivity;
 import com.huasheng.sysq.service.SystemUpdateService;
+import com.huasheng.sysq.util.PathConstants;
+import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.util.db.SysQOpenHelper;
 
 public class SystemUpdateUtils {
 	

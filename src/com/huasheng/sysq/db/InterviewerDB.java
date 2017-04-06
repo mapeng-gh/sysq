@@ -7,22 +7,28 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.huasheng.sysq.model.Interviewer;
-import com.huasheng.sysq.util.ColumnConstants;
-import com.huasheng.sysq.util.SysQOpenHelper;
-import com.huasheng.sysq.util.TableConstants;
+import com.huasheng.sysq.util.db.ColumnConstants;
+import com.huasheng.sysq.util.db.SysQOpenHelper;
+import com.huasheng.sysq.util.db.TableConstants;
 
 public class InterviewerDB {
 	
-	public static Interviewer findByLoginName(String loginName){
-		Cursor cursor = SysQOpenHelper.getDatabase().query(
-				TableConstants.TABLE_INTERVIEWER, null, 
-				ColumnConstants.COLUMN_INTERVIEWER_LOGIN_NAME + " = ?", 
-				new String[]{loginName}, null, null, null);
+	public static void insert(Interviewer interviewer){
+		ContentValues values = fillDBFromObject(interviewer);
+		SysQOpenHelper.getDatabase().insert(TableConstants.TABLE_INTERVIEWER, null, values);
+	}
+	
+	public static void update(Interviewer interviewer){
+		ContentValues values = fillDBFromObject(interviewer);
+		SysQOpenHelper.getDatabase().update(TableConstants.TABLE_INTERVIEWER, values,"id = ?",new String[]{interviewer.getId()+""});
+	}
+	
+	public static Interviewer selectById(int id){
+		Cursor cursor = SysQOpenHelper.getDatabase().query(TableConstants.TABLE_INTERVIEWER, null, "id = ?", new String[]{id + ""}, null, null, null);
 		Interviewer interviewer = null;
-		if(cursor.moveToFirst()){
+		if(cursor.moveToNext()){
 			interviewer = fillObjectFromDB(cursor);
 		}
-		cursor.close();
 		return interviewer;
 	}
 	
@@ -37,14 +43,17 @@ public class InterviewerDB {
 		return interviewerList;
 	}
 	
-	public static void update(Interviewer interviewer){
-		ContentValues values = fillDBFromObject(interviewer);
-		SysQOpenHelper.getDatabase().update(TableConstants.TABLE_INTERVIEWER, values,"id = ?",new String[]{interviewer.getId()+""});
-	}
-	
-	public static void insert(Interviewer interviewer){
-		ContentValues values = fillDBFromObject(interviewer);
-		SysQOpenHelper.getDatabase().insert(TableConstants.TABLE_INTERVIEWER, null, values);
+	public static Interviewer findByLoginName(String loginName){
+		Cursor cursor = SysQOpenHelper.getDatabase().query(
+				TableConstants.TABLE_INTERVIEWER, null, 
+				ColumnConstants.COLUMN_INTERVIEWER_LOGIN_NAME + " = ?", 
+				new String[]{loginName}, null, null, null);
+		Interviewer interviewer = null;
+		if(cursor.moveToFirst()){
+			interviewer = fillObjectFromDB(cursor);
+		}
+		cursor.close();
+		return interviewer;
 	}
 	
 	private static ContentValues fillDBFromObject(Interviewer interviewer){

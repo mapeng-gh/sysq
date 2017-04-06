@@ -1,4 +1,4 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.db;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +9,10 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import com.huasheng.sysq.util.PathConstants;
+import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.util.log.LogUtils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -38,6 +42,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 		db.execSQL(TableConstants.CREATE_QUESTIONAIRE);
 		db.execSQL(TableConstants.CREATE_QUESTION);
 		db.execSQL(TableConstants.CREATE_ANSWER);
+		db.execSQL(TableConstants.CREATE_INTERVIEWEE);
 		db.execSQL(TableConstants.CREATE_INTERVIEW_BASIC);
 		db.execSQL(TableConstants.CREATE_INTERVIEW_QUESTIONAIRE);
 		db.execSQL(TableConstants.CREATE_INTERVIEW_QUESTION);

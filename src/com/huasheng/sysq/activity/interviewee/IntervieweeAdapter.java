@@ -13,14 +13,16 @@ import android.widget.TextView;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasic;
-import com.huasheng.sysq.util.InterviewConstants;
+import com.huasheng.sysq.model.InterviewBasicWrap;
+import com.huasheng.sysq.model.Interviewee;
+import com.huasheng.sysq.util.interview.InterviewConstants;
 
-public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
+public class IntervieweeAdapter extends ArrayAdapter<InterviewBasicWrap>{
 	
 	private int resource;
 	private IntervieweeActivity activity;
 
-	public IntervieweeAdapter(Context context, int resource,List<InterviewBasic> objects,IntervieweeActivity activity) {
+	public IntervieweeAdapter(Context context, int resource,List<InterviewBasicWrap> objects,IntervieweeActivity activity) {
 		super(context, resource, objects);
 		this.resource = resource;
 		this.activity = activity;
@@ -30,7 +32,9 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
 		//获取数据
-		InterviewBasic interviewBasic = getItem(position);
+		InterviewBasicWrap interviewBasicWrap = getItem(position);
+		InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
+		Interviewee interviewee = interviewBasicWrap.getInterviewee();
 		
 		//实例化一个view
 		View interviewView;
@@ -45,13 +49,13 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasic>{
 		idTV.setText(interviewBasic.getId()+"");
 		
 		TextView usernameTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_username);
-		usernameTV.setText(interviewBasic.getUsername());
+		usernameTV.setText(interviewee.getUsername());
 		
 		TextView addressTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_address);
-		addressTV.setText(interviewBasic.getAddress());
+		addressTV.setText(interviewee.getAddress());
 		
 		TextView mobileTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_mobile);
-		mobileTV.setText(interviewBasic.getMobile());
+		mobileTV.setText(interviewee.getMobile());
 		
 		TextView typeTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_type);
 		if(interviewBasic.getType() == InterviewConstants.TYPE_CASE){

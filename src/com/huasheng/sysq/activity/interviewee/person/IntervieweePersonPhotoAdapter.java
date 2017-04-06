@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasic;
-import com.huasheng.sysq.util.InterviewConstants;
+import com.huasheng.sysq.util.interview.InterviewConstants;
 
 public class IntervieweePersonPhotoAdapter extends ArrayAdapter<File>{
 	

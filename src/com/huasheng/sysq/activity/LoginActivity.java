@@ -25,7 +25,7 @@ import com.huasheng.sysq.service.SystemUpdateService;
 import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
-import com.huasheng.sysq.util.SystemUpdateUtils;
+import com.huasheng.sysq.util.update.SystemUpdateUtils;
 
 public class LoginActivity extends Activity implements OnClickListener{
 	

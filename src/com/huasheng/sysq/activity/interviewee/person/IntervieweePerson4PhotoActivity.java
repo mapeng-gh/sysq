@@ -19,7 +19,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.huasheng.sysq.R;
-import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewBasicWrap;
+import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.DateTimeUtils;
 import com.huasheng.sysq.util.PathConstants;
@@ -57,8 +58,9 @@ public class IntervieweePerson4PhotoActivity extends Activity implements OnClick
 		
 		//获取图片数据
 		List<File> data = new ArrayList<File>();
-		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
-		File imgDir = new File(PathConstants.getMediaDir(),interviewBasic.getIdentityCard()+"("+interviewBasic.getUsername()+")"+File.separator+"photo");
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		Interviewee interviewee = interviewBasicWrap.getInterviewee();
+		File imgDir = new File(PathConstants.getMediaDir(),interviewee.getIdentityCard()+"("+interviewee.getUsername()+")"+File.separator+"photo");
 		if(imgDir.exists()){
 			File[] imgFiles = imgDir.listFiles();
 			if(imgFiles != null && imgFiles.length > 0){
@@ -84,8 +86,9 @@ public class IntervieweePerson4PhotoActivity extends Activity implements OnClick
 	private void takePhoto(){
 		
 		//设置图片存储路径
-		InterviewBasic interviewBasic = InterviewService.findInterviewBasicById(this.interviewBasicId);
-		File imgDir = new File(PathConstants.getMediaDir(),interviewBasic.getIdentityCard()+"("+interviewBasic.getUsername()+")"+File.separator+"photo");
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		Interviewee interviewee = interviewBasicWrap.getInterviewee();
+		File imgDir = new File(PathConstants.getMediaDir(),interviewee.getIdentityCard()+"("+interviewee.getUsername()+")"+File.separator+"photo");
 		if(!imgDir.exists()){
 			imgDir.mkdirs();
 		}

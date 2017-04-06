@@ -1,18 +1,18 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.interview;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.webkit.WebView;
 
-import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.InterviewQuestionaire;
 import com.huasheng.sysq.model.Question;
 
 public class InterviewContext {
 
 	private static int operateType;
-	private static InterviewBasic curInterviewBasic;//当前访问记录
+	private static InterviewBasicWrap curInterviewBasicWrap;//当前访问记录
 	private static InterviewQuestionaire curInterviewQuestionaire;//当前访问问卷
 	private static List<Question> questionBackStack = new ArrayList<Question>();
 	
@@ -33,7 +33,7 @@ public class InterviewContext {
 	 * ================清空上下文信息===================
 	 */
 	public static void clearInterviewContext(){
-		curInterviewBasic = null;
+		curInterviewBasicWrap = null;
 		curInterviewQuestionaire = null;
 		questionBackStack.clear();
 		webView = null;
@@ -85,17 +85,16 @@ public class InterviewContext {
 	/**
 	 * ================设置/获取上下文===================
 	 */
-	public static InterviewBasic getCurInterviewBasic() {
-		return curInterviewBasic;
+	public static InterviewBasicWrap getCurInterviewBasicWrap() {
+		return curInterviewBasicWrap;
 	}
-	public static void setCurInterviewBasic(InterviewBasic interviewBasic) {
-		curInterviewBasic = interviewBasic;
+	public static void setCurInterviewBasicWrap(InterviewBasicWrap interviewBasicWrap) {
+		curInterviewBasicWrap = interviewBasicWrap;
 	}
 	public static InterviewQuestionaire getCurInterviewQuestionaire() {
 		return curInterviewQuestionaire;
 	}
-	public static void setCurInterviewQuestionaire(
-			InterviewQuestionaire curInterviewQuestionaire) {
+	public static void setCurInterviewQuestionaire(InterviewQuestionaire curInterviewQuestionaire) {
 		InterviewContext.curInterviewQuestionaire = curInterviewQuestionaire;
 	}
 	public static WebView getWebView() {

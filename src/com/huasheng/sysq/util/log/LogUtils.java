@@ -1,4 +1,4 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.log;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -6,6 +6,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 import org.apache.commons.io.FileUtils;
+
+import com.huasheng.sysq.util.DateTimeUtils;
 
 import android.os.Environment;
 import android.util.Log;

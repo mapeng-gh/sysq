@@ -12,17 +12,7 @@ public class InterviewBasic implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
-	private String username;
-	private String identityCard;
-	private String mobile;
-	private String province;
-	private String city;
-	private String address;
-	private String postCode;
-	private String familyMobile;
-	private String familyAddress;
-	private String remark;
-	private String dna;
+	private int intervieweeId;
 	private int interviewerId;
 	private int type;
 	private int isTest;
@@ -51,77 +41,11 @@ public class InterviewBasic implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getIdentityCard() {
-		return identityCard;
-	}
-	public void setIdentityCard(String identityCard) {
-		this.identityCard = identityCard;
-	}
-	public String getMobile() {
-		return mobile;
-	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-	public String getProvince() {
-		return province;
-	}
-	public void setProvince(String province) {
-		this.province = province;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getPostCode() {
-		return postCode;
-	}
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
-	}
-	public String getFamilyMobile() {
-		return familyMobile;
-	}
-	public void setFamilyMobile(String familyMobile) {
-		this.familyMobile = familyMobile;
-	}
-	public String getFamilyAddress() {
-		return familyAddress;
-	}
-	public void setFamilyAddress(String familyAddress) {
-		this.familyAddress = familyAddress;
-	}
-	public String getRemark() {
-		return remark;
-	}
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-	public String getDna() {
-		return dna;
-	}
 	public String getLastModifiedTime() {
 		return lastModifiedTime;
 	}
 	public void setLastModifiedTime(String lastModifiedTime) {
 		this.lastModifiedTime = lastModifiedTime;
-	}
-	public void setDna(String dna) {
-		this.dna = dna;
 	}
 	public int getInterviewerId() {
 		return interviewerId;
@@ -182,5 +106,11 @@ public class InterviewBasic implements Serializable{
 	}
 	public void setIsUpload(int isUpload) {
 		this.isUpload = isUpload;
+	}
+	public int getIntervieweeId() {
+		return intervieweeId;
+	}
+	public void setIntervieweeId(int intervieweeId) {
+		this.intervieweeId = intervieweeId;
 	}
 }

@@ -1,13 +1,17 @@
-package com.huasheng.sysq.util;
+package com.huasheng.sysq.util.interview;
 
 import java.io.File;
 import java.io.IOException;
 
-import com.huasheng.sysq.model.InterviewBasic;
-
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.StatFs;
+
+import com.huasheng.sysq.model.InterviewBasicWrap;
+import com.huasheng.sysq.model.Interviewee;
+import com.huasheng.sysq.util.DateTimeUtils;
+import com.huasheng.sysq.util.PathConstants;
+import com.huasheng.sysq.util.SysqApplication;
 
 public class AudioUtils {
 
@@ -23,9 +27,11 @@ public class AudioUtils {
 		return available;
 	}
 	
-	private static String genFilePath(InterviewBasic interviewBasic){
+	private static String genFilePath(InterviewBasicWrap interviewBasicWrap){
 		
-		File audioDir = new File(PathConstants.getMediaDir(),interviewBasic.getIdentityCard()+"("+interviewBasic.getUsername()+")"+File.separator+"audio");
+		Interviewee interviewee = interviewBasicWrap.getInterviewee();
+		
+		File audioDir = new File(PathConstants.getMediaDir(),interviewee.getIdentityCard()+"("+interviewee.getUsername()+")"+File.separator+"audio");
 		if(!audioDir.exists()){
 			audioDir.mkdirs();
 		}
@@ -41,7 +47,7 @@ public class AudioUtils {
 		return audioFile.getAbsolutePath();
 	}
 	
-	public static void start(InterviewBasic interviewBasic){
+	public static void start(InterviewBasicWrap interviewBasicWrap){
 		try{
 			
 			if(!isStarted){
@@ -57,7 +63,7 @@ public class AudioUtils {
 				mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 				mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
 				mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-				mediaRecorder.setOutputFile(genFilePath(interviewBasic));
+				mediaRecorder.setOutputFile(genFilePath(interviewBasicWrap));
 				
 				mediaRecorder.prepare();
 				mediaRecorder.start();
