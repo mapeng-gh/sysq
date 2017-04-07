@@ -23,7 +23,7 @@ public class TableConstants {
 	 */
 	public static final String CREATE_INTERVIEWER = "create table " + TableConstants.TABLE_INTERVIEWER + 
 			"(" +
-				"id integer primary key autoincrement," +
+				"id integer primary key," +
 				ColumnConstants.COLUMN_INTERVIEWER_LOGIN_NAME + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEWER_PASSWORD + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEWER_USERNAME + " varchar," +
@@ -91,7 +91,7 @@ public class TableConstants {
 			")";
 	public static final String CREATE_INTERVIEWEE = "create table " + TableConstants.TABLE_INTERVIEWEE +
 			"(" +
-				"id integer primary key autoincrement," +
+				"id integer primary key," +
 				ColumnConstants.COLUMN_INTERVIEWEE_USERNAME + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEWEE_IDENTITY_CARD + " varchar," +
 				ColumnConstants.COLUMN_INTERVIEWEE_MOBILE + " varchar," +
@@ -107,7 +107,7 @@ public class TableConstants {
 	
 	public static final String CREATE_INTERVIEW_BASIC = "create table " + TableConstants.TABLE_INTERVIEW_BASIC +
 			"(" +
-				"id integer primary key autoincrement," +
+				"id integer primary key," +
 				ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWEE_ID + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " integer," +
 				ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + " integer," +

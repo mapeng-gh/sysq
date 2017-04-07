@@ -1,29 +1,27 @@
 package com.huasheng.sysq.db;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.util.db.ColumnConstants;
+import com.huasheng.sysq.util.db.SequenceUtils;
 import com.huasheng.sysq.util.db.SysQOpenHelper;
 import com.huasheng.sysq.util.db.TableConstants;
 
 public class InterviewBasicDB {
 
 	public static int insert(InterviewBasic interviewBasic){
-		ContentValues values = fill(interviewBasic);
+		interviewBasic.setId(SequenceUtils.getNextSeq());
+		ContentValues values = fillDBFromObject(interviewBasic);
 		return (int)SysQOpenHelper.getDatabase().insert(TableConstants.TABLE_INTERVIEW_BASIC, null, values);
 	}
 	
 	public static void update(InterviewBasic interviewBasic){
-		ContentValues values = fill(interviewBasic);
+		ContentValues values = fillDBFromObject(interviewBasic);
 		SysQOpenHelper.getDatabase().update(TableConstants.TABLE_INTERVIEW_BASIC, values,"id = ?",new String[]{interviewBasic.getId()+""});
 	}
 	
@@ -66,60 +64,9 @@ public class InterviewBasicDB {
 		return interviewBasic;
 	}
 	
-	/**
-	 * 动态生成selection和selectionArgs
-	 * 
-	 * 目前只处理了name
-	 * 
-	 * @param reservation
-	 * @return
-	 */
-	private static Map<String,Object> whereSql(InterviewBasic interview,String searchType){
-		
-		String selection = null;
-		String[] selectionArgs = null;
-		
-		List<String> selectionList = new ArrayList<String>();
-		List<String> selectionArgsList = new ArrayList<String>();
-		
-		/*String username = interview.getUsername();
-		if(!StringUtils.isEmpty(StringUtils.trim(username))){
-			selectionList.add(ColumnConstants.COLUMN_INTERVIEW_BASIC_USERNAME + " like ?");
-			selectionArgsList.add("%"+username+"%");
-		}
-		
-		String dna = interview.getDna();
-		if(!StringUtils.isEmpty(StringUtils.trim(dna))){
-			selectionList.add(ColumnConstants.COLUMN_INTERVIEW_BASIC_DNA + " like ?");
-			selectionArgsList.add("%"+dna+"%");
-		}*/
-		
-		if(selectionList.size() > 0){
-			selection = StringUtils.join(selectionList, " " + searchType + " ");
-		}
-		if(selectionArgsList.size() > 0){
-			selectionArgs = selectionArgsList.toArray(new String[selectionArgsList.size()]);
-		}
-		
-		Map<String,Object> selectionMap = new HashMap<String,Object>();
-		selectionMap.put("selection", selection);
-		selectionMap.put("selectionArgs", selectionArgs);
-		
-		return selectionMap;
-	}
-	
-	public static int size(InterviewBasic interview,String searchType){
-		
-		//处理过滤条件
-		String selection = (String)whereSql(interview,searchType).get("selection");
-		String[] selectionArgs = (String[])whereSql(interview,searchType).get("selectionArgs");
-		
-		Cursor cursor = SysQOpenHelper.getDatabase().query(TableConstants.TABLE_INTERVIEW_BASIC, null, selection, selectionArgs, null, null, null);
-		return cursor.getCount();
-	}
-	
-	private static ContentValues fill(InterviewBasic interviewBasic){
+	private static ContentValues fillDBFromObject(InterviewBasic interviewBasic){
 		ContentValues values = new ContentValues();
+		values.put("id",interviewBasic.getId());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWEE_ID, interviewBasic.getIntervieweeId());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID, interviewBasic.getInterviewerId());
 		values.put(ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE, interviewBasic.getType());

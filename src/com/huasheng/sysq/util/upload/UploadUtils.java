@@ -34,6 +34,7 @@ import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.util.db.SequenceUtils;
 
 public class UploadUtils {
 	
@@ -168,6 +169,8 @@ public class UploadUtils {
 	 * @throws FileNotFoundException 
 	 */
 	public static void upload(Handler handler){
+		
+		int seq = SequenceUtils.getNextSeq();
 		
 		//获取上传数据（真实数据、已完成、未上传）
 		List<InterviewBasicWrap> uploadInterviewBasicWrapList = new ArrayList<InterviewBasicWrap>();

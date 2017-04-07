@@ -7,6 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -27,6 +29,14 @@ import com.huasheng.sysq.util.interview.InterviewConstants;
 import com.huasheng.sysq.util.interview.InterviewContext;
 
 public class InterviewerBasicActivity extends Activity implements OnClickListener{
+	
+	private Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			SysqApplication.showMessage(msg.obj.toString());
+		}
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,45 +65,59 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 			return;
 		}
 		
-		//新建被访问者
-		Interviewee interviewee = new Interviewee();
-		interviewee.setUsername( ((EditText)findViewById(R.id.interviewer_basic_username)).getText().toString().trim() );
-		interviewee.setIdentityCard( ((EditText)findViewById(R.id.interviewer_basic_identity_card)).getText().toString().trim() );
-		interviewee.setMobile( ((EditText)findViewById(R.id.interviewer_basic_mobile)).getText().toString().trim() );
-		interviewee.setProvince( ((EditText)findViewById(R.id.interviewer_basic_province)).getText().toString().trim() );
-		interviewee.setCity( ((EditText)findViewById(R.id.interviewer_basic_city)).getText().toString().trim() );
-		interviewee.setAddress(((EditText)findViewById(R.id.interviewer_basic_address)).getText().toString().trim());
-		interviewee.setPostCode(((EditText)findViewById(R.id.interviewer_basic_post_code)).getText().toString().trim());
-		interviewee.setFamilyMobile(((EditText)findViewById(R.id.interviewer_basic_family_mobile)).getText().toString().trim());
-		interviewee.setFamilyAddress(((EditText)findViewById(R.id.interviewer_basic_family_address)).getText().toString().trim());
-		interviewee.setRemark(((EditText)findViewById(R.id.interviewer_basic_remark)).getText().toString().trim());
-		InterviewService.newInterviewee(interviewee);
-		
-		
-		//新建访问记录
-		InterviewBasic interviewBasic = new InterviewBasic();
-		RadioButton isTrueRB = (RadioButton)findViewById(R.id.interviewer_dna_type_true);
-		interviewBasic.setIsTest(isTrueRB.isChecked() ? InterviewBasic.TEST_NO : InterviewBasic.TEST_YES);
-		RadioButton isCaseRB = (RadioButton)findViewById(R.id.interviewer_dna_questionaire_type_case);
-		interviewBasic.setType(isCaseRB.isChecked() ? InterviewConstants.TYPE_CASE : InterviewConstants.TYPE_CONTRAST);
-		interviewBasic.setIntervieweeId(interviewee.getId());
-		interviewBasic.setInterviewerId(SysqContext.getInterviewer().getId());
-		interviewBasic.setVersionId(SysqContext.getCurrentVersion().getId());
-		interviewBasic.setStartTime(DateTimeUtils.getCurDateTime());
-		interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
-		interviewBasic.setIsUpload(InterviewBasic.UPLOAD_NO);
-		InterviewService.newInterviewBasic(interviewBasic);
-		
-		//保存到上下文
-		InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
-		interviewBasicWrap.setInterviewBasic(interviewBasic);
-		interviewBasicWrap.setInterviewee(interviewee);
-		interviewBasicWrap.setInterviewer(SysqContext.getInterviewer());
-		InterviewContext.setCurInterviewBasicWrap(interviewBasicWrap);
-		
-		//跳转问卷页
-		Intent interviewIntent = new Intent(this,InterviewActivity.class);
-		this.startActivity(interviewIntent);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				
+				try{
+					
+					//新建被访问者
+					Interviewee interviewee = new Interviewee();
+					interviewee.setUsername( ((EditText)findViewById(R.id.interviewer_basic_username)).getText().toString().trim() );
+					interviewee.setIdentityCard( ((EditText)findViewById(R.id.interviewer_basic_identity_card)).getText().toString().trim() );
+					interviewee.setMobile( ((EditText)findViewById(R.id.interviewer_basic_mobile)).getText().toString().trim() );
+					interviewee.setProvince( ((EditText)findViewById(R.id.interviewer_basic_province)).getText().toString().trim() );
+					interviewee.setCity( ((EditText)findViewById(R.id.interviewer_basic_city)).getText().toString().trim() );
+					interviewee.setAddress(((EditText)findViewById(R.id.interviewer_basic_address)).getText().toString().trim());
+					interviewee.setPostCode(((EditText)findViewById(R.id.interviewer_basic_post_code)).getText().toString().trim());
+					interviewee.setFamilyMobile(((EditText)findViewById(R.id.interviewer_basic_family_mobile)).getText().toString().trim());
+					interviewee.setFamilyAddress(((EditText)findViewById(R.id.interviewer_basic_family_address)).getText().toString().trim());
+					interviewee.setRemark(((EditText)findViewById(R.id.interviewer_basic_remark)).getText().toString().trim());
+					InterviewService.newInterviewee(interviewee);
+					
+					
+					//新建访问记录
+					InterviewBasic interviewBasic = new InterviewBasic();
+					RadioButton isTrueRB = (RadioButton)findViewById(R.id.interviewer_dna_type_true);
+					interviewBasic.setIsTest(isTrueRB.isChecked() ? InterviewBasic.TEST_NO : InterviewBasic.TEST_YES);
+					RadioButton isCaseRB = (RadioButton)findViewById(R.id.interviewer_dna_questionaire_type_case);
+					interviewBasic.setType(isCaseRB.isChecked() ? InterviewConstants.TYPE_CASE : InterviewConstants.TYPE_CONTRAST);
+					interviewBasic.setIntervieweeId(interviewee.getId());
+					interviewBasic.setInterviewerId(SysqContext.getInterviewer().getId());
+					interviewBasic.setVersionId(SysqContext.getCurrentVersion().getId());
+					interviewBasic.setStartTime(DateTimeUtils.getCurDateTime());
+					interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
+					interviewBasic.setIsUpload(InterviewBasic.UPLOAD_NO);
+					InterviewService.newInterviewBasic(interviewBasic);
+					
+					//保存到上下文
+					InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
+					interviewBasicWrap.setInterviewBasic(interviewBasic);
+					interviewBasicWrap.setInterviewee(interviewee);
+					interviewBasicWrap.setInterviewer(SysqContext.getInterviewer());
+					InterviewContext.setCurInterviewBasicWrap(interviewBasicWrap);
+					
+					//跳转问卷页
+					Intent interviewIntent = new Intent(InterviewerBasicActivity.this,InterviewActivity.class);
+					InterviewerBasicActivity.this.startActivity(interviewIntent);
+					
+				}catch(Exception e){
+					Message msg = new Message();
+					msg.obj = e.getMessage();
+					handler.sendMessage(msg);
+				}
+			}
+		}).start();
 	}
 	
 	/**

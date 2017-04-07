@@ -4,6 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -16,7 +18,15 @@ import com.huasheng.sysq.service.UserCenterService;
 import com.huasheng.sysq.util.SysqApplication;
 
 public class Usercenter4AddUserActivity extends Activity implements OnClickListener{
+	
+	private Handler handler = new Handler(){
 
+		@Override
+		public void handleMessage(Message msg) {
+			SysqApplication.showMessage(msg.obj.toString());
+		}
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,35 +51,35 @@ public class Usercenter4AddUserActivity extends Activity implements OnClickListe
 		
 		//校验
 		EditText mobileET = (EditText)this.findViewById(R.id.usercenter_adduser_mobile_et);
-		String mobile = mobileET.getText().toString().trim();
+		final String mobile = mobileET.getText().toString().trim();
 		if(StringUtils.isEmpty(mobile)){
 			SysqApplication.showMessage("手机号码不能为空");
 			return;
 		}
 		
 		EditText passwordET = (EditText)this.findViewById(R.id.usercenter_adduser_password_et);
-		String password = passwordET.getText().toString().trim();
+		final String password = passwordET.getText().toString().trim();
 		if(StringUtils.isEmpty(password)){
 			SysqApplication.showMessage("密码不能为空");
 			return;
 		}
 		
 		EditText usernameET = (EditText)this.findViewById(R.id.usercenter_adduser_username_et);
-		String username = usernameET.getText().toString().trim();
+		final String username = usernameET.getText().toString().trim();
 		if(StringUtils.isEmpty(username)){
 			SysqApplication.showMessage("姓名不能为空");
 			return;
 		}
 		
 		EditText emailET = (EditText)this.findViewById(R.id.usercenter_adduser_email_et);
-		String email = emailET.getText().toString().trim();
+		final String email = emailET.getText().toString().trim();
 		if(StringUtils.isEmpty(email)){
 			SysqApplication.showMessage("电子邮箱不能为空");
 			return;
 		}
 		
 		EditText workingPlaceET = (EditText)this.findViewById(R.id.usercenter_adduser_workingplace_et);
-		String workingPlace = workingPlaceET.getText().toString().trim();
+		final String workingPlace = workingPlaceET.getText().toString().trim();
 		if(StringUtils.isEmpty(workingPlace)){
 			SysqApplication.showMessage("工作单位不能为空");
 			return;
@@ -83,16 +93,28 @@ public class Usercenter4AddUserActivity extends Activity implements OnClickListe
 		}
 		
 		//保存
-		Interviewer newInterviewer = new Interviewer();
-		newInterviewer.setLoginName(mobile);
-		newInterviewer.setMobile(mobile);
-		newInterviewer.setPassword(password);
-		newInterviewer.setUsername(username);
-		newInterviewer.setEmail(email);
-		newInterviewer.setWorkingPlace(workingPlace);
-		UserCenterService.addUser(newInterviewer);
-		
-		SysqApplication.showMessage("添加成功");
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try{
+					Interviewer newInterviewer = new Interviewer();
+					newInterviewer.setLoginName(mobile);
+					newInterviewer.setMobile(mobile);
+					newInterviewer.setPassword(password);
+					newInterviewer.setUsername(username);
+					newInterviewer.setEmail(email);
+					newInterviewer.setWorkingPlace(workingPlace);
+					UserCenterService.addUser(newInterviewer);
+					
+					Message msg = new Message();
+					msg.obj = "添加成功";
+					handler.sendMessage(msg);
+				}catch(Exception e){
+					Message msg = new Message();
+					msg.obj = e.getMessage();
+					handler.sendMessage(msg);
+				}
+			}
+		}).start();
 	}
-
 }

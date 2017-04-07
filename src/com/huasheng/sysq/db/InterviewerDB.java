@@ -8,12 +8,14 @@ import android.database.Cursor;
 
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.util.db.ColumnConstants;
+import com.huasheng.sysq.util.db.SequenceUtils;
 import com.huasheng.sysq.util.db.SysQOpenHelper;
 import com.huasheng.sysq.util.db.TableConstants;
 
 public class InterviewerDB {
 	
 	public static void insert(Interviewer interviewer){
+		interviewer.setId(SequenceUtils.getNextSeq());
 		ContentValues values = fillDBFromObject(interviewer);
 		SysQOpenHelper.getDatabase().insert(TableConstants.TABLE_INTERVIEWER, null, values);
 	}
@@ -58,6 +60,7 @@ public class InterviewerDB {
 	
 	private static ContentValues fillDBFromObject(Interviewer interviewer){
 		ContentValues values = new ContentValues();
+		values.put("id", interviewer.getId());
 		values.put(ColumnConstants.COLUMN_INTERVIEWER_LOGIN_NAME, interviewer.getLoginName());
 		values.put(ColumnConstants.COLUMN_INTERVIEWER_PASSWORD, interviewer.getPassword());
 		values.put(ColumnConstants.COLUMN_INTERVIEWER_USERNAME, interviewer.getUsername());

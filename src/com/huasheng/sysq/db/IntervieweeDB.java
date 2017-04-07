@@ -9,18 +9,20 @@ import android.database.Cursor;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.util.db.ColumnConstants;
+import com.huasheng.sysq.util.db.SequenceUtils;
 import com.huasheng.sysq.util.db.SysQOpenHelper;
 import com.huasheng.sysq.util.db.TableConstants;
 
 public class IntervieweeDB {
 	
 	public static int insert(Interviewee interviewee){
-		ContentValues values = fill(interviewee);
+		interviewee.setId(SequenceUtils.getNextSeq());
+		ContentValues values = fillDBFromObject(interviewee);
 		return (int)SysQOpenHelper.getDatabase().insert(TableConstants.TABLE_INTERVIEWEE, null, values);
 	}
 	
 	public static void update(Interviewee interviewee){
-		ContentValues values = fill(interviewee);
+		ContentValues values = fillDBFromObject(interviewee);
 		SysQOpenHelper.getDatabase().update(TableConstants.TABLE_INTERVIEWEE, values,"id = ?",new String[]{interviewee.getId()+""});
 	}
 	
@@ -62,8 +64,9 @@ public class IntervieweeDB {
 		return interviewee;
 	}
 	
-	private static ContentValues fill(Interviewee interviewee){
+	private static ContentValues fillDBFromObject(Interviewee interviewee){
 		ContentValues values = new ContentValues();
+		values.put("id", interviewee.getId());
 		values.put(ColumnConstants.COLUMN_INTERVIEWEE_USERNAME, interviewee.getUsername());
 		values.put(ColumnConstants.COLUMN_INTERVIEWEE_IDENTITY_CARD, interviewee.getIdentityCard());
 		values.put(ColumnConstants.COLUMN_INTERVIEWEE_MOBILE, interviewee.getMobile());
