@@ -20,6 +20,7 @@ import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 import com.huasheng.sysq.activity.settings.SettingsNavActivity;
 import com.huasheng.sysq.activity.usercenter.UserCenterNavActivity;
+import com.huasheng.sysq.util.DialogUtils;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.update.SystemUpdateUtils;
 import com.huasheng.sysq.util.upload.UploadUtils;
@@ -142,25 +143,12 @@ public class IndexActivity extends Activity implements OnClickListener{
 	@Override
 	public void onBackPressed() {
 		
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("确定退出系统吗？");
-		builder.setIcon(android.R.drawable.ic_dialog_info);
-		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		DialogUtils.showConfirmDialog(this, "确定退出系统吗？", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				Intent loginIntent = new Intent(IndexActivity.this,LoginActivity.class);
 				IndexActivity.this.startActivity(loginIntent);
 			}
 		});
-		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-			};
-		});
-		AlertDialog dialog = builder.create();
-		dialog.show();
-		dialog.setCancelable(false);
-		dialog.setCanceledOnTouchOutside(false);
 	}
-	
 }

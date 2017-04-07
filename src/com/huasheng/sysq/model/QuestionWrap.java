@@ -3,7 +3,7 @@ package com.huasheng.sysq.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.huasheng.sysq.util.FormatUtils;
+import com.huasheng.sysq.util.interview.FormatUtils;
 
 public class QuestionWrap {
 

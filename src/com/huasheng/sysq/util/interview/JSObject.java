@@ -30,7 +30,6 @@ import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.DateTimeUtils;
-import com.huasheng.sysq.util.FormatUtils;
 import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqApplication;
 

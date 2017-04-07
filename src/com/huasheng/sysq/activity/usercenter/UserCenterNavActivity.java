@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.activity.LoginActivity;
+import com.huasheng.sysq.util.DialogUtils;
 
 public class UserCenterNavActivity extends Activity implements OnClickListener{
 	
@@ -59,25 +60,12 @@ public class UserCenterNavActivity extends Activity implements OnClickListener{
 	 * 退出系统
 	 */
 	private void logout(){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("确定退出系统吗？");
-		builder.setIcon(android.R.drawable.ic_dialog_info);
-		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		DialogUtils.showConfirmDialog(this, "确定退出系统吗？", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				Intent intent  = new Intent(UserCenterNavActivity.this,LoginActivity.class);
 				UserCenterNavActivity.this.startActivity(intent);
 			}
 		});
-		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-			};
-		});
-		AlertDialog dialog = builder.create();
-		dialog.show();
-		dialog.setCancelable(false);
-		dialog.setCanceledOnTouchOutside(false);
 	}
-
 }

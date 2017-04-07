@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.DateTimeUtils;
+import com.huasheng.sysq.util.DialogUtils;
 import com.huasheng.sysq.util.PathConstants;
 
 public class IntervieweePerson4PhotoActivity extends Activity implements OnClickListener{
@@ -112,11 +114,18 @@ public class IntervieweePerson4PhotoActivity extends Activity implements OnClick
 	 * 删除图片
 	 * @param photoFile
 	 */
-	private void deletePhoto(File photoFile){
-		if(photoFile.exists()){
-			photoFile.delete();
-			this.renderPhotoList();
-		}
+	private void deletePhoto(final File photoFile){
+		
+		DialogUtils.showConfirmDialog(this, "确定删除该图片吗？", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+				if(photoFile.exists()){
+					photoFile.delete();
+					IntervieweePerson4PhotoActivity.this.renderPhotoList();
+				}
+			}
+		});
 	}
 	
 	/**

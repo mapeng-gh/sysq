@@ -7,8 +7,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +20,7 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.DialogUtils;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.interviewee.ScanConstants;
 
@@ -87,10 +86,9 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 	 * 删除DNA
 	 */
 	private void deleteDNA(final String delDna){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("确认");
-		builder.setMessage("确定删除该DNA吗？");
-		builder.setPositiveButton("确定", new Dialog.OnClickListener() {
+		
+		DialogUtils.showConfirmDialog(this, "确定删除该DNA吗？", new DialogInterface.OnClickListener() {
+			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				
@@ -119,15 +117,6 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 				IntervieweePerson4DNAActivity.this.renderDNAList();
 			}
 		});
-		builder.setNegativeButton("取消", new Dialog.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-			}
-		});
-		AlertDialog dialog = builder.create();
-		dialog.setCancelable(false);
-		dialog.setCanceledOnTouchOutside(false);
-		dialog.show();
 	}
 	
 	/**

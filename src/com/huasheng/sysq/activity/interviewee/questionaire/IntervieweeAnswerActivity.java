@@ -28,9 +28,10 @@ import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewQuestionWrap;
 import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.FormatUtils;
+import com.huasheng.sysq.util.DialogUtils;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
+import com.huasheng.sysq.util.interview.FormatUtils;
 
 public class IntervieweeAnswerActivity extends Activity implements OnClickListener{
 	
@@ -189,10 +190,7 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 	private void checkQuestionModify(int interviewBasicId,final String questionCode){
 		
 		//询问是否确认修改问题
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("确定修改该问题吗？");
-		builder.setIcon(android.R.drawable.ic_dialog_info);
-		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		DialogUtils.showConfirmDialog(this, "确定修改该问题吗？", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				
@@ -211,37 +209,21 @@ public class IntervieweeAnswerActivity extends Activity implements OnClickListen
 				}else{//有关联问题
 					
 					//询问是否修改后续关联问题
-					AlertDialog.Builder isSingleBuilder = new AlertDialog.Builder(IntervieweeAnswerActivity.this);
-					isSingleBuilder.setTitle("确定修改该问题后续关联问题吗？");
-					isSingleBuilder.setIcon(android.R.drawable.ic_dialog_info);
-					isSingleBuilder.setPositiveButton("修改", new DialogInterface.OnClickListener() {
+					DialogUtils.showConfirmDialog(IntervieweeAnswerActivity.this, "确定修改该问题后续关联问题吗？", new DialogInterface.OnClickListener() {
+						
 						@Override
-						public void onClick(DialogInterface dialog, int which) {
+						public void onClick(DialogInterface dialog, int which) {//修改
 							jumpToModifyAssociatedQuestionPage(questionCode);
 						}
-					});
-					isSingleBuilder.setNegativeButton("不修改", new DialogInterface.OnClickListener() {
+					},  new DialogInterface.OnClickListener() {
 						@Override
-						public void onClick(DialogInterface dialog, int which) {
+						public void onClick(DialogInterface dialog, int which) {//不修改
 							jumpToModifySingleQuestionPage(questionCode);
-						};
+						}
 					});
-					AlertDialog isSingleDialog = isSingleBuilder.create();
-					isSingleDialog.setCancelable(false);
-					isSingleDialog.setCanceledOnTouchOutside(false);
-					isSingleDialog.show();
 				}
 			}
 		});
-		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-			};
-		});
-		AlertDialog dialog = builder.create();
-		dialog.setCancelable(false);
-		dialog.setCanceledOnTouchOutside(false);
-		dialog.show();
 	}
 	
 	//跳转修改单个问题页面
