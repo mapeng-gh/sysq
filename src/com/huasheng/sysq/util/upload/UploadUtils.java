@@ -170,8 +170,6 @@ public class UploadUtils {
 	 */
 	public static void upload(Handler handler){
 		
-		int seq = SequenceUtils.getNextSeq();
-		
 		//获取上传数据（真实数据、已完成、未上传）
 		List<InterviewBasicWrap> uploadInterviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
 		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();

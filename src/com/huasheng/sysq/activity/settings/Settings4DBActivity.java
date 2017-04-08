@@ -19,8 +19,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.PathConstants;
-import com.huasheng.sysq.util.PropertiesUtil;
 import com.huasheng.sysq.util.SysqApplication;
 
 /**
@@ -46,7 +46,7 @@ public class Settings4DBActivity extends Activity implements OnClickListener{
 	private void init(){
 		
 		try{
-			Map<String,String> dbConfigMap = PropertiesUtil.readProperties(new File(PathConstants.getSettingsDir(),"db.config"), "UTF-8");
+			Map<String,String> dbConfigMap = CommonUtils.readProperties(new File(PathConstants.getSettingsDir(),"db.config"), "UTF-8");
 			
 			//服务器地址
 			String ip = dbConfigMap.get("ip");

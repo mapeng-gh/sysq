@@ -18,7 +18,7 @@ import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.RegexUtils;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.SysqApplication;
 
 public class IntervieweePerson4BasicActivity extends Activity implements OnClickListener{
@@ -122,7 +122,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 			SysqApplication.showMessage("身份证号码不能为空");
 			return;
 		}
-		if(!RegexUtils.test("[0-9A-Za-z]{18}", identityCard)){
+		if(!CommonUtils.test("[0-9A-Za-z]{18}", identityCard)){
 			SysqApplication.showMessage("身份证号码格式不正确");
 			return;
 		}
@@ -171,7 +171,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 			SysqApplication.showMessage("邮政编码不能为空");
 			return;
 		}
-		if(!RegexUtils.test("[0-9]{6}", postCode)){
+		if(!CommonUtils.test("[0-9]{6}", postCode)){
 			SysqApplication.showMessage("邮政编码格式不正确");
 			return;
 		}
@@ -184,7 +184,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 			SysqApplication.showMessage("联系电话不能为空");
 			return;
 		}
-		if(!RegexUtils.test("[0-9]{10,12}", mobile)){
+		if(!CommonUtils.test("[0-9]{10,12}", mobile)){
 			SysqApplication.showMessage("联系电话格式不正确");
 			return;
 		}
@@ -199,7 +199,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		EditText familyMobileET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_family_mobile);
 		String familyMobile = familyMobileET.getText().toString().trim();
 		if(!StringUtils.isEmpty(familyMobile)){
-			if(!RegexUtils.test("[0-9]{10,12}", familyMobile)){
+			if(!CommonUtils.test("[0-9]{10,12}", familyMobile)){
 				SysqApplication.showMessage("本地亲属联系电话格式不正确");
 				return;
 			}

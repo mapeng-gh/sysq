@@ -21,8 +21,7 @@ import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.DateTimeUtils;
-import com.huasheng.sysq.util.RegexUtils;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.interview.InterviewConstants;
@@ -95,7 +94,7 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 					interviewBasic.setIntervieweeId(interviewee.getId());
 					interviewBasic.setInterviewerId(SysqContext.getInterviewer().getId());
 					interviewBasic.setVersionId(SysqContext.getCurrentVersion().getId());
-					interviewBasic.setStartTime(DateTimeUtils.getCurDateTime());
+					interviewBasic.setStartTime(CommonUtils.getCurDateTime());
 					interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
 					interviewBasic.setIsUpload(InterviewBasic.UPLOAD_NO);
 					InterviewService.newInterviewBasic(interviewBasic);
@@ -145,7 +144,7 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 			SysqApplication.showMessage("身份证号码不能为空");
 			return false;
 		}
-		if(!RegexUtils.test("[0-9A-Za-z]{18}", identityCard)){
+		if(!CommonUtils.test("[0-9A-Za-z]{18}", identityCard)){
 			SysqApplication.showMessage("身份证号码格式不正确");
 			return false;
 		}
@@ -190,7 +189,7 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 			SysqApplication.showMessage("邮政编码不能为空");
 			return false;
 		}
-		if(!RegexUtils.test("[0-9]{6}", postCode)){
+		if(!CommonUtils.test("[0-9]{6}", postCode)){
 			SysqApplication.showMessage("邮政编码格式不正确");
 			return false;
 		}
@@ -202,7 +201,7 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 			SysqApplication.showMessage("联系电话不能为空");
 			return false;
 		}
-		if(!RegexUtils.test("[0-9]{10,12}", mobile)){
+		if(!CommonUtils.test("[0-9]{10,12}", mobile)){
 			SysqApplication.showMessage("联系电话格式不正确");
 			return false;
 		}
@@ -211,7 +210,7 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 		EditText familyMobileET = (EditText)findViewById(R.id.interviewer_basic_family_mobile);
 		String familyMobile = familyMobileET.getText().toString().trim();
 		if(!StringUtils.isEmpty(familyMobile)){
-			if(!RegexUtils.test("[0-9]{10,12}", familyMobile)){
+			if(!CommonUtils.test("[0-9]{10,12}", familyMobile)){
 				SysqApplication.showMessage("本地亲属联系电话格式不正确");
 				return false;
 			}

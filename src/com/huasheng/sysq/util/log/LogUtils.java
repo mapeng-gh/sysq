@@ -7,10 +7,10 @@ import java.io.Writer;
 
 import org.apache.commons.io.FileUtils;
 
-import com.huasheng.sysq.util.DateTimeUtils;
-
 import android.os.Environment;
 import android.util.Log;
+
+import com.huasheng.sysq.util.CommonUtils;
 
 public class LogUtils {
 
@@ -26,7 +26,7 @@ public class LogUtils {
 		if(isDebugEnabled){
 			Log.i(tag, msg);
 		}else{
-			writeLog("[info]" + "["+DateTimeUtils.getCurDateTime() + "] " + msg + System.getProperty("line.separator"));
+			writeLog("[info]" + "["+CommonUtils.getCurDateTime() + "] " + msg + System.getProperty("line.separator"));
 		}
 	}
 	
@@ -34,7 +34,7 @@ public class LogUtils {
 		if(isDebugEnabled){
 			Log.w(tag, msg);
 		}else{
-			writeLog("[warn]" + "["+DateTimeUtils.getCurDateTime() + "] " + msg + System.getProperty("line.separator"));
+			writeLog("[warn]" + "["+CommonUtils.getCurDateTime() + "] " + msg + System.getProperty("line.separator"));
 		}
 	}
 	
@@ -42,7 +42,7 @@ public class LogUtils {
 		if(isDebugEnabled){
 			Log.e(tag, msg);
 		}else{
-			writeLog("[error]" + "["+DateTimeUtils.getCurDateTime() + "] " + msg + System.getProperty("line.separator"));
+			writeLog("[error]" + "["+CommonUtils.getCurDateTime() + "] " + msg + System.getProperty("line.separator"));
 		}
 	}
 	
@@ -62,7 +62,7 @@ public class LogUtils {
 	 */
 	public static void writeLog(String msg){
 		try{
-			File logFile = new File(LOG_PATH,DateTimeUtils.getCurDate()+".log");
+			File logFile = new File(LOG_PATH,CommonUtils.getCurDate()+".log");
 			FileUtils.writeStringToFile(logFile,msg,"UTF-8",true);
 		}catch(Exception e){}
 	}

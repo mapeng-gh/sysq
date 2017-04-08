@@ -37,7 +37,7 @@ import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.model.Version;
-import com.huasheng.sysq.util.DateTimeUtils;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.interview.InterviewContext;
 
@@ -215,8 +215,8 @@ public class InterviewService {
 		InterviewQuestionaire interviewQuestionaire = new InterviewQuestionaire();
 		interviewQuestionaire.setInterviewBasicId(InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId());
 		interviewQuestionaire.setQuestionaireCode(questionaire.getCode());
-		interviewQuestionaire.setStartTime(DateTimeUtils.getCurDateTime());
-		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+		interviewQuestionaire.setStartTime(CommonUtils.getCurDateTime());
+		interviewQuestionaire.setLastModifiedTime(CommonUtils.getCurDateTime());
 		interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DOING);
 		interviewQuestionaire.setSeqNum(questionaire.getSeqNum());
 		interviewQuestionaire.setVersionId(SysqContext.getCurrentVersion().getId());
@@ -517,7 +517,7 @@ public class InterviewService {
 		//插入问卷备注信息
 		InterviewQuestionaire interviewQuestionaire = InterviewQuestionaireDB.select(InterviewContext.getCurInterviewBasicWrap().getInterviewBasic().getId(), InterviewContext.getCurInterviewQuestionaire().getQuestionaireCode());
 		interviewQuestionaire.setRemark(remark);
-		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+		interviewQuestionaire.setLastModifiedTime(CommonUtils.getCurDateTime());
 		InterviewQuestionaireDB.update(interviewQuestionaire);
 	}
 	

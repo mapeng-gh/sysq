@@ -13,10 +13,9 @@ import com.huasheng.sysq.db.InterviewerDB;
 import com.huasheng.sysq.db.StaticsDB;
 import com.huasheng.sysq.model.InterviewQuestionaire;
 import com.huasheng.sysq.model.Interviewer;
-import com.huasheng.sysq.util.DateTimeUtils;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.SysqContext;
-import com.huasheng.sysq.util.db.ColumnConstants;
-import com.huasheng.sysq.util.db.TableConstants;
+import com.huasheng.sysq.util.db.DBConstants;
 import com.huasheng.sysq.util.interview.InterviewConstants;
 
 public class StaticsService {
@@ -36,43 +35,43 @@ public class StaticsService {
 		int myAllContrast = 0;
 		
 		String myTodayCaseSQL = "select count(*) as myTodayCase" +
-								" from " + TableConstants.TABLE_INTERVIEW_BASIC +
+								" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 								" where " + 
-								ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "=?" +
+								DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "=?" +
 								" and " +
-								ColumnConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?" +
+								DBConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?" +
 								" and " +
-								ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CASE;
-		String[] myTodayCaseSQLArgs = new String[]{SysqContext.getInterviewer().getId()+"",DateTimeUtils.getCurDate()+"%"};
+								DBConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CASE;
+		String[] myTodayCaseSQLArgs = new String[]{SysqContext.getInterviewer().getId()+"",CommonUtils.getCurDate()+"%"};
 		myTodayCase = Integer.parseInt(StaticsDB.execSQL(myTodayCaseSQL,myTodayCaseSQLArgs).get(0).get("myTodayCase"));
 		
 		String myTodayContrastSQL = "select count(*) as myTodayContrast" +
-									" from " + TableConstants.TABLE_INTERVIEW_BASIC +
+									" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 									" where " + 
-									ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "=?" +
+									DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "=?" +
 									" and " +
-									ColumnConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?" +
+									DBConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?" +
 									" and " +
-									ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CONTRAST;
+									DBConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CONTRAST;
 		
-		String[] myTodayContrastSQLArgs = new String[]{SysqContext.getInterviewer().getId()+"",DateTimeUtils.getCurDate()+"%"};
+		String[] myTodayContrastSQLArgs = new String[]{SysqContext.getInterviewer().getId()+"",CommonUtils.getCurDate()+"%"};
 		myTodayContrast = Integer.parseInt(StaticsDB.execSQL(myTodayContrastSQL,myTodayContrastSQLArgs).get(0).get("myTodayContrast"));
 		
 		String myAllCaseSQL = "select count(*) as myAllCase" +
-								" from " + TableConstants.TABLE_INTERVIEW_BASIC +
+								" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 								" where " + 
-								ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "=?" +
+								DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "=?" +
 								" and " +
-								ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CASE;
+								DBConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CASE;
 		String[] myAllCaseSQLArgs = new String[]{SysqContext.getInterviewer().getId()+""};
 		myAllCase = Integer.parseInt(StaticsDB.execSQL(myAllCaseSQL,myAllCaseSQLArgs).get(0).get("myAllCase"));
 		
 		String myAllContrastSQL = "select count(*) as myAllContrast" +
-									" from " + TableConstants.TABLE_INTERVIEW_BASIC +
+									" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 									" where " + 
-									ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "=?" +
+									DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "=?" +
 									" and " +
-									ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CONTRAST;
+									DBConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CONTRAST;
 		String[] myAllContrastSQLArgs = new String[]{SysqContext.getInterviewer().getId()+""};
 		myAllContrast = Integer.parseInt(StaticsDB.execSQL(myAllContrastSQL,myAllContrastSQLArgs).get(0).get("myAllContrast"));
 		
@@ -84,43 +83,43 @@ public class StaticsService {
 		int othersAllContrast = 0;
 		
 		String othersTodayCaseSQL = "select count(*) as othersTodayCase" +
-									" from " + TableConstants.TABLE_INTERVIEW_BASIC +
+									" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 									" where " + 
-									ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
+									DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
 									" and " +
-									ColumnConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?" +
+									DBConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?" +
 									" and " +
-									ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CASE;
-		String[] othersTodayCaseSQLArgs = new String[]{SysqContext.getInterviewer().getId()+"",DateTimeUtils.getCurDate()+"%"};
+									DBConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CASE;
+		String[] othersTodayCaseSQLArgs = new String[]{SysqContext.getInterviewer().getId()+"",CommonUtils.getCurDate()+"%"};
 		othersTodayCase = Integer.parseInt(StaticsDB.execSQL(othersTodayCaseSQL,othersTodayCaseSQLArgs).get(0).get("othersTodayCase"));
 		
 		String othersTodayContrastSQL = "select count(*) as othersTodayContrast" +
-										" from " + TableConstants.TABLE_INTERVIEW_BASIC +
+										" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 										" where " + 
-										ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
+										DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
 										" and " +
-										ColumnConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?" +
+										DBConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?" +
 										" and " +
-										ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CONTRAST;
+										DBConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CONTRAST;
 		
-		String[] othersTodayContrastSQLArgs = new String[]{SysqContext.getInterviewer().getId()+"",DateTimeUtils.getCurDate()+"%"};
+		String[] othersTodayContrastSQLArgs = new String[]{SysqContext.getInterviewer().getId()+"",CommonUtils.getCurDate()+"%"};
 		othersTodayContrast = Integer.parseInt(StaticsDB.execSQL(othersTodayContrastSQL,othersTodayContrastSQLArgs).get(0).get("othersTodayContrast"));
 		
 		String othersAllCaseSQL = "select count(*) as othersAllCase" +
-								" from " + TableConstants.TABLE_INTERVIEW_BASIC +
+								" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 								" where " + 
-								ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
+								DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
 								" and " +
-								ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CASE;
+								DBConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CASE;
 		String[] othersAllCaseSQLArgs = new String[]{SysqContext.getInterviewer().getId()+""};
 		othersAllCase = Integer.parseInt(StaticsDB.execSQL(othersAllCaseSQL,othersAllCaseSQLArgs).get(0).get("othersAllCase"));
 		
 		String othersAllContrastSQL = "select count(*) as othersAllContrast" +
-									" from " + TableConstants.TABLE_INTERVIEW_BASIC +
+									" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 									" where " + 
-									ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
+									DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
 									" and " +
-									ColumnConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CONTRAST;
+									DBConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CONTRAST;
 		String[] othersAllContrastSQLArgs = new String[]{SysqContext.getInterviewer().getId()+""};
 		othersAllContrast = Integer.parseInt(StaticsDB.execSQL(othersAllContrastSQL,othersAllContrastSQLArgs).get(0).get("othersAllContrast"));
 		
@@ -167,9 +166,9 @@ public class StaticsService {
 		
 		//today
 		String todaySQL = "select dna" +
-						  " from " + TableConstants.TABLE_INTERVIEW_BASIC + 
-						  " where " + ColumnConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?";
-		String[] todaySQLArgs = new String[]{DateTimeUtils.getCurDate()+"%"};
+						  " from " + DBConstants.TABLE_INTERVIEW_BASIC + 
+						  " where " + DBConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?";
+		String[] todaySQLArgs = new String[]{CommonUtils.getCurDate()+"%"};
 		List<Map<String,String>> todayResult = StaticsDB.execSQL(todaySQL, todaySQLArgs);
 		
 		if(todayResult != null && todayResult.size() > 0){
@@ -193,7 +192,7 @@ public class StaticsService {
 		
 		//all
 		String allSQL = "select dna" +
-				  " from " + TableConstants.TABLE_INTERVIEW_BASIC;
+				  " from " + DBConstants.TABLE_INTERVIEW_BASIC;
 		List<Map<String,String>> allResult = StaticsDB.execSQL(allSQL,null);
 
 		if(allResult != null && allResult.size() > 0){
@@ -241,19 +240,19 @@ public class StaticsService {
 		int myDone = 0;
 		
 		String myAllSQL = "select count(*) as myAll" + 
-						  " from " + TableConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
-						  " inner join " + TableConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
-						  " on interviewBasic.id = interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
-						  " where interviewBasic." + ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " = ?";
+						  " from " + DBConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
+						  " inner join " + DBConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
+						  " on interviewBasic.id = interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
+						  " where interviewBasic." + DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " = ?";
 		String[] myAllSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
 		myAll = Integer.parseInt(StaticsDB.execSQL(myAllSQL, myAllSQLArgs).get(0).get("myAll"));
 		
 		String myDoneSQL = "select count(*) as myDone" + 
-						  " from " + TableConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
-						  " inner join " + TableConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
-						  " on interviewBasic.id = interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
-						  " where interviewBasic." + ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " = ?" + 
-						  " and interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " = " + InterviewQuestionaire.STATUS_DONE;
+						  " from " + DBConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
+						  " inner join " + DBConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
+						  " on interviewBasic.id = interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
+						  " where interviewBasic." + DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " = ?" + 
+						  " and interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " = " + InterviewQuestionaire.STATUS_DONE;
 		String[] myDoneSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
 		myDone = Integer.parseInt(StaticsDB.execSQL(myDoneSQL, myDoneSQLArgs).get(0).get("myDone"));
 		
@@ -262,19 +261,19 @@ public class StaticsService {
 		int othersDone = 0;
 		
 		String othersAllSQL = "select count(*) as othersAll" + 
-				  " from " + TableConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
-				  " inner join " + TableConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
-				  " on interviewBasic.id = interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
-				  " where interviewBasic." + ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " != ?";
+				  " from " + DBConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
+				  " inner join " + DBConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
+				  " on interviewBasic.id = interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
+				  " where interviewBasic." + DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " != ?";
 		String[] othersAllSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
 		othersAll = Integer.parseInt(StaticsDB.execSQL(othersAllSQL, othersAllSQLArgs).get(0).get("othersAll"));
 
 		String othersDoneSQL = "select count(*) as othersDone" + 
-				  " from " + TableConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
-				  " inner join " + TableConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
-				  " on interviewBasic.id = interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
-				  " where interviewBasic." + ColumnConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " != ?" + 
-				  " and interviewQuestionaire." + ColumnConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " = " + InterviewQuestionaire.STATUS_DONE;
+				  " from " + DBConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
+				  " inner join " + DBConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
+				  " on interviewBasic.id = interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
+				  " where interviewBasic." + DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " != ?" + 
+				  " and interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " = " + InterviewQuestionaire.STATUS_DONE;
 		String[] othersDoneSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
 		othersDone = Integer.parseInt(StaticsDB.execSQL(othersDoneSQL, othersDoneSQLArgs).get(0).get("othersDone"));
 		

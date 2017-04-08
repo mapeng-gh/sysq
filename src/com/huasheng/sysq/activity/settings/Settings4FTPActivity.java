@@ -19,8 +19,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.PathConstants;
-import com.huasheng.sysq.util.PropertiesUtil;
 import com.huasheng.sysq.util.SysqApplication;
 
 /**
@@ -46,7 +46,7 @@ public class Settings4FTPActivity extends Activity implements OnClickListener{
 	private void init(){
 		
 		try{
-			Map<String,String> ftpConfigMap = PropertiesUtil.readProperties(new File(PathConstants.getSettingsDir(),"ftp.config"), "UTF-8");
+			Map<String,String> ftpConfigMap = CommonUtils.readProperties(new File(PathConstants.getSettingsDir(),"ftp.config"), "UTF-8");
 			
 			String ip = ftpConfigMap.get("ip");
 			EditText ipET = (EditText)this.findViewById(R.id.settings_ftp_ip);

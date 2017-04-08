@@ -30,7 +30,7 @@ import com.huasheng.sysq.model.Question;
 import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.DateTimeUtils;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.interview.AudioUtils;
 import com.huasheng.sysq.util.interview.FormatUtils;
 import com.huasheng.sysq.util.interview.InterviewContext;
@@ -444,7 +444,7 @@ public class InterviewActivity extends Activity{
 		InterviewBasic curInterviewBasic = curInterviewBasicWrap.getInterviewBasic();
 		curInterviewBasic.setCurQuestionaireCode(firstQuestionaire.getCode());
 		curInterviewBasic.setNextQuestionCode("");
-		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+		curInterviewBasic.setLastModifiedTime(CommonUtils.getCurDateTime());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
 		//渲染页面

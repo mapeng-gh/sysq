@@ -24,8 +24,7 @@ import android.widget.TimePicker;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.db.ReservationDB;
 import com.huasheng.sysq.model.Reservation;
-import com.huasheng.sysq.util.DateTimeUtils;
-import com.huasheng.sysq.util.RegexUtils;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.SysqApplication;
 
 public class ReservationAddActivity extends Activity implements OnClickListener{
@@ -82,13 +81,13 @@ public class ReservationAddActivity extends Activity implements OnClickListener{
 						public void onTimeSet(TimePicker timePicker, int hour, int minute) {
 							bookDateET.setText(year + 
 													"-" + 
-													DateTimeUtils.showDoubleNumber(month+1) + 
+													CommonUtils.showDoubleNumber(month+1) + 
 													"-" +
-													DateTimeUtils.showDoubleNumber(day) + 
+													CommonUtils.showDoubleNumber(day) + 
 													" " +
-													DateTimeUtils.showDoubleNumber(hour) + 
+													CommonUtils.showDoubleNumber(hour) + 
 													":" + 
-													DateTimeUtils.showDoubleNumber(minute));
+													CommonUtils.showDoubleNumber(minute));
 						}
 					}, hour, minute, true);
 					timeDialog.show();
@@ -107,21 +106,21 @@ public class ReservationAddActivity extends Activity implements OnClickListener{
 			reservation.setUsername(username);
 			
 			String identityCard = identityCardET.getText().toString();
-			if(!RegexUtils.test("[0-9]{18}", identityCard)){
+			if(!CommonUtils.test("[0-9]{18}", identityCard)){
 				SysqApplication.showMessage("请填写18位正确的身份证号");
 				return;
 			}
 			reservation.setIdentityCard(identityCard);
 			
 			String mobile = mobileET.getText().toString();
-			if(!RegexUtils.test("[0-9]{10,11}",mobile)){
+			if(!CommonUtils.test("[0-9]{10,11}",mobile)){
 				SysqApplication.showMessage("请填写10或11位正确电话号码");
 				return;
 			}
 			reservation.setMobile(mobile);
 			
 			String familyMobile = familyMobileET.getText().toString();
-			if(!RegexUtils.test("[0-9]{10,11}",familyMobile)){
+			if(!CommonUtils.test("[0-9]{10,11}",familyMobile)){
 				SysqApplication.showMessage("请填写10或11位正确亲属电话号码");
 				return;
 			}

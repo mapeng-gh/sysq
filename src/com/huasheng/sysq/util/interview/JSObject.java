@@ -29,7 +29,7 @@ import com.huasheng.sysq.model.QuestionWrap;
 import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.DateTimeUtils;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqApplication;
 
@@ -384,7 +384,7 @@ public class JSObject {
 		//更新当前问卷记录
 		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		interviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_DONE);
-		interviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+		interviewQuestionaire.setLastModifiedTime(CommonUtils.getCurDateTime());
 		InterviewService.updateInterviewQuestionaire(interviewQuestionaire);
 		
 		//获取下一个问卷
@@ -397,7 +397,7 @@ public class JSObject {
 			//更新访谈记录
 			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 			curInterviewBasic.setStatus(InterviewBasic.STATUS_DONE);
-			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+			curInterviewBasic.setLastModifiedTime(CommonUtils.getCurDateTime());
 			InterviewService.updateInterviewBasic(curInterviewBasic);
 			
 			//跳转DNA采集
@@ -421,7 +421,7 @@ public class JSObject {
 			InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 			curInterviewBasic.setCurQuestionaireCode(nextQuestionaire.getCode());
 			curInterviewBasic.setNextQuestionCode("");
-			curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+			curInterviewBasic.setLastModifiedTime(CommonUtils.getCurDateTime());
 			InterviewService.updateInterviewBasic(curInterviewBasic);
 			
 			//渲染页面
@@ -534,7 +534,7 @@ public class JSObject {
 			//更新问卷记录
 			InterviewQuestionaire curInterviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 			curInterviewQuestionaire.setStatus(InterviewQuestionaire.STATUS_BREAK);
-			curInterviewQuestionaire.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+			curInterviewQuestionaire.setLastModifiedTime(CommonUtils.getCurDateTime());
 			InterviewService.updateInterviewQuestionaire(curInterviewQuestionaire);
 			
 		}else{//删除问卷记录
@@ -545,7 +545,7 @@ public class JSObject {
 		InterviewBasic curInterviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
 		curInterviewBasic.setStatus(InterviewBasic.STATUS_BREAK);
 		curInterviewBasic.setQuitReason(quitReason);
-		curInterviewBasic.setLastModifiedTime(DateTimeUtils.getCurDateTime());
+		curInterviewBasic.setLastModifiedTime(CommonUtils.getCurDateTime());
 		InterviewService.updateInterviewBasic(curInterviewBasic);
 		
 		//跳转主页

@@ -9,7 +9,7 @@ import android.os.StatFs;
 
 import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.Interviewee;
-import com.huasheng.sysq.util.DateTimeUtils;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqApplication;
 
@@ -36,7 +36,7 @@ public class AudioUtils {
 			audioDir.mkdirs();
 		}
 		
-		File audioFile = new File(audioDir,DateTimeUtils.getCustomDateTime("yyyyMMddHHmmss") + ".aac");
+		File audioFile = new File(audioDir,CommonUtils.getCustomDateTime("yyyyMMddHHmmss") + ".aac");
 		try{
 			if(audioFile.exists()){
 				audioFile.delete();

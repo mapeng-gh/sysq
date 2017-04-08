@@ -23,7 +23,7 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.util.DateTimeUtils;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.DialogUtils;
 import com.huasheng.sysq.util.PathConstants;
 
@@ -94,7 +94,7 @@ public class IntervieweePerson4PhotoActivity extends Activity implements OnClick
 		if(!imgDir.exists()){
 			imgDir.mkdirs();
 		}
-		File imgFile = new File(imgDir,DateTimeUtils.getCustomDateTime("yyyyMMddHHmmss")+".jpg");
+		File imgFile = new File(imgDir,CommonUtils.getCustomDateTime("yyyyMMddHHmmss")+".jpg");
 		try{
 			if(imgFile.exists()){
 				imgFile.delete();

@@ -11,14 +11,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.huasheng.sysq.model.Reservation;
-import com.huasheng.sysq.util.db.ColumnConstants;
+import com.huasheng.sysq.util.db.DBConstants;
 import com.huasheng.sysq.util.db.SysQOpenHelper;
-import com.huasheng.sysq.util.db.TableConstants;
 
 public class ReservationDB {
 	
 	public static void delete(int reservationId){
-		SysQOpenHelper.getDatabase().delete(TableConstants.TABLE_RESERVATION, "id = ?", new String[]{reservationId+""});
+		SysQOpenHelper.getDatabase().delete(DBConstants.TABLE_RESERVATION, "id = ?", new String[]{reservationId+""});
 	}
 
 	public static List<Reservation> search(Reservation reservation,String searchType,Integer offset,Integer limit){
@@ -34,7 +33,7 @@ public class ReservationDB {
 		}
 		
 		//遍历数据
-		Cursor cursor = SysQOpenHelper.getDatabase().query(TableConstants.TABLE_RESERVATION, null, selection, selectionArgs, null, null,"book_date desc",limitStr);
+		Cursor cursor = SysQOpenHelper.getDatabase().query(DBConstants.TABLE_RESERVATION, null, selection, selectionArgs, null, null,"book_date desc",limitStr);
 		List<Reservation> data = new ArrayList<Reservation>();
 		if(cursor.moveToFirst()){
 			do{
@@ -52,33 +51,33 @@ public class ReservationDB {
 		String selection = (String)whereSql(reservation,searchType).get("selection");
 		String[] selectionArgs = (String[])whereSql(reservation,searchType).get("selectionArgs");
 		
-		Cursor cursor = SysQOpenHelper.getDatabase().query(TableConstants.TABLE_RESERVATION, null, selection, selectionArgs, null, null, null);
+		Cursor cursor = SysQOpenHelper.getDatabase().query(DBConstants.TABLE_RESERVATION, null, selection, selectionArgs, null, null, null);
 		return cursor.getCount();
 	}
 	
 	public static void save(Reservation reservation){
 		
 		ContentValues values = new ContentValues();
-		values.put(ColumnConstants.COLUMN_RESERVATION_USERNAME, reservation.getUsername());
-		values.put(ColumnConstants.COLUMN_RESERVATION_IDENTITY_CARD, reservation.getIdentityCard());
-		values.put(ColumnConstants.COLUMN_RESERVATION_MOBILE, reservation.getMobile());
-		values.put(ColumnConstants.COLUMN_RESERVATION_FAMILY_MOBILE, reservation.getFamilyMobile());
-		values.put(ColumnConstants.COLUMN_RESERVATION_TYPE, reservation.getType());
-		values.put(ColumnConstants.COLUMN_RESERVATION_BOOK_DATE, reservation.getBookDate());
+		values.put(DBConstants.COLUMN_RESERVATION_USERNAME, reservation.getUsername());
+		values.put(DBConstants.COLUMN_RESERVATION_IDENTITY_CARD, reservation.getIdentityCard());
+		values.put(DBConstants.COLUMN_RESERVATION_MOBILE, reservation.getMobile());
+		values.put(DBConstants.COLUMN_RESERVATION_FAMILY_MOBILE, reservation.getFamilyMobile());
+		values.put(DBConstants.COLUMN_RESERVATION_TYPE, reservation.getType());
+		values.put(DBConstants.COLUMN_RESERVATION_BOOK_DATE, reservation.getBookDate());
 		
-		SysQOpenHelper.getDatabase().insert(TableConstants.TABLE_RESERVATION, null, values);
+		SysQOpenHelper.getDatabase().insert(DBConstants.TABLE_RESERVATION, null, values);
 	}
 	
 	private static Reservation fill(Cursor cursor){
 		Reservation reservation = new Reservation();
 		
 		reservation.setId(cursor.getInt(cursor.getColumnIndex("id")));
-		reservation.setUsername(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_RESERVATION_USERNAME)));
-		reservation.setIdentityCard(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_RESERVATION_IDENTITY_CARD)));
-		reservation.setMobile(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_RESERVATION_MOBILE)));
-		reservation.setFamilyMobile(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_RESERVATION_FAMILY_MOBILE)));
-		reservation.setType(cursor.getInt(cursor.getColumnIndex(ColumnConstants.COLUMN_RESERVATION_TYPE)));
-		reservation.setBookDate(cursor.getString(cursor.getColumnIndex(ColumnConstants.COLUMN_RESERVATION_BOOK_DATE)));
+		reservation.setUsername(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_RESERVATION_USERNAME)));
+		reservation.setIdentityCard(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_RESERVATION_IDENTITY_CARD)));
+		reservation.setMobile(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_RESERVATION_MOBILE)));
+		reservation.setFamilyMobile(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_RESERVATION_FAMILY_MOBILE)));
+		reservation.setType(cursor.getInt(cursor.getColumnIndex(DBConstants.COLUMN_RESERVATION_TYPE)));
+		reservation.setBookDate(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_RESERVATION_BOOK_DATE)));
 		
 		return reservation;
 	}
@@ -101,7 +100,7 @@ public class ReservationDB {
 		
 		String username = reservation.getUsername();
 		if(username != null && !username.equals("") && !username.trim().equals("")){
-			selectionList.add(ColumnConstants.COLUMN_RESERVATION_USERNAME + " like ?");
+			selectionList.add(DBConstants.COLUMN_RESERVATION_USERNAME + " like ?");
 			selectionArgsList.add("%"+username+"%");
 		}
 		

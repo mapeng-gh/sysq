@@ -36,17 +36,17 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(TableConstants.CREATE_INTERVIEWER);
-		db.execSQL(TableConstants.CRETE_RESERVATION);
-		db.execSQL(TableConstants.CREATE_VERSION);
-		db.execSQL(TableConstants.CREATE_QUESTIONAIRE);
-		db.execSQL(TableConstants.CREATE_QUESTION);
-		db.execSQL(TableConstants.CREATE_ANSWER);
-		db.execSQL(TableConstants.CREATE_INTERVIEWEE);
-		db.execSQL(TableConstants.CREATE_INTERVIEW_BASIC);
-		db.execSQL(TableConstants.CREATE_INTERVIEW_QUESTIONAIRE);
-		db.execSQL(TableConstants.CREATE_INTERVIEW_QUESTION);
-		db.execSQL(TableConstants.CREATE_INTERVIEW_ANSWER);
+		db.execSQL(DBConstants.CREATE_INTERVIEWER);
+		db.execSQL(DBConstants.CRETE_RESERVATION);
+		db.execSQL(DBConstants.CREATE_VERSION);
+		db.execSQL(DBConstants.CREATE_QUESTIONAIRE);
+		db.execSQL(DBConstants.CREATE_QUESTION);
+		db.execSQL(DBConstants.CREATE_ANSWER);
+		db.execSQL(DBConstants.CREATE_INTERVIEWEE);
+		db.execSQL(DBConstants.CREATE_INTERVIEW_BASIC);
+		db.execSQL(DBConstants.CREATE_INTERVIEW_QUESTIONAIRE);
+		db.execSQL(DBConstants.CREATE_INTERVIEW_QUESTION);
+		db.execSQL(DBConstants.CREATE_INTERVIEW_ANSWER);
 		
 		this.initData(db);
 	}
