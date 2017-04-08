@@ -176,8 +176,7 @@ public class UploadUtils {
 		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
 				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
-						&& interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE 
-						&& interviewBasicWrap.getInterviewBasic().getIsUpload() == InterviewBasic.UPLOAD_NO){
+						&& interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
 					uploadInterviewBasicWrapList.add(interviewBasicWrap);
 				}
 			}

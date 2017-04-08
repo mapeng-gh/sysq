@@ -23,6 +23,7 @@ import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.DialogUtils;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.interviewee.ScanConstants;
+import com.huasheng.sysq.util.upload.UploadConstants;
 
 public class IntervieweePerson4DNAActivity extends Activity implements OnClickListener{
 	
@@ -110,6 +111,10 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 					interviewee.setDna(StringUtils.join(dnaList,","));
 				}
 				
+				if(interviewee.getUploadStatus() == UploadConstants.upload_status_uploaded){
+					interviewee.setUploadStatus(UploadConstants.upload_status_modified);
+				}
+				
 				InterviewService.updateInterviewee(interviewee);
 				
 				//刷新
@@ -170,6 +175,10 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 			dnas = dnas + "," + dna;
 		}
 		interviewee.setDna(dnas);
+		if(interviewee.getUploadStatus() == UploadConstants.upload_status_uploaded){
+			interviewee.setUploadStatus(UploadConstants.upload_status_modified);
+		}
+		
 		InterviewService.updateInterviewee(interviewee);
 		
 		//刷新列表

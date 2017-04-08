@@ -16,6 +16,7 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.UserCenterService;
 import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.util.upload.UploadConstants;
 
 public class Usercenter4AddUserActivity extends Activity implements OnClickListener{
 	
@@ -104,6 +105,7 @@ public class Usercenter4AddUserActivity extends Activity implements OnClickListe
 					newInterviewer.setUsername(username);
 					newInterviewer.setEmail(email);
 					newInterviewer.setWorkingPlace(workingPlace);
+					newInterviewer.setUploadStatus(UploadConstants.upload_status_not_upload);
 					UserCenterService.addUser(newInterviewer);
 					
 					Message msg = new Message();

@@ -14,6 +14,7 @@ public class Interviewer {
 	private String mobile;
 	private String email;
 	private String workingPlace;
+	private int uploadStatus;
 	
 	public Integer getId() {
 		return id;
@@ -56,6 +57,12 @@ public class Interviewer {
 	}
 	public void setWorkingPlace(String workingPlace) {
 		this.workingPlace = workingPlace;
+	}
+	public int getUploadStatus() {
+		return uploadStatus;
+	}
+	public void setUploadStatus(int uploadStatus) {
+		this.uploadStatus = uploadStatus;
 	}
 	
 	

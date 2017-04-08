@@ -20,6 +20,7 @@ import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.util.upload.UploadConstants;
 
 public class IntervieweePerson4BasicActivity extends Activity implements OnClickListener{
 	
@@ -210,6 +211,10 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		EditText remarkET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_remark);
 		String remark = remarkET.getText().toString().trim();
 		interviewee.setRemark(remark);
+		
+		if(interviewee.getUploadStatus() == UploadConstants.upload_status_uploaded){
+			interviewee.setUploadStatus(UploadConstants.upload_status_modified);
+		}
 		
 		//保存
 		InterviewService.updateInterviewee(interviewee);

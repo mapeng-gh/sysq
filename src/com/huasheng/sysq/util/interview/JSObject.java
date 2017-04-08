@@ -32,6 +32,7 @@ import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.util.upload.UploadConstants;
 
 public class JSObject {
 	
@@ -446,6 +447,13 @@ public class JSObject {
 		InterviewQuestionaire interviewQuestionaire = InterviewContext.getCurInterviewQuestionaire();
 		interviewQuestionaire.setRemark(modifyReason);
 		InterviewService.updateInterviewQuestionaire(interviewQuestionaire);
+		
+		//更新访谈上传状态
+		InterviewBasic interviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
+		if(interviewBasic.getUploadStatus() == UploadConstants.upload_status_uploaded){
+			interviewBasic.setUploadStatus(UploadConstants.upload_status_modified);
+			InterviewService.updateInterviewBasic(interviewBasic);
+		}
 		
 		//提示修改成功
 		SysqApplication.showMessage("答案修改成功");

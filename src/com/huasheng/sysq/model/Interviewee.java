@@ -14,6 +14,7 @@ public class Interviewee {
 	private String familyAddress;
 	private String remark;
 	private String dna;
+	private int uploadStatus;
 	
 	public int getId() {
 		return id;
@@ -86,6 +87,12 @@ public class Interviewee {
 	}
 	public void setDna(String dna) {
 		this.dna = dna;
+	}
+	public int getUploadStatus() {
+		return uploadStatus;
+	}
+	public void setUploadStatus(int uploadStatus) {
+		this.uploadStatus = uploadStatus;
 	}
 	
 }

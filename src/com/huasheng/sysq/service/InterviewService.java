@@ -40,6 +40,7 @@ import com.huasheng.sysq.model.Version;
 import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.interview.InterviewContext;
+import com.huasheng.sysq.util.upload.UploadConstants;
 
 public class InterviewService {
 	
@@ -519,6 +520,13 @@ public class InterviewService {
 		interviewQuestionaire.setRemark(remark);
 		interviewQuestionaire.setLastModifiedTime(CommonUtils.getCurDateTime());
 		InterviewQuestionaireDB.update(interviewQuestionaire);
+		
+		//更新上传状态
+		InterviewBasic interviewBasic = InterviewContext.getCurInterviewBasicWrap().getInterviewBasic();
+		if(interviewBasic.getUploadStatus() == UploadConstants.upload_status_uploaded){
+			interviewBasic.setUploadStatus(UploadConstants.upload_status_modified);
+			InterviewService.updateInterviewBasic(interviewBasic);
+		}
 	}
 	
 	/**

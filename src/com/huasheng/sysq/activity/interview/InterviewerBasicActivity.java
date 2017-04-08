@@ -26,6 +26,7 @@ import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.interview.InterviewConstants;
 import com.huasheng.sysq.util.interview.InterviewContext;
+import com.huasheng.sysq.util.upload.UploadConstants;
 
 public class InterviewerBasicActivity extends Activity implements OnClickListener{
 	
@@ -82,6 +83,7 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 					interviewee.setFamilyMobile(((EditText)findViewById(R.id.interviewer_basic_family_mobile)).getText().toString().trim());
 					interviewee.setFamilyAddress(((EditText)findViewById(R.id.interviewer_basic_family_address)).getText().toString().trim());
 					interviewee.setRemark(((EditText)findViewById(R.id.interviewer_basic_remark)).getText().toString().trim());
+					interviewee.setUploadStatus(UploadConstants.upload_status_not_upload);
 					InterviewService.newInterviewee(interviewee);
 					
 					
@@ -96,7 +98,7 @@ public class InterviewerBasicActivity extends Activity implements OnClickListene
 					interviewBasic.setVersionId(SysqContext.getCurrentVersion().getId());
 					interviewBasic.setStartTime(CommonUtils.getCurDateTime());
 					interviewBasic.setStatus(InterviewBasic.STATUS_DOING);
-					interviewBasic.setIsUpload(InterviewBasic.UPLOAD_NO);
+					interviewBasic.setUploadStatus(UploadConstants.upload_status_not_upload);
 					InterviewService.newInterviewBasic(interviewBasic);
 					
 					//保存到上下文

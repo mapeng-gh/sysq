@@ -59,6 +59,7 @@ public class IntervieweeDB {
 		interviewee.setFamilyAddress(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEWEE_FAMILY_ADDRESS)));
 		interviewee.setDna(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEWEE_DNA)));
 		interviewee.setRemark(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEWEE_REMARK)));
+		interviewee.setUploadStatus(cursor.getInt(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEWEE_UPLOAD_STATUS)));
 		return interviewee;
 	}
 	
@@ -76,6 +77,7 @@ public class IntervieweeDB {
 		values.put(DBConstants.COLUMN_INTERVIEWEE_FAMILY_ADDRESS, interviewee.getFamilyAddress());
 		values.put(DBConstants.COLUMN_INTERVIEWEE_DNA, interviewee.getDna());
 		values.put(DBConstants.COLUMN_INTERVIEWEE_REMARK, interviewee.getRemark());
+		values.put(DBConstants.COLUMN_INTERVIEWEE_UPLOAD_STATUS, interviewee.getUploadStatus());
 		return values;
 	}
 }

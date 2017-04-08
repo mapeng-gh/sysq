@@ -59,7 +59,7 @@ public class InterviewBasicDB {
 		interviewBasic.setLastModifiedTime(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEW_BASIC_LAST_MODIFYED_TIME)));
 		interviewBasic.setVersionId(cursor.getInt(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEW_BASIC_VERSION_ID)));
 		interviewBasic.setQuitReason(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEW_BASIC_QUIT_REASON)));
-		interviewBasic.setIsUpload(cursor.getInt(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEW_BASIC_IS_UPLOAD)));
+		interviewBasic.setUploadStatus(cursor.getInt(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEW_BASIC_UPLOAD_STATUS)));
 		return interviewBasic;
 	}
 	
@@ -77,7 +77,7 @@ public class InterviewBasicDB {
 		values.put(DBConstants.COLUMN_INTERVIEW_BASIC_NEXT_QUESTION_CODE, interviewBasic.getNextQuestionCode());
 		values.put(DBConstants.COLUMN_INTERVIEW_BASIC_VERSION_ID, interviewBasic.getVersionId());
 		values.put(DBConstants.COLUMN_INTERVIEW_BASIC_QUIT_REASON, interviewBasic.getQuitReason());
-		values.put(DBConstants.COLUMN_INTERVIEW_BASIC_IS_UPLOAD, interviewBasic.getIsUpload());
+		values.put(DBConstants.COLUMN_INTERVIEW_BASIC_UPLOAD_STATUS, interviewBasic.getUploadStatus());
 		return values;
 	}
 }

@@ -7,6 +7,7 @@ import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.UserCenterService;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
+import com.huasheng.sysq.util.upload.UploadConstants;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -105,6 +106,9 @@ public class Usercenter4BasicActivity extends Activity implements OnClickListene
 		loginUser.setUsername(username);
 		loginUser.setEmail(email);
 		loginUser.setWorkingPlace(workingPlace);
+		if(loginUser.getUploadStatus() == UploadConstants.upload_status_uploaded){
+			loginUser.setUploadStatus(UploadConstants.upload_status_modified);
+		}
 		UserCenterService.modifyUser(loginUser);
 		
 		SysqApplication.showMessage("修改成功");

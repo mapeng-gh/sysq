@@ -66,6 +66,7 @@ public class InterviewerDB {
 		values.put(DBConstants.COLUMN_INTERVIEWER_EMAIL, interviewer.getEmail());
 		values.put(DBConstants.COLUMN_INTERVIEWER_MOBILE, interviewer.getMobile());
 		values.put(DBConstants.COLUMN_INTERVIEWER_WORKING_PLACE, interviewer.getWorkingPlace());
+		values.put(DBConstants.COLUMN_INTERVIEWER_UPLOAD_STATUS, interviewer.getUploadStatus());
 		return values;
 	}
 	
@@ -78,6 +79,7 @@ public class InterviewerDB {
 		interviewer.setMobile(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEWER_MOBILE)));
 		interviewer.setEmail(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEWER_EMAIL)));
 		interviewer.setWorkingPlace(cursor.getString(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEWER_WORKING_PLACE)));
+		interviewer.setUploadStatus(cursor.getInt(cursor.getColumnIndex(DBConstants.COLUMN_INTERVIEWER_UPLOAD_STATUS)));
 		return interviewer;
 	}
 }

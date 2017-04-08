@@ -26,6 +26,7 @@ public class DBConstants {
 	public static final String COLUMN_INTERVIEWER_MOBILE = "mobile";
 	public static final String COLUMN_INTERVIEWER_EMAIL = "email";
 	public static final String COLUMN_INTERVIEWER_WORKING_PLACE = "working_place";
+	public static final String COLUMN_INTERVIEWER_UPLOAD_STATUS = "upload_status";
 	
 	/**
 	 * 预约表列名
@@ -100,6 +101,7 @@ public class DBConstants {
 	public static final String COLUMN_INTERVIEWEE_FAMILY_ADDRESS = "family_address";
 	public static final String COLUMN_INTERVIEWEE_REMARK = "remark";
 	public static final String COLUMN_INTERVIEWEE_DNA = "dna";
+	public static final String COLUMN_INTERVIEWEE_UPLOAD_STATUS = "upload_status";
 	
 	/**
 	 * 访谈基本表列名
@@ -115,7 +117,7 @@ public class DBConstants {
 	public static final String COLUMN_INTERVIEW_BASIC_LAST_MODIFYED_TIME = "last_modified_time";
 	public static final String COLUMN_INTERVIEW_BASIC_VERSION_ID = "version_id";
 	public static final String COLUMN_INTERVIEW_BASIC_QUIT_REASON = "quit_reason";
-	public static final String COLUMN_INTERVIEW_BASIC_IS_UPLOAD = "is_upload";
+	public static final String COLUMN_INTERVIEW_BASIC_UPLOAD_STATUS = "upload_status";
 	
 	/**
 	 * 访谈问卷表
@@ -161,7 +163,8 @@ public class DBConstants {
 				COLUMN_INTERVIEWER_USERNAME + " varchar," +
 				COLUMN_INTERVIEWER_MOBILE + " varchar," +
 				COLUMN_INTERVIEWER_EMAIL + " varchar," +
-				COLUMN_INTERVIEWER_WORKING_PLACE + " varchar" +
+				COLUMN_INTERVIEWER_WORKING_PLACE + " varchar," +
+				COLUMN_INTERVIEWER_UPLOAD_STATUS + " integer" +
 			")";
 	public static final String CRETE_RESERVATION = "create table " + TABLE_RESERVATION + 
 			"(" +
@@ -234,7 +237,8 @@ public class DBConstants {
 				COLUMN_INTERVIEWEE_FAMILY_MOBILE + " varchar," +
 				COLUMN_INTERVIEWEE_FAMILY_ADDRESS + " varchar," +
 				COLUMN_INTERVIEWEE_REMARK + " varchar," +
-				COLUMN_INTERVIEWEE_DNA + " varchar" +
+				COLUMN_INTERVIEWEE_DNA + " varchar," +
+				COLUMN_INTERVIEWEE_UPLOAD_STATUS + " integer" +
 			")";
 	
 	public static final String CREATE_INTERVIEW_BASIC = "create table " + TABLE_INTERVIEW_BASIC +
@@ -251,7 +255,7 @@ public class DBConstants {
 				COLUMN_INTERVIEW_BASIC_LAST_MODIFYED_TIME + " varchar," +
 				COLUMN_INTERVIEW_BASIC_VERSION_ID + " integer," +
 				COLUMN_INTERVIEW_BASIC_QUIT_REASON + " varchar," +
-				COLUMN_INTERVIEW_BASIC_IS_UPLOAD + " integer" +
+				COLUMN_INTERVIEW_BASIC_UPLOAD_STATUS + " integer" +
 			")";
 	
 	public static final String CREATE_INTERVIEW_QUESTIONAIRE = "create table " + TABLE_INTERVIEW_QUESTIONAIRE +

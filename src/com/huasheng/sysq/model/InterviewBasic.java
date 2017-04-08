@@ -23,7 +23,7 @@ public class InterviewBasic implements Serializable{
 	private String lastModifiedTime;
 	private int versionId;
 	private String quitReason;
-	private int isUpload;
+	private int uploadStatus;
 	
 	public static final int STATUS_DOING = 1;
 	public static final int STATUS_BREAK = 2;
@@ -31,9 +31,6 @@ public class InterviewBasic implements Serializable{
 	
 	public static final int TEST_YES = 1;
 	public static final int TEST_NO = 0;
-	
-	public static final int UPLOAD_YES = 1;
-	public static final int UPLOAD_NO = 0;
 	
 	public int getId() {
 		return id;
@@ -101,16 +98,16 @@ public class InterviewBasic implements Serializable{
 	public void setQuitReason(String quitReason) {
 		this.quitReason = quitReason;
 	}
-	public int getIsUpload() {
-		return isUpload;
-	}
-	public void setIsUpload(int isUpload) {
-		this.isUpload = isUpload;
-	}
 	public int getIntervieweeId() {
 		return intervieweeId;
 	}
 	public void setIntervieweeId(int intervieweeId) {
 		this.intervieweeId = intervieweeId;
+	}
+	public int getUploadStatus() {
+		return uploadStatus;
+	}
+	public void setUploadStatus(int uploadStatus) {
+		this.uploadStatus = uploadStatus;
 	}
 }
