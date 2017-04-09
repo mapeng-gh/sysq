@@ -50,8 +50,7 @@ public class InterviewService {
 	 * @return
 	 */
 	public static Interviewee newInterviewee(Interviewee interviewee){
-		int id = IntervieweeDB.insert(interviewee);
-		interviewee.setId(id);
+		IntervieweeDB.insert(interviewee);
 		return interviewee;
 	}
 	
@@ -78,9 +77,7 @@ public class InterviewService {
 	 * @param interview
 	 */
 	public static InterviewBasic newInterviewBasic(InterviewBasic interviewBasic){
-		
-		int id = InterviewBasicDB.insert(interviewBasic);
-		interviewBasic.setId(id);
+		InterviewBasicDB.insert(interviewBasic);
 		return interviewBasic;
 	}
 	

@@ -50,6 +50,10 @@ public class CommonUtils {
 		return getCustomDateTime("HH:mm:ss");
 	}
 	
+	public static int getCurrentSeconds(){
+		return (int)(System.currentTimeMillis()/1000);
+	}
+	
 	/**
 	 * 正则匹配
 	 * @param regex

@@ -4,8 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -19,14 +17,6 @@ import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.upload.UploadConstants;
 
 public class Usercenter4AddUserActivity extends Activity implements OnClickListener{
-	
-	private Handler handler = new Handler(){
-
-		@Override
-		public void handleMessage(Message msg) {
-			SysqApplication.showMessage(msg.obj.toString());
-		}
-	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,29 +84,16 @@ public class Usercenter4AddUserActivity extends Activity implements OnClickListe
 		}
 		
 		//保存
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try{
-					Interviewer newInterviewer = new Interviewer();
-					newInterviewer.setLoginName(mobile);
-					newInterviewer.setMobile(mobile);
-					newInterviewer.setPassword(password);
-					newInterviewer.setUsername(username);
-					newInterviewer.setEmail(email);
-					newInterviewer.setWorkingPlace(workingPlace);
-					newInterviewer.setUploadStatus(UploadConstants.upload_status_not_upload);
-					UserCenterService.addUser(newInterviewer);
-					
-					Message msg = new Message();
-					msg.obj = "添加成功";
-					handler.sendMessage(msg);
-				}catch(Exception e){
-					Message msg = new Message();
-					msg.obj = e.getMessage();
-					handler.sendMessage(msg);
-				}
-			}
-		}).start();
+		Interviewer newInterviewer = new Interviewer();
+		newInterviewer.setLoginName(mobile);
+		newInterviewer.setMobile(mobile);
+		newInterviewer.setPassword(password);
+		newInterviewer.setUsername(username);
+		newInterviewer.setEmail(email);
+		newInterviewer.setWorkingPlace(workingPlace);
+		newInterviewer.setUploadStatus(UploadConstants.upload_status_not_upload);
+		UserCenterService.addUser(newInterviewer);
+		
+		SysqApplication.showMessage("添加成功");
 	}
 }
