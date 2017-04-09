@@ -25,6 +25,7 @@ import com.huasheng.sysq.activity.interviewee.questionaire.IntervieweeQuestionai
 import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.Page;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.DialogUtils;
 import com.huasheng.sysq.util.interviewee.ScanConstants;
 
 public class IntervieweeActivity extends Activity implements OnClickListener{
@@ -112,19 +113,7 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 			
 		}else if(view.getId() == R.id.tv_interviewee_item_quit_reason){//查看结束原因
 			String quitReason = (String)view.getTag();
-			AlertDialog.Builder quitReasonBuilder = new AlertDialog.Builder(this);
-			quitReasonBuilder.setTitle("结束原因");
-			quitReasonBuilder.setMessage(quitReason);
-			quitReasonBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					//close
-				}
-			});
-			AlertDialog quitReasonDialog = quitReasonBuilder.create();
-			quitReasonDialog.setCancelable(false);
-			quitReasonDialog.setCanceledOnTouchOutside(false);
-			quitReasonDialog.show();
+			DialogUtils.showPromptDialog(this, "结束原因", quitReason, "关闭");
 			
 		}else if(view.getId() == R.id.tv_interviewee_item_person){//个人信息
 			Intent intent = new Intent(this,IntervieweePersonNavActivity.class);

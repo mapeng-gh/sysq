@@ -42,4 +42,22 @@ public class DialogUtils {
 		dialog.setCanceledOnTouchOutside(false);
 		dialog.show();
 	}
+	
+	/**
+	 * 提示框
+	 * @param context
+	 * @param title
+	 * @param message
+	 * @param btnText
+	 */
+	public static void showPromptDialog(Context context,String title,String message,String btnText){
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle(title);
+		builder.setMessage(message);
+		builder.setNegativeButton(btnText,null);
+		AlertDialog dialog = builder.create();
+		dialog.setCancelable(false);
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.show();
+	}
 }
