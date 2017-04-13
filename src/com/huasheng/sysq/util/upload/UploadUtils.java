@@ -1,7 +1,9 @@
 package com.huasheng.sysq.util.upload;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
@@ -516,6 +519,64 @@ public class UploadUtils {
 	 * @return
 	 */
 	private static boolean uploadMediaData(FTPClient ftpClient){
+		
+		try{
+			List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+			if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
+				for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
+					if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
+						File mediaDir = new File(PathConstants.getMediaDir(),interviewBasicWrap.getInterviewBasic().getId()+"");
+						if(mediaDir.exists()){
+							File audioDir = new File(mediaDir,"audio");
+							File photoDir = new File(mediaDir,"photo");
+							if( (audioDir.exists() && audioDir.listFiles().length > 0) || (photoDir.exists() && photoDir.listFiles().length > 0) ){
+								
+								//打包
+								File zipFile = new File(PathConstants.getTmpDir(),mediaDir.getName()+".zip");
+								ZipUtil.zip(mediaDir.getPath(), zipFile.getPath());
+								
+								//上传
+								InputStream zipIS = new FileInputStream(zipFile);
+								String filename = mediaDir.getName() + "_" + CommonUtils.getCustomDateTime("yyyyMMddHHmmss") + ".zip";
+								boolean isSuccess = ftpClient.storeFile(new String(filename.getBytes("UTF-8"),"ISO8859-1"),zipIS);
+								
+								//清空临时打包文件
+								zipFile.delete();
+								
+								//关闭文件流
+								try{
+									if(zipIS != null){
+										zipIS.close();
+									}
+								}catch(Exception e){
+								}
+								
+								if(isSuccess){
+									//删除多媒体文件
+									FileUtils.deleteQuietly(mediaDir);
+									
+								}else{
+									return false;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+		}catch(Exception e){
+			return false;
+			
+		}finally{
+			try{
+				if(ftpClient != null){
+					ftpClient.logout();
+					ftpClient.disconnect();
+				}
+			}catch(Exception e){
+			}
+		}
+		
 		return true;
 	}
 	
