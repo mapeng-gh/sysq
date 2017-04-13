@@ -62,7 +62,7 @@ public class IntervieweePerson4PhotoActivity extends Activity implements OnClick
 		List<File> data = new ArrayList<File>();
 		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		Interviewee interviewee = interviewBasicWrap.getInterviewee();
-		File imgDir = new File(PathConstants.getMediaDir(),interviewee.getIdentityCard()+"("+interviewee.getUsername()+")"+File.separator+"photo");
+		File imgDir = new File(PathConstants.getMediaDir(),interviewee.getId()+File.separator+"photo");
 		if(imgDir.exists()){
 			File[] imgFiles = imgDir.listFiles();
 			if(imgFiles != null && imgFiles.length > 0){
@@ -90,7 +90,7 @@ public class IntervieweePerson4PhotoActivity extends Activity implements OnClick
 		//设置图片存储路径
 		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		Interviewee interviewee = interviewBasicWrap.getInterviewee();
-		File imgDir = new File(PathConstants.getMediaDir(),interviewee.getIdentityCard()+"("+interviewee.getUsername()+")"+File.separator+"photo");
+		File imgDir = new File(PathConstants.getMediaDir(),interviewee.getId()+File.separator+"photo");
 		if(!imgDir.exists()){
 			imgDir.mkdirs();
 		}

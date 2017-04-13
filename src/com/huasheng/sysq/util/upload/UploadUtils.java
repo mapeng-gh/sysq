@@ -1,20 +1,14 @@
 package com.huasheng.sysq.util.upload;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
@@ -22,122 +16,24 @@ import org.apache.commons.net.ftp.FTPReply;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Message;
 
+import com.huasheng.sysq.model.InterviewAnswer;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewBasicWrap;
+import com.huasheng.sysq.model.InterviewQuestion;
+import com.huasheng.sysq.model.InterviewQuestionaireWrap;
 import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.service.UserCenterService;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqApplication;
-import com.huasheng.sysq.util.db.SequenceUtils;
+import com.huasheng.sysq.util.SysqContext;
 
 public class UploadUtils {
-	
-	/**
-	 * 读取FTP配置信息
-	 * @return
-	 */
-	private  static Map<String,String> loadFTPConfig(){
-		
-		File ftpConfigFile = new File(PathConstants.getSettingsDir(),"ftp.config");
-		Map<String,String> ftpConfigMap = new HashMap<String,String>();
-		try{
-			List<String> ftpConfigs = FileUtils.readLines(ftpConfigFile, "utf-8");
-			if(ftpConfigs == null || ftpConfigs.size() == 0){
-				throw new RuntimeException("FTP服务器配置不正确");
-			}
-			for(String ftpConfig : ftpConfigs){
-				if(!StringUtils.isEmpty(ftpConfig)){
-					String[] keyValues = ftpConfig.split("=");
-					if(keyValues != null && keyValues.length ==2){
-						if(!StringUtils.isEmpty(keyValues[0]) && !StringUtils.isEmpty(keyValues[1])){
-							ftpConfigMap.put(keyValues[0], keyValues[1]);
-						}
-					}
-				}
-			}
-			String ip = ftpConfigMap.get("ip");
-			if(StringUtils.isEmpty(ip)){
-				throw new RuntimeException("FTP服务器配置不正确");
-			}
-			String port = ftpConfigMap.get("port");
-			if(StringUtils.isEmpty(port)){
-				throw new RuntimeException("FTP服务器配置不正确");
-			}
-			String username = ftpConfigMap.get("username");
-			String password = ftpConfigMap.get("password");
-			if(!StringUtils.isEmpty(password) && StringUtils.isEmpty(username)){
-				throw new RuntimeException("FTP服务器配置不正确");
-			}
-			
-			return ftpConfigMap;
-		}catch(IOException e){
-			throw new RuntimeException("FTP服务器配置不正确");
-		}
-	}
-	
-	/**
-	 * 读取数据库配置信息
-	 * @return
-	 */
-	private  static Map<String,String> loadDBConfig(){
-		
-		File dbConfigFile = new File(PathConstants.getSettingsDir(),"db.config");
-		Map<String,String> dbConfigMap = new HashMap<String,String>();
-		try{
-			List<String> dbConfigs = FileUtils.readLines(dbConfigFile, "utf-8");
-			if(dbConfigs == null || dbConfigs.size() == 0){
-				throw new RuntimeException("数据库配置不正确");
-			}
-			for(String dbConfig : dbConfigs){
-				if(!StringUtils.isEmpty(dbConfig)){
-					String[] keyValues = dbConfig.split("=");
-					if(keyValues != null && keyValues.length ==2){
-						if(!StringUtils.isEmpty(keyValues[0]) && !StringUtils.isEmpty(keyValues[1])){
-							dbConfigMap.put(keyValues[0], keyValues[1]);
-						}
-					}
-				}
-			}
-			String ip = dbConfigMap.get("ip");
-			if(StringUtils.isEmpty(ip)){
-				throw new RuntimeException("数据库配置不正确");
-			}
-			String port = dbConfigMap.get("port");
-			if(StringUtils.isEmpty(port)){
-				throw new RuntimeException("数据库配置不正确");
-			}
-			String db = dbConfigMap.get("db");
-			if(StringUtils.isEmpty(db)){
-				throw new RuntimeException("数据库配置不正确");
-			}
-			String username = dbConfigMap.get("username");
-			String password = dbConfigMap.get("password");
-			if(!StringUtils.isEmpty(password) && StringUtils.isEmpty(username)){
-				throw new RuntimeException("数据库配置不正确");
-			}
-			
-			return dbConfigMap;
-		}catch(IOException e){
-			throw new RuntimeException("数据库配置不正确");
-		}
-	}
-	
-	/**
-	 * 获取Mac地址
-	 * @param context
-	 * @return
-	 */
-	public static String getMacAddress(Context context){
-		WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE); 
-        WifiInfo info = wifi.getConnectionInfo(); 
-        return info.getMacAddress(); 
-	}
 	
 	/**
 	 * 发送消息
@@ -152,16 +48,476 @@ public class UploadUtils {
 		handler.sendMessage(message);
 	}
 	
-	public static int UPLOAD_FTP_CONFIG_ERROR = 1;
-	public static int UPLOAD_NETWORK_ERROR = 2;
-	public static int UPLOAD_NO_DATA = 3;
-	public static int UPLOAD_DB_CONFIG_ERROR = 4;
-	public static int UPLOAD_DB_CONNECTION_ERROR = 5;
-	public static int UPLOAD_FTP_CONNECTION_ERROR = 6;
-	public static int UPLOAD_FTP_TRANSFER_ERROR = 7;
-	public static int UPLOAD_DB_TRANSFER_ERROR = 8;
-	public static int UPLOAD_PROGRESS = 9;
-	public static int UPLOAD_FINISH = 10;
+	/**
+	 * 检查网络
+	 * @return
+	 */
+	private static boolean checkNetwork(){
+		Context context = SysqApplication.getContext();
+		ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		return ni == null ? false : true;
+	}
+	
+	/**
+	 * 检查FTP服务
+	 * @return
+	 */
+	private static FTPClient checkFTP(){
+		
+		//读取配置
+		Map<String,String> configMap  = CommonUtils.readProperties(new File(PathConstants.getSettingsDir(),"ftp.config"),"UTF-8");
+		if(configMap == null)	return null;
+		String ip,port,username,password;
+		ip = configMap.get("ip");
+		port = configMap.get("port");
+		username = configMap.get("username");
+		password = configMap.get("password");
+		if(StringUtils.isEmpty(ip) || StringUtils.isEmpty(port) || 
+				(StringUtils.isEmpty(username) && !StringUtils.isEmpty(password))
+				|| (!StringUtils.isEmpty(username) && StringUtils.isEmpty(password))){
+			return null;
+		}
+		
+		//获取连接
+		FTPClient ftpClient = new FTPClient();
+		try{
+			ftpClient.connect(ip, Integer.parseInt(port));
+			if(StringUtils.isEmpty(username)){
+				username = "anonymous";
+			}
+			if(!ftpClient.login(username,password)){
+				return null;
+			}
+			ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+			ftpClient.enterLocalPassiveMode();
+			if(FTPReply.isPositiveCompletion(ftpClient.sendCommand("OPTS UTF8", "ON"))){
+				ftpClient.setControlEncoding("UTF-8");
+			}
+			return ftpClient;
+		}catch(Exception e){
+			if(ftpClient != null){
+				try{
+					ftpClient.logout();
+					ftpClient.disconnect();
+				}catch(Exception closeE){
+				}
+			}
+			return null;
+		}
+	}
+	
+	/**
+	 * 检查数据库
+	 */
+	private static Connection checkDB(){
+		
+		//读取配置
+		Map<String,String> configMap  = CommonUtils.readProperties(new File(PathConstants.getSettingsDir(),"db.config"),"UTF-8");
+		if(configMap == null)	return null;
+		String ip,port,db,username,password;
+		ip = configMap.get("ip");
+		port = configMap.get("port");
+		db = configMap.get("db");
+		username = configMap.get("username");
+		password = configMap.get("password");
+		if(StringUtils.isEmpty(ip) || StringUtils.isEmpty(port) || StringUtils.isEmpty(db) || StringUtils.isEmpty(username) || StringUtils.isEmpty(password)){
+			return null;
+		}
+		
+		//获取连接
+		Connection conn = null;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+db, username, password);
+			return conn;
+		}catch(Exception e){
+			try{
+				if(conn != null){
+					conn.close();
+				}
+			}catch(Exception sqle){
+			}
+			return null;
+		}
+	}
+	
+	/**
+	 * 统计访谈数据
+	 * @return
+	 */
+	private static Map<String,Integer> reportInterview(){
+		
+		int interviewCount = 0;
+		int interviewerCount = 0;
+		int intervieweeCount = 0;
+		
+		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
+			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
+				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
+					if(interviewBasicWrap.getInterviewBasic().getUploadStatus() == UploadConstants.upload_status_not_upload 
+							|| interviewBasicWrap.getInterviewBasic().getUploadStatus() == UploadConstants.upload_status_modified){//访问表
+						interviewCount++;
+					}
+					if(interviewBasicWrap.getInterviewer().getUploadStatus() == UploadConstants.upload_status_not_upload
+							|| interviewBasicWrap.getInterviewer().getUploadStatus() == UploadConstants.upload_status_modified){//访问者表
+						interviewerCount++;
+					}
+					if(interviewBasicWrap.getInterviewee().getUploadStatus() == UploadConstants.upload_status_not_upload
+							|| interviewBasicWrap.getInterviewee().getUploadStatus() == UploadConstants.upload_status_modified){//被访问者表
+						intervieweeCount++;
+					}
+				}
+			}
+		}
+		
+		Map<String,Integer> reportMap = new HashMap<String,Integer>();
+		reportMap.put("interviewCount", interviewCount);
+		reportMap.put("interviewerCount", interviewerCount);
+		reportMap.put("intervieweeCount", intervieweeCount);
+		return reportMap;
+	}
+	
+	/**
+	 * 统计多媒体数据
+	 * @return
+	 */
+	private static int reportMedia(){
+		
+		int mediaCount = 0 ;
+		
+		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
+			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
+				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
+					File mediaDir = new File(PathConstants.getMediaDir(),interviewBasicWrap.getInterviewBasic().getId()+"");
+					if(mediaDir.exists()){
+						File audioDir = new File(mediaDir,"audio");
+						File photoDir = new File(mediaDir,"photo");
+						if( (audioDir.exists() && audioDir.listFiles().length > 0) || (photoDir.exists() && photoDir.listFiles().length > 0) ){
+							mediaCount++;
+						}
+					}
+				}
+			}
+		}
+		
+		return mediaCount;
+	}
+	
+	/**
+	 * 处理访问表
+	 * @param pst
+	 */
+	private static void handleInterviewBasic(Connection conn,InterviewBasicWrap interviewBasicWrap){
+		
+		PreparedStatement insertInterviewPst = null;
+		PreparedStatement insertResultPst = null;
+		PreparedStatement delInterviewPst = null;
+		PreparedStatement delResultPst = null;
+		
+		try{
+			
+			InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
+			if(interviewBasic.getUploadStatus() == UploadConstants.upload_status_not_upload){//添加
+				
+				//添加访谈记录
+				insertInterviewPst = conn.prepareStatement("insert into sysq_interview(id,doctor_id,patient_id,start_time,end_time,type,version_id) values(?,?,?,?,?,?,?);");
+				insertInterviewPst.setInt(1,interviewBasic.getId());
+				insertInterviewPst.setInt(2, interviewBasic.getInterviewerId());
+				insertInterviewPst.setInt(3, interviewBasic.getIntervieweeId());
+				insertInterviewPst.setString(4, interviewBasic.getStartTime());
+				insertInterviewPst.setString(5, interviewBasic.getLastModifiedTime());
+				insertInterviewPst.setInt(6, interviewBasic.getType());
+				insertInterviewPst.setInt(7, interviewBasic.getVersionId());
+				insertInterviewPst.execute();
+				
+				//添加答案
+				insertResultPst = conn.prepareStatement("insert into sysq_result(questionaire_code,question_code,answer_code,answer_value,interview_id) values(?,?,?,?,?);");
+				List<InterviewQuestionaireWrap> interviewQuestionaireWrapList = InterviewService.getInterviewQuestionaireList(interviewBasic.getId());
+				if(interviewQuestionaireWrapList != null && interviewQuestionaireWrapList.size() > 0){
+					for(InterviewQuestionaireWrap interviewQuestionaireWrap : interviewQuestionaireWrapList){
+						List<InterviewQuestion> interviewQuestionList = InterviewService.getInterviewQuestionList(interviewBasic.getId(), interviewQuestionaireWrap.getInterviewQuestionaire().getQuestionaireCode());
+						if(interviewQuestionList != null && interviewQuestionList.size() > 0){
+							for(InterviewQuestion interviewQuestion : interviewQuestionList){
+								List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(interviewBasic.getId(), interviewQuestion.getQuestionCode());
+								if(interviewAnswerList != null && interviewAnswerList.size() > 0){
+									for(InterviewAnswer interviewAnswer : interviewAnswerList){
+										insertResultPst.setString(1, interviewQuestionaireWrap.getInterviewQuestionaire().getQuestionaireCode());
+										insertResultPst.setString(2, interviewQuestion.getQuestionCode());
+										insertResultPst.setString(3, interviewAnswer.getAnswerCode());
+										insertResultPst.setString(4, interviewAnswer.getAnswerValue());
+										insertResultPst.setInt(5, interviewBasic.getId());
+										insertResultPst.execute();
+									}
+								}
+							}
+						}
+					}
+				}
+				
+			}else if(interviewBasic.getUploadStatus() == UploadConstants.upload_status_modified){//更新
+				
+				//删除旧记录
+				delResultPst = conn.prepareStatement("delete from sysq_result where interview_id = ?");
+				delResultPst.setInt(1, interviewBasic.getId());
+				delResultPst.execute();
+				delInterviewPst = conn.prepareStatement("delete from sysq_interview where id = ?");
+				delInterviewPst.setInt(1, interviewBasic.getId());
+				delInterviewPst.execute();
+				
+				//添加新记录：添加访谈记录
+				insertInterviewPst = conn.prepareStatement("insert into sysq_interview(id,doctor_id,patient_id,start_time,end_time,type,version_id) values(?,?,?,?,?,?,?);");
+				insertInterviewPst.setInt(1,interviewBasic.getId());
+				insertInterviewPst.setInt(2, interviewBasic.getInterviewerId());
+				insertInterviewPst.setInt(3, interviewBasic.getIntervieweeId());
+				insertInterviewPst.setString(4, interviewBasic.getStartTime());
+				insertInterviewPst.setString(5, interviewBasic.getLastModifiedTime());
+				insertInterviewPst.setInt(6, interviewBasic.getType());
+				insertInterviewPst.setInt(7, interviewBasic.getVersionId());
+				insertInterviewPst.execute();
+				
+				//添加新记录：添加答案
+				insertResultPst = conn.prepareStatement("insert into sysq_result(questionaire_code,question_code,answer_code,answer_value,interview_id) values(?,?,?,?,?);");
+				List<InterviewQuestionaireWrap> interviewQuestionaireWrapList = InterviewService.getInterviewQuestionaireList(interviewBasic.getId());
+				if(interviewQuestionaireWrapList != null && interviewQuestionaireWrapList.size() > 0){
+					for(InterviewQuestionaireWrap interviewQuestionaireWrap : interviewQuestionaireWrapList){
+						List<InterviewQuestion> interviewQuestionList = InterviewService.getInterviewQuestionList(interviewBasic.getId(), interviewQuestionaireWrap.getInterviewQuestionaire().getQuestionaireCode());
+						if(interviewQuestionList != null && interviewQuestionList.size() > 0){
+							for(InterviewQuestion interviewQuestion : interviewQuestionList){
+								List<InterviewAnswer> interviewAnswerList = InterviewService.getInterviewAnswerList(interviewBasic.getId(), interviewQuestion.getQuestionCode());
+								if(interviewAnswerList != null && interviewAnswerList.size() > 0){
+									for(InterviewAnswer interviewAnswer : interviewAnswerList){
+										insertResultPst.setString(1, interviewQuestionaireWrap.getInterviewQuestionaire().getQuestionaireCode());
+										insertResultPst.setString(2, interviewQuestion.getQuestionCode());
+										insertResultPst.setString(3, interviewAnswer.getAnswerCode());
+										insertResultPst.setString(4, interviewAnswer.getAnswerValue());
+										insertResultPst.setInt(5, interviewBasic.getId());
+										insertResultPst.execute();
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+		}catch(Exception e){
+			throw new RuntimeException("上传访问表失败",e);
+		}finally{
+			try{
+				if(insertInterviewPst != null){
+					insertInterviewPst.close();
+				}
+				if(insertResultPst != null){
+					insertResultPst.close();
+				}
+				if(delInterviewPst != null){
+					delInterviewPst.close();
+				}
+				if(delResultPst != null){
+					delResultPst.close();
+				}
+			}catch(Exception e){
+			}
+		}
+	}
+	
+	/**
+	 * 处理访问者表
+	 * @param pst
+	 */
+	private static void handleInterviewer(Connection conn,InterviewBasicWrap interviewBasicWrap){
+		
+		PreparedStatement pst = null;
+		
+		try{
+			Interviewer interviewer = interviewBasicWrap.getInterviewer();
+			if(interviewer.getUploadStatus() == UploadConstants.upload_status_not_upload){
+				pst = conn.prepareStatement("insert into sysq_doctor(id,username,mobile,email,working_place) values(?,?,?,?,?)");
+				pst.setInt(1, interviewer.getId());
+				pst.setString(2, interviewer.getUsername());
+				pst.setString(3, interviewer.getMobile());
+				pst.setString(4, interviewer.getEmail());
+				pst.setString(5, interviewer.getWorkingPlace());
+				pst.execute();
+				
+			}else if(interviewer.getUploadStatus() == UploadConstants.upload_status_modified){
+				pst = conn.prepareStatement("update sysq_doctor set username = ?,mobile = ?,email = ?,working_place = ? where id = ?");
+				pst.setString(1, interviewer.getUsername());
+				pst.setString(2, interviewer.getMobile());
+				pst.setString(3, interviewer.getEmail());
+				pst.setString(4, interviewer.getWorkingPlace());
+				pst.setInt(5, interviewer.getId());
+				pst.execute();
+			}
+		}catch(Exception e){
+			throw new RuntimeException("上传访问者表失败",e);
+		}finally{
+			try{
+				if(pst != null){
+					pst.close();
+				}
+			}catch(Exception e){
+			}
+		}
+	}
+	
+	/**
+	 * 处理被访问者表
+	 * @param pst
+	 */
+	private static void handleInterviewee(Connection conn,InterviewBasicWrap interviewBasicWrap){
+		
+		PreparedStatement pst = null;
+		try{
+			Interviewee interviewee  = interviewBasicWrap.getInterviewee();
+			if(interviewee.getUploadStatus() == UploadConstants.upload_status_not_upload){
+				pst = conn.prepareStatement("insert into sysq_patient(id,username,identity_card,mobile,province,city,address,post_code,family_mobile,family_address,dna,remark) values(?,?,?,?,?,?,?,?,?,?,?,?)");
+				pst.setInt(1, interviewee.getId());
+				pst.setString(2, interviewee.getUsername());
+				pst.setString(3, interviewee.getIdentityCard());
+				pst.setString(4, interviewee.getMobile());
+				pst.setString(5, interviewee.getProvince());
+				pst.setString(6, interviewee.getCity());
+				pst.setString(7, interviewee.getAddress());
+				pst.setString(8, interviewee.getPostCode());
+				pst.setString(9, interviewee.getFamilyMobile());
+				pst.setString(10, interviewee.getFamilyAddress());
+				pst.setString(11, interviewee.getDna());
+				pst.setString(12, interviewee.getRemark());
+				pst.execute();
+				
+			}else if(interviewee.getUploadStatus() == UploadConstants.upload_status_modified){
+				pst = conn.prepareStatement("update sysq_patient set username = ?,identity_card = ?,mobile = ?,province = ?,city = ?,address = ?,post_code = ?,family_mobile = ?,family_address = ?,dna = ?,remark = ? where id = ?");
+				pst.setString(1, interviewee.getUsername());
+				pst.setString(2, interviewee.getIdentityCard());
+				pst.setString(3, interviewee.getMobile());
+				pst.setString(4, interviewee.getProvince());
+				pst.setString(5, interviewee.getCity());
+				pst.setString(6, interviewee.getAddress());
+				pst.setString(7, interviewee.getPostCode());
+				pst.setString(8, interviewee.getFamilyMobile());
+				pst.setString(9, interviewee.getFamilyAddress());
+				pst.setString(10, interviewee.getDna());
+				pst.setString(11, interviewee.getRemark());
+				pst.setInt(12, interviewee.getId());
+				pst.execute();
+			}
+		}catch(Exception e){
+			throw new RuntimeException("上传访问者表失败",e);
+		}finally{
+			try{
+				if(pst != null){
+					pst.close();
+				}
+			}catch(Exception e){
+			}
+		}
+	}
+	
+	/**
+	 * 上传数据库
+	 * @param conn
+	 * @return
+	 */
+	private static boolean uploadDBData(Connection conn){
+		
+		boolean isSuccess = false;
+		
+		try{
+			conn.setAutoCommit(false);
+			
+			List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+			if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
+				for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
+					if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
+						
+						//处理访问者表
+						handleInterviewer(conn,interviewBasicWrap);
+						
+						//处理被访问者表
+						handleInterviewee(conn,interviewBasicWrap);
+						
+						//处理访问表
+						handleInterviewBasic(conn,interviewBasicWrap);
+					}
+				}
+				
+				conn.commit();
+				
+				isSuccess = true;
+			}
+			
+		}catch(Exception e1){
+			
+			isSuccess = false;
+			
+			try{
+				conn.rollback();
+			}catch(Exception e2){
+			}
+			
+		}finally{
+			
+			try{
+				if(conn != null){
+					conn.close();
+				}
+			}catch(Exception e){
+			}
+		}
+		
+		return isSuccess;
+	}
+	
+	/**
+	 * 修改上传状态
+	 */
+	public static void modifyUploadStatus(){
+		
+		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
+			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
+				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
+					
+					//访问表
+					InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
+					if(interviewBasic.getUploadStatus() == UploadConstants.upload_status_not_upload || interviewBasic.getUploadStatus() == UploadConstants.upload_status_modified){
+						interviewBasic.setUploadStatus(UploadConstants.upload_status_uploaded);
+						InterviewService.updateInterviewBasic(interviewBasic);
+					}
+					
+					//访问者表
+					Interviewer interviewer = interviewBasicWrap.getInterviewer();
+					if(interviewer.getUploadStatus() == UploadConstants.upload_status_not_upload || interviewer.getUploadStatus() == UploadConstants.upload_status_modified){
+						interviewer.setUploadStatus(UploadConstants.upload_status_uploaded);
+						UserCenterService.modifyUser(interviewer);
+						if(interviewer.getId() == SysqContext.getInterviewer().getId()){//更新当前登录用户
+							SysqContext.setInterviewer(interviewer);
+						}
+					}
+					
+					//被访问者表
+					Interviewee interviewee = interviewBasicWrap.getInterviewee();
+					if(interviewee.getUploadStatus() == UploadConstants.upload_status_not_upload || interviewee.getUploadStatus() == UploadConstants.upload_status_modified){
+						interviewee.setUploadStatus(UploadConstants.upload_status_uploaded);
+						InterviewService.updateInterviewee(interviewee);
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 上传多媒体数据
+	 * @param ftpClient
+	 * @return
+	 */
+	private static boolean uploadMediaData(FTPClient ftpClient){
+		return true;
+	}
 	
 	/**
 	 * 上传
@@ -170,183 +526,80 @@ public class UploadUtils {
 	 */
 	public static void upload(Handler handler){
 		
-		//获取上传数据（真实数据、已完成、未上传）
-		List<InterviewBasicWrap> uploadInterviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
-		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
-		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
-			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
-						&& interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
-					uploadInterviewBasicWrapList.add(interviewBasicWrap);
-				}
-			}
-		}
-		if(uploadInterviewBasicWrapList.size() == 0){
-			sendMessage(handler,UPLOAD_NO_DATA,"暂无可上传访谈记录");
-			return;
-		}
-		
 		//检查网络是否通
-		Context context = SysqApplication.getContext();
-		ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo ni = cm.getActiveNetworkInfo();
-		if(ni == null){
-			sendMessage(handler,UPLOAD_NETWORK_ERROR,"请先检查网络是否连通");
+		sendMessage(handler,UploadConstants.upload_progress_handling,"网络检查：正在进行中...");
+		if(!checkNetwork()){
+			sendMessage(handler,UploadConstants.upload_progress_finished,"网络检查：网络连接失败，请您检查您的网络是否可用");
+			return;
+		}else{
+			sendMessage(handler,UploadConstants.upload_progress_handling,"网络检查：网络连接正常");
+		}
+		
+		//检查FTP
+		sendMessage(handler,UploadConstants.upload_progress_handling,"FTP检查：正在进行中...");
+		FTPClient ftpClient = checkFTP();
+		if(ftpClient == null){
+			sendMessage(handler,UploadConstants.upload_progress_finished,"FTP检查：连接FTP服务器失败，请检查您的配置是否正确");
+			return;
+		}else{
+			sendMessage(handler,UploadConstants.upload_progress_handling,"FTP检查：服务器连接正常");
+		}
+		
+		//检查数据库
+		sendMessage(handler,UploadConstants.upload_progress_handling,"数据库检查：正在进行中...");
+		Connection conn = checkDB();
+		if(conn == null){
+			sendMessage(handler,UploadConstants.upload_progress_finished,"数据库检查：连接数据库服务器失败，请检查您的配置是否正确");
+			return;
+		}else{
+			sendMessage(handler,UploadConstants.upload_progress_handling,"数据库检查：服务器连接正常");
+		}
+		
+		//统计访谈数据
+		sendMessage(handler,UploadConstants.upload_progress_handling,"统计访谈数据：正在进行中...");
+		Map<String,Integer> dbReportMap = reportInterview();
+		int interviewCount = dbReportMap.get("interviewCount");
+		int interviewerCount = dbReportMap.get("interviewerCount");
+		int intervieweeCount = dbReportMap.get("intervieweeCount");
+		if(interviewCount == 0 && interviewerCount == 0 && intervieweeCount == 0){
+			sendMessage(handler,UploadConstants.upload_progress_handling,"统计访谈数据：没有可上传的访谈数据");
+		}else{
+			sendMessage(handler,UploadConstants.upload_progress_handling,String.format("统计访谈数据：%s条访谈数据，%s条医生数据，%s条病人数据可上传",interviewCount,interviewerCount,intervieweeCount));
+		}
+		
+		//上传数据库
+		if(interviewCount >0 || interviewerCount > 0 || intervieweeCount > 0){
+			sendMessage(handler,UploadConstants.upload_progress_handling,"上传数据库：正在进行中...");
+			boolean isDBSuccess = uploadDBData(conn);
+			if(isDBSuccess){
+				sendMessage(handler,UploadConstants.upload_progress_handling,"上传数据库：上传完成");
+				
+				//修改上传状态
+				modifyUploadStatus();
+				
+			}else{
+				sendMessage(handler,UploadConstants.upload_progress_finished,"上传数据库：上传失败，请稍候重试");
+				return;
+			}
+		}
+		
+		//统计多媒体数据
+		sendMessage(handler,UploadConstants.upload_progress_handling,"统计多媒体包数据：正在进行中...");
+		int mediaCount = reportMedia();
+		if(mediaCount == 0){
+			sendMessage(handler,UploadConstants.upload_progress_finished,"统计多媒体包数据：没有可上传的多媒体数据");
 			return;
 		}
+		sendMessage(handler,UploadConstants.upload_progress_handling,String.format("统计多媒体包数据：%s个多媒体包可上传",mediaCount));
 		
-		//读取FTP配置
-		String ip4ftp,port4ftp,username4ftp,password4ftp;
-		try{
-			Map<String,String> ftpConfigMap = loadFTPConfig();
-			ip4ftp = ftpConfigMap.get("ip");
-			port4ftp = ftpConfigMap.get("port");
-			username4ftp = ftpConfigMap.get("username");
-			password4ftp = ftpConfigMap.get("password");
-		}catch(Exception e){
-			sendMessage(handler,UPLOAD_FTP_CONFIG_ERROR,"请先检查FTP配置是否正确");
-			return;
+		//上传多媒体数据
+		sendMessage(handler,UploadConstants.upload_progress_handling,"上传多媒体数据：正在进行中...");
+		boolean isMediaSuccess = uploadMediaData(ftpClient);
+		if(isMediaSuccess){
+			sendMessage(handler,UploadConstants.upload_progress_finished,"上传多媒体数据：上传完成");
+		}else{
+			sendMessage(handler,UploadConstants.upload_progress_finished,"上传多媒体数据：上传失败，请稍候重试");
 		}
 		
-		//读取数据库配置
-		String ip4db,port4db,username4db,password4db,db;
-		try{
-			Map<String,String> dbConfigMap = loadDBConfig();
-			ip4db = dbConfigMap.get("ip");
-			port4db = dbConfigMap.get("port");
-			username4db = dbConfigMap.get("username");
-			password4db = dbConfigMap.get("password");
-			db = dbConfigMap.get("db");
-		}catch(Exception e){
-			sendMessage(handler,UPLOAD_DB_CONFIG_ERROR,"请先检查数据库配置是否正确");
-			return;
-		}
-		
-		//获取数据库连接
-		Connection conn = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://"+ip4db+":"+port4db+"/"+db, username4db, password4db);
-			conn.setAutoCommit(false);	//事务：非自动提交
-		}catch(Exception e){
-			sendMessage(handler,UPLOAD_DB_CONNECTION_ERROR,"数据库连接失败："+e.getMessage());
-			return;
-		}
-		
-		//获取FTP连接
-		FTPClient ftpClient = new FTPClient();
-		try{
-			ftpClient.connect(ip4ftp, Integer.parseInt(port4ftp));
-			if(StringUtils.isEmpty(username4ftp)){
-				username4ftp = "anonymous";
-			}
-			if(ftpClient.login(username4ftp,password4ftp) == false){
-				throw new RuntimeException("FTP登录失败");
-			}
-			ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
-			ftpClient.enterLocalPassiveMode();	//设置被动模式
-			if(FTPReply.isPositiveCompletion(ftpClient.sendCommand("OPTS UTF8", "ON"))){
-				ftpClient.setControlEncoding("UTF-8");
-			}
-		}catch(Exception e){
-			sendMessage(handler,UPLOAD_FTP_CONNECTION_ERROR,"FTP连接失败："+e.getMessage());
-			return;
-		}
-		
-		//上传
-		int index = 0;	//上传进度
-		sendMessage(handler,UPLOAD_PROGRESS,"数据正在上传中，请稍候..."+"0/"+uploadInterviewBasicWrapList.size());
-		String operateType = "";
-		for(InterviewBasicWrap interviewBasicWrap : uploadInterviewBasicWrapList){
-			InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
-			Interviewee interviewee = interviewBasicWrap.getInterviewee();
-			Interviewer interviewer = interviewBasicWrap.getInterviewer();
-			
-			PreparedStatement pst = null;
-			InputStream zipIS = null;
-			try{
-				
-				//上传数据库数据
-				operateType = "db";
-				pst = conn.prepareStatement("insert into test(username) values (?)");
-				pst.setString(1, interviewee.getUsername());
-				pst.execute();
-				
-				//多媒体文件：打包
-				operateType = "ftp";
-				File mediaDir = new File(PathConstants.getMediaDir(),interviewee.getIdentityCard()+"("+interviewee.getUsername()+")");
-				File zipFile = new File(PathConstants.getTmpDir(),mediaDir.getName()+".zip");
-				ZipUtil.zip(mediaDir.getPath(), zipFile.getPath());
-				
-				//多媒体文件：上传
-				zipIS = new FileInputStream(zipFile);
-				boolean isSuccess = ftpClient.storeFile(new String(zipFile.getName().getBytes("UTF-8"),"ISO8859-1"),zipIS);
-				if(isSuccess == false){
-					throw new RuntimeException(ftpClient.getReplyString());
-				}
-				
-				conn.commit();		//事务：上传数据数据、多媒体文件作为事务
-				
-				//更新上传进度
-				index++;
-				sendMessage(handler,UPLOAD_PROGRESS,"数据正在上传中，请稍候..."+index+"/"+uploadInterviewBasicWrapList.size());
-			}catch(Exception e){
-				try{
-					conn.rollback();		//事务：回滚
-				}catch(SQLException sqle){
-				}
-				
-				if(operateType.equals("db")){
-					sendMessage(handler,UPLOAD_NO_DATA,"上传数据库失败："+e.getMessage());
-				}else if(operateType.equals("ftp")){
-					sendMessage(handler,UPLOAD_NO_DATA,"上传多媒体包失败："+e.getMessage());
-				}
-				
-				break;	//退出循环
-			}finally{
-				
-				//释放资源：PreparedStatement、InputStream
-				if(pst != null){
-					try{
-						pst.close();
-					}catch(Exception e){
-					}
-				}
-				if(zipIS != null){
-					try{
-						zipIS.close();
-					}catch(Exception e){
-					}
-				}
-			}
-		}
-		
-		//上传完成
-		if(index == uploadInterviewBasicWrapList.size()){
-			sendMessage(handler,UPLOAD_FINISH,"上传完成");
-		}
-		
-		//清理临时文件夹
-		try{
-			FileUtils.cleanDirectory(new File(PathConstants.getTmpDir()));
-		}catch(Exception e){
-		}
-		
-		//关闭连接：数据库
-		if(conn != null){
-			try{
-				conn.close();
-			}catch(Exception e){
-			}
-		}
-		
-		//关闭连接：FTP
-		if(ftpClient != null){
-			try{
-				ftpClient.logout();
-				ftpClient.disconnect();
-			}catch(Exception e){
-			}
-		}
 	}
 }

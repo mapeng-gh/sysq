@@ -31,7 +31,7 @@ public class AudioUtils {
 		
 		Interviewee interviewee = interviewBasicWrap.getInterviewee();
 		
-		File audioDir = new File(PathConstants.getMediaDir(),interviewee.getIdentityCard()+"("+interviewee.getUsername()+")"+File.separator+"audio");
+		File audioDir = new File(PathConstants.getMediaDir(),interviewee.getId()+File.separator+"audio");
 		if(!audioDir.exists()){
 			audioDir.mkdirs();
 		}

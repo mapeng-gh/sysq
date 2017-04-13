@@ -36,7 +36,7 @@ public class Usercenter4BasicActivity extends Activity implements OnClickListene
 	 * 初始化
 	 */
 	private void initUsercenter4Basic(){
-		Interviewer loginUser = SysqContext.getInterviewer();
+		Interviewer loginUser = UserCenterService.getById(SysqContext.getInterviewer().getId());
 		
 		EditText mobileET = (EditText)this.findViewById(R.id.usercenter_basic_mobile_et);
 		mobileET.setText(loginUser.getLoginName());
@@ -100,7 +100,7 @@ public class Usercenter4BasicActivity extends Activity implements OnClickListene
 		}
 		
 		//修改
-		Interviewer loginUser = SysqContext.getInterviewer();
+		Interviewer loginUser = UserCenterService.getById(SysqContext.getInterviewer().getId());
 		loginUser.setLoginName(mobile);
 		loginUser.setMobile(mobile);
 		loginUser.setUsername(username);

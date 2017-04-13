@@ -13,6 +13,10 @@ public class UserCenterService {
 		return InterviewerDB.findByLoginName(loginUsername);
 	}
 	
+	public static Interviewer getById(int id){
+		return InterviewerDB.selectById(id);
+	}
+	
 	public static void addUser(Interviewer interviewer){
 		InterviewerDB.insert(interviewer);
 	}

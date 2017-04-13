@@ -1,5 +1,7 @@
 package com.huasheng.sysq.activity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,7 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.activity.interview.InterviewerBasicActivity;
@@ -21,8 +23,8 @@ import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 import com.huasheng.sysq.activity.settings.SettingsNavActivity;
 import com.huasheng.sysq.activity.usercenter.UserCenterNavActivity;
 import com.huasheng.sysq.util.DialogUtils;
-import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.update.SystemUpdateUtils;
+import com.huasheng.sysq.util.upload.UploadConstants;
 import com.huasheng.sysq.util.upload.UploadUtils;
 
 public class IndexActivity extends Activity implements OnClickListener{
@@ -38,6 +40,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 	
 	private Handler handler;
 	private AlertDialog uploadDialog;
+	private String msgText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +76,16 @@ public class IndexActivity extends Activity implements OnClickListener{
 		//处理消息
 		handler = new Handler(){
 			public void handleMessage(Message msg) {
-				if(msg.what == UploadUtils.UPLOAD_PROGRESS){
-					uploadDialog.setMessage(msg.obj.toString());
+				if(StringUtils.isEmpty(msgText)){
+					msgText = msg.obj.toString();
 				}else{
-					uploadDialog.dismiss();
-					Toast.makeText(IndexActivity.this, msg.obj.toString(), Toast.LENGTH_LONG).show();
+					msgText = msgText + "\n" + msg.obj.toString();
+				}
+				TextView tv = (TextView)uploadDialog.findViewById(1);
+				tv.setText(msgText);
+				if(msg.what == UploadConstants.upload_progress_finished){
+					msgText = "";
+					uploadDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
 				}
 			}
 		};
@@ -110,8 +118,9 @@ public class IndexActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_data_upload){//上传
-//			this.upload();
-			SysqApplication.showMessage("该功能正在开发中");
+			this.upload();
+//			SysqApplication.showMessage("该功能正在开发中");
+//			UploadUtils.modifyUploadStatus();
 			
 		}else if(view.getId() == R.id.ll_index_help){//设置
 			Intent intent = new Intent(this,SettingsNavActivity.class);
@@ -126,11 +135,16 @@ public class IndexActivity extends Activity implements OnClickListener{
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("数据上传");
-		builder.setMessage("数据正在上传中，请稍候...");
-		this.uploadDialog = builder.create();
+		TextView tv = new TextView(this);
+		tv.setId(1);
+		tv.setTextSize(20);
+		builder.setView(tv);
+		builder.setPositiveButton("关闭", null);
+		uploadDialog = builder.create();
 		uploadDialog.setCancelable(false);
 		uploadDialog.setCanceledOnTouchOutside(false);
 		uploadDialog.show();
+		uploadDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
 		
 		new Thread(new Runnable() {
 			@Override

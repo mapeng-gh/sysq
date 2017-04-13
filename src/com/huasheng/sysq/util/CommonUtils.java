@@ -13,6 +13,10 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+
 public class CommonUtils {
 
 	/**
@@ -86,7 +90,7 @@ public class CommonUtils {
 			}
 			return map;
 		} catch (Exception e) {
-			throw new RuntimeException("读取配置文件失败："+propsFile.getName(),e);
+			return null;
 		}finally{
 			if(reader != null){
 				try{
@@ -96,5 +100,16 @@ public class CommonUtils {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * 获取Mac地址
+	 * @param context
+	 * @return
+	 */
+	public static String getMacAddress(Context context){
+		WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE); 
+        WifiInfo info = wifi.getConnectionInfo(); 
+        return info.getMacAddress(); 
 	}
 }
