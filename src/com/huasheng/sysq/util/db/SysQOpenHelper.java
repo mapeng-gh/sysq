@@ -25,8 +25,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SysQOpenHelper extends SQLiteOpenHelper{
 	
 	private static final String TAG = SysQOpenHelper.class.getSimpleName();
-	
-	private static final int VERSION = 1;
 	private static SQLiteDatabase db;
 	
 	public SysQOpenHelper(Context context, String name, CursorFactory factory,
@@ -61,7 +59,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	 */
 	public static SQLiteDatabase getDatabase(){
 		if(db == null){
-			db = new SysQOpenHelper(SysqApplication.getContext(),PathConstants.getDBPath(),null,VERSION).getWritableDatabase();
+			db = new SysQOpenHelper(SysqApplication.getContext(),PathConstants.getDBPath(),null,DBConstants.VERSION).getWritableDatabase();
 		}
 		return db;
 	}

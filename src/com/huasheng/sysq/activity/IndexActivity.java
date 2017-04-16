@@ -23,7 +23,9 @@ import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 import com.huasheng.sysq.activity.settings.SettingsNavActivity;
 import com.huasheng.sysq.activity.usercenter.UserCenterNavActivity;
 import com.huasheng.sysq.util.DialogUtils;
-import com.huasheng.sysq.util.update.SystemUpdateUtils;
+import com.huasheng.sysq.util.PackageUtils;
+import com.huasheng.sysq.util.update.UpdateConstants;
+import com.huasheng.sysq.util.update.UpdateUtils;
 import com.huasheng.sysq.util.upload.UploadConstants;
 import com.huasheng.sysq.util.upload.UploadUtils;
 
@@ -38,9 +40,15 @@ public class IndexActivity extends Activity implements OnClickListener{
 	private LinearLayout dataUploadLL;
 	private LinearLayout helpLL;
 	
-	private Handler handler;
+	//数据上传
+	private Handler uploadHandler;
 	private AlertDialog uploadDialog;
-	private String msgText;
+	private String uploadMsg;
+	
+	//系统更新
+	private Handler updateHandler;
+	private AlertDialog updateDialog;
+	private String updateMsg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,18 +82,50 @@ public class IndexActivity extends Activity implements OnClickListener{
 		helpLL.setOnClickListener(this);
 		
 		//处理消息
-		handler = new Handler(){
+		handleUploadMessage();
+		handleUpdateMessage();
+	}
+	
+	/**
+	 * 处理上传消息
+	 */
+	private void handleUploadMessage(){
+		
+		this.uploadHandler = new Handler(){
 			public void handleMessage(Message msg) {
-				if(StringUtils.isEmpty(msgText)){
-					msgText = msg.obj.toString();
+				if(StringUtils.isEmpty(uploadMsg)){
+					uploadMsg = msg.obj.toString();
 				}else{
-					msgText = msgText + "\n" + msg.obj.toString();
+					uploadMsg = uploadMsg + "\n" + msg.obj.toString();
 				}
 				TextView tv = (TextView)uploadDialog.findViewById(1);
-				tv.setText(msgText);
+				tv.setText(uploadMsg);
 				if(msg.what == UploadConstants.upload_progress_finished){
-					msgText = "";
+					uploadMsg = "";
 					uploadDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
+				}
+			}
+		};
+	}
+	
+	/**
+	 * 处理系统更新消息
+	 */
+	private void handleUpdateMessage(){
+		updateHandler = new Handler(){
+			public void handleMessage(Message msg) {
+				if(msg.obj != null && !StringUtils.isEmpty(msg.obj.toString())){
+					if(StringUtils.isEmpty(updateMsg)){
+						updateMsg = msg.obj.toString();
+					}else{
+						updateMsg = updateMsg + "\n" + msg.obj.toString();
+					}
+					TextView tv = (TextView)updateDialog.findViewById(1);
+					tv.setText(updateMsg);
+				}
+				if(msg.what == UpdateConstants.MSG_UPDATE_CLOSE){//关闭对话框
+					updateMsg = "";
+					updateDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
 				}
 			}
 		};
@@ -103,7 +143,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_system_update){//系统更新
-			SystemUpdateUtils.checkUpdate(this,true);
+			this.update();
 			
 		}else if(view.getId() == R.id.ll_index_interview){//开始访谈
 			Intent intent = new Intent(this,InterviewerBasicActivity.class);
@@ -119,13 +159,37 @@ public class IndexActivity extends Activity implements OnClickListener{
 			
 		}else if(view.getId() == R.id.ll_index_data_upload){//上传
 			this.upload();
-//			SysqApplication.showMessage("该功能正在开发中");
-//			UploadUtils.modifyUploadStatus();
 			
 		}else if(view.getId() == R.id.ll_index_help){//设置
 			Intent intent = new Intent(this,SettingsNavActivity.class);
 			super.startActivity(intent);
 		}
+	}
+	
+	/**
+	 * 更新系统
+	 */
+	private void update(){
+		
+		AlertDialog.Builder updateBuilder = new AlertDialog.Builder(this);
+		updateBuilder.setTitle("系统更新");
+		TextView tv = new TextView(this);
+		tv.setId(1);
+		tv.setTextSize(20);
+		updateBuilder.setView(tv);
+		updateBuilder.setPositiveButton("关闭", null);
+		updateDialog = updateBuilder.create();
+		updateDialog.setCancelable(false);
+		updateDialog.setCanceledOnTouchOutside(false);
+		updateDialog.show();
+		updateDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				UpdateUtils.update(IndexActivity.this,updateHandler);
+			}
+		}).start();
 	}
 	
 	/**
@@ -149,7 +213,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				UploadUtils.upload(handler);
+				UploadUtils.upload(uploadHandler);
 			}
 		}).start();
 	}

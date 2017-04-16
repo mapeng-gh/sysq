@@ -20,12 +20,11 @@ import android.widget.Toast;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
+import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.service.LoginService;
-import com.huasheng.sysq.service.SystemUpdateService;
 import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
-import com.huasheng.sysq.util.update.SystemUpdateUtils;
 
 public class LoginActivity extends Activity implements OnClickListener{
 	
@@ -51,9 +50,6 @@ public class LoginActivity extends Activity implements OnClickListener{
 	}
 	
 	private void init(){
-		
-		//检查更新
-		SystemUpdateUtils.checkUpdate(this,false);
 		
 		//初始化ftp配置
 		File ftpConfigFile = new File(PathConstants.getSettingsDir(),"ftp.config");
@@ -102,7 +98,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 				
 				//保存上下文（当前用户、版本号）
 				SysqContext.setInterviewer(interviewer);
-				SysqContext.setCurrentVersion(SystemUpdateService.getCurrentInterviewVersion());
+				SysqContext.setCurrentVersion(InterviewService.getCurInterviewVersion());
 				
 				//跳转首页
 				Intent indexIntent = new Intent(this,IndexActivity.class);

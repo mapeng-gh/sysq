@@ -2,6 +2,9 @@ package com.huasheng.sysq.util.db;
 
 public class DBConstants {
 	
+	//数据库版本
+	public static final int VERSION = 1;
+	
 	/**
 	 * 表名
 	 */

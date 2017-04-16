@@ -1,4 +1,4 @@
-package com.huasheng.sysq.util.upload;
+package com.huasheng.sysq.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -165,7 +165,7 @@ public class ZipUtil {
 	                        }
 						}
 					} catch (IOException e) {
-						throw new IOException(e);
+						throw new RuntimeException("解压失败：" + e.getMessage(),e);
 					} finally {
 						if (os != null) {
 							os.flush();
@@ -175,7 +175,7 @@ public class ZipUtil {
 
 				} 
 			} catch (Exception e) {
-				throw new RuntimeException(e);
+				throw new RuntimeException("解压失败：" + e.getMessage(),e);
 			} finally {
 				try {
 					if (zais != null) {
@@ -185,7 +185,6 @@ public class ZipUtil {
 						is.close();
 					}
 				} catch (IOException e) {
-					throw new RuntimeException(e);
 				}
 			}
 		}

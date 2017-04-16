@@ -18,6 +18,7 @@ import com.huasheng.sysq.db.IntervieweeDB;
 import com.huasheng.sysq.db.InterviewerDB;
 import com.huasheng.sysq.db.QuestionDB;
 import com.huasheng.sysq.db.QuestionaireDB;
+import com.huasheng.sysq.db.VersionDB;
 import com.huasheng.sysq.model.Answer;
 import com.huasheng.sysq.model.AnswerValue;
 import com.huasheng.sysq.model.AnswerWrap;
@@ -761,5 +762,42 @@ public class InterviewService {
 	 */
 	public static Questionaire getSpecQuestionaire(String questionaireCode){
 		return QuestionaireDB.selectByCode(questionaireCode,SysqContext.getCurrentVersion().getId());
+	}
+	
+	/**
+	 * 获取当前问卷版本
+	 * @return
+	 */
+	public static Version getCurInterviewVersion(){
+		List<Version> versionList = VersionDB.select();
+		if(versionList == null || versionList.size() <= 0){
+			return null;
+		}
+		for(Version version : versionList){
+			if(version.getIsCurrent() == 1){
+				return version;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 更新当前版本
+	 * @param newVersionId
+	 */
+	public static void updateCurInterviewVersion(int newVersionId){
+		List<Version> versionList = VersionDB.select();
+		if(versionList != null && versionList.size() > 0){
+			for(Version version : versionList){
+				if(version.getIsCurrent() == 1){
+					version.setIsCurrent(0);
+					VersionDB.update(version);
+				}
+				if(version.getId() == newVersionId){
+					version.setIsCurrent(1);
+					VersionDB.update(version);
+				}
+			}
+		}
 	}
 }

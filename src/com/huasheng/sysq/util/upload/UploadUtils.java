@@ -35,6 +35,7 @@ import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
+import com.huasheng.sysq.util.ZipUtil;
 
 public class UploadUtils {
 	
