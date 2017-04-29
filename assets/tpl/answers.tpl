@@ -5,9 +5,9 @@
 	</div>
 	
 	<div class="toolbar">
-		<input type="button" value="重做" class="btn-toolbar" onclick="redoQuestionaire()"/>
-		<input type="button" value="结束" class="btn-toolbar" onclick="quitInterview()"/>
-		<input type="button" value="保存" class="btn-toolbar" onclick="saveQuestionaire()"/>
+		<input type="button" value="重做" class="btn-toolbar size-btn" onclick="redoQuestionaire()"/>
+		<input type="button" value="结束" class="btn-toolbar size-btn" onclick="quitInterview()"/>
+		<input type="button" value="保存" class="btn-toolbar size-btn" onclick="saveQuestionaire()"/>
 	</div>
 	
 	<div class="body">

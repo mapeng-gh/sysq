@@ -5,7 +5,7 @@
 	</div>
 	
 	<div class="toolbar">
-		<input type="button" value="继续" class="btn-toolbar" onclick="resumeQuestionaire()"/>
+		<input type="button" value="继续" class="btn-toolbar size-btn" onclick="resumeQuestionaire()"/>
 	</div>
 	
 	<div class="content">

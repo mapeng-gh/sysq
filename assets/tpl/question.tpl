@@ -5,10 +5,10 @@
 	</div>
 	
 	<div class="toolbar">
-		<input type="button" value="暂停" class="btn-toolbar" onclick="pauseInterview()"/>
-		<input type="button" value="重做" class="btn-toolbar" onclick="redoQuestionaire()"/>
-		<input type="button" value="结束" class="btn-toolbar" onclick="quitInterview()"/>
-		<input type="button" value="答案" class="btn-toolbar" onclick="jumpToPartialAnswerList()"/>
+		<input type="button" value="暂停" class="btn-toolbar size-btn" onclick="pauseInterview()"/>
+		<input type="button" value="重做" class="btn-toolbar size-btn" onclick="redoQuestionaire()"/>
+		<input type="button" value="结束" class="btn-toolbar size-btn" onclick="quitInterview()"/>
+		<input type="button" value="答案" class="btn-toolbar size-btn" onclick="jumpToPartialAnswerList()"/>
 	</div>
 		
 	<div class="contents">	
@@ -33,8 +33,8 @@
 								
 									{{each answerWrap.radioOptions as radioOption i}}
 										<span class="radio-option">
-											<input type="radio" name="{{answerWrap.answer.code}}"  value="{{radioOption.value}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
-											<span class="size-answer-text">{{radioOption.text}}</span>
+											<input type="radio" id="{{answerWrap.answer.code+i}}" name="{{answerWrap.answer.code}}"  value="{{radioOption.value}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
+											<label for="{{answerWrap.answer.code+i}}"><span class="size-answer-text">{{radioOption.text}}</span></label>
 										</span>
 									{{/each}}	
 												
@@ -42,8 +42,8 @@
 								
 									{{each answerWrap.radioOptions as radioOption i}}
 										<div class="radio-option">
-											<input type="radio" name="{{answerWrap.answer.code}}"  value="{{radioOption.value}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
-											<span class="size-answer-text">{{radioOption.text}}</span>
+											<input type="radio" id="{{answerWrap.answer.code+i}}" name="{{answerWrap.answer.code}}"  value="{{radioOption.value}}" {{if answerWrap.answer.eventType}} on{{answerWrap.answer.eventType}}="{{answerWrap.answer.eventExecute}}"{{/if}}/>
+											<label for="{{answerWrap.answer.code+i}}"><span class="size-answer-text">{{radioOption.text}}</span></label>
 										</div>
 									{{/each}}
 								
@@ -55,8 +55,8 @@
 								
 									{{each answerWrap.checkboxOptions as checkboxOption i}}
 										<span class="checkbox-option">
-											<input type="checkbox"  value="{{checkboxOption.value}}" />
-											<span class="size-answer-text">{{checkboxOption.text}}</span>
+											<input id="{{answerWrap.answer.code+i}}" type="checkbox"  value="{{checkboxOption.value}}" />
+											<label for="{{answerWrap.answer.code+i}}"><span class="size-answer-text">{{checkboxOption.text}}</span></label>
 										</span>
 									{{/each}}	
 												
@@ -64,8 +64,8 @@
 								
 									{{each answerWrap.checkboxOptions as checkboxOption i}}
 										<div class="checkbox-option">
-											<input type="checkbox"  value="{{checkboxOption.value}}" />
-											<span class="size-answer-text">{{checkboxOption.text}}</span>
+											<input id="{{answerWrap.answer.code+i}}" type="checkbox"  value="{{checkboxOption.value}}" />
+											<label for="{{answerWrap.answer.code+i}}"><span class="size-answer-text">{{checkboxOption.text}}</span></label>
 										</div>
 									{{/each}}
 								
@@ -117,8 +117,8 @@
 	</div>
 	
 	<div class="footer">
-		<input type="button" value="上一题" class="btn-bottom-toolbar" onclick="jumpToPreviousQuestion()"/>
-		<input type="button" value="下一题" class="btn-bottom-toolbar" onclick="if(checkData()===false){return;}{{question.exitLogic}}"/>
+		<input type="button" value="上一题" class="btn-bottom-toolbar size-btn" onclick="jumpToPreviousQuestion()"/>
+		<input type="button" value="下一题" class="btn-bottom-toolbar size-btn" onclick="if(checkData()===false){return;}{{question.exitLogic}}"/>
 	</div>
 	
 </div>

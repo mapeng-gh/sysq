@@ -5,8 +5,8 @@
 	</div>
 	
 	<div class="toolbar">
-		<input type="button" value="取消" class="btn-toolbar" onclick="jumpToAnswerList4App()"/>
-		<input type="button" value="保存" class="btn-toolbar" onclick="saveModifyQuestionaire()"/>
+		<input type="button" value="取消" class="btn-toolbar size-btn" onclick="jumpToAnswerList4App()"/>
+		<input type="button" value="保存" class="btn-toolbar size-btn" onclick="saveModifyQuestionaire()"/>
 	</div>
 	
 	<div class="body">

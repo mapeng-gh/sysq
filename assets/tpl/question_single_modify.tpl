@@ -110,8 +110,8 @@
 	</div>
 	
 	<div class="footer">
-		<input type="button" value="取消" class="btn-bottom-toolbar" onclick="jumpToAnswerList4App()"/>
-		<input type="button" value="保存" class="btn-bottom-toolbar" onclick="updateSingleQuestionAnswers()"/>
+		<input type="button" value="取消" class="btn-bottom-toolbar size-btn" onclick="jumpToAnswerList4App()"/>
+		<input type="button" value="保存" class="btn-bottom-toolbar size-btn" onclick="updateSingleQuestionAnswers()"/>
 	</div>
 	
 </div>
