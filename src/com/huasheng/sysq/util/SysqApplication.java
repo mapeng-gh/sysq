@@ -1,8 +1,9 @@
 package com.huasheng.sysq.util;
 
-import java.lang.Thread.UncaughtExceptionHandler;
+import java.io.File;
+import java.io.InputStream;
 
-import com.huasheng.sysq.util.log.LogUtils;
+import org.apache.commons.io.FileUtils;
 
 import android.app.Application;
 import android.content.Context;
@@ -19,17 +20,31 @@ public class SysqApplication extends Application{
 		//获取context
 		context = getApplicationContext();
 		
-		//拦截未捕获异常
-		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-			@Override
-			public void uncaughtException(Thread thread, Throwable ex) {
-				
-				LogUtils.exception(ex);
-				
-	            android.os.Process.killProcess(android.os.Process.myPid());  
-	            System.exit(10);
+		//初始化配置
+		initConfig();
+	}
+	
+	private void initConfig(){
+		
+		InputStream is = null;
+		try{
+			is = AssetUtils.openAsStream(context, "config" + File.separator + "ftp.config");
+			FileUtils.copyInputStreamToFile(is, new File(PathConstants.getSettingsDir(),"ftp.config"));
+			
+			is = AssetUtils.openAsStream(context, "config" + File.separator + "db.config");
+			FileUtils.copyInputStreamToFile(is, new File(PathConstants.getSettingsDir(),"db.config"));
+			
+			DialogUtils.showLongToast(context,"配置初始化完成");
+		}catch(Exception e){
+			DialogUtils.showLongToast(context,e.getMessage());
+		}finally{
+			try{
+				if(is != null){
+					is.close();
+				}
+			}catch(Exception e){
 			}
-		});
+		}
 	}
 	
 	public static Context getContext(){

@@ -1,13 +1,5 @@
 package com.huasheng.sysq.activity;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +14,6 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.service.LoginService;
-import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 
@@ -44,44 +35,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 		loginBtn = (Button)findViewById(R.id.login);
 		
 		loginBtn.setOnClickListener(this);
-		
-		//系统初始化
-		this.init();
 	}
 	
-	private void init(){
-		
-		//初始化ftp配置
-		File ftpConfigFile = new File(PathConstants.getSettingsDir(),"ftp.config");
-		if(!ftpConfigFile.exists()){
-			try{
-				ftpConfigFile.createNewFile();
-				List<String> ftpInfos = new ArrayList<String>();
-				ftpInfos.add("ip=ccpl.psych.ac.cn");
-				ftpInfos.add("port=20020");
-				FileUtils.writeLines(ftpConfigFile,"utf-8",ftpInfos, IOUtils.LINE_SEPARATOR_UNIX, false);
-			}catch(IOException e){
-			}
-		}
-		
-		//初始化数据库配置
-		File dbConfigFile = new File(PathConstants.getSettingsDir(),"db.config");
-		if(!dbConfigFile.exists()){
-			try{
-				dbConfigFile.createNewFile();
-				List<String> dbInfos = new ArrayList<String>();
-				dbInfos.add("ip=ccpl.psych.ac.cn");
-				dbInfos.add("port=20039");
-				dbInfos.add("username=root");
-				dbInfos.add("password=ccpl_817");
-				dbInfos.add("db=doc_patient");
-				FileUtils.writeLines(dbConfigFile,"utf-8",dbInfos, IOUtils.LINE_SEPARATOR_UNIX, false);
-			}catch(IOException e){
-			}
-		}
-		
-	}
-
 	@Override
 	public void onClick(View view) {
 		

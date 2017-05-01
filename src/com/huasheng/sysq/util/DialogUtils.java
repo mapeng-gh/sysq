@@ -3,6 +3,7 @@ package com.huasheng.sysq.util;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
+import android.widget.Toast;
 
 public class DialogUtils {
 	
@@ -59,5 +60,24 @@ public class DialogUtils {
 		dialog.setCancelable(false);
 		dialog.setCanceledOnTouchOutside(false);
 		dialog.show();
+	}
+	
+	/**
+	 * 长Toast
+	 * @param context
+	 * @param message
+	 * @param duration
+	 */
+	public static void showLongToast(Context context,String message){
+		Toast.makeText(context, message,Toast.LENGTH_LONG).show();
+	}
+	
+	/**
+	 * 短Toast
+	 * @param context
+	 * @param message
+	 */
+	public static void showShortToast(Context context,String message){
+		Toast.makeText(context, message,Toast.LENGTH_SHORT).show();
 	}
 }
