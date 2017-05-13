@@ -1,12 +1,15 @@
 package com.huasheng.sysq.activity.interviewee.person;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -19,6 +22,8 @@ import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.CommonUtils;
+import com.huasheng.sysq.util.DialogUtils;
+import com.huasheng.sysq.util.MysqlUtils;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.upload.UploadConstants;
 
@@ -26,6 +31,9 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 	
 	private int interviewBasicId;
 	private Button saveBtn;
+	
+	private Handler handler;
+	private static final int MESSAGE_TOAST = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,22 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		//恢复表单值
 		resume4IntervieweePersonBasic();
 		
+		this.handleMessage();
+	}
+	
+	/**
+	 * 消息处理
+	 */
+	private void handleMessage(){
+		
+		handler = new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				if(msg.what == MESSAGE_TOAST){
+					DialogUtils.showLongToast(IntervieweePerson4BasicActivity.this, msg.obj.toString());
+				}
+			}
+		};
 	}
 
 	@Override
@@ -100,6 +124,19 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 	 */
 	private void saveIntervieweePerson4Basic(){
 		
+		//身份证校验需要远程校验，所以新开线程
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				doSaveIntervieweePerson4Basic();
+			}
+		}).start();
+		
+		
+	}
+	
+	private void doSaveIntervieweePerson4Basic(){
+		
 		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		Interviewee interviewee = interviewBasicWrap.getInterviewee();
 		
@@ -107,11 +144,11 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		EditText userNameET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_username);
 		String userName = userNameET.getText().toString().trim();
 		if(StringUtils.isEmpty(userName)){
-			SysqApplication.showMessage("姓名不能为空");
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "姓名不能为空");
 			return;
 		}
 		if(userName.length() < 2){
-			SysqApplication.showMessage("姓名至少为两个汉字");
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "姓名至少为两个汉字");
 			return;
 		}
 		interviewee.setUsername(userName);
@@ -120,29 +157,50 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		EditText identityCardET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_identity_card);
 		String identityCard = identityCardET.getText().toString().trim();
 		if(StringUtils.isEmpty(identityCard)){
-			SysqApplication.showMessage("身份证号码不能为空");
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码不能为空");
 			return;
 		}
-		if(!CommonUtils.test("[0-9A-Za-z]{18}", identityCard)){
-			SysqApplication.showMessage("身份证号码格式不正确");
+		if(!CommonUtils.checkIdentityCard(identityCard)){
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码格式不正确");
 			return;
 		}
+		
+		//身份证：本地校验
 		List<Interviewee> intervieweeList = InterviewService.getAllInterviewee();
 		if(intervieweeList != null && intervieweeList.size() > 0){
 			for(Interviewee existInterviewee : intervieweeList){
-				if(!identityCard.equals(interviewee.getIdentityCard()) && identityCard.equals(existInterviewee.getIdentityCard())){
-					SysqApplication.showMessage("身份证号码已存在");
+				if(identityCard.equals(existInterviewee.getIdentityCard()) && !identityCard.equals(interviewee.getIdentityCard())){
+					CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码在本地已存在");
 					return;
 				}
 			}
 		}
+		
+		//身份证：远程校验
+		if(!identityCard.equals(interviewee.getIdentityCard())){
+			List<Map<String,String>> patient4Old = MysqlUtils.selectPatientByIdentityCard(identityCard);
+			if(patient4Old != null && patient4Old.size() > 0){
+				CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码在本期远程库里已存在");
+				return;
+			}
+		}
+		
+		//身份证：一期校验
+		if(!identityCard.equals(interviewee.getIdentityCard())){
+			List<Map<String,String>> patient4Old = MysqlUtils.selectPatientByIdentityCard4Old(identityCard);
+			if(patient4Old != null && patient4Old.size() > 0){
+				CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码在一期库里已存在");
+				return;
+			}
+		}
+		
 		interviewee.setIdentityCard(identityCard);
 		
 		//省/自治区/直辖市
 		EditText provinceET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_province);
 		String province = provinceET.getText().toString().trim();
 		if(StringUtils.isEmpty(province)){
-			SysqApplication.showMessage("省/自治区/直辖市不能为空");
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "省/自治区/直辖市不能为空");
 			return;
 		}
 		interviewee.setProvince(province);
@@ -151,7 +209,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		EditText cityET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_city);
 		String city = cityET.getText().toString().trim();
 		if(StringUtils.isEmpty(city)){
-			SysqApplication.showMessage("市/县/区不能为空");
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "市/县/区不能为空");
 			return;
 		}
 		interviewee.setCity(city);
@@ -160,7 +218,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		EditText addressET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_address);
 		String address = addressET.getText().toString().trim();
 		if(StringUtils.isEmpty(address)){
-			SysqApplication.showMessage("联系地址不能为空");
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "联系地址不能为空");
 			return;
 		}
 		interviewee.setAddress(address);
@@ -169,11 +227,11 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		EditText postCodeET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_post_code);
 		String postCode = postCodeET.getText().toString().trim();
 		if(StringUtils.isEmpty(postCode)){
-			SysqApplication.showMessage("邮政编码不能为空");
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "邮政编码不能为空");
 			return;
 		}
 		if(!CommonUtils.test("[0-9]{6}", postCode)){
-			SysqApplication.showMessage("邮政编码格式不正确");
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "邮政编码格式不正确");
 			return;
 		}
 		interviewee.setPostCode(postCode);
@@ -182,11 +240,11 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		EditText mobileET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_mobile);
 		String mobile = mobileET.getText().toString().trim();
 		if(StringUtils.isEmpty(mobile)){
-			SysqApplication.showMessage("联系电话不能为空");
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "联系电话不能为空");
 			return;
 		}
 		if(!CommonUtils.test("[0-9]{10,12}", mobile)){
-			SysqApplication.showMessage("联系电话格式不正确");
+			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "联系电话格式不正确");
 			return;
 		}
 		interviewee.setMobile(mobile);
@@ -201,7 +259,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		String familyMobile = familyMobileET.getText().toString().trim();
 		if(!StringUtils.isEmpty(familyMobile)){
 			if(!CommonUtils.test("[0-9]{10,12}", familyMobile)){
-				SysqApplication.showMessage("本地亲属联系电话格式不正确");
+				CommonUtils.sendMessage(handler, MESSAGE_TOAST, "本地亲属联系电话格式不正确");
 				return;
 			}
 		}
@@ -218,7 +276,7 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		
 		//保存
 		InterviewService.updateInterviewee(interviewee);
-		SysqApplication.showMessage("保存成功");
+		CommonUtils.sendMessage(handler, MESSAGE_TOAST, "保存成功");
 	}
 
 }

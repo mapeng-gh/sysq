@@ -57,10 +57,7 @@
          <activity android:name=".activity.reservation.ReservationListActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>
          
          <!-- interview -->
-         <activity android:name=".activity.interview.InterviewerBasicActivity" android:screenOrientation="portrait"></activity>
-         
-         <activity android:name=".activity.interview.InterviewerDNAActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden"></activity>
-        
+         <activity android:name=".activity.interview.IntervieweBasicActivity" android:screenOrientation="portrait"></activity>
          <activity android:name=".activity.interview.InterviewActivity" android:screenOrientation="landscape" android:configChanges="screenSize|keyboardHidden|orientation"></activity>
          
          <!-- 个人中心 -->

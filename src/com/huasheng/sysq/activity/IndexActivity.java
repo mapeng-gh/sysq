@@ -16,14 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huasheng.sysq.R;
-import com.huasheng.sysq.activity.interview.InterviewerBasicActivity;
+import com.huasheng.sysq.activity.interview.IntervieweBasicActivity;
 import com.huasheng.sysq.activity.interviewee.IntervieweeActivity;
 import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 import com.huasheng.sysq.activity.settings.SettingsNavActivity;
 import com.huasheng.sysq.activity.usercenter.UserCenterNavActivity;
 import com.huasheng.sysq.util.DialogUtils;
-import com.huasheng.sysq.util.PackageUtils;
 import com.huasheng.sysq.util.update.UpdateConstants;
 import com.huasheng.sysq.util.update.UpdateUtils;
 import com.huasheng.sysq.util.upload.UploadConstants;
@@ -146,7 +145,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 			this.update();
 			
 		}else if(view.getId() == R.id.ll_index_interview){//开始访谈
-			Intent intent = new Intent(this,InterviewerBasicActivity.class);
+			Intent intent = new Intent(this,IntervieweBasicActivity.class);
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_usercenter){//个人中心
