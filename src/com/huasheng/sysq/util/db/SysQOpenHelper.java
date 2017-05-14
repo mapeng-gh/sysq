@@ -1,25 +1,16 @@
 package com.huasheng.sysq.util.db;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import com.huasheng.sysq.util.PathConstants;
-import com.huasheng.sysq.util.SysqApplication;
-import com.huasheng.sysq.util.log.LogUtils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.huasheng.sysq.util.PathConstants;
+import com.huasheng.sysq.util.SqliteUtils;
+import com.huasheng.sysq.util.SysqApplication;
 
 
 public class SysQOpenHelper extends SQLiteOpenHelper{
@@ -65,55 +56,6 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	}
 	
 	/**
-	 * 插入数据文件
-	 * @param dataFilePath
-	 * @throws FileNotFoundException 
-	 */
-	public static void insert(String dataFilePath,SQLiteDatabase db){
-		LogUtils.info(TAG, "data file '" + dataFilePath + "' is inserting");
-		InputStream is = null;
-		try{
-			is = new FileInputStream(new File(dataFilePath));
-			insert(new FileInputStream(new File(dataFilePath)),db);
-			LogUtils.info(TAG, "data file '" + dataFilePath + "' is inserted");
-		}catch(Exception e){
-			throw new RuntimeException("insert data file error : " + dataFilePath, e);
-		}finally{
-			if(is != null){
-				try{
-					is.close();
-				}catch(Exception e){}
-			}
-		}
-	}
-	
-	/**
-	 * 插入数据文件流
-	 * @param is
-	 */
-	private static void insert(InputStream is,SQLiteDatabase db){
-		try{
-			List<String> lines = IOUtils.readLines(is, "UTF-8");
-			if(lines == null || lines.size() <= 0){
-				LogUtils.warn(TAG,"数据文件为空");
-				return;
-			}
-			for(String line : lines){
-				if(!StringUtils.isEmpty(line) && !line.startsWith("--")){
-					try{
-						db.execSQL(line);
-					}catch(SQLException e){
-						throw new RuntimeException("sql error : [" + line +"]", e);
-					}
-					
-				}
-			}
-		}catch(Exception e){
-			throw new RuntimeException("read lines error", e);
-		}
-	}
-
-	/**
 	 * 数据库数据初始化
 	 * @param db
 	 */
@@ -122,16 +64,12 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 		String[] dataFiles = new String[]{"data/interviewer.sql","data/version.sql","data/questionaire.sql","data/question.sql","data/answer.sql"};
 		AssetManager assetManager = SysqApplication.getContext().getAssets();
 		for(String dataFile : dataFiles){
-			LogUtils.info(TAG, "data file '" + dataFile + "' is inserting");
 			InputStream is = null;
 			try{
 				is = assetManager.open(dataFile);
-				insert(is,db);
-				LogUtils.info(TAG, "data file '" + dataFile + "' is inserted");
-			}catch(IOException e){
-				throw new RuntimeException("open data file error : " + dataFile, e);
-			}catch(RuntimeException e){
-				throw e;
+				SqliteUtils.execSQL(db, is);
+			}catch(Exception e){
+				throw new RuntimeException("初始化数据失败："+e.getMessage(),e);
 			}finally{
 				if(is != null){
 					try{

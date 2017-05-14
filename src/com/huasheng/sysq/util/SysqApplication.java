@@ -5,6 +5,8 @@ import java.io.InputStream;
 
 import org.apache.commons.io.FileUtils;
 
+import com.huasheng.sysq.util.db.SysQOpenHelper;
+
 import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
@@ -22,8 +24,22 @@ public class SysqApplication extends Application{
 		
 		//初始化配置
 		initConfig();
+		
+		//初始化数据库
+		initDB();
 	}
 	
+	/**
+	 * 初始化数据库
+	 */
+	private void initDB(){
+		SysQOpenHelper.getDatabase();
+		DialogUtils.showLongToast(context, "数据库初始化完成");
+	}
+	
+	/**
+	 * 初始化配置
+	 */
 	private void initConfig(){
 		
 		InputStream is = null;
