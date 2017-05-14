@@ -114,6 +114,53 @@ function getLocalAnswerValue(){
 }
 
 /**
+ * 设置答案值
+ * @param code
+ * @param value
+ */
+function setAnswerValue(code,value){
+	
+	$("div.answer").each(function(){
+		var $answer = $(this);
+		
+		if($answer.data("code") == code){
+			
+			//跳过隐藏答案
+			if($answer.hasClass("nodisplay")){
+				return;
+			}
+			
+			var type = $answer.data("type");
+			
+			if(type == "text"){//文本域
+				var $textarea = $answer.find("textarea");
+				$textarea.val(value);
+			}else if(type =="spinbox"){//数字框
+				var $number = $answer.find("input[type='number']");
+				$number.val(value);
+			}else if(type == "radiogroup"){//单选框
+				var $radio = $answer.find("input[type='radio'][value='"+value+"']");
+				$radio.attr("checked","checked");
+			}else if(type == "checkbox"){//复选框
+				var valueArray = value.split(",");
+				$answer.find("input[type=checkbox]:checked").attr("checked",""); //清空默认选项
+				$.each(valueArray,function(index,element){
+					$answer.find("input[type=checkbox][value='"+element+"']").attr("checked","checked");
+				});
+			}else if(type == "dropdownlist"){//下拉框
+				var $select = $answer.find("select");
+				$select.val(value);
+			}else if(type == "calendar"){//日历框
+				var $date = $answer.find("input[type='date']");
+				$date.val(value);
+			}
+			
+		}
+	});
+}
+
+
+/**
  * 获取答案值
  * @param answerCode
  */
