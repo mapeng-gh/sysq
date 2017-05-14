@@ -42,7 +42,7 @@ public class MysqlUtils {
 				}
 			}catch(Exception sqle){
 			}
-			throw new RuntimeException("获取mysql连接：打开连接失败（"+e.getMessage()+"）");
+			throw new RuntimeException("获取mysql连接：打开连接失败");
 		}
 		return conn;
 	}

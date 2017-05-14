@@ -114,7 +114,7 @@ public class InterviewService {
 	 * @return
 	 */
 	public static List<InterviewBasicWrap> getAllInterviewBasic(){
-		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList();
+		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList(SysqContext.getCurrentVersion().getId());
 		List<InterviewBasicWrap> interviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
 		if(interviewBasicList != null && interviewBasicList.size() > 0){
 			for(InterviewBasic interviewBasic : interviewBasicList){
@@ -144,7 +144,7 @@ public class InterviewService {
 		page.setPageNo(pageNo);
 		page.setPageSize(pageSize);
 		
-		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList();
+		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList(SysqContext.getCurrentVersion().getId());
 		
 		//无数据
 		if(interviewBasicList == null || interviewBasicList.size() <= 0){

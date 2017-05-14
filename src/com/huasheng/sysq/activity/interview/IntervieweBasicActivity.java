@@ -91,31 +91,36 @@ public class IntervieweBasicActivity extends Activity implements OnClickListener
 			@Override
 			public void run() {
 				
-				//表单校验
-				if(checkInterviewFormData() == false){
-					return;
-				}
-				
-				//身份证：mysql库排重（一期）
-				EditText identityCardET = (EditText)findViewById(R.id.interviewer_basic_identity_card);
-				String identityCard = identityCardET.getText().toString().trim();
-				List<Map<String,String>> patient4Old = MysqlUtils.selectPatientByIdentityCard4Old(identityCard);
-				if(patient4Old != null && patient4Old.size() > 0){//身份证
-					CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码在一期库里已存在");
-					return;
-				}
-				
-				EditText userNameET = (EditText)findViewById(R.id.interviewer_basic_username);
-				String userName = userNameET.getText().toString().trim();
-				patient4Old = MysqlUtils.selectPatientByName4Old(userName);
-				if(patient4Old == null || patient4Old.size() == 0){//姓名
-					newInterviewBasic();
-				}else{
-					View view = LayoutInflater.from(IntervieweBasicActivity.this).inflate(R.layout.interview_dialog, null);
-					ListView dialogLV = (ListView)view.findViewById(R.id.interviewDialogLV);
-					InterviewDialogAdapter dialogAdapter = new InterviewDialogAdapter(IntervieweBasicActivity.this,R.layout.item_interview_dialog,patient4Old);
-					dialogLV.setAdapter(dialogAdapter);
-					CommonUtils.sendMessage(handler, MESSAGE_DIALOG,view);
+				try{
+					
+					//表单校验
+					if(checkInterviewFormData() == false){
+						return;
+					}
+					
+					//身份证：mysql库排重（一期）
+					EditText identityCardET = (EditText)findViewById(R.id.interviewer_basic_identity_card);
+					String identityCard = identityCardET.getText().toString().trim();
+					List<Map<String,String>> patient4Old = MysqlUtils.selectPatientByIdentityCard4Old(identityCard);
+					if(patient4Old != null && patient4Old.size() > 0){//身份证
+						CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码在一期库里已存在");
+						return;
+					}
+					
+					EditText userNameET = (EditText)findViewById(R.id.interviewer_basic_username);
+					String userName = userNameET.getText().toString().trim();
+					patient4Old = MysqlUtils.selectPatientByName4Old(userName);
+					if(patient4Old == null || patient4Old.size() == 0){//姓名
+						newInterviewBasic();
+					}else{
+						View view = LayoutInflater.from(IntervieweBasicActivity.this).inflate(R.layout.interview_dialog, null);
+						ListView dialogLV = (ListView)view.findViewById(R.id.interviewDialogLV);
+						InterviewDialogAdapter dialogAdapter = new InterviewDialogAdapter(IntervieweBasicActivity.this,R.layout.item_interview_dialog,patient4Old);
+						dialogLV.setAdapter(dialogAdapter);
+						CommonUtils.sendMessage(handler, MESSAGE_DIALOG,view);
+					}
+				}catch(Exception e){
+					CommonUtils.sendMessage(handler, MESSAGE_TOAST, "新建访谈记录失败：" + e.getMessage());
 				}
 			}
 		}).start();

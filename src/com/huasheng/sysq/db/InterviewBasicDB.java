@@ -33,9 +33,9 @@ public class InterviewBasicDB {
 		return interviewBasic;
 	}
 	
-	public static List<InterviewBasic> getList(){
+	public static List<InterviewBasic> getList(int versionId){
 		List<InterviewBasic> interviewBasicList = new ArrayList<InterviewBasic>();
-		Cursor cursor = SysQOpenHelper.getDatabase().query(DBConstants.TABLE_INTERVIEW_BASIC, null, null, null, null, null,null);
+		Cursor cursor = SysQOpenHelper.getDatabase().query(DBConstants.TABLE_INTERVIEW_BASIC, null, "version_id = ?", new String[]{versionId + ""}, null, null,null);
 		while(cursor.moveToNext()){
 			InterviewBasic interviewBasic = fillObjectFromDB(cursor);
 			interviewBasicList.add(interviewBasic);

@@ -170,25 +170,31 @@ public class IndexActivity extends Activity implements OnClickListener{
 	 */
 	private void update(){
 		
-		AlertDialog.Builder updateBuilder = new AlertDialog.Builder(this);
-		updateBuilder.setTitle("系统更新");
-		TextView tv = new TextView(this);
-		tv.setId(1);
-		tv.setTextSize(20);
-		updateBuilder.setView(tv);
-		updateBuilder.setPositiveButton("关闭", null);
-		updateDialog = updateBuilder.create();
-		updateDialog.setCancelable(false);
-		updateDialog.setCanceledOnTouchOutside(false);
-		updateDialog.show();
-		updateDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
-		
-		new Thread(new Runnable() {
+		DialogUtils.showConfirmDialog(this, "升级系统前请您确定是否数据已经全部上传？", new DialogInterface.OnClickListener() {
 			@Override
-			public void run() {
-				UpdateUtils.update(IndexActivity.this,updateHandler);
+			public void onClick(DialogInterface dialog, int which) {
+				
+				AlertDialog.Builder updateBuilder = new AlertDialog.Builder(IndexActivity.this);
+				updateBuilder.setTitle("系统更新");
+				TextView tv = new TextView(IndexActivity.this);
+				tv.setId(1);
+				tv.setTextSize(20);
+				updateBuilder.setView(tv);
+				updateBuilder.setPositiveButton("关闭", null);
+				updateDialog = updateBuilder.create();
+				updateDialog.setCancelable(false);
+				updateDialog.setCanceledOnTouchOutside(false);
+				updateDialog.show();
+				updateDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+				
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						UpdateUtils.update(IndexActivity.this,updateHandler);
+					}
+				}).start();
 			}
-		}).start();
+		});
 	}
 	
 	/**

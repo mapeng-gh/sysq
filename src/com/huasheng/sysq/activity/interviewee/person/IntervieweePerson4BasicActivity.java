@@ -128,7 +128,11 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				doSaveIntervieweePerson4Basic();
+				try{
+					doSaveIntervieweePerson4Basic();
+				}catch(Exception e){
+					CommonUtils.sendMessage(handler, MESSAGE_TOAST, "修改受访者个人信息失败：" + e.getMessage());
+				}
 			}
 		}).start();
 		
