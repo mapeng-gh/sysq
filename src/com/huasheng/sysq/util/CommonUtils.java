@@ -125,7 +125,9 @@ public class CommonUtils {
 		//基本组成以及位数校验
 		if(!test("^[0-9]{17}[0-9X]$",identityCard))	return false;
 		
-		//校验和
+		return true;
+		
+		/*//校验和
 		String before17 = identityCard.substring(0, 17);
 		String last = identityCard.charAt(17)+"";
 		
@@ -155,7 +157,7 @@ public class CommonUtils {
 		mapConstant.put("10","2");
 		result = mapConstant.get(yushu+"");
 		
-		return result.equals(last);
+		return result.equals(last);*/
 	}
 	
 	/**

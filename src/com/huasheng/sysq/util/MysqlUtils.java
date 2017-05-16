@@ -30,11 +30,16 @@ public class MysqlUtils {
 			throw new RuntimeException("获取mysql连接：配置不正确");
 		}
 		
+		//检查网络环境
+		if(!NetworkUtils.isNetworkEnable(SysqApplication.getContext())){
+			throw new RuntimeException("获取连接失败：当前网络不可用");
+		}
+		
 		//获取连接
 		Connection conn = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+db, username, password);
+			conn = DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+db+"?connectTimeout=3000", username, password);
 		}catch(Exception e){
 			try{
 				if(conn != null){
