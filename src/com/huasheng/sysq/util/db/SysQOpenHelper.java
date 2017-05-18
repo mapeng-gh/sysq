@@ -1,5 +1,6 @@
 package com.huasheng.sysq.util.db;
 
+import java.io.File;
 import java.io.InputStream;
 
 import android.content.Context;
@@ -50,7 +51,7 @@ public class SysQOpenHelper extends SQLiteOpenHelper{
 	 */
 	public static SQLiteDatabase getDatabase(){
 		if(db == null){
-			db = new SysQOpenHelper(SysqApplication.getContext(),PathConstants.getDBPath(),null,DBConstants.VERSION).getWritableDatabase();
+			db = new SysQOpenHelper(SysqApplication.getContext(),PathConstants.getDBDir()+File.separator+"sysq.db",null,DBConstants.VERSION).getWritableDatabase();
 		}
 		return db;
 	}

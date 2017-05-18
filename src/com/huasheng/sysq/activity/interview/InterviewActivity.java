@@ -72,6 +72,8 @@ public class InterviewActivity extends Activity{
 		
 		interviewWV.getSettings().setAllowFileAccessFromFileURLs(true);
 		
+		interviewWV.getSettings().setDefaultTextEncodingName("utf-8");
+		
 		this.setWebChromeClient4WebView();
 		
 		interviewWV.setWebViewClient(new WebViewClient(){

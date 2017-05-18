@@ -1,7 +1,6 @@
 package com.huasheng.sysq.util;
 
 import java.io.File;
-import java.io.IOException;
 
 import android.os.Environment;
 
@@ -11,19 +10,19 @@ import android.os.Environment;
  *
  */
 public class PathConstants {
-
+	
 	/**
-	 * 获取数据库路径
+	 * 获取数据库目录
 	 * @return
 	 */
-	public static String getDBPath(){
+	public static String getDBDir(){
 		File dbDir = new File(Environment.getExternalStorageDirectory() + File.separator + "sysq" + File.separator + "db");
 		if(!dbDir.exists()){
 			dbDir.mkdirs();
 		}
-		return dbDir.getPath() + File.separator + "sysq.db";
+		return dbDir.getAbsolutePath();
 	}
-	
+
 	/**
 	 * 获取多媒体目录
 	 * @return

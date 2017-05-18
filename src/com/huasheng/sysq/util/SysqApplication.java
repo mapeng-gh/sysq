@@ -23,34 +23,62 @@ public class SysqApplication extends Application{
 		context = getApplicationContext();
 		
 		//初始化配置
-		initConfig();
+		initFtpConfig();
+		initMysqlConfig();
 		
-		//初始化数据库
+		//初始化问卷
 		initDB();
 	}
 	
-	/**
-	 * 初始化数据库
-	 */
 	private void initDB(){
+		
+		//检测是否已经初始化
+		File sqliteDBFile = new File(PathConstants.getDBDir(),"sysq.db");
+		if(sqliteDBFile.exists())	return;
+		
+		//初始化
 		SysQOpenHelper.getDatabase();
-		DialogUtils.showLongToast(context, "数据库初始化完成");
+		DialogUtils.showLongToast(context,"问卷初始化完成");
 	}
 	
-	/**
-	 * 初始化配置
-	 */
-	private void initConfig(){
+	private void initFtpConfig(){
 		
+		//检测是否已经初始化
+		File ftpConfigFile = new File(PathConstants.getSettingsDir(),"ftp.config");
+		if(ftpConfigFile.exists())	return;
+		
+		//初始化
 		InputStream is = null;
 		try{
 			is = AssetUtils.openAsStream(context, "config" + File.separator + "ftp.config");
 			FileUtils.copyInputStreamToFile(is, new File(PathConstants.getSettingsDir(),"ftp.config"));
 			
+			DialogUtils.showLongToast(context,"Ftp配置初始化完成");
+		}catch(Exception e){
+			DialogUtils.showLongToast(context,e.getMessage());
+		}finally{
+			try{
+				if(is != null){
+					is.close();
+				}
+			}catch(Exception e){
+			}
+		}
+	}
+	
+	private void initMysqlConfig(){
+		
+		//检测是否已经初始化
+		File mysqlConfigFile = new File(PathConstants.getSettingsDir(),"db.config");
+		if(mysqlConfigFile.exists())	return;
+		
+		//初始化
+		InputStream is = null;
+		try{
 			is = AssetUtils.openAsStream(context, "config" + File.separator + "db.config");
 			FileUtils.copyInputStreamToFile(is, new File(PathConstants.getSettingsDir(),"db.config"));
 			
-			DialogUtils.showLongToast(context,"配置初始化完成");
+			DialogUtils.showLongToast(context,"Mysql配置初始化完成");
 		}catch(Exception e){
 			DialogUtils.showLongToast(context,e.getMessage());
 		}finally{
