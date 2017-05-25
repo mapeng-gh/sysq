@@ -153,39 +153,32 @@ public class InterviewService {
 			return page;
 		}
 		
-		//转化wrap
-		List<InterviewBasicWrap> interviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
-		for(InterviewBasic interviewBasic : interviewBasicList){
-			InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
-			interviewBasicWrap.setInterviewBasic(interviewBasic);
-			interviewBasicWrap.setInterviewee(IntervieweeDB.selectById(interviewBasic.getIntervieweeId()));
-			interviewBasicWrap.setInterviewer(InterviewerDB.selectById(interviewBasic.getInterviewerId()));
-			interviewBasicWrapList.add(interviewBasicWrap);
-		}
-		
 		//过滤
-		List<InterviewBasicWrap> data =  new ArrayList<InterviewBasicWrap>();
+		List<InterviewBasic> interviewBasicFilterList = new ArrayList<InterviewBasic>();
 		if(StringUtils.isEmpty(searchStr)){
-			data.addAll(interviewBasicWrapList);
+			interviewBasicFilterList.addAll(interviewBasicList);
 		}else{
-			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-				if(interviewBasicWrap.getInterviewee().getUsername().contains(searchStr)){//姓名
-					data.add(interviewBasicWrap);
+			for(InterviewBasic interviewBasic : interviewBasicList){
+				Interviewee interviewee = IntervieweeDB.selectById(interviewBasic.getIntervieweeId());
+				
+				if(interviewee.getUsername().contains(searchStr)){//姓名
+					interviewBasicFilterList.add(interviewBasic);
 					continue;
 				}
-				String dnas = interviewBasicWrap.getInterviewee().getDna();//DNA
+				
+				String dnas = interviewee.getDna();//DNA
 				if(!StringUtils.isEmpty(dnas)){
 					if(dnas.contains(",")){
 						String[] dnaArray = dnas.split(",");
 						for(String dna : dnaArray){
 							if(dna.contains(searchStr)){
-								data.add(interviewBasicWrap);
+								interviewBasicFilterList.add(interviewBasic);
 								break;
 							}
 						}
 					}else{
 						if(dnas.contains(searchStr)){
-							data.add(interviewBasicWrap);
+							interviewBasicFilterList.add(interviewBasic);
 							continue;
 						}
 					}
@@ -193,12 +186,31 @@ public class InterviewService {
 			}
 		}
 		
-		//分页
+		//无数据
+		if(interviewBasicFilterList == null || interviewBasicFilterList.size() <= 0){
+			page.setData(null);
+			page.setTotalPages(0);
+			return page;
+		}
+		
+		//获取分页数据
 		int start =  (pageNo - 1) * pageSize;
-		int end = pageNo * pageSize > data.size() ? data.size() : (start + pageSize);
-		int totalPages = data.size() % pageSize == 0 ? data.size() / pageSize : (data.size() / pageSize) + 1;
-		data = data.subList(start, end);
+		int end = pageNo * pageSize > interviewBasicFilterList.size() ? interviewBasicFilterList.size() : (start + pageSize);
+		List<InterviewBasic> interviewBasicPageList = interviewBasicFilterList.subList(start, end);
+		
+		//转化wrap
+		List<InterviewBasicWrap> data = new ArrayList<InterviewBasicWrap>();
+		for(InterviewBasic interviewBasic : interviewBasicPageList){
+			InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
+			interviewBasicWrap.setInterviewBasic(interviewBasic);
+			interviewBasicWrap.setInterviewee(IntervieweeDB.selectById(interviewBasic.getIntervieweeId()));
+			interviewBasicWrap.setInterviewer(InterviewerDB.selectById(interviewBasic.getInterviewerId()));
+			data.add(interviewBasicWrap);
+		}
 		page.setData(data);
+		
+		//获取分页总数
+		int totalPages = interviewBasicFilterList.size() % pageSize == 0 ? interviewBasicFilterList.size() / pageSize : (interviewBasicFilterList.size() / pageSize) + 1;
 		page.setTotalPages(totalPages);
 		
 		return page;
