@@ -14,9 +14,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -82,10 +82,21 @@ public class IntervieweBasicActivity extends Activity implements OnClickListener
 		}
 	}
 	
+	private void submitInterivewBasic(){
+		
+		//表单校验
+		if(!checkInterviewFormData()){
+			return;
+		}
+		
+		//新建访谈
+		newInterviewBasic();
+	}
+	
 	/**
 	 *  提交访谈基本信息
 	 */
-	private void submitInterivewBasic(){
+	private void submitInterivewBasic2(){
 		
 		new Thread(new Runnable() {
 			@Override
@@ -170,11 +181,109 @@ public class IntervieweBasicActivity extends Activity implements OnClickListener
 		IntervieweBasicActivity.this.startActivity(interviewIntent);
 	}
 	
+	private boolean checkInterviewFormData(){
+		
+		//姓名
+		EditText userNameET = (EditText)findViewById(R.id.interviewer_basic_username);
+		String userName = userNameET.getText().toString().trim();
+		if(StringUtils.isEmpty(userName)){
+			DialogUtils.showLongToast(this, "姓名不能为空");
+			return false;
+		}
+		if(userName.length() < 2){
+			DialogUtils.showLongToast(this, "姓名至少为两个汉字");
+			return false;
+		}
+		
+		//身份证：基本格式校验
+		EditText identityCardET = (EditText)findViewById(R.id.interviewer_basic_identity_card);
+		String identityCard = identityCardET.getText().toString().trim();
+		if(StringUtils.isEmpty(identityCard)){
+			DialogUtils.showLongToast(this, "身份证号码不能为空");
+			return false;
+		}
+		if(!CommonUtils.checkIdentityCard(identityCard)){
+			DialogUtils.showLongToast(this, "身份证号码格式不正确");
+			return false;
+		}
+		
+		//身份证：本地库排重
+		List<Interviewee> intervieweeList = InterviewService.getAllInterviewee();
+		if(intervieweeList != null && intervieweeList.size() > 0){
+			for(Interviewee existInterviewee : intervieweeList){
+				if(identityCard.equals(existInterviewee.getIdentityCard())){
+					DialogUtils.showLongToast(this, "身份证号码在本地已存在");
+					return false;
+				}
+			}
+		}
+		
+		//省/自治区/直辖市
+		EditText provinceET = (EditText)findViewById(R.id.interviewer_basic_province);
+		String province = provinceET.getText().toString().trim();
+		if(StringUtils.isEmpty(province)){
+			DialogUtils.showLongToast(this, "省/自治区/直辖市不能为空");
+			return false;
+		}
+		
+		//市/县/区
+		EditText cityET = (EditText)findViewById(R.id.interviewer_basic_city);
+		String city = cityET.getText().toString().trim();
+		if(StringUtils.isEmpty(city)){
+			DialogUtils.showLongToast(this, "市/县/区不能为空");
+			return false;
+		}
+		
+		//联系地址
+		EditText addressET = (EditText)findViewById(R.id.interviewer_basic_address);
+		String address = addressET.getText().toString().trim();
+		if(StringUtils.isEmpty(address)){
+			DialogUtils.showLongToast(this, "联系地址不能为空");
+			return false;
+		}
+		
+		//邮政编码
+		EditText postCodeET = (EditText)findViewById(R.id.interviewer_basic_post_code);
+		String postCode = postCodeET.getText().toString().trim();
+		if(StringUtils.isEmpty(postCode)){
+			DialogUtils.showLongToast(this, "邮政编码不能为空");
+			return false;
+		}
+		if(!CommonUtils.test("[0-9]{6}", postCode)){
+			DialogUtils.showLongToast(this, "邮政编码格式不正确");
+			return false;
+		}
+		
+		//联系电话
+		EditText mobileET = (EditText)findViewById(R.id.interviewer_basic_mobile);
+		String mobile = mobileET.getText().toString().trim();
+		if(StringUtils.isEmpty(mobile)){
+			DialogUtils.showLongToast(this, "联系电话不能为空");
+			return false;
+		}
+		if(!CommonUtils.test("[0-9]{10,12}", mobile)){
+			DialogUtils.showLongToast(this, "联系电话格式不正确");
+			return false;
+		}
+		
+		//本地亲属联系电话
+		EditText familyMobileET = (EditText)findViewById(R.id.interviewer_basic_family_mobile);
+		String familyMobile = familyMobileET.getText().toString().trim();
+		if(!StringUtils.isEmpty(familyMobile)){
+			if(!CommonUtils.test("[0-9]{10,12}", familyMobile)){
+				DialogUtils.showLongToast(this, "本地亲属联系电话格式不正确");
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	/**
 	 * 表单校验
 	 * @return
 	 */
-	private boolean checkInterviewFormData(){
+	private boolean checkInterviewFormData2(){
 		
 		//姓名
 		EditText userNameET = (EditText)findViewById(R.id.interviewer_basic_username);

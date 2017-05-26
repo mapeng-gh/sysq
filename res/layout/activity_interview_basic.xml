@@ -36,7 +36,7 @@
 		           style="@style/interview_edittext"/>
 		       <TextView 
 		           style="@style/interview_hint"
-		           android:text="*至少为2个汉字"/>
+		           android:text="*必填 至少为2个汉字"/>
             
         </LinearLayout>
         
@@ -61,7 +61,7 @@
 		           style="@style/interview_edittext"/>
 		       <TextView 
 		           style="@style/interview_hint"
-		           android:text="*18位数字或字母的组合"/>
+		           android:text="*必填 18位数字或字母的组合"/>
             
         </LinearLayout>
         
@@ -86,7 +86,7 @@
 		           style="@style/interview_edittext"/>
 		       <TextView 
 		           style="@style/interview_hint"
-		           android:text="*"/>
+		           android:text="*必填"/>
             
         </LinearLayout>
         
@@ -111,7 +111,7 @@
 		           style="@style/interview_edittext"/>
 		       <TextView 
 		           style="@style/interview_hint"
-		           android:text="*"/>
+		           android:text="*必填"/>
             
         </LinearLayout>
         
@@ -136,7 +136,7 @@
 		           style="@style/interview_edittext"/>
 		       <TextView 
 		           style="@style/interview_hint"
-		           android:text="*"/>
+		           android:text="*必填"/>
             
         </LinearLayout>
         
@@ -161,7 +161,7 @@
 		           style="@style/interview_edittext"/>
 		       <TextView 
 		           style="@style/interview_hint"
-		           android:text="*6位数字"/>
+		           android:text="*必填 6位数字"/>
             
         </LinearLayout>
         
@@ -186,7 +186,7 @@
 		           style="@style/interviewee_questionaire_basic_edittext"/>
 		       <TextView 
 		           style="@style/interview_hint"
-		           android:text="*10-12位数字（支持手机、座机，座机须带区号）"/>
+		           android:text="*必填 10-12位数字（支持手机、座机，座机须带区号）"/>
             
         </LinearLayout>
         
@@ -278,7 +278,7 @@
 		        </RadioGroup>
 		       <TextView 
 		           style="@style/interview_hint"
-		           android:text="*"/>
+		           android:text="*必填"/>
             
         </LinearLayout>
         
@@ -319,7 +319,7 @@
 		        </RadioGroup>
 		       <TextView 
 		           style="@style/interview_hint"
-		           android:text="*"/>
+		           android:text="*必填"/>
             
         </LinearLayout>
         

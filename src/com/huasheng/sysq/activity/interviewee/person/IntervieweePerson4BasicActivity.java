@@ -24,7 +24,6 @@ import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.DialogUtils;
 import com.huasheng.sysq.util.MysqlUtils;
-import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.upload.UploadConstants;
 
 public class IntervieweePerson4BasicActivity extends Activity implements OnClickListener{
@@ -119,10 +118,137 @@ public class IntervieweePerson4BasicActivity extends Activity implements OnClick
 		remarkET.setText(interviewee.getRemark());
 	}
 	
+	private void saveIntervieweePerson4Basic(){
+		
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		Interviewee interviewee = interviewBasicWrap.getInterviewee();
+		
+		//姓名
+		EditText userNameET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_username);
+		String userName = userNameET.getText().toString().trim();
+		if(StringUtils.isEmpty(userName)){
+			DialogUtils.showLongToast(this, "姓名不能为空");
+			return;
+		}
+		if(userName.length() < 2){
+			DialogUtils.showLongToast(this, "姓名至少为两个汉字");
+			return;
+		}
+		interviewee.setUsername(userName);
+		
+		//身份证号码
+		EditText identityCardET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_identity_card);
+		String identityCard = identityCardET.getText().toString().trim();
+		if(StringUtils.isEmpty(identityCard)){
+			DialogUtils.showLongToast(this, "身份证号码不能为空");
+			return;
+		}
+		if(!CommonUtils.checkIdentityCard(identityCard)){
+			DialogUtils.showLongToast(this, "身份证号码格式不正确");
+			return;
+		}
+		
+		//身份证：本地校验
+		if(!identityCard.equals(interviewee.getIdentityCard())){
+			List<Interviewee> intervieweeList = InterviewService.getAllInterviewee();
+			if(intervieweeList != null && intervieweeList.size() > 0){
+				for(Interviewee existInterviewee : intervieweeList){
+					if(identityCard.equals(existInterviewee.getIdentityCard()) && !identityCard.equals(interviewee.getIdentityCard())){
+						DialogUtils.showLongToast(this, "身份证号码在本地已存在");
+						return;
+					}
+				}
+			}
+		}
+		interviewee.setIdentityCard(identityCard);
+		
+		//省/自治区/直辖市
+		EditText provinceET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_province);
+		String province = provinceET.getText().toString().trim();
+		if(StringUtils.isEmpty(province)){
+			DialogUtils.showLongToast(this, "省/自治区/直辖市不能为空");
+			return;
+		}
+		interviewee.setProvince(province);
+		
+		//市/县/区
+		EditText cityET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_city);
+		String city = cityET.getText().toString().trim();
+		if(StringUtils.isEmpty(city)){
+			DialogUtils.showLongToast(this, "市/县/区不能为空");
+			return;
+		}
+		interviewee.setCity(city);
+		
+		//联系地址
+		EditText addressET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_address);
+		String address = addressET.getText().toString().trim();
+		if(StringUtils.isEmpty(address)){
+			DialogUtils.showLongToast(this, "联系地址不能为空");
+			return;
+		}
+		interviewee.setAddress(address);
+		
+		//邮政编码
+		EditText postCodeET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_post_code);
+		String postCode = postCodeET.getText().toString().trim();
+		if(StringUtils.isEmpty(postCode)){
+			DialogUtils.showLongToast(this, "邮政编码不能为空");
+			return;
+		}
+		if(!CommonUtils.test("[0-9]{6}", postCode)){
+			DialogUtils.showLongToast(this, "邮政编码格式不正确");
+			return;
+		}
+		interviewee.setPostCode(postCode);
+		
+		//联系电话
+		EditText mobileET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_mobile);
+		String mobile = mobileET.getText().toString().trim();
+		if(StringUtils.isEmpty(mobile)){
+			DialogUtils.showLongToast(this, "联系电话不能为空");
+			return;
+		}
+		if(!CommonUtils.test("[0-9]{10,12}", mobile)){
+			DialogUtils.showLongToast(this, "联系电话格式不正确");
+			return;
+		}
+		interviewee.setMobile(mobile);
+		
+		//本地亲属联系地址
+		EditText familyAddressET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_family_address);
+		String familyAddress = familyAddressET.getText().toString().trim();
+		interviewee.setFamilyAddress(familyAddress);
+		
+		//本地亲属联系电话
+		EditText familyMobileET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_family_mobile);
+		String familyMobile = familyMobileET.getText().toString().trim();
+		if(!StringUtils.isEmpty(familyMobile)){
+			if(!CommonUtils.test("[0-9]{10,12}", familyMobile)){
+				DialogUtils.showLongToast(this, "本地亲属联系电话格式不正确");
+				return;
+			}
+		}
+		interviewee.setFamilyMobile(familyMobile);
+		
+		//备注
+		EditText remarkET = (EditText)this.findViewById(R.id.et_interviewee_questionaire_basic_remark);
+		String remark = remarkET.getText().toString().trim();
+		interviewee.setRemark(remark);
+		
+		if(interviewee.getUploadStatus() == UploadConstants.upload_status_uploaded){
+			interviewee.setUploadStatus(UploadConstants.upload_status_modified);
+		}
+		
+		//保存
+		InterviewService.updateInterviewee(interviewee);
+		DialogUtils.showLongToast(this, "保存成功");
+	}
+	
 	/**
 	 * 保存基本信息
 	 */
-	private void saveIntervieweePerson4Basic(){
+	private void saveIntervieweePerson4Basic2(){
 		
 		//身份证校验需要远程校验，所以新开线程
 		new Thread(new Runnable() {
