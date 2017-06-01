@@ -10,8 +10,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,17 +27,13 @@ import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.DialogUtils;
-import com.huasheng.sysq.util.MysqlUtils;
+import com.huasheng.sysq.util.PatientsDataUtils;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.interview.InterviewConstants;
 import com.huasheng.sysq.util.interview.InterviewContext;
 import com.huasheng.sysq.util.upload.UploadConstants;
 
 public class IntervieweBasicActivity extends Activity implements OnClickListener{
-	
-	private Handler handler;
-	private static final int MESSAGE_TOAST = 1;
-	private static final int MESSAGE_DIALOG = 2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,31 +44,8 @@ public class IntervieweBasicActivity extends Activity implements OnClickListener
 		Button interviewBasicSubmitBtn = (Button)findViewById(R.id.interviewer_basic_submit_button);
 		interviewBasicSubmitBtn.setOnClickListener(this);
 		
-		handleMessage();
 	}
 	
-	private void handleMessage(){
-		handler = new Handler(){
-
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what == MESSAGE_TOAST){
-					DialogUtils.showLongToast(IntervieweBasicActivity.this, msg.obj.toString());
-				}else if(msg.what == MESSAGE_DIALOG){
-					AlertDialog dialog = DialogUtils.showCustomDialog(IntervieweBasicActivity.this, "请您核对本次访谈对象是否曾经被访谈过",(View)msg.obj,new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							newInterviewBasic();
-						}
-					});
-					WindowManager.LayoutParams params = dialog.getWindow().getAttributes();    
-					params.width = 1500;    
-					dialog.getWindow().setAttributes(params);
-				}
-			}
-		};
-	}
-
 	@Override
 	public void onClick(View view) {
 		if(view.getId() == R.id.interviewer_basic_submit_button){
@@ -82,61 +53,9 @@ public class IntervieweBasicActivity extends Activity implements OnClickListener
 		}
 	}
 	
-	private void submitInterivewBasic(){
-		
-		//表单校验
-		if(!checkInterviewFormData()){
-			return;
-		}
-		
-		//新建访谈
-		newInterviewBasic();
-	}
-	
 	/**
-	 *  提交访谈基本信息
+	 * 开始访谈
 	 */
-	private void submitInterivewBasic2(){
-		
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				
-				try{
-					
-					//表单校验
-					if(checkInterviewFormData() == false){
-						return;
-					}
-					
-					//身份证：mysql库排重（一期）
-					EditText identityCardET = (EditText)findViewById(R.id.interviewer_basic_identity_card);
-					String identityCard = identityCardET.getText().toString().trim();
-					List<Map<String,String>> patient4Old = MysqlUtils.selectPatientByIdentityCard4Old(identityCard);
-					if(patient4Old != null && patient4Old.size() > 0){//身份证
-						CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码在一期库里已存在");
-						return;
-					}
-					
-					EditText userNameET = (EditText)findViewById(R.id.interviewer_basic_username);
-					String userName = userNameET.getText().toString().trim();
-					patient4Old = MysqlUtils.selectPatientByName4Old(userName);
-					if(patient4Old == null || patient4Old.size() == 0){//姓名
-						newInterviewBasic();
-					}else{
-						View view = LayoutInflater.from(IntervieweBasicActivity.this).inflate(R.layout.interview_dialog, null);
-						ListView dialogLV = (ListView)view.findViewById(R.id.interviewDialogLV);
-						InterviewDialogAdapter dialogAdapter = new InterviewDialogAdapter(IntervieweBasicActivity.this,R.layout.item_interview_dialog,patient4Old);
-						dialogLV.setAdapter(dialogAdapter);
-						CommonUtils.sendMessage(handler, MESSAGE_DIALOG,view);
-					}
-				}catch(Exception e){
-					CommonUtils.sendMessage(handler, MESSAGE_TOAST, "新建访谈记录失败：" + e.getMessage());
-				}
-			}
-		}).start();
-	}
-	
 	private void newInterviewBasic(){
 		
 		//新建被访问者
@@ -181,18 +100,21 @@ public class IntervieweBasicActivity extends Activity implements OnClickListener
 		IntervieweBasicActivity.this.startActivity(interviewIntent);
 	}
 	
-	private boolean checkInterviewFormData(){
+	/**
+	 * 提交
+	 */
+	private void submitInterivewBasic(){
 		
 		//姓名
 		EditText userNameET = (EditText)findViewById(R.id.interviewer_basic_username);
 		String userName = userNameET.getText().toString().trim();
 		if(StringUtils.isEmpty(userName)){
 			DialogUtils.showLongToast(this, "姓名不能为空");
-			return false;
+			return;
 		}
 		if(userName.length() < 2){
 			DialogUtils.showLongToast(this, "姓名至少为两个汉字");
-			return false;
+			return;
 		}
 		
 		//身份证：基本格式校验
@@ -200,179 +122,113 @@ public class IntervieweBasicActivity extends Activity implements OnClickListener
 		String identityCard = identityCardET.getText().toString().trim();
 		if(StringUtils.isEmpty(identityCard)){
 			DialogUtils.showLongToast(this, "身份证号码不能为空");
-			return false;
+			return;
 		}
 		if(!CommonUtils.checkIdentityCard(identityCard)){
 			DialogUtils.showLongToast(this, "身份证号码格式不正确");
-			return false;
+			return;
 		}
 		
-		//身份证：本地库排重
-		List<Interviewee> intervieweeList = InterviewService.getAllInterviewee();
-		if(intervieweeList != null && intervieweeList.size() > 0){
-			for(Interviewee existInterviewee : intervieweeList){
-				if(identityCard.equals(existInterviewee.getIdentityCard())){
-					DialogUtils.showLongToast(this, "身份证号码在本地已存在");
-					return false;
+		//身份证排重
+		RadioButton isTrueRB = (RadioButton)findViewById(R.id.interviewer_dna_type_true);
+		if(isTrueRB.isChecked()){//测试数据不需排重
+			
+			//本地校验（身份证号码）
+			List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+			if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
+				for(InterviewBasicWrap existInterviewBasicWrap : interviewBasicWrapList){
+					if(existInterviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && identityCard.equals(existInterviewBasicWrap.getInterviewee().getIdentityCard())){
+						DialogUtils.showLongToast(this, "身份证号码在本地已存在");
+						return;
+					}
 				}
 			}
-		}
-		
-		//省/自治区/直辖市
-		EditText provinceET = (EditText)findViewById(R.id.interviewer_basic_province);
-		String province = provinceET.getText().toString().trim();
-		if(StringUtils.isEmpty(province)){
-			DialogUtils.showLongToast(this, "省/自治区/直辖市不能为空");
-			return false;
-		}
-		
-		//市/县/区
-		EditText cityET = (EditText)findViewById(R.id.interviewer_basic_city);
-		String city = cityET.getText().toString().trim();
-		if(StringUtils.isEmpty(city)){
-			DialogUtils.showLongToast(this, "市/县/区不能为空");
-			return false;
-		}
-		
-		//联系地址
-		EditText addressET = (EditText)findViewById(R.id.interviewer_basic_address);
-		String address = addressET.getText().toString().trim();
-		if(StringUtils.isEmpty(address)){
-			DialogUtils.showLongToast(this, "联系地址不能为空");
-			return false;
-		}
-		
-		//邮政编码
-		EditText postCodeET = (EditText)findViewById(R.id.interviewer_basic_post_code);
-		String postCode = postCodeET.getText().toString().trim();
-		if(StringUtils.isEmpty(postCode)){
-			DialogUtils.showLongToast(this, "邮政编码不能为空");
-			return false;
-		}
-		if(!CommonUtils.test("[0-9]{6}", postCode)){
-			DialogUtils.showLongToast(this, "邮政编码格式不正确");
-			return false;
-		}
-		
-		//联系电话
-		EditText mobileET = (EditText)findViewById(R.id.interviewer_basic_mobile);
-		String mobile = mobileET.getText().toString().trim();
-		if(StringUtils.isEmpty(mobile)){
-			DialogUtils.showLongToast(this, "联系电话不能为空");
-			return false;
-		}
-		if(!CommonUtils.test("[0-9]{10,12}", mobile)){
-			DialogUtils.showLongToast(this, "联系电话格式不正确");
-			return false;
-		}
-		
-		//本地亲属联系电话
-		EditText familyMobileET = (EditText)findViewById(R.id.interviewer_basic_family_mobile);
-		String familyMobile = familyMobileET.getText().toString().trim();
-		if(!StringUtils.isEmpty(familyMobile)){
-			if(!CommonUtils.test("[0-9]{10,12}", familyMobile)){
-				DialogUtils.showLongToast(this, "本地亲属联系电话格式不正确");
-				return false;
+			
+			//一期数据校验（身份证）
+			List<Map<String,String>> patientByIdentityCardList = PatientsDataUtils.getPatientListByIdentityCard(this, identityCard);
+			if(patientByIdentityCardList != null && patientByIdentityCardList.size() > 0){
+				DialogUtils.showLongToast(this, "身份证号码在一期库里已存在");
+				return;
 			}
+			
+			//一期数据校验（姓名）
+			List<Map<String,String>> patientByUsernameList = PatientsDataUtils.getPatientListByUsername(this, userName);
+			if(patientByUsernameList != null && patientByUsernameList.size() > 0){
+				View view = LayoutInflater.from(IntervieweBasicActivity.this).inflate(R.layout.interview_dialog, null);
+				ListView dialogLV = (ListView)view.findViewById(R.id.interviewDialogLV);
+				InterviewDialogAdapter dialogAdapter = new InterviewDialogAdapter(IntervieweBasicActivity.this,R.layout.item_interview_dialog,patientByUsernameList);
+				dialogLV.setAdapter(dialogAdapter);
+				AlertDialog dialog = DialogUtils.showCustomDialog(IntervieweBasicActivity.this, "请您核对本次访谈对象是否曾经被访谈过",view,"继续",new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						//后续校验
+						submitInterivewBasicAfterIdentityCard();
+					}
+				},"取消",null);
+				WindowManager.LayoutParams params = dialog.getWindow().getAttributes();    
+				params.width = 1500;    
+				dialog.getWindow().setAttributes(params);
+				
+			}else{
+				//后续校验
+				submitInterivewBasicAfterIdentityCard();
+			}
+			
+		}else{
+			//后续校验
+			submitInterivewBasicAfterIdentityCard();
 		}
-		
-		return true;
 	}
 	
-	/**
-	 * 表单校验
-	 * @return
-	 */
-	private boolean checkInterviewFormData2(){
-		
-		//姓名
-		EditText userNameET = (EditText)findViewById(R.id.interviewer_basic_username);
-		String userName = userNameET.getText().toString().trim();
-		if(StringUtils.isEmpty(userName)){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "姓名不能为空");
-			return false;
-		}
-		if(userName.length() < 2){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "姓名至少为两个汉字");
-			return false;
-		}
-		
-		//身份证：基本格式校验
-		EditText identityCardET = (EditText)findViewById(R.id.interviewer_basic_identity_card);
-		String identityCard = identityCardET.getText().toString().trim();
-		if(StringUtils.isEmpty(identityCard)){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码不能为空");
-			return false;
-		}
-		if(!CommonUtils.checkIdentityCard(identityCard)){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码格式不正确");
-			return false;
-		}
-		
-		//身份证：本地库排重
-		List<Interviewee> intervieweeList = InterviewService.getAllInterviewee();
-		if(intervieweeList != null && intervieweeList.size() > 0){
-			for(Interviewee existInterviewee : intervieweeList){
-				if(identityCard.equals(existInterviewee.getIdentityCard())){
-					CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码在本地已存在");
-					return false;
-				}
-			}
-		}
-		
-		//身份证：mysql库排重
-		List<Map<String,String>> patient4Old = MysqlUtils.selectPatientByIdentityCard(identityCard);
-		if(patient4Old != null && patient4Old.size() > 0){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "身份证号码在本期远程库里已存在");
-			return false;
-		}
+	private void submitInterivewBasicAfterIdentityCard(){
 		
 		//省/自治区/直辖市
 		EditText provinceET = (EditText)findViewById(R.id.interviewer_basic_province);
 		String province = provinceET.getText().toString().trim();
 		if(StringUtils.isEmpty(province)){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "省/自治区/直辖市不能为空");
-			return false;
+			DialogUtils.showLongToast(IntervieweBasicActivity.this, "省/自治区/直辖市不能为空");
+			return;
 		}
 		
 		//市/县/区
 		EditText cityET = (EditText)findViewById(R.id.interviewer_basic_city);
 		String city = cityET.getText().toString().trim();
 		if(StringUtils.isEmpty(city)){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "市/县/区不能为空");
-			return false;
+			DialogUtils.showLongToast(IntervieweBasicActivity.this, "市/县/区不能为空");
+			return;
 		}
 		
 		//联系地址
 		EditText addressET = (EditText)findViewById(R.id.interviewer_basic_address);
 		String address = addressET.getText().toString().trim();
 		if(StringUtils.isEmpty(address)){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "联系地址不能为空");
-			return false;
+			DialogUtils.showLongToast(IntervieweBasicActivity.this, "联系地址不能为空");
+			return;
 		}
 		
 		//邮政编码
 		EditText postCodeET = (EditText)findViewById(R.id.interviewer_basic_post_code);
 		String postCode = postCodeET.getText().toString().trim();
 		if(StringUtils.isEmpty(postCode)){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "邮政编码不能为空");
-			return false;
+			DialogUtils.showLongToast(IntervieweBasicActivity.this, "邮政编码不能为空");
+			return;
 		}
 		if(!CommonUtils.test("[0-9]{6}", postCode)){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "邮政编码格式不正确");
-			return false;
+			DialogUtils.showLongToast(IntervieweBasicActivity.this, "邮政编码格式不正确");
+			return;
 		}
 		
 		//联系电话
 		EditText mobileET = (EditText)findViewById(R.id.interviewer_basic_mobile);
 		String mobile = mobileET.getText().toString().trim();
 		if(StringUtils.isEmpty(mobile)){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "联系电话不能为空");
-			return false;
+			DialogUtils.showLongToast(IntervieweBasicActivity.this, "联系电话不能为空");
+			return;
 		}
 		if(!CommonUtils.test("[0-9]{10,12}", mobile)){
-			CommonUtils.sendMessage(handler, MESSAGE_TOAST, "联系电话格式不正确");
-			return false;
+			DialogUtils.showLongToast(IntervieweBasicActivity.this, "联系电话格式不正确");
+			return;
 		}
 		
 		//本地亲属联系电话
@@ -380,11 +236,12 @@ public class IntervieweBasicActivity extends Activity implements OnClickListener
 		String familyMobile = familyMobileET.getText().toString().trim();
 		if(!StringUtils.isEmpty(familyMobile)){
 			if(!CommonUtils.test("[0-9]{10,12}", familyMobile)){
-				CommonUtils.sendMessage(handler, MESSAGE_TOAST, "本地亲属联系电话格式不正确");
-				return false;
+				DialogUtils.showLongToast(IntervieweBasicActivity.this, "本地亲属联系电话格式不正确");
+				return;
 			}
 		}
 		
-		return true;
+		//开始访谈
+		newInterviewBasic();
 	}
 }

@@ -53,12 +53,12 @@ public class DialogUtils {
 	 * @param onOkClickListener
 	 * @return
 	 */
-	public static AlertDialog showCustomDialog(Context context,String title,View customView,OnClickListener onOkClickListener){
+	public static AlertDialog showCustomDialog(Context context,String title,View customView,String okText,OnClickListener onOkClickListener,String cancelText,OnClickListener onCancelClickListener){
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle(title);
 		builder.setView(customView);
-		builder.setPositiveButton("确定", onOkClickListener);
-		builder.setNegativeButton("取消", null);
+		builder.setPositiveButton(okText, onOkClickListener);
+		builder.setNegativeButton(cancelText, onCancelClickListener);
 		AlertDialog dialog = builder.create();
 		dialog.setCancelable(false);
 		dialog.setCanceledOnTouchOutside(false);

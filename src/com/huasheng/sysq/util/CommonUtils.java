@@ -2,6 +2,8 @@ package com.huasheng.sysq.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.text.SimpleDateFormat;
@@ -14,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
@@ -171,5 +174,11 @@ public class CommonUtils {
 		message.what = what;
 		message.obj = obj;
 		handler.sendMessage(message);
+	}
+	
+	public static InputStream getAssetsStream(Context context , String fileName) throws IOException{
+		AssetManager assetManager = context.getAssets();
+		return assetManager.open(fileName);
+		
 	}
 }
