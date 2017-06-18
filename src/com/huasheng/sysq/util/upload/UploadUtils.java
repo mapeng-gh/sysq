@@ -159,7 +159,8 @@ public class UploadUtils {
 		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
 		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
+				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
+						&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
 					if(interviewBasicWrap.getInterviewBasic().getUploadStatus() == UploadConstants.upload_status_not_upload 
 							|| interviewBasicWrap.getInterviewBasic().getUploadStatus() == UploadConstants.upload_status_modified){//访问表
 						interviewCount++;
@@ -194,7 +195,8 @@ public class UploadUtils {
 		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
 		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
+				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
+						&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
 					File mediaDir = new File(PathConstants.getMediaDir(),interviewBasicWrap.getInterviewBasic().getId()+"");
 					if(mediaDir.exists()){
 						File audioDir = new File(mediaDir,"audio");
@@ -436,7 +438,8 @@ public class UploadUtils {
 			List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
 			if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 				for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-					if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
+					if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
+							&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
 						
 						//处理访问者表
 						handleInterviewer(conn,interviewBasicWrap);
@@ -484,7 +487,8 @@ public class UploadUtils {
 		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
 		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
+				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
+						&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
 					
 					//访问表
 					InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
@@ -525,7 +529,8 @@ public class UploadUtils {
 			List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
 			if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 				for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-					if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO && interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE){
+					if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
+							&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
 						File mediaDir = new File(PathConstants.getMediaDir(),interviewBasicWrap.getInterviewBasic().getId()+"");
 						if(mediaDir.exists()){
 							File audioDir = new File(mediaDir,"audio");
