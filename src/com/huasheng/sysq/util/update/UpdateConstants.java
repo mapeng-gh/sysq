@@ -3,6 +3,8 @@ package com.huasheng.sysq.util.update;
 public class UpdateConstants {
 
 	//版本配置文件
+	//product：http://o77m1ke38.bkt.clouddn.com/version.properties
+	//test：http://orqrpzbs4.bkt.clouddn.com/version.properties
 	public static final String CONFIG_ADDRESS = "http://o77m1ke38.bkt.clouddn.com/version.properties";
 	
 	//消息

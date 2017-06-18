@@ -95,6 +95,7 @@ public class UploadUtils {
 			}
 			ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
 			ftpClient.enterLocalPassiveMode();
+			ftpClient.changeWorkingDirectory("/sysq/"); //product : sysq   test：sysq_test
 			if(FTPReply.isPositiveCompletion(ftpClient.sendCommand("OPTS UTF8", "ON"))){
 				ftpClient.setControlEncoding("UTF-8");
 			}
