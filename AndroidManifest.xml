@@ -64,7 +64,6 @@
          <activity android:name="com.huasheng.sysq.activity.usercenter.UserCenterActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>
          <activity android:name="com.huasheng.sysq.activity.usercenter.UserCenterNavActivity" android:screenOrientation="landscape"></activity>
          <activity android:name="com.huasheng.sysq.activity.usercenter.Usercenter4BasicActivity" android:screenOrientation="portrait"></activity>
-         <activity android:name="com.huasheng.sysq.activity.usercenter.Usercenter4AddUserActivity" android:screenOrientation="portrait"></activity>
          <activity android:name="com.huasheng.sysq.activity.usercenter.Usercenter4PasswordActivity" android:screenOrientation="portrait"></activity>
          
          <!-- 受访者一览 -->
@@ -84,6 +83,8 @@
          <activity android:name=".activity.settings.SettingsNavActivity"  android:screenOrientation="landscape"></activity>
          <activity android:name=".activity.settings.Settings4FTPActivity"  android:screenOrientation="portrait"></activity>
          <activity android:name=".activity.settings.Settings4DBActivity"  android:screenOrientation="portrait"></activity>
+         <activity android:name="com.huasheng.sysq.activity.settings.Settings4AddUserActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name="com.huasheng.sysq.activity.settings.Settings4ResetPwdActivity" android:screenOrientation="portrait"></activity>
     
     </application>
 

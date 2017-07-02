@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+   <!-- 标题 -->
+   <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="130dp">
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="重置密码"
+            android:textColor="#0096DC"
+            android:textSize="40sp"/>
+    </RelativeLayout>
+    
+   <!-- 表单：手机号码 -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        style="@style/settings_resetpwd_layout">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+            
+            <TextView 
+		           style="@style/settings_resetpwd_label"
+		           android:text="手机号码："/>
+		       <EditText 
+		           android:id="@+id/settings_resetpwd_mobile_et"
+		           style="@style/settings_resetpwd_edittext"/>
+		       <TextView 
+		           style="@style/settings_resetpwd_hint"
+		           android:text="*登录帐号"/>
+            
+        </LinearLayout>
+        
+    </RelativeLayout>
+    
+    <!-- 表单：新密码 -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        style="@style/settings_resetpwd_layout">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+            
+            <TextView 
+		           style="@style/settings_resetpwd_label"
+		           android:text="新密码："/>
+		       <EditText 
+		           android:id="@+id/settings_resetpwd_pwd_et"
+		           style="@style/settings_resetpwd_edittext"/>
+		       <TextView 
+		           style="@style/settings_resetpwd_hint"
+		           android:text="*登录密码"/>
+            
+        </LinearLayout>
+        
+    </RelativeLayout>
+    
+    <!-- 表单：保存 -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        style="@style/settings_resetpwd_layout">
+        
+        <Button
+	            android:id="@+id/settings_resetpwd_submit"
+	            android:layout_width="350dp"
+	            android:layout_height="wrap_content"
+	            android:layout_centerInParent="true"
+	            android:text="保存"
+	            android:background="#0096DC"
+	            android:textColor="#FFFFFF"
+	            android:textSize="25sp"
+	            android:layout_gravity="center_horizontal"/>
+        
+    </RelativeLayout>
+
+</LinearLayout>

@@ -30,7 +30,7 @@
             
             	<!-- 注册用户 -->
             	<LinearLayout 
-	                android:id="@+id/usercenter_navy_adduserLL"
+	                android:id="@+id/settings_navy_adduserLL"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:orientation="vertical">
@@ -39,13 +39,36 @@
 	            	    android:layout_width="wrap_content"
 	            	    android:layout_height="wrap_content"
 	            	    android:layout_gravity="center_horizontal"
-	            	    android:src="@drawable/usercenter_adduser"/>
+	            	    android:src="@drawable/settings_adduser"/>
                     
                 	<TextView 
 	                    android:layout_width="wrap_content"
 	                    android:layout_height="wrap_content"
 	                    android:layout_gravity="center_horizontal"
 	                    android:text="注册用户"
+	                    android:textSize="20sp"/>
+                
+            </LinearLayout>
+            
+            	<!-- 密码重置 -->
+            	<LinearLayout 
+	                android:id="@+id/settings_navy_resetpwdLL"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:orientation="vertical"
+	                android:layout_marginLeft="150dp">
+                
+	                 <ImageView 
+	            	    android:layout_width="wrap_content"
+	            	    android:layout_height="wrap_content"
+	            	    android:layout_gravity="center_horizontal"
+	            	    android:src="@drawable/settings_resetpwd"/>
+                    
+                	<TextView 
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal"
+	                    android:text="重置密码"
 	                    android:textSize="20sp"/>
                 
             </LinearLayout>
