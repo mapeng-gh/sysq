@@ -73,29 +73,6 @@
                 
             </LinearLayout>
             
-            	<!-- 第三列：注册用户 -->
-            	<LinearLayout 
-	                android:id="@+id/usercenter_navy_adduserLL"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:orientation="vertical"
-	                android:layout_marginLeft="150dp">
-                
-	                 <ImageView 
-	            	    android:layout_width="wrap_content"
-	            	    android:layout_height="wrap_content"
-	            	    android:layout_gravity="center_horizontal"
-	            	    android:src="@drawable/usercenter_adduser"/>
-                    
-                	<TextView 
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_gravity="center_horizontal"
-	                    android:text="注册用户"
-	                    android:textSize="20sp"/>
-                
-            </LinearLayout>
-            
             	<!-- 第四列：退出系统 -->
             <LinearLayout 
 	                android:id="@+id/usercenter_navy_logoutLL"

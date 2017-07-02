@@ -1,7 +1,6 @@
 package com.huasheng.sysq.activity.usercenter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +17,7 @@ public class UserCenterNavActivity extends Activity implements OnClickListener{
 	
 	private LinearLayout basicLL;
 	private LinearLayout passwordLL;
-	private LinearLayout addUserLL;
+	
 	private LinearLayout logoutLL;
 
 	@Override
@@ -31,8 +30,6 @@ public class UserCenterNavActivity extends Activity implements OnClickListener{
 		basicLL.setOnClickListener(this);
 		passwordLL = (LinearLayout)findViewById(R.id.usercenter_navy_passwordLL);
 		passwordLL.setOnClickListener(this);
-		addUserLL = (LinearLayout)findViewById(R.id.usercenter_navy_adduserLL);
-		addUserLL.setOnClickListener(this);
 		logoutLL = (LinearLayout)findViewById(R.id.usercenter_navy_logoutLL);
 		logoutLL.setOnClickListener(this);
 	}
@@ -45,10 +42,6 @@ public class UserCenterNavActivity extends Activity implements OnClickListener{
 			
 		}else if(v.getId() == R.id.usercenter_navy_passwordLL){//修改密码
 			Intent intent = new Intent(this,Usercenter4PasswordActivity.class);
-			this.startActivity(intent);
-			
-		}else if(v.getId() == R.id.usercenter_navy_adduserLL){//注册用户
-			Intent intent = new Intent(this,Usercenter4AddUserActivity.class);
 			this.startActivity(intent);
 			
 		}else if(v.getId() == R.id.usercenter_navy_logoutLL){//退出系统
