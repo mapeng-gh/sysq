@@ -25,6 +25,7 @@ public class SysqApplication extends Application{
 		//初始化配置
 		initFtpConfig();
 		initMysqlConfig();
+		initMailConfig();
 		
 		//初始化问卷
 		initDB();
@@ -79,6 +80,31 @@ public class SysqApplication extends Application{
 			FileUtils.copyInputStreamToFile(is, new File(PathConstants.getSettingsDir(),"db.config"));
 			
 			DialogUtils.showLongToast(context,"Mysql配置初始化完成");
+		}catch(Exception e){
+			DialogUtils.showLongToast(context,e.getMessage());
+		}finally{
+			try{
+				if(is != null){
+					is.close();
+				}
+			}catch(Exception e){
+			}
+		}
+	}
+	
+	private void initMailConfig(){
+		
+		//检测是否已经初始化
+		File mailConfigFile = new File(PathConstants.getSettingsDir(),"mail.config");
+		if(mailConfigFile.exists())	return;
+		
+		//初始化
+		InputStream is = null;
+		try{
+			is = AssetUtils.openAsStream(context, "config" + File.separator + "mail.config");
+			FileUtils.copyInputStreamToFile(is, new File(PathConstants.getSettingsDir(),"mail.config"));
+			
+			DialogUtils.showLongToast(context,"mail配置初始化完成");
 		}catch(Exception e){
 			DialogUtils.showLongToast(context,e.getMessage());
 		}finally{

@@ -27,6 +27,28 @@ public class DialogUtils {
 	}
 	
 	/**
+	 * 确认框
+	 * @param context
+	 * @param title 标题
+	 * @param message  提示信息
+	 * @param okText 确定按钮
+	 * @param onOkClickListener 确认回调
+	 * @param cancelText 取消按钮
+	 * @param onCancelClickListener 取消回调
+	 */
+	public static void showConfirmDialog(Context context,String title,String message,String okText,OnClickListener onOkClickListener,String cancelText,OnClickListener onCancelClickListener){
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle(title);
+		builder.setMessage(message);
+		builder.setPositiveButton(okText, onOkClickListener);
+		builder.setNegativeButton(cancelText, onCancelClickListener);
+		AlertDialog dialog = builder.create();
+		dialog.setCancelable(false);
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.show();
+	}
+	
+	/**
 	 * 对话框：双回调
 	 * @param context
 	 * @param message
