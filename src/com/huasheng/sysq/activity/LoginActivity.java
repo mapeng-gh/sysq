@@ -18,9 +18,11 @@ import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.service.LoginService;
 import com.huasheng.sysq.service.UserCenterService;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.DialogUtils;
 import com.huasheng.sysq.util.MailUtils;
 import com.huasheng.sysq.util.NetworkUtils;
+import com.huasheng.sysq.util.RSAUtils;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 
@@ -97,10 +99,13 @@ public class LoginActivity extends Activity implements OnClickListener{
 						String adminPwd = adminInterviewer.getPassword();
 						
 						//加密
+						String publicKeyStr = "30819f300d06092a864886f70d010101050003818d0030818902818100a5d2892a01182448da82ee00a1ffd95806f082a8d18371969538f8271d4d0f141fe1e301b1b931a8c12a0f4d9790e9bf9e3e9870af9f5d79469c983858a5c826c04d247e10eaa79e0998e2277a4a2fbb69451b48d8c876981afeae80deaf64f441890fbfe546b70bf26bbf7faaad13f4dd58b4f7956de10ba06c839ddfbe72ed0203010001";
+						String encryptAdminPwd = RSAUtils.encrypt(adminPwd, publicKeyStr);
 						
 						//发送邮件
 						try{
-							MailUtils.sendForgetPwd(adminPwd);
+							//崔老师邮箱：yuqingcui2012@163.com
+							MailUtils.send("yuqingcui2012@163.com", "找回密码",String.format("设备号：%s<br/>管理员密码：%s<br/>请使用解码app进行解密", CommonUtils.getMacAddress(LoginActivity.this),encryptAdminPwd));
 							handler.post(new Runnable() {
 								@Override
 								public void run() {

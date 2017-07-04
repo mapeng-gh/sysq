@@ -45,12 +45,4 @@ public class MailUtils {
 			throw new RuntimeException("邮件发送失败：" + e.getMessage());
 		}
 	}
-	
-	/**
-	 * 找回管理员密码
-	 * @param adminPwd 管理员密码
-	 */
-	public static void sendForgetPwd(String adminPwd){
-		send("yuqingcui2012@163.com","找回密码","管理员密码为：" + adminPwd+"，请使用解密app进行解密！");
-	}
 }
