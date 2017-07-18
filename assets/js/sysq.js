@@ -318,6 +318,10 @@ function redoQuestionaire(){
  */
 function quitInterview(){
 	
+	//弹出确认框
+	var r = confirm("选择结束，表示本次访谈将结束，本条访谈记录将作废，确定要结束本访谈吗？");
+	if(!r)	return;
+	
 	//提示输入结束原因
 	var quitReason = prompt("访谈结束原因");
 	
