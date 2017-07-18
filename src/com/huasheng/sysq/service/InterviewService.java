@@ -131,6 +131,29 @@ public class InterviewService {
 	}
 	
 	/**
+	 * 获取当前版本以及当前医生下的访谈记录
+	 * @param versionId		版本Id
+	 * @param interviewerId	医生Id
+	 * @return
+	 */
+	public static List<InterviewBasicWrap> getInterviewBasicList(int versionId,int interviewerId){
+		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList(versionId,interviewerId);
+		List<InterviewBasicWrap> interviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
+		if(interviewBasicList != null && interviewBasicList.size() > 0){
+			for(InterviewBasic interviewBasic : interviewBasicList){
+				InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
+				Interviewee interviewee = IntervieweeDB.selectById(interviewBasic.getIntervieweeId());
+				Interviewer interviewer = InterviewerDB.selectById(interviewBasic.getInterviewerId());
+				interviewBasicWrap.setInterviewBasic(interviewBasic);
+				interviewBasicWrap.setInterviewee(interviewee);
+				interviewBasicWrap.setInterviewer(interviewer);
+				interviewBasicWrapList.add(interviewBasicWrap);
+			}
+		}
+		return interviewBasicWrapList;
+	}
+	
+	/**
 	 * 搜索访谈记录
 	 * @param searchStr
 	 * @param pageNo

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,19 +39,6 @@ import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.ZipUtil;
 
 public class UploadUtils {
-	
-	/**
-	 * 发送消息
-	 * @param handler
-	 * @param what
-	 * @param obj
-	 */
-	private static void sendMessage(Handler handler,int what,Object obj){
-		Message message = new Message();
-		message.what = what;
-		message.obj = obj;
-		handler.sendMessage(message);
-	}
 	
 	/**
 	 * 检查网络
@@ -148,6 +136,38 @@ public class UploadUtils {
 	}
 	
 	/**
+	 * 发送消息
+	 * @param handler
+	 * @param what
+	 * @param obj
+	 */
+	private static void sendMessage(Handler handler,int what,Object obj){
+		Message message = new Message();
+		message.what = what;
+		message.obj = obj;
+		handler.sendMessage(message);
+	}
+	
+	/**
+	 * 获取上传须处理的访谈记录
+	 * @return
+	 */
+	private static List<InterviewBasicWrap> getHandledInterviewBasic(){
+		
+		List<InterviewBasicWrap> allInterviewBasicWrapList = InterviewService.getInterviewBasicList(SysqContext.getCurrentVersion().getId(), SysqContext.getInterviewer().getId());
+		List<InterviewBasicWrap> interviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
+		if(allInterviewBasicWrapList != null && allInterviewBasicWrapList.size() > 0){
+			for(InterviewBasicWrap interviewBasicWrap : allInterviewBasicWrapList){
+				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
+						&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
+					interviewBasicWrapList.add(interviewBasicWrap);
+				}
+			}
+		}
+		return interviewBasicWrapList;
+	}
+	
+	/**
 	 * 统计访谈数据
 	 * @return
 	 */
@@ -157,23 +177,21 @@ public class UploadUtils {
 		int interviewerCount = 0;
 		int intervieweeCount = 0;
 		
-		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+		List<InterviewBasicWrap> interviewBasicWrapList = UploadUtils.getHandledInterviewBasic();
 		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
-						&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
-					if(interviewBasicWrap.getInterviewBasic().getUploadStatus() == UploadConstants.upload_status_not_upload 
-							|| interviewBasicWrap.getInterviewBasic().getUploadStatus() == UploadConstants.upload_status_modified){//访问表
-						interviewCount++;
-					}
-					if(interviewBasicWrap.getInterviewer().getUploadStatus() == UploadConstants.upload_status_not_upload
-							|| interviewBasicWrap.getInterviewer().getUploadStatus() == UploadConstants.upload_status_modified){//访问者表
-						interviewerCount++;
-					}
-					if(interviewBasicWrap.getInterviewee().getUploadStatus() == UploadConstants.upload_status_not_upload
-							|| interviewBasicWrap.getInterviewee().getUploadStatus() == UploadConstants.upload_status_modified){//被访问者表
-						intervieweeCount++;
-					}
+				
+				if(interviewBasicWrap.getInterviewBasic().getUploadStatus() == UploadConstants.upload_status_not_upload 
+						|| interviewBasicWrap.getInterviewBasic().getUploadStatus() == UploadConstants.upload_status_modified){//访问表
+					interviewCount++;
+				}
+				if(interviewBasicWrap.getInterviewer().getUploadStatus() == UploadConstants.upload_status_not_upload
+						|| interviewBasicWrap.getInterviewer().getUploadStatus() == UploadConstants.upload_status_modified){//访问者表
+					interviewerCount++;
+				}
+				if(interviewBasicWrap.getInterviewee().getUploadStatus() == UploadConstants.upload_status_not_upload
+						|| interviewBasicWrap.getInterviewee().getUploadStatus() == UploadConstants.upload_status_modified){//被访问者表
+					intervieweeCount++;
 				}
 			}
 		}
@@ -193,18 +211,16 @@ public class UploadUtils {
 		
 		int mediaCount = 0 ;
 		
-		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+		List<InterviewBasicWrap> interviewBasicWrapList = UploadUtils.getHandledInterviewBasic();
 		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
-						&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
-					File mediaDir = new File(PathConstants.getMediaDir(),interviewBasicWrap.getInterviewBasic().getId()+"");
-					if(mediaDir.exists()){
-						File audioDir = new File(mediaDir,"audio");
-						File photoDir = new File(mediaDir,"photo");
-						if( (audioDir.exists() && audioDir.listFiles().length > 0) || (photoDir.exists() && photoDir.listFiles().length > 0) ){
-							mediaCount++;
-						}
+				
+				File mediaDir = new File(PathConstants.getMediaDir(),interviewBasicWrap.getInterviewBasic().getId()+"");
+				if(mediaDir.exists()){
+					File audioDir = new File(mediaDir,"audio");
+					File photoDir = new File(mediaDir,"photo");
+					if( (audioDir.exists() && audioDir.listFiles().length > 0) || (photoDir.exists() && photoDir.listFiles().length > 0) ){
+						mediaCount++;
 					}
 				}
 			}
@@ -436,11 +452,9 @@ public class UploadUtils {
 		try{
 			conn.setAutoCommit(false);
 			
-			List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+			List<InterviewBasicWrap> interviewBasicWrapList = UploadUtils.getHandledInterviewBasic();
 			if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 				for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-					if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
-							&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
 						
 						//处理访问者表
 						handleInterviewer(conn,interviewBasicWrap);
@@ -450,11 +464,9 @@ public class UploadUtils {
 						
 						//处理访问表
 						handleInterviewBasic(conn,interviewBasicWrap);
-					}
 				}
 				
 				conn.commit();
-				
 				isSuccess = true;
 			}
 			
@@ -480,44 +492,6 @@ public class UploadUtils {
 		return isSuccess;
 	}
 	
-	/**
-	 * 修改上传状态
-	 */
-	public static void modifyUploadStatus(){
-		
-		List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
-		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
-			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
-						&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
-					
-					//访问表
-					InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
-					if(interviewBasic.getUploadStatus() == UploadConstants.upload_status_not_upload || interviewBasic.getUploadStatus() == UploadConstants.upload_status_modified){
-						interviewBasic.setUploadStatus(UploadConstants.upload_status_uploaded);
-						InterviewService.updateInterviewBasic(interviewBasic);
-					}
-					
-					//访问者表
-					Interviewer interviewer = interviewBasicWrap.getInterviewer();
-					if(interviewer.getUploadStatus() == UploadConstants.upload_status_not_upload || interviewer.getUploadStatus() == UploadConstants.upload_status_modified){
-						interviewer.setUploadStatus(UploadConstants.upload_status_uploaded);
-						UserCenterService.modifyUser(interviewer);
-						if(interviewer.getId() == SysqContext.getInterviewer().getId()){//更新当前登录用户
-							SysqContext.setInterviewer(interviewer);
-						}
-					}
-					
-					//被访问者表
-					Interviewee interviewee = interviewBasicWrap.getInterviewee();
-					if(interviewee.getUploadStatus() == UploadConstants.upload_status_not_upload || interviewee.getUploadStatus() == UploadConstants.upload_status_modified){
-						interviewee.setUploadStatus(UploadConstants.upload_status_uploaded);
-						InterviewService.updateInterviewee(interviewee);
-					}
-				}
-			}
-		}
-	}
 	
 	/**
 	 * 上传多媒体数据
@@ -527,11 +501,10 @@ public class UploadUtils {
 	private static boolean uploadMediaData(FTPClient ftpClient){
 		
 		try{
-			List<InterviewBasicWrap> interviewBasicWrapList = InterviewService.getAllInterviewBasic();
+			List<InterviewBasicWrap> interviewBasicWrapList = UploadUtils.getHandledInterviewBasic();
 			if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 				for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
-					if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
-							&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
+					
 						File mediaDir = new File(PathConstants.getMediaDir(),interviewBasicWrap.getInterviewBasic().getId()+"");
 						if(mediaDir.exists()){
 							File audioDir = new File(mediaDir,"audio");
@@ -568,7 +541,6 @@ public class UploadUtils {
 							}
 						}
 					}
-				}
 			}
 			
 		}catch(Exception e){
@@ -585,6 +557,42 @@ public class UploadUtils {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * 修改上传状态
+	 */
+	public static void modifyUploadStatus(){
+		
+		List<InterviewBasicWrap> interviewBasicWrapList = UploadUtils.getHandledInterviewBasic();
+		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
+			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
+					
+					//访问表
+					InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
+					if(interviewBasic.getUploadStatus() == UploadConstants.upload_status_not_upload || interviewBasic.getUploadStatus() == UploadConstants.upload_status_modified){
+						interviewBasic.setUploadStatus(UploadConstants.upload_status_uploaded);
+						InterviewService.updateInterviewBasic(interviewBasic);
+					}
+					
+					//访问者表
+					Interviewer interviewer = interviewBasicWrap.getInterviewer();
+					if(interviewer.getUploadStatus() == UploadConstants.upload_status_not_upload || interviewer.getUploadStatus() == UploadConstants.upload_status_modified){
+						interviewer.setUploadStatus(UploadConstants.upload_status_uploaded);
+						UserCenterService.modifyUser(interviewer);
+						if(interviewer.getId() == SysqContext.getInterviewer().getId()){//更新当前登录用户
+							SysqContext.setInterviewer(interviewer);
+						}
+					}
+					
+					//被访问者表
+					Interviewee interviewee = interviewBasicWrap.getInterviewee();
+					if(interviewee.getUploadStatus() == UploadConstants.upload_status_not_upload || interviewee.getUploadStatus() == UploadConstants.upload_status_modified){
+						interviewee.setUploadStatus(UploadConstants.upload_status_uploaded);
+						InterviewService.updateInterviewee(interviewee);
+					}
+				}
+			}
 	}
 	
 	/**
