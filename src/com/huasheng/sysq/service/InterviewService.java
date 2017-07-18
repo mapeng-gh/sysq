@@ -144,7 +144,14 @@ public class InterviewService {
 		page.setPageNo(pageNo);
 		page.setPageSize(pageSize);
 		
-		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList(SysqContext.getCurrentVersion().getId());
+		//查询自己名下访谈记录（管理员查看所有）
+		
+		List<InterviewBasic> interviewBasicList = new ArrayList<InterviewBasic>();
+		if(SysqContext.getInterviewer().getLoginName().equals("admin")){
+			interviewBasicList = InterviewBasicDB.getList(SysqContext.getCurrentVersion().getId());
+		}else{
+			interviewBasicList = InterviewBasicDB.getList(SysqContext.getCurrentVersion().getId(),SysqContext.getInterviewer().getId());
+		}
 		
 		//无数据
 		if(interviewBasicList == null || interviewBasicList.size() <= 0){
@@ -197,6 +204,8 @@ public class InterviewService {
 		int start =  (pageNo - 1) * pageSize;
 		int end = pageNo * pageSize > interviewBasicFilterList.size() ? interviewBasicFilterList.size() : (start + pageSize);
 		List<InterviewBasic> interviewBasicPageList = interviewBasicFilterList.subList(start, end);
+		int totalPages = interviewBasicFilterList.size() % pageSize == 0 ? interviewBasicFilterList.size() / pageSize : (interviewBasicFilterList.size() / pageSize) + 1;
+		page.setTotalPages(totalPages);
 		
 		//转化wrap
 		List<InterviewBasicWrap> data = new ArrayList<InterviewBasicWrap>();
@@ -208,10 +217,6 @@ public class InterviewService {
 			data.add(interviewBasicWrap);
 		}
 		page.setData(data);
-		
-		//获取分页总数
-		int totalPages = interviewBasicFilterList.size() % pageSize == 0 ? interviewBasicFilterList.size() / pageSize : (interviewBasicFilterList.size() / pageSize) + 1;
-		page.setTotalPages(totalPages);
 		
 		return page;
 	}
