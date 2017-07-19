@@ -2,10 +2,8 @@ package com.huasheng.sysq.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -85,7 +83,7 @@ public class StaticsService {
 		String othersTodayCaseSQL = "select count(*) as othersTodayCase" +
 									" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 									" where " + 
-									DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
+									DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " not in (?,1)" + 
 									" and " +
 									DBConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?" +
 									" and " +
@@ -96,7 +94,7 @@ public class StaticsService {
 		String othersTodayContrastSQL = "select count(*) as othersTodayContrast" +
 										" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 										" where " + 
-										DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
+										DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " not in (?,1)" +
 										" and " +
 										DBConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?" +
 										" and " +
@@ -108,7 +106,7 @@ public class StaticsService {
 		String othersAllCaseSQL = "select count(*) as othersAllCase" +
 								" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 								" where " + 
-								DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
+								DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " not in (?,1)" +
 								" and " +
 								DBConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CASE;
 		String[] othersAllCaseSQLArgs = new String[]{SysqContext.getInterviewer().getId()+""};
@@ -117,7 +115,7 @@ public class StaticsService {
 		String othersAllContrastSQL = "select count(*) as othersAllContrast" +
 									" from " + DBConstants.TABLE_INTERVIEW_BASIC +
 									" where " + 
-									DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + "!=?" +
+									DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " not in (?,1)" +
 									" and " +
 									DBConstants.COLUMN_INTERVIEW_BASIC_TYPE + "=" + InterviewConstants.TYPE_CONTRAST;
 		String[] othersAllContrastSQLArgs = new String[]{SysqContext.getInterviewer().getId()+""};
@@ -165,63 +163,51 @@ public class StaticsService {
 		int all = 0;
 		
 		//today
-		String todaySQL = "select dna" +
-						  " from " + DBConstants.TABLE_INTERVIEW_BASIC + 
-						  " where " + DBConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?";
+		String todaySQL = "select interviewee." + DBConstants.COLUMN_INTERVIEWEE_DNA +
+						  " from " + DBConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
+						  " inner join " + DBConstants.TABLE_INTERVIEWEE + " interviewee on interviewBasic." +  DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWEE_ID + " = interviewee.id " +
+						  " where interviewBasic." + DBConstants.COLUMN_INTERVIEW_BASIC_START_TIME + " like ?";
 		String[] todaySQLArgs = new String[]{CommonUtils.getCurDate()+"%"};
 		List<Map<String,String>> todayResult = StaticsDB.execSQL(todaySQL, todaySQLArgs);
 		
 		if(todayResult != null && todayResult.size() > 0){
-			
-			Set<String> dnaSet = new HashSet<String>();
-			
 			for(Map<String,String> map : todayResult){
 				String dnas = map.get("dna");
-				
 				if(!StringUtils.isEmpty(dnas)){
-					String[] dnaArray = dnas.split(",");
-					
-					for(String dna : dnaArray){
-						dnaSet.add(dna);
+					if(dnas.contains(",")){
+						today += dnas.split(",").length;
+					}else{
+						today++;
 					}
 				}
 			}
-			
-			today = dnaSet.size();
 		}
 		
 		//all
-		String allSQL = "select dna" +
-				  " from " + DBConstants.TABLE_INTERVIEW_BASIC;
+		String allSQL = "select interviewee." + DBConstants.COLUMN_INTERVIEWEE_DNA +
+				  " from " + DBConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
+				  " inner join " + DBConstants.TABLE_INTERVIEWEE + " interviewee on interviewBasic." +  DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWEE_ID + " = interviewee.id ";
 		List<Map<String,String>> allResult = StaticsDB.execSQL(allSQL,null);
 
 		if(allResult != null && allResult.size() > 0){
-			
-			Set<String> dnaSet = new HashSet<String>();
-			
 			for(Map<String,String> map : allResult){
 				String dnas = map.get("dna");
-				
 				if(!StringUtils.isEmpty(dnas)){
-					String[] dnaArray = dnas.split(",");
-					
-					for(String dna : dnaArray){
-						dnaSet.add(dna);
+					if(dnas.contains(",")){
+						all += dnas.split(",").length;
+					}else{
+						all++;
 					}
 				}
 			}
-			
-			all = dnaSet.size();
 		}
 		
-		
+		//输出
 		Map<String,String> row = new HashMap<String,String>();
-		
 		row.put("title", "总计");
 		row.put("all",Integer.toString(all));
 		row.put("today",Integer.toString(today));
 		row.put("before",Integer.toString(all - today));
-		
 		data.add(row);
 		
 		return data;
@@ -239,7 +225,7 @@ public class StaticsService {
 		int myAll = 0;
 		int myDone = 0;
 		
-		String myAllSQL = "select count(*) as myAll" + 
+		String myAllSQL = "select count(interviewQuestionaire.id) as myAll" + 
 						  " from " + DBConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
 						  " inner join " + DBConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
 						  " on interviewBasic.id = interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
@@ -247,7 +233,7 @@ public class StaticsService {
 		String[] myAllSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
 		myAll = Integer.parseInt(StaticsDB.execSQL(myAllSQL, myAllSQLArgs).get(0).get("myAll"));
 		
-		String myDoneSQL = "select count(*) as myDone" + 
+		String myDoneSQL = "select count(interviewQuestionaire.id) as myDone" + 
 						  " from " + DBConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
 						  " inner join " + DBConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
 						  " on interviewBasic.id = interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
@@ -260,19 +246,19 @@ public class StaticsService {
 		int othersAll = 0;
 		int othersDone = 0;
 		
-		String othersAllSQL = "select count(*) as othersAll" + 
+		String othersAllSQL = "select count(interviewQuestionaire.id) as othersAll" + 
 				  " from " + DBConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
 				  " inner join " + DBConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
 				  " on interviewBasic.id = interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
-				  " where interviewBasic." + DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " != ?";
+				  " where interviewBasic." + DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " not in(?,1)";
 		String[] othersAllSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
 		othersAll = Integer.parseInt(StaticsDB.execSQL(othersAllSQL, othersAllSQLArgs).get(0).get("othersAll"));
 
-		String othersDoneSQL = "select count(*) as othersDone" + 
+		String othersDoneSQL = "select count(interviewQuestionaire.id) as othersDone" + 
 				  " from " + DBConstants.TABLE_INTERVIEW_BASIC + " interviewBasic " +
 				  " inner join " + DBConstants.TABLE_INTERVIEW_QUESTIONAIRE + " interviewQuestionaire " +
 				  " on interviewBasic.id = interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID +
-				  " where interviewBasic." + DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " != ?" + 
+				  " where interviewBasic." + DBConstants.COLUMN_INTERVIEW_BASIC_INTERVIEWER_ID + " not in(?,1)" + 
 				  " and interviewQuestionaire." + DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_STATUS + " = " + InterviewQuestionaire.STATUS_DONE;
 		String[] othersDoneSQLArgs = new String[]{Integer.toString(SysqContext.getInterviewer().getId())};
 		othersDone = Integer.parseInt(StaticsDB.execSQL(othersDoneSQL, othersDoneSQLArgs).get(0).get("othersDone"));
