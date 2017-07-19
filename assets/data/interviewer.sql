@@ -1,0 +1,1 @@
+insert into interviewer(id,login_name,password,username,mobile,email,working_place,upload_status) values(1,'admin','1YuZheng','系统管理员','','','',2);
