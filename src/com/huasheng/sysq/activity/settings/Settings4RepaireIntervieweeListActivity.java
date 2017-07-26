@@ -11,7 +11,6 @@ import android.view.Window;
 import android.widget.ListView;
 
 import com.huasheng.sysq.R;
-import com.huasheng.sysq.activity.interviewee.person.IntervieweePersonNavActivity;
 import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.SysqContext;
@@ -38,8 +37,10 @@ public class Settings4RepaireIntervieweeListActivity extends Activity implements
 	private void initComponents(){
 		repaireLV = (ListView)super.findViewById(R.id.lv_settings_repaire_intervieweelist);
 		List<InterviewBasicWrap> data = InterviewService.getAllRepaireIntervieweeList(SysqContext.getCurrentVersion().getId());
-		Settings4RepaireIntervieweeListAdapter adapter = new Settings4RepaireIntervieweeListAdapter(this,R.layout.item_settings_repaire_intervieweelist,data,this);
-		repaireLV.setAdapter(adapter);
+		if(data != null && data.size() > 0){
+			Settings4RepaireIntervieweeListAdapter adapter = new Settings4RepaireIntervieweeListAdapter(this,R.layout.item_settings_repaire_intervieweelist,data,this);
+			repaireLV.setAdapter(adapter);
+		}
 	}
 
 	@Override
