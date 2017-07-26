@@ -16,6 +16,10 @@ public class Interviewer {
 	private String workingPlace;
 	private int uploadStatus;
 	
+	@Override
+	public String toString() {
+		return username;
+	}
 	public Integer getId() {
 		return id;
 	}

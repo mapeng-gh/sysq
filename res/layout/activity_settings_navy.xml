@@ -122,5 +122,114 @@
         </LinearLayout>
         
     </RelativeLayout>
-
+    
+    <!-- 第二行 -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+            
+            	<!-- 数据修复 -->
+            	<LinearLayout 
+	                android:id="@+id/settings_navy_repaireLL"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:orientation="vertical">
+                
+	                 <ImageView 
+	            	    android:layout_width="wrap_content"
+	            	    android:layout_height="wrap_content"
+	            	    android:layout_gravity="center_horizontal"
+	            	    android:src="@drawable/settings_repaire"/>
+                    
+                	<TextView 
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal"
+	                    android:text="访谈数据修复"
+	                    android:textSize="20sp"/>
+                
+            </LinearLayout>
+            
+            	<!-- 待定22 -->
+            	<LinearLayout 
+	                android:id="@+id/settings_navy_22LL"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:orientation="vertical"
+	                android:layout_marginLeft="150dp"
+	                android:visibility="invisible">
+                
+	                 <ImageView 
+	            	    android:layout_width="wrap_content"
+	            	    android:layout_height="wrap_content"
+	            	    android:layout_gravity="center_horizontal"
+	            	    android:src="@drawable/settings_resetpwd"/>
+                    
+                	<TextView 
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal"
+	                    android:text="待定22"
+	                    android:textSize="20sp"/>
+                
+            </LinearLayout>
+            
+            	<!-- 待定23 -->
+            	<LinearLayout 
+	                android:id="@+id/settings_nav_23"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:orientation="vertical"
+	                android:layout_marginLeft="150dp"
+	                android:visibility="invisible">
+                
+	                 <ImageView 
+	            	    android:layout_width="wrap_content"
+	            	    android:layout_height="wrap_content"
+	            	    android:layout_gravity="center_horizontal"
+	            	    android:src="@drawable/settings_ftp"/>
+                    
+                	<TextView 
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal"
+	                    android:text="待定23"
+	                    android:textSize="20sp"/>
+                
+            </LinearLayout>
+            
+            <!-- 待定24 -->
+            	<LinearLayout 
+	                android:id="@+id/settings_nav_24"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:orientation="vertical"
+	                android:layout_marginLeft="150dp"
+	                android:visibility="invisible">
+                
+	                 <ImageView 
+	            	    android:layout_width="wrap_content"
+	            	    android:layout_height="wrap_content"
+	            	    android:layout_gravity="center_horizontal"
+	            	    android:src="@drawable/settings_db"/>
+                    
+                	<TextView 
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_horizontal"
+	                    android:text="待定24"
+	                    android:textSize="20sp"/>
+                
+            </LinearLayout>
+            
+        </LinearLayout>
+        
+    </RelativeLayout>
+    
 </LinearLayout>

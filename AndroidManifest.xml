@@ -85,6 +85,10 @@
          <activity android:name=".activity.settings.Settings4DBActivity"  android:screenOrientation="portrait"></activity>
          <activity android:name="com.huasheng.sysq.activity.settings.Settings4AddUserActivity" android:screenOrientation="portrait"></activity>
          <activity android:name="com.huasheng.sysq.activity.settings.Settings4ResetPwdActivity" android:screenOrientation="portrait"></activity>
+         
+         <!-- 数据修复 -->
+         <activity android:name="com.huasheng.sysq.activity.settings.Settings4RepaireIntervieweeListActivity" android:screenOrientation="landscape"></activity>
+         <activity android:name="com.huasheng.sysq.activity.settings.Settings4RepaireIntervieweeDetailActivity" android:screenOrientation="portrait"></activity>
     
     </application>
 

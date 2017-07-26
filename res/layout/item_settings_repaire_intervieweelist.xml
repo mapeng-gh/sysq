@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_settings_repaire_intervieweelist_id"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        style="@style/settings_repaire_intervieweelist_body"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_settings_repaire_intervieweelist_username"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        style="@style/settings_repaire_intervieweelist_body"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_settings_repaire_intervieweelist_address"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent"
+        style="@style/settings_repaire_intervieweelist_body"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_settings_repaire_intervieweelist_mobile"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        style="@style/settings_repaire_intervieweelist_body"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_settings_repaire_intervieweelist_type"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        style="@style/settings_repaire_intervieweelist_body"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_settings_repaire_intervieweelist_status"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        style="@style/settings_repaire_intervieweelist_body"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+     <TextView 
+        android:id="@+id/tv_settings_repaire_intervieweelist_interviewer_name"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        style="@style/settings_repaire_intervieweelist_body"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <RelativeLayout 
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent">
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:orientation="horizontal">
+            
+            <TextView 
+                android:id="@+id/tv_settings_repaire_intervieweelist_repaire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="修复"
+                android:textColor="#338EE7"
+                android:textSize="17sp"/>
+            
+        </LinearLayout>
+        
+    </RelativeLayout>
+    
+    <View style="@style/list_item_cell_seperator"/>
+
+</LinearLayout>

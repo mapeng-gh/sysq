@@ -16,6 +16,7 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 	private LinearLayout dbLL;
 	private LinearLayout addUserLL;
 	private LinearLayout resetPwdLL;
+	private LinearLayout repaireLL;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 		addUserLL.setOnClickListener(this);
 		resetPwdLL = (LinearLayout)findViewById(R.id.settings_navy_resetpwdLL);
 		resetPwdLL.setOnClickListener(this);
+		repaireLL = (LinearLayout)findViewById(R.id.settings_navy_repaireLL);
+		repaireLL.setOnClickListener(this);
 	}
 
 	@Override
@@ -49,6 +52,10 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 			
 		}else if(v.getId() == R.id.settings_navy_resetpwdLL){//重置密码
 			Intent intent = new Intent(this,Settings4ResetPwdActivity.class);
+			this.startActivity(intent);
+			
+		}else if(v.getId() == R.id.settings_navy_repaireLL){//数据修复
+			Intent intent = new Intent(this,Settings4RepaireIntervieweeListActivity.class);
 			this.startActivity(intent);
 		}
 	}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <style name="settings_repaire_intervieweedetail_layout">
+        <item name="android:layout_height">100dp</item>
+    </style>
+    <style name="settings_repaire_intervieweedetail_label">
+        <item name="android:layout_width">170dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+    <style name="settings_repaire_intervieweedetail_content">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">250dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+    
+</resources>

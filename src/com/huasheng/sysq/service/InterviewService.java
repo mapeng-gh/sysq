@@ -245,6 +245,31 @@ public class InterviewService {
 	}
 	
 	/**
+	 * 获取待修复访谈记录列表
+	 * @param versionId
+	 * @return
+	 */
+	public static List<InterviewBasicWrap> getAllRepaireIntervieweeList(int versionId){
+		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList(versionId);
+		if(interviewBasicList == null || interviewBasicList.size() == 0){
+			return null;
+		}
+		
+		List<InterviewBasicWrap> interviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
+		for(InterviewBasic interviewBasic : interviewBasicList){
+			Interviewer interviewer = InterviewerDB.selectById(interviewBasic.getInterviewerId());
+			if("admin".equals(interviewer.getLoginName())){
+				InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
+				interviewBasicWrap.setInterviewBasic(interviewBasic);
+				interviewBasicWrap.setInterviewee(IntervieweeDB.selectById(interviewBasic.getIntervieweeId()));
+				interviewBasicWrap.setInterviewer(interviewer);
+				interviewBasicWrapList.add(interviewBasicWrap);
+			}
+		}
+		return interviewBasicWrapList;
+	}
+	
+	/**
 	 * 添加问卷记录
 	 * @param questionaire
 	 * @return
