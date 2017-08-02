@@ -44,6 +44,17 @@ public class LoginActivity extends Activity implements OnClickListener{
 		initComponents();
 	}
 	
+	
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		this.userET.setText("");
+		this.pwdET.setText("");
+	}
+
+
+
 	/**
 	 * 初始化组件
 	 */
