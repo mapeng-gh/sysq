@@ -177,6 +177,7 @@ public class UploadUtils {
 		int interviewerCount = 0;
 		int intervieweeCount = 0;
 		
+		List<Integer> interviewerIdList = new ArrayList<Integer>();//处理重复上传医生
 		List<InterviewBasicWrap> interviewBasicWrapList = UploadUtils.getHandledInterviewBasic();
 		if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 			for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
@@ -185,10 +186,15 @@ public class UploadUtils {
 						|| interviewBasicWrap.getInterviewBasic().getUploadStatus() == UploadConstants.upload_status_modified){//访问表
 					interviewCount++;
 				}
-				if(interviewBasicWrap.getInterviewer().getUploadStatus() == UploadConstants.upload_status_not_upload
-						|| interviewBasicWrap.getInterviewer().getUploadStatus() == UploadConstants.upload_status_modified){//访问者表
-					interviewerCount++;
+				
+				if(!interviewerIdList.contains(interviewBasicWrap.getInterviewer().getId())){
+					if(interviewBasicWrap.getInterviewer().getUploadStatus() == UploadConstants.upload_status_not_upload
+							|| interviewBasicWrap.getInterviewer().getUploadStatus() == UploadConstants.upload_status_modified){//访问者表
+						interviewerCount++;
+					}
+					interviewerIdList.add(interviewBasicWrap.getInterviewer().getId());
 				}
+				
 				if(interviewBasicWrap.getInterviewee().getUploadStatus() == UploadConstants.upload_status_not_upload
 						|| interviewBasicWrap.getInterviewee().getUploadStatus() == UploadConstants.upload_status_modified){//被访问者表
 					intervieweeCount++;
@@ -452,12 +458,16 @@ public class UploadUtils {
 		try{
 			conn.setAutoCommit(false);
 			
+			List<Integer> interviewerIdList = new ArrayList<Integer>();	//处理医生重复上传问题
 			List<InterviewBasicWrap> interviewBasicWrapList = UploadUtils.getHandledInterviewBasic();
 			if(interviewBasicWrapList != null && interviewBasicWrapList.size() > 0){
 				for(InterviewBasicWrap interviewBasicWrap : interviewBasicWrapList){
 						
 						//处理访问者表
-						handleInterviewer(conn,interviewBasicWrap);
+						if(!interviewerIdList.contains(interviewBasicWrap.getInterviewer().getId())){
+							handleInterviewer(conn,interviewBasicWrap);
+							interviewerIdList.add(interviewBasicWrap.getInterviewer().getId());
+						}
 						
 						//处理被访问者表
 						handleInterviewee(conn,interviewBasicWrap);
