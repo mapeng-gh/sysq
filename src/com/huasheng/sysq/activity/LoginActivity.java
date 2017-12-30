@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.InterviewService;
-import com.huasheng.sysq.service.LoginService;
 import com.huasheng.sysq.service.UserCenterService;
 import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.DialogUtils;
@@ -147,7 +146,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 		String loginName = userET.getText().toString();
 		String password = pwdET.getText().toString();
 		
-		Interviewer interviewer = LoginService.login(loginName, password);
+		Interviewer interviewer = UserCenterService.login(loginName, password);
 		
 		if(interviewer == null){
 			Toast.makeText(SysqApplication.getContext(), "帐号或密码不正确", Toast.LENGTH_SHORT).show();

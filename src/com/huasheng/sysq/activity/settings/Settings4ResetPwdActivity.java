@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.huasheng.sysq.R;
-import com.huasheng.sysq.service.SettingsService;
+import com.huasheng.sysq.model.Interviewer;
+import com.huasheng.sysq.service.UserCenterService;
 import com.huasheng.sysq.util.DialogUtils;
+import com.huasheng.sysq.util.SysqConstants;
 
 /**
  * 设置
@@ -21,7 +23,7 @@ import com.huasheng.sysq.util.DialogUtils;
  */
 public class Settings4ResetPwdActivity extends Activity implements OnClickListener{
 	
-	private EditText mobileET;
+	private EditText loginNameET;
 	private EditText pwdET;
 	private Button submitBtn;
 	
@@ -36,7 +38,7 @@ public class Settings4ResetPwdActivity extends Activity implements OnClickListen
 	
 	//初始化组件
 	private void initComponents(){
-		this.mobileET = (EditText)this.findViewById(R.id.settings_resetpwd_mobile_et);
+		this.loginNameET = (EditText)this.findViewById(R.id.settings_resetpwd_login_name_et);
 		this.pwdET = (EditText)this.findViewById(R.id.settings_resetpwd_pwd_et);
 		this.submitBtn = (Button)this.findViewById(R.id.settings_resetpwd_submit);
 		this.submitBtn.setOnClickListener(this);
@@ -54,25 +56,32 @@ public class Settings4ResetPwdActivity extends Activity implements OnClickListen
 	 */
 	private void submit(){
 		
-		String mobile = this.mobileET.getText().toString().trim();
-		String pwd = this.pwdET.getText().toString().trim();
+		String loginName = this.loginNameET.getText().toString().trim();
+		String newPwd = this.pwdET.getText().toString().trim();
 		
-		//校验
-		if(StringUtils.isEmpty(mobile)){
-			DialogUtils.showLongToast(this, "手机号码不能为空");
+		//登录帐号
+		if(StringUtils.isEmpty(loginName)){
+			DialogUtils.showLongToast(this, "登录帐号不能为空");
 			return;
 		}
-		if(StringUtils.isEmpty(pwd)){
-			DialogUtils.showLongToast(this, "新密码不能为空");
+		if(SysqConstants.ADMIN_LOGIN_NAME.equals(loginName)){
+			DialogUtils.showLongToast(this, "请访问【修改密码】功能");
+			return;
+		}
+		Interviewer interviewer = UserCenterService.getUser(loginName);
+		if(interviewer == null){
+			DialogUtils.showLongToast(this, "登录帐号不存在");
+			return;
+		}
+		
+		//新密码
+		if(StringUtils.isEmpty(newPwd)){
+			DialogUtils.showLongToast(this, "新登录密码不能为空");
 			return;
 		}
 		
 		//重置
-		try{
-			SettingsService.resetPwd(mobile, pwd);
-			DialogUtils.showLongToast(this, "重置密码成功");
-		}catch(Exception e){
-			DialogUtils.showLongToast(this, e.getMessage());
-		}
+		UserCenterService.resetPwd(loginName, newPwd);
+		DialogUtils.showLongToast(this, "重置密码成功");
 	}
 }

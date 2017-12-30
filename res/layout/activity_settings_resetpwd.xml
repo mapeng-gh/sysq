@@ -30,13 +30,13 @@
             
             <TextView 
 		           style="@style/settings_resetpwd_label"
-		           android:text="手机号码："/>
+		           android:text="登录帐号："/>
 		       <EditText 
-		           android:id="@+id/settings_resetpwd_mobile_et"
+		           android:id="@+id/settings_resetpwd_login_name_et"
 		           style="@style/settings_resetpwd_edittext"/>
 		       <TextView 
 		           style="@style/settings_resetpwd_hint"
-		           android:text="*登录帐号"/>
+		           android:text="*"/>
             
         </LinearLayout>
         
@@ -55,13 +55,13 @@
             
             <TextView 
 		           style="@style/settings_resetpwd_label"
-		           android:text="新密码："/>
+		           android:text="新登录密码："/>
 		       <EditText 
 		           android:id="@+id/settings_resetpwd_pwd_et"
 		           style="@style/settings_resetpwd_edittext"/>
 		       <TextView 
 		           style="@style/settings_resetpwd_hint"
-		           android:text="*登录密码"/>
+		           android:text="*"/>
             
         </LinearLayout>
         
