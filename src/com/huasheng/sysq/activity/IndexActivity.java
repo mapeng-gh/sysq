@@ -136,7 +136,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 	public void onClick(View view) {
 		
 		if(view.getId() == R.id.ll_index_reservation){//预约管理
-			if(SysqContext.getInterviewer().getLoginName().equals(SysqConstants.ADMIN_LOGIN_NAME)){
+			if(SysqContext.getInterviewer().getId() == SysqConstants.ADMIN_ID){
 				DialogUtils.showLongToast(this, "只有医生才能进行该操作");
 				return;
 			}
@@ -145,7 +145,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_statics){//数据统计
-			if(SysqContext.getInterviewer().getLoginName().equals(SysqConstants.ADMIN_LOGIN_NAME)){
+			if(SysqContext.getInterviewer().getId() == SysqConstants.ADMIN_ID){
 				DialogUtils.showLongToast(this, "只有医生才能进行该操作");
 				return;
 			}
@@ -154,7 +154,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_system_update){//系统更新
-			if(!SysqContext.getInterviewer().getLoginName().equals(SysqConstants.ADMIN_LOGIN_NAME)){
+			if(SysqContext.getInterviewer().getId() != SysqConstants.ADMIN_ID){
 				DialogUtils.showLongToast(this, "只有管理员才能进行该操作");
 				return;
 			}
@@ -162,7 +162,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 			this.update();
 			
 		}else if(view.getId() == R.id.ll_index_interview){//开始访谈
-			if(SysqContext.getInterviewer().getLoginName().equals(SysqConstants.ADMIN_LOGIN_NAME)){
+			if(SysqContext.getInterviewer().getId() == SysqConstants.ADMIN_ID){
 				DialogUtils.showLongToast(this, "只有医生才能进行该操作");
 				return;
 			}
@@ -175,7 +175,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_interviewee_search){//受访者一览
-			if(SysqContext.getInterviewer().getLoginName().equals(SysqConstants.ADMIN_LOGIN_NAME)){
+			if(SysqContext.getInterviewer().getId() == SysqConstants.ADMIN_ID){
 				DialogUtils.showLongToast(this, "只有医生才能进行该操作");
 				return;
 			}
@@ -184,7 +184,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			
 		}else if(view.getId() == R.id.ll_index_data_upload){//上传
-			if(SysqContext.getInterviewer().getLoginName().equals(SysqConstants.ADMIN_LOGIN_NAME)){
+			if(SysqContext.getInterviewer().getId() == SysqConstants.ADMIN_ID){
 				DialogUtils.showLongToast(this, "只有医生才能进行该操作");
 				return;
 			}
@@ -192,7 +192,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 			this.upload();
 			
 		}else if(view.getId() == R.id.ll_index_help){//设置
-			if(!SysqContext.getInterviewer().getLoginName().equals(SysqConstants.ADMIN_LOGIN_NAME)){
+			if(SysqContext.getInterviewer().getId() != SysqConstants.ADMIN_ID){
 				DialogUtils.showLongToast(this, "只有管理员才能进行该操作");
 				return;
 			}

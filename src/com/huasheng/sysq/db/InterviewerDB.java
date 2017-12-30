@@ -13,17 +13,39 @@ import com.huasheng.sysq.util.db.SysQOpenHelper;
 
 public class InterviewerDB {
 	
+	/**
+	 * 添加医生：自动生成ID
+	 * @param interviewer
+	 */
 	public static void insert(Interviewer interviewer){
 		interviewer.setId(CommonUtils.getCurrentSeconds());
 		ContentValues values = fillDBFromObject(interviewer);
 		SysQOpenHelper.getDatabase().insert(DBConstants.TABLE_INTERVIEWER, null, values);
 	}
 	
+	/**
+	 * 添加医生：指定ID
+	 * @param interviewer
+	 */
+	public static void insertWithID(Interviewer interviewer){
+		ContentValues values = fillDBFromObject(interviewer);
+		SysQOpenHelper.getDatabase().insert(DBConstants.TABLE_INTERVIEWER, null, values);
+	}
+	
+	/**
+	 * 更新医生
+	 * @param interviewer
+	 */
 	public static void update(Interviewer interviewer){
 		ContentValues values = fillDBFromObject(interviewer);
 		SysQOpenHelper.getDatabase().update(DBConstants.TABLE_INTERVIEWER, values,"id = ?",new String[]{interviewer.getId()+""});
 	}
 	
+	/**
+	 * 查询医生：主键
+	 * @param id
+	 * @return
+	 */
 	public static Interviewer selectById(int id){
 		Cursor cursor = SysQOpenHelper.getDatabase().query(DBConstants.TABLE_INTERVIEWER, null, "id = ?", new String[]{id + ""}, null, null, null);
 		Interviewer interviewer = null;
@@ -33,17 +55,11 @@ public class InterviewerDB {
 		return interviewer;
 	}
 	
-	public static List<Interviewer> selectAll(){
-		List<Interviewer> interviewerList = new ArrayList<Interviewer>(); 
-		Cursor cursor = SysQOpenHelper.getDatabase().query(DBConstants.TABLE_INTERVIEWER, null, null, null, null, null, null);
-		while(cursor.moveToNext()){
-			Interviewer interviewer = fillObjectFromDB(cursor);
-			interviewerList.add(interviewer);
-		}
-		cursor.close();
-		return interviewerList;
-	}
-	
+	/**
+	 * 查询医生：登录帐号
+	 * @param loginName
+	 * @return
+	 */
 	public static Interviewer findByLoginName(String loginName){
 		Cursor cursor = SysQOpenHelper.getDatabase().query(
 				DBConstants.TABLE_INTERVIEWER, null, 
@@ -55,6 +71,25 @@ public class InterviewerDB {
 		}
 		cursor.close();
 		return interviewer;
+	}
+	
+	/**
+	 * 删除医生：主键
+	 * @param id
+	 */
+	public static void deleteById(int id){
+		SysQOpenHelper.getDatabase().delete(DBConstants.TABLE_INTERVIEWER, "id=?", new String[]{id+""});
+	}
+	
+	public static List<Interviewer> selectAll(){
+		List<Interviewer> interviewerList = new ArrayList<Interviewer>(); 
+		Cursor cursor = SysQOpenHelper.getDatabase().query(DBConstants.TABLE_INTERVIEWER, null, null, null, null, null, null);
+		while(cursor.moveToNext()){
+			Interviewer interviewer = fillObjectFromDB(cursor);
+			interviewerList.add(interviewer);
+		}
+		cursor.close();
+		return interviewerList;
 	}
 	
 	private static ContentValues fillDBFromObject(Interviewer interviewer){

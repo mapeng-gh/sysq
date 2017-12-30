@@ -9,7 +9,11 @@ import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.model.Interviewer;
+import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.service.UserCenterService;
 import com.huasheng.sysq.util.DialogUtils;
+import com.huasheng.sysq.util.SysqConstants;
 
 public class SettingsNavActivity extends Activity implements OnClickListener{
 	
@@ -64,6 +68,13 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 			
 		}else if(v.getId() == R.id.settings_navy_admin_repaireLL){//帐号修复
 			
+			Interviewer adminInterviewer = UserCenterService.getUser(SysqConstants.ADMIN_LOGIN_NAME);
+			if(adminInterviewer == null){
+				InterviewService.repaireAdminAccountData();
+				DialogUtils.showLongToast(this, "帐号修复成功");
+			}else{
+				DialogUtils.showLongToast(this, "帐号正常，无需修复");
+			}
 		}
 	}
 

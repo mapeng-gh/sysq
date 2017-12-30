@@ -246,31 +246,6 @@ public class InterviewService {
 	}
 	
 	/**
-	 * 获取待修复访谈记录列表
-	 * @param versionId
-	 * @return
-	 */
-	public static List<InterviewBasicWrap> getAllRepaireIntervieweeList(int versionId){
-		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList(versionId);
-		if(interviewBasicList == null || interviewBasicList.size() == 0){
-			return null;
-		}
-		
-		List<InterviewBasicWrap> interviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
-		for(InterviewBasic interviewBasic : interviewBasicList){
-			Interviewer interviewer = InterviewerDB.selectById(interviewBasic.getInterviewerId());
-			if(SysqConstants.ADMIN_LOGIN_NAME.equals(interviewer.getLoginName())){
-				InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
-				interviewBasicWrap.setInterviewBasic(interviewBasic);
-				interviewBasicWrap.setInterviewee(IntervieweeDB.selectById(interviewBasic.getIntervieweeId()));
-				interviewBasicWrap.setInterviewer(interviewer);
-				interviewBasicWrapList.add(interviewBasicWrap);
-			}
-		}
-		return interviewBasicWrapList;
-	}
-	
-	/**
 	 * 添加问卷记录
 	 * @param questionaire
 	 * @return
@@ -865,5 +840,75 @@ public class InterviewService {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * 获取待修复访谈记录列表
+	 * @param versionId
+	 * @return
+	 */
+	public static List<InterviewBasicWrap> getAllRepaireIntervieweeList(int versionId){
+		List<InterviewBasic> interviewBasicList = InterviewBasicDB.getList(versionId);
+		if(interviewBasicList == null || interviewBasicList.size() == 0){
+			return null;
+		}
+		
+		List<InterviewBasicWrap> interviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
+		for(InterviewBasic interviewBasic : interviewBasicList){
+			Interviewer interviewer = InterviewerDB.selectById(interviewBasic.getInterviewerId());
+			if(SysqConstants.ADMIN_LOGIN_NAME.equals(interviewer.getLoginName())){
+				InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
+				interviewBasicWrap.setInterviewBasic(interviewBasic);
+				interviewBasicWrap.setInterviewee(IntervieweeDB.selectById(interviewBasic.getIntervieweeId()));
+				interviewBasicWrap.setInterviewer(interviewer);
+				interviewBasicWrapList.add(interviewBasicWrap);
+			}
+		}
+		return interviewBasicWrapList;
+	}
+	
+	/**
+	 * 管理员帐号数据修复
+	 */
+	public static void repaireAdminAccountData(){
+		
+		//获取管理帐号
+		Interviewer errorInterviewer = InterviewerDB.selectById(SysqConstants.ADMIN_ID);
+		
+		//更新帐号ID、上传状态
+		InterviewerDB.deleteById(SysqConstants.ADMIN_ID);
+		Interviewer newInterviewer = new Interviewer();
+		newInterviewer.setId(null);
+		newInterviewer.setLoginName(errorInterviewer.getLoginName());
+		newInterviewer.setPassword(errorInterviewer.getPassword());
+		newInterviewer.setMobile(errorInterviewer.getMobile());
+		newInterviewer.setUsername(errorInterviewer.getUsername());
+		newInterviewer.setEmail(errorInterviewer.getEmail());
+		newInterviewer.setWorkingPlace(errorInterviewer.getWorkingPlace());
+		newInterviewer.setUploadStatus(UploadConstants.upload_status_not_upload);
+		InterviewerDB.insert(newInterviewer);
+		
+		//添加默认admin帐号
+		Interviewer defaultAdminInterviewer = new Interviewer();
+		defaultAdminInterviewer.setId(SysqConstants.ADMIN_ID);
+		defaultAdminInterviewer.setLoginName(SysqConstants.ADMIN_LOGIN_NAME);
+		defaultAdminInterviewer.setPassword(SysqConstants.ADMIN_PASSWORD);
+		InterviewerDB.insertWithID(defaultAdminInterviewer);
+		
+		//更新访谈
+		List<InterviewBasic> errorInterviewBasicList = InterviewBasicDB.getList(SysqContext.getCurrentVersion().getId(), SysqConstants.ADMIN_ID);
+		if(errorInterviewBasicList != null && errorInterviewBasicList.size() > 0){
+			for(InterviewBasic errorInterviewBasic : errorInterviewBasicList){
+				errorInterviewBasic.setInterviewerId(newInterviewer.getId());
+				if(errorInterviewBasic.getUploadStatus() == UploadConstants.upload_status_uploaded){
+					errorInterviewBasic.setUploadStatus(UploadConstants.upload_status_modified);
+				}
+				InterviewBasicDB.update(errorInterviewBasic);
+			}
+		}
+		
+		//更改当前登录用户
+		Interviewer newAdminInterviewer = InterviewerDB.findByLoginName(SysqConstants.ADMIN_LOGIN_NAME);
+		SysqContext.setInterviewer(newAdminInterviewer);
 	}
 }
