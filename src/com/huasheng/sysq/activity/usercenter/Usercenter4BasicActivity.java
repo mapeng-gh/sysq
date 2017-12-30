@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.UserCenterService;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.upload.UploadConstants;
@@ -39,7 +40,7 @@ public class Usercenter4BasicActivity extends Activity implements OnClickListene
 		Interviewer loginUser = UserCenterService.getById(SysqContext.getInterviewer().getId());
 		
 		EditText mobileET = (EditText)this.findViewById(R.id.usercenter_basic_mobile_et);
-		mobileET.setText(loginUser.getLoginName());
+		mobileET.setText(loginUser.getMobile());
 		
 		EditText usernameET = (EditText)this.findViewById(R.id.usercenter_basic_username_et);
 		usernameET.setText(loginUser.getUsername());
@@ -63,14 +64,19 @@ public class Usercenter4BasicActivity extends Activity implements OnClickListene
 	 */
 	private void submitUsercenter4Basic(){
 		
-		//校验
+		//手机号码
 		EditText mobileET = (EditText)this.findViewById(R.id.usercenter_basic_mobile_et);
 		String mobile = mobileET.getText().toString().trim();
 		if(StringUtils.isEmpty(mobile)){
 			SysqApplication.showMessage("手机号码不能为空");
 			return;
 		}
+		if(!CommonUtils.test("^1[0-9]{10}$",mobile)){
+			SysqApplication.showMessage("手机号码格式不正确");
+			return;
+		}
 		
+		//姓名
 		EditText usernameET = (EditText)this.findViewById(R.id.usercenter_basic_username_et);
 		String username = usernameET.getText().toString().trim();
 		if(StringUtils.isEmpty(username)){
@@ -78,6 +84,7 @@ public class Usercenter4BasicActivity extends Activity implements OnClickListene
 			return;
 		}
 		
+		//邮箱
 		EditText emailET = (EditText)this.findViewById(R.id.usercenter_basic_email_et);
 		String email = emailET.getText().toString().trim();
 		if(StringUtils.isEmpty(email)){
@@ -85,6 +92,7 @@ public class Usercenter4BasicActivity extends Activity implements OnClickListene
 			return;
 		}
 		
+		//工作单位
 		EditText workingPlaceET = (EditText)this.findViewById(R.id.usercenter_basic_workingplace_et);
 		String workingPlace = workingPlaceET.getText().toString().trim();
 		if(StringUtils.isEmpty(workingPlace)){
@@ -92,16 +100,8 @@ public class Usercenter4BasicActivity extends Activity implements OnClickListene
 			return;
 		}
 		
-		//手机号码是否已存在
-		Interviewer interviewer = UserCenterService.getUser(mobile);
-		if(interviewer != null && !interviewer.getMobile().equals(SysqContext.getInterviewer().getMobile())){
-			SysqApplication.showMessage("该手机号码已注册");
-			return;
-		}
-		
 		//修改
 		Interviewer loginUser = UserCenterService.getById(SysqContext.getInterviewer().getId());
-		loginUser.setLoginName(mobile);
 		loginUser.setMobile(mobile);
 		loginUser.setUsername(username);
 		loginUser.setEmail(email);

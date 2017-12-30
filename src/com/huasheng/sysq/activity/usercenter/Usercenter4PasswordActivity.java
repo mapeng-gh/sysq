@@ -40,24 +40,24 @@ public class Usercenter4PasswordActivity extends Activity implements OnClickList
 	 */
 	private void submitUsercenter4Password(){
 		
-		//校验
+		//原密码
 		EditText oldPasswordET = (EditText)this.findViewById(R.id.usercenter_password_old_et);
 		String oldPassword = oldPasswordET.getText().toString().trim();
 		if(StringUtils.isEmpty(oldPassword)){
 			SysqApplication.showMessage("原密码不能为空");
 			return;
 		}
+		Interviewer interviewer = SysqContext.getInterviewer();
+		if(!interviewer.getPassword().equals(oldPassword)){
+			SysqApplication.showMessage("原密码不正确");
+			return;
+		}
+		
+		//新密码
 		EditText newPasswordET = (EditText)this.findViewById(R.id.usercenter_password_new_et);
 		String newPassword = newPasswordET.getText().toString().trim();
 		if(StringUtils.isEmpty(newPassword)){
 			SysqApplication.showMessage("新密码不能为空");
-			return;
-		}
-		
-		//校验原密码是否正确
-		Interviewer interviewer = SysqContext.getInterviewer();
-		if(!interviewer.getPassword().equals(oldPassword)){
-			SysqApplication.showMessage("原密码不正确");
 			return;
 		}
 		if(interviewer.getPassword().equals(newPassword)){

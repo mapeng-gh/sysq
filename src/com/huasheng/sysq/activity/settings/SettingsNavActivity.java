@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.huasheng.sysq.R;
+import com.huasheng.sysq.util.DialogUtils;
 
 public class SettingsNavActivity extends Activity implements OnClickListener{
 	
@@ -17,6 +18,7 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 	private LinearLayout addUserLL;
 	private LinearLayout resetPwdLL;
 	private LinearLayout repaireLL;
+	private LinearLayout adminRepaireLL;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 		resetPwdLL.setOnClickListener(this);
 		repaireLL = (LinearLayout)findViewById(R.id.settings_navy_repaireLL);
 		repaireLL.setOnClickListener(this);
+		adminRepaireLL = (LinearLayout)findViewById(R.id.settings_navy_admin_repaireLL);
+		adminRepaireLL.setOnClickListener(this);
 	}
 
 	@Override
@@ -54,9 +58,12 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 			Intent intent = new Intent(this,Settings4ResetPwdActivity.class);
 			this.startActivity(intent);
 			
-		}else if(v.getId() == R.id.settings_navy_repaireLL){//数据修复
+		}else if(v.getId() == R.id.settings_navy_repaireLL){//访谈修复
 			Intent intent = new Intent(this,Settings4RepaireIntervieweeListActivity.class);
 			this.startActivity(intent);
+			
+		}else if(v.getId() == R.id.settings_navy_admin_repaireLL){//帐号修复
+			
 		}
 	}
 

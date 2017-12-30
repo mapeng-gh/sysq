@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.UserCenterService;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.upload.UploadConstants;
 
@@ -40,14 +41,24 @@ public class Settings4AddUserActivity extends Activity implements OnClickListene
 	 */
 	private void submitUsercenter4AddUser(){
 		
-		//校验
-		EditText mobileET = (EditText)this.findViewById(R.id.usercenter_adduser_mobile_et);
-		final String mobile = mobileET.getText().toString().trim();
-		if(StringUtils.isEmpty(mobile)){
-			SysqApplication.showMessage("手机号码不能为空");
+		//登录帐号
+		EditText loginNameET = (EditText)this.findViewById(R.id.usercenter_adduser_login_name_et);
+		final String loginName = loginNameET.getText().toString().trim();
+		if(StringUtils.isEmpty(loginName)){
+			SysqApplication.showMessage("登录帐号不能为空");
+			return;
+		}
+		if(!CommonUtils.test("^[A-Za-z0-9_]{10,15}$",loginName)){
+			SysqApplication.showMessage("登录帐号格式不正确");
+			return;
+		}
+		Interviewer interviewer = UserCenterService.getUser(loginName);
+		if(interviewer != null){
+			SysqApplication.showMessage("帐号已注册");
 			return;
 		}
 		
+		//登录密码
 		EditText passwordET = (EditText)this.findViewById(R.id.usercenter_adduser_password_et);
 		final String password = passwordET.getText().toString().trim();
 		if(StringUtils.isEmpty(password)){
@@ -55,6 +66,19 @@ public class Settings4AddUserActivity extends Activity implements OnClickListene
 			return;
 		}
 		
+		//手机号
+		EditText mobileET = (EditText)this.findViewById(R.id.usercenter_adduser_mobile_et);
+		final String mobile = mobileET.getText().toString().trim();
+		if(StringUtils.isEmpty(mobile)){
+			SysqApplication.showMessage("手机号码不能为空");
+			return;
+		}
+		if(!CommonUtils.test("^1[0-9]{10}$",mobile)){
+			SysqApplication.showMessage("手机号码格式不正确");
+			return;
+		}
+		
+		//姓名
 		EditText usernameET = (EditText)this.findViewById(R.id.usercenter_adduser_username_et);
 		final String username = usernameET.getText().toString().trim();
 		if(StringUtils.isEmpty(username)){
@@ -62,6 +86,7 @@ public class Settings4AddUserActivity extends Activity implements OnClickListene
 			return;
 		}
 		
+		//邮箱
 		EditText emailET = (EditText)this.findViewById(R.id.usercenter_adduser_email_et);
 		final String email = emailET.getText().toString().trim();
 		if(StringUtils.isEmpty(email)){
@@ -69,6 +94,7 @@ public class Settings4AddUserActivity extends Activity implements OnClickListene
 			return;
 		}
 		
+		//工作单位
 		EditText workingPlaceET = (EditText)this.findViewById(R.id.usercenter_adduser_workingplace_et);
 		final String workingPlace = workingPlaceET.getText().toString().trim();
 		if(StringUtils.isEmpty(workingPlace)){
@@ -76,16 +102,9 @@ public class Settings4AddUserActivity extends Activity implements OnClickListene
 			return;
 		}
 		
-		//是否已注册
-		Interviewer interviewer = UserCenterService.getUser(mobile);
-		if(interviewer != null){
-			SysqApplication.showMessage("该手机号码已注册");
-			return;
-		}
-		
 		//保存
 		Interviewer newInterviewer = new Interviewer();
-		newInterviewer.setLoginName(mobile);
+		newInterviewer.setLoginName(loginName);
 		newInterviewer.setMobile(mobile);
 		newInterviewer.setPassword(password);
 		newInterviewer.setUsername(username);

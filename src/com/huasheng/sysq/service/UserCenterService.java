@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.huasheng.sysq.db.InterviewerDB;
 import com.huasheng.sysq.model.Interviewer;
+import com.huasheng.sysq.util.SysqConstants;
 
 public class UserCenterService {
 
@@ -36,7 +37,7 @@ public class UserCenterService {
 		
 		List<Interviewer> dockerList = new ArrayList<Interviewer>();
 		for(Interviewer interviewer : interviewerList){
-			if(!"admin".equals(interviewer.getLoginName())){
+			if(!SysqConstants.ADMIN_LOGIN_NAME.equals(interviewer.getLoginName())){
 				dockerList.add(interviewer);
 			}
 		}

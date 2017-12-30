@@ -36,7 +36,7 @@
 		           style="@style/usercenter_basic_edittext"/>
 		       <TextView 
 		           style="@style/usercenter_basic_hint"
-		           android:text="*系统登录帐号"/>
+		           android:text="*"/>
             
         </LinearLayout>
         

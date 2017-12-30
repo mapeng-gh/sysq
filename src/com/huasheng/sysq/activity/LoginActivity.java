@@ -24,6 +24,7 @@ import com.huasheng.sysq.util.MailUtils;
 import com.huasheng.sysq.util.NetworkUtils;
 import com.huasheng.sysq.util.RSAUtils;
 import com.huasheng.sysq.util.SysqApplication;
+import com.huasheng.sysq.util.SysqConstants;
 import com.huasheng.sysq.util.SysqContext;
 
 public class LoginActivity extends Activity implements OnClickListener{
@@ -106,7 +107,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 						}
 						
 						//获取管理员密码
-						Interviewer adminInterviewer = UserCenterService.getUser("admin");
+						Interviewer adminInterviewer = UserCenterService.getUser(SysqConstants.ADMIN_LOGIN_NAME);
 						String adminPwd = adminInterviewer.getPassword();
 						
 						//加密

@@ -39,6 +39,7 @@ import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.model.Version;
 import com.huasheng.sysq.util.CommonUtils;
+import com.huasheng.sysq.util.SysqConstants;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.interview.InterviewContext;
 import com.huasheng.sysq.util.upload.UploadConstants;
@@ -170,7 +171,7 @@ public class InterviewService {
 		//查询自己名下访谈记录（管理员查看所有）
 		
 		List<InterviewBasic> interviewBasicList = new ArrayList<InterviewBasic>();
-		if(SysqContext.getInterviewer().getLoginName().equals("admin")){
+		if(SysqContext.getInterviewer().getLoginName().equals(SysqConstants.ADMIN_LOGIN_NAME)){
 			interviewBasicList = InterviewBasicDB.getList(SysqContext.getCurrentVersion().getId());
 		}else{
 			interviewBasicList = InterviewBasicDB.getList(SysqContext.getCurrentVersion().getId(),SysqContext.getInterviewer().getId());
@@ -258,7 +259,7 @@ public class InterviewService {
 		List<InterviewBasicWrap> interviewBasicWrapList = new ArrayList<InterviewBasicWrap>();
 		for(InterviewBasic interviewBasic : interviewBasicList){
 			Interviewer interviewer = InterviewerDB.selectById(interviewBasic.getInterviewerId());
-			if("admin".equals(interviewer.getLoginName())){
+			if(SysqConstants.ADMIN_LOGIN_NAME.equals(interviewer.getLoginName())){
 				InterviewBasicWrap interviewBasicWrap = new InterviewBasicWrap();
 				interviewBasicWrap.setInterviewBasic(interviewBasic);
 				interviewBasicWrap.setInterviewee(IntervieweeDB.selectById(interviewBasic.getIntervieweeId()));

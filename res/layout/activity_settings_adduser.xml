@@ -17,6 +17,56 @@
             android:textSize="40sp"/>
     </RelativeLayout>
     
+   <!-- 表单：登录帐号  -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        style="@style/usercenter_adduser_layout">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+            
+            <TextView 
+		           style="@style/usercenter_adduser_label"
+		           android:text="登录帐号："/>
+		       <EditText 
+		           android:id="@+id/usercenter_adduser_login_name_et"
+		           style="@style/usercenter_adduser_edittext"/>
+		       <TextView 
+		           style="@style/usercenter_adduser_hint"
+		           android:text="*10到15位字母数字下划线"/>
+            
+        </LinearLayout>
+        
+    </RelativeLayout>
+    
+    <!-- 表单：登录密码 -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        style="@style/usercenter_adduser_layout">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+            
+            <TextView 
+		           style="@style/usercenter_adduser_label"
+		           android:text="登录密码："/>
+		       <EditText 
+		           android:id="@+id/usercenter_adduser_password_et"
+		           style="@style/usercenter_adduser_edittext"/>
+		       <TextView 
+		           style="@style/usercenter_adduser_hint"
+		           android:text="*"/>
+            
+        </LinearLayout>
+        
+    </RelativeLayout>
+    
    <!-- 表单：手机号码  -->
     <RelativeLayout 
         android:layout_width="match_parent"
@@ -33,31 +83,6 @@
 		           android:text="手机号码："/>
 		       <EditText 
 		           android:id="@+id/usercenter_adduser_mobile_et"
-		           style="@style/usercenter_adduser_edittext"/>
-		       <TextView 
-		           style="@style/usercenter_adduser_hint"
-		           android:text="*系统登录帐号"/>
-            
-        </LinearLayout>
-        
-    </RelativeLayout>
-    
-    <!-- 表单：密码 -->
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        style="@style/usercenter_adduser_layout">
-        
-        <LinearLayout 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
-            
-            <TextView 
-		           style="@style/usercenter_adduser_label"
-		           android:text="密码："/>
-		       <EditText 
-		           android:id="@+id/usercenter_adduser_password_et"
 		           style="@style/usercenter_adduser_edittext"/>
 		       <TextView 
 		           style="@style/usercenter_adduser_hint"
