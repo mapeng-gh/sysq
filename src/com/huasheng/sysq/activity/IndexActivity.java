@@ -185,7 +185,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 			
 		}else if(view.getId() == R.id.ll_index_data_upload){//上传
 			if(SysqContext.getInterviewer().getId() == SysqConstants.ADMIN_ID){
-				DialogUtils.showLongToast(this, "只有医生才能进行该操作");
+				DialogUtils.showLongToast(this, "只有医生才能进行该操作"); 
 				return;
 			}
 			
