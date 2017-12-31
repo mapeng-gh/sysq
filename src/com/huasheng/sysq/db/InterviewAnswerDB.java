@@ -17,6 +17,22 @@ public class InterviewAnswerDB {
 		return (int)SysQOpenHelper.getDatabase().insert(DBConstants.TABLE_INTERVIEW_ANSWER, null, values);
 	}
 	
+	/**
+	 * 删除：访谈记录ID
+	 * @param interviewBasicId
+	 */
+	public static void delete(int interviewBasicId){
+		SysQOpenHelper.getDatabase().delete(
+				DBConstants.TABLE_INTERVIEW_ANSWER, 
+				DBConstants.COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID + "=?",
+				new String[]{interviewBasicId + ""});
+	}
+	
+	/**
+	 * 删除：访谈记录ID、访谈问题Code
+	 * @param interviewBasicId
+	 * @param questionCode
+	 */
 	public static void deleteByInterviewQuestion(int interviewBasicId,String questionCode){
 		SysQOpenHelper.getDatabase().delete(DBConstants.TABLE_INTERVIEW_ANSWER, DBConstants.COLUMN_INTERVIEW_ANSWER_INTERVIEW_BASIC_ID + "=?" + " and " + DBConstants.COLUMN_INTERVIEW_ANSWER_QUESTION_CODE + "=?",new String[]{interviewBasicId + "",questionCode});
 	}

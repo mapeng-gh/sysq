@@ -22,6 +22,22 @@ public class InterviewQuestionaireDB {
 		SysQOpenHelper.getDatabase().update(DBConstants.TABLE_INTERVIEW_QUESTIONAIRE, values, "id=?", new String[]{interviewQuestionaire.getId()+""});
 	}
 	
+	/**
+	 * 删除：访谈记录ID
+	 * @param interviewBasicId
+	 */
+	public static void delete(int interviewBasicId){
+		SysQOpenHelper.getDatabase().delete(
+				DBConstants.TABLE_INTERVIEW_QUESTIONAIRE, 
+				DBConstants.COLUMN_INTERVIEW_QUESTIONAIRE_INTERVIEW_BASIC_ID + "=?", 
+				new String[]{interviewBasicId + ""});
+	}
+	
+	/**
+	 * 删除：访谈记录ID、访谈问卷Code
+	 * @param interviewBasicId
+	 * @param questionaireCode
+	 */
 	public static void delete(int interviewBasicId,String questionaireCode){
 		SysQOpenHelper.getDatabase().delete(
 				DBConstants.TABLE_INTERVIEW_QUESTIONAIRE, 
@@ -30,9 +46,8 @@ public class InterviewQuestionaireDB {
 	}
 	
 	/**
-	 * 查询访问记录下所有问卷记录
+	 * 查询列表：访谈记录ID
 	 * @param interviewBasicId
-	 * @param versionId
 	 * @return
 	 */
 	public static List<InterviewQuestionaire> selectByInterviewBasicId(int interviewBasicId){
@@ -54,7 +69,7 @@ public class InterviewQuestionaireDB {
 	}
 	
 	/**
-	 * 查询访谈记录下某个访谈问卷
+	 * 查询：访谈记录ID、访谈问卷Code
 	 * @param interviewBasicId
 	 * @param questionaireCode
 	 * @return

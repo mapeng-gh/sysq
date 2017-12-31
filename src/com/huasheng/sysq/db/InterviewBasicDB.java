@@ -24,6 +24,14 @@ public class InterviewBasicDB {
 		SysQOpenHelper.getDatabase().update(DBConstants.TABLE_INTERVIEW_BASIC, values,"id = ?",new String[]{interviewBasic.getId()+""});
 	}
 	
+	/**
+	 * 删除：主键ID
+	 * @param id
+	 */
+	public static void deleteById(int id){
+		SysQOpenHelper.getDatabase().delete(DBConstants.TABLE_INTERVIEW_BASIC,"id=?",new String[]{id+""});
+	}
+	
 	public static InterviewBasic selectById(int id){
 		Cursor cursor = SysQOpenHelper.getDatabase().query(DBConstants.TABLE_INTERVIEW_BASIC, null, "id = ?", new String[]{id + ""}, null, null, null);
 		InterviewBasic interviewBasic = null;

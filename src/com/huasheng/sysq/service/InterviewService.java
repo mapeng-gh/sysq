@@ -1,5 +1,6 @@
 package com.huasheng.sysq.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.huasheng.sysq.activity.interview.InterviewDialogAdapter;
 import com.huasheng.sysq.db.AnswerDB;
 import com.huasheng.sysq.db.InterviewAnswerDB;
 import com.huasheng.sysq.db.InterviewBasicDB;
@@ -39,6 +42,7 @@ import com.huasheng.sysq.model.Questionaire;
 import com.huasheng.sysq.model.ResultWrap;
 import com.huasheng.sysq.model.Version;
 import com.huasheng.sysq.util.CommonUtils;
+import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqConstants;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.interview.InterviewContext;
@@ -910,5 +914,24 @@ public class InterviewService {
 		//更改当前登录用户
 		Interviewer newAdminInterviewer = InterviewerDB.findByLoginName(SysqConstants.ADMIN_LOGIN_NAME);
 		SysqContext.setInterviewer(newAdminInterviewer);
+	}
+	
+	/**
+	 * 删除访谈
+	 * @param interviewBasicId
+	 */
+	public static void removeInterviewBasic(int interviewBasicId){
+		
+		//删除访谈数据
+		InterviewBasicDB.deleteById(interviewBasicId);
+		InterviewQuestionaireDB.delete(interviewBasicId);
+		InterviewQuestionDB.delete(interviewBasicId);
+		InterviewAnswerDB.delete(interviewBasicId);
+		
+		//删除多媒体文件
+		File mediaDir = new File(PathConstants.getMediaDir(),interviewBasicId+"");
+		if(mediaDir.exists()){
+			FileUtils.deleteQuietly(mediaDir);
+		}
 	}
 }

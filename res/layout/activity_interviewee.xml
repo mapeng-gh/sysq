@@ -64,29 +64,35 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/interviewee_list_head_username_label"
 	        style="@style/interviewee_list_head"/>
-		<TextView 
+		<!-- <TextView 
 		    android:layout_width="0dp"
 	        android:layout_weight="@string/interviewee_list_head_address_weight"
 	        android:layout_height="wrap_content"
 	        android:text="@string/interviewee_list_head_address_label"
-	        style="@style/interviewee_list_head"/>
-		<TextView 
+	        style="@style/interviewee_list_head"/> -->
+	<!-- 	<TextView 
 		    android:layout_width="0dp"
 	        android:layout_weight="@string/interviewee_list_head_mobile_weight"
 	        android:layout_height="wrap_content"
 	        android:text="@string/interviewee_list_head_mobile_label"
-	        style="@style/interviewee_list_head"/>
+	        style="@style/interviewee_list_head"/> -->
 		<TextView 
 		    android:layout_width="0dp"
 	        android:layout_weight="@string/interviewee_list_head_type_weight"
 	        android:layout_height="wrap_content"
-	        android:text="@string/interviewee_list_head_type_label"
+	        android:text="访谈类型"
 	        style="@style/interviewee_list_head"/>
 		<TextView 
 		    android:layout_width="0dp"
-	        android:layout_weight="@string/interviewee_list_head_status_weight"
+	        android:layout_weight="@string/interviewee_list_head_dna_weight"
 	        android:layout_height="wrap_content"
-	        android:text="DNA"
+	        android:text="DNA采集"
+	        style="@style/interviewee_list_head"/>
+		<TextView 
+		    android:layout_width="0dp"
+	        android:layout_weight="@string/interviewee_list_head_test_weight"
+	        android:layout_height="wrap_content"
+	        android:text="是否测试"
 	        style="@style/interviewee_list_head"/>
 		<TextView 
 		    android:layout_width="0dp"

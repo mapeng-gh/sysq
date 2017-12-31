@@ -24,23 +24,23 @@
     
     <View style="@style/list_item_cell_seperator"/>
     
-    <TextView 
+    <!-- <TextView 
         android:id="@+id/tv_interviewee_list_item_address"
         android:layout_width="0dp"
         android:layout_weight="@string/interviewee_list_head_address_weight"
         android:layout_height="match_parent"
         style="@style/interviewee_list_body"/>
     
-    <View style="@style/list_item_cell_seperator"/>
+    <View style="@style/list_item_cell_seperator"/> -->
     
-    <TextView 
+    <!-- <TextView 
         android:id="@+id/tv_interviewee_list_item_mobile"
         android:layout_width="0dp"
         android:layout_weight="@string/interviewee_list_head_mobile_weight"
         android:layout_height="match_parent"
         style="@style/interviewee_list_body"/>
     
-    <View style="@style/list_item_cell_seperator"/>
+    <View style="@style/list_item_cell_seperator"/> -->
     
     <TextView 
         android:id="@+id/tv_interviewee_list_item_type"
@@ -55,6 +55,15 @@
         android:id="@+id/tv_interviewee_list_item_dna"
         android:layout_width="0dp"
         android:layout_weight="@string/interviewee_list_head_dna_weight"
+        android:layout_height="match_parent"
+        style="@style/interviewee_list_body"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
+        android:id="@+id/tv_interviewee_list_item_test"
+        android:layout_width="0dp"
+        android:layout_weight="@string/interviewee_list_head_test_weight"
         android:layout_height="match_parent"
         style="@style/interviewee_list_body"/>
     
@@ -113,6 +122,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="结束原因"
+                android:textColor="#338EE7"
+                android:textSize="17sp"
+                android:layout_marginLeft="15dp"
+                android:visibility="gone"/>
+            
+            <TextView 
+                android:id="@+id/tv_interviewee_item_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="删除"
                 android:textColor="#338EE7"
                 android:textSize="17sp"
                 android:layout_marginLeft="15dp"

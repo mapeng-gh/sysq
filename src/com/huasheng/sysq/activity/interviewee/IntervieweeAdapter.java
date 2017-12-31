@@ -53,17 +53,31 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasicWrap>{
 		TextView usernameTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_username);
 		usernameTV.setText(interviewee.getUsername());
 		
-		TextView addressTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_address);
-		addressTV.setText(interviewee.getAddress());
+		/*TextView addressTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_address);
+		addressTV.setText(interviewee.getAddress());*/
 		
-		TextView mobileTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_mobile);
-		mobileTV.setText(interviewee.getMobile());
+		/*TextView mobileTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_mobile);
+		mobileTV.setText(interviewee.getMobile());*/
 		
 		TextView typeTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_type);
 		if(interviewBasic.getType() == InterviewConstants.TYPE_CASE){
 			typeTV.setText("病例");
 		}else if(interviewBasic.getType() == InterviewConstants.TYPE_CONTRAST){
 			typeTV.setText("对照");
+		}
+		
+		TextView dnaTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_dna);
+		if(StringUtils.isEmpty(interviewee.getDna())){
+			dnaTV.setText("未采集");
+		}else{
+			dnaTV.setText("已采集");
+		}
+		
+		TextView testTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_test);
+		if(interviewBasic.getIsTest() == InterviewBasic.TEST_YES){
+			testTV.setText("是");
+		}else{
+			testTV.setText("否");
 		}
 		
 		TextView statusTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_status);
@@ -73,13 +87,6 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasicWrap>{
 			statusTV.setText("已结束");
 		}else if(interviewBasic.getStatus() == InterviewBasic.STATUS_DONE){
 			statusTV.setText("已完成");
-		}
-		
-		TextView dnaTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_dna);
-		if(StringUtils.isEmpty(interviewee.getDna())){
-			dnaTV.setText("未上传");
-		}else{
-			dnaTV.setText("已上传");
 		}
 		
 		//绑定事件
@@ -113,6 +120,16 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasicWrap>{
 			quitReasonTV.setTag(interviewBasic.getQuitReason());
 		}else{
 			quitReasonTV.setVisibility(View.GONE);
+		}
+		
+		//删除测试访谈
+		TextView removeTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_item_remove);
+		if(interviewBasic.getIsTest() == InterviewBasic.TEST_YES){
+			removeTV.setVisibility(View.VISIBLE);
+			removeTV.setOnClickListener(this.activity);
+			removeTV.setTag(interviewBasic.getId());
+		}else{
+			removeTV.setVisibility(View.GONE);
 		}
 		
 		return interviewView;

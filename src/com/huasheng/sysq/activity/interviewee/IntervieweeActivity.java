@@ -120,7 +120,34 @@ public class IntervieweeActivity extends Activity implements OnClickListener{
 			int interviewBasicId = (Integer)view.getTag();
 			intent.putExtra("interviewBasicId", interviewBasicId);
 			this.startActivity(intent);
+			
+		}else if(view.getId() == R.id.tv_interviewee_item_remove){//删除测试访谈
+			int interviewBasicId = (Integer)view.getTag();
+			this.removeInterview(interviewBasicId);
 		}
+	}
+	
+	/**
+	 * 删除测试访谈
+	 * @param interviewBasicId
+	 */
+	private void removeInterview(final int interviewBasicId){
+		
+		DialogUtils.showConfirmDialog(this, "确定", "确定删除该测试访谈吗？", "确定", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+				InterviewService.removeInterviewBasic(interviewBasicId);
+				
+				DialogUtils.showLongToast(IntervieweeActivity.this, "删除成功");
+				
+				//刷新列表
+				IntervieweeActivity.this.search();
+				
+			}
+		}, "取消", null);
+		
 	}
 	
 	private void continueInterview(int interviewBasicId){

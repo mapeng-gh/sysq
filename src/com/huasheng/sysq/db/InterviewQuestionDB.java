@@ -17,10 +17,31 @@ public class InterviewQuestionDB {
 		return (int)SysQOpenHelper.getDatabase().insert(DBConstants.TABLE_INTERVIEW_QUESTION, null, values);
 	}
 	
+	/**
+	 * 删除：访谈记录ID
+	 * @param interviewBasicId
+	 */
+	public static void delete(int interviewBasicId){
+		SysQOpenHelper.getDatabase().delete(
+				DBConstants.TABLE_INTERVIEW_QUESTION,
+				DBConstants.COLUMN_INTERVIEW_QUESTION_INTERVIEW_BASIC_ID + "=?", 
+				new String[]{interviewBasicId + ""});
+	}
+	
+	/**
+	 * 删除：访谈记录ID、访谈问卷Code
+	 * @param interviewBasicId
+	 * @param questionaireCode
+	 */
 	public static void deleteByInterviewQuestionaire(int interviewBasicId,String questionaireCode){
 		SysQOpenHelper.getDatabase().delete(DBConstants.TABLE_INTERVIEW_QUESTION, DBConstants.COLUMN_INTERVIEW_QUESTION_INTERVIEW_BASIC_ID + "=?" + " and " + DBConstants.COLUMN_INTERVIEW_QUESTION_QUESTIONAIRE_CODE + "=?", new String[]{interviewBasicId + "",questionaireCode});
 	}
 	
+	/**
+	 * 删除：访谈记录ID、访谈问题Code
+	 * @param interviewBasicId
+	 * @param questionCode
+	 */
 	public static void delete(int interviewBasicId,String questionCode){
 		SysQOpenHelper.getDatabase().delete(
 				DBConstants.TABLE_INTERVIEW_QUESTION,
@@ -28,6 +49,12 @@ public class InterviewQuestionDB {
 				new String[]{interviewBasicId + "",questionCode});
 	}
 	
+	/**
+	 * 查询列表：访谈记录ID、访谈问卷Code
+	 * @param interviewBasicId
+	 * @param questionaireCode
+	 * @return
+	 */
 	public static List<InterviewQuestion> selectByQuestionaire(int interviewBasicId,String questionaireCode){
 		Cursor cursor = SysQOpenHelper.getDatabase().query(
 				DBConstants.TABLE_INTERVIEW_QUESTION,
