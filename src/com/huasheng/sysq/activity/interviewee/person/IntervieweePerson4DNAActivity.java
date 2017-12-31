@@ -188,8 +188,33 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent(this,IntervieweePersonNavActivity.class);
-		intent.putExtra("interviewBasicId", this.interviewBasicId);
-		this.startActivity(intent);
+		
+		//查询dna信息
+		List<String> data = new ArrayList<String>();
+		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
+		String dnas = interviewBasicWrap.getInterviewee().getDna();
+		
+		if(StringUtils.isEmpty(dnas)){
+			
+			//确认提示
+			DialogUtils.showConfirmDialog(this, "确认", "没有上传DNA样本信息访谈数据将无法上传，您确定离开暂时不上传吗？", "离开", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					
+					//跳转离开
+					Intent intent = new Intent(IntervieweePerson4DNAActivity.this,IntervieweePersonNavActivity.class);
+					intent.putExtra("interviewBasicId", IntervieweePerson4DNAActivity.this.interviewBasicId);
+					IntervieweePerson4DNAActivity.this.startActivity(intent);
+				}
+			},"上传", null);
+			
+		}else{
+			
+			//跳转离开
+			Intent intent = new Intent(IntervieweePerson4DNAActivity.this,IntervieweePersonNavActivity.class);
+			intent.putExtra("interviewBasicId", IntervieweePerson4DNAActivity.this.interviewBasicId);
+			IntervieweePerson4DNAActivity.this.startActivity(intent);
+		}
 	}
 }

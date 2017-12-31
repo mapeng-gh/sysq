@@ -159,7 +159,8 @@ public class UploadUtils {
 		if(allInterviewBasicWrapList != null && allInterviewBasicWrapList.size() > 0){
 			for(InterviewBasicWrap interviewBasicWrap : allInterviewBasicWrapList){
 				if(interviewBasicWrap.getInterviewBasic().getIsTest() == InterviewBasic.TEST_NO 
-						&& (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE || interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
+						&& ( (interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_DONE && !StringUtils.isEmpty(interviewBasicWrap.getInterviewee().getDna())) 
+								|| interviewBasicWrap.getInterviewBasic().getStatus() == InterviewBasic.STATUS_BREAK)){
 					interviewBasicWrapList.add(interviewBasicWrap);
 				}
 			}

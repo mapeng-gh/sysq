@@ -52,6 +52,15 @@
     <View style="@style/list_item_cell_seperator"/>
     
     <TextView 
+        android:id="@+id/tv_interviewee_list_item_dna"
+        android:layout_width="0dp"
+        android:layout_weight="@string/interviewee_list_head_dna_weight"
+        android:layout_height="match_parent"
+        style="@style/interviewee_list_body"/>
+    
+    <View style="@style/list_item_cell_seperator"/>
+    
+    <TextView 
         android:id="@+id/tv_interviewee_list_item_status"
         android:layout_width="0dp"
         android:layout_weight="@string/interviewee_list_head_status_weight"

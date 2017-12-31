@@ -15,6 +15,7 @@ import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.InterviewBasic;
 import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.Interviewee;
+import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.util.interview.InterviewConstants;
 
 public class IntervieweeAdapter extends ArrayAdapter<InterviewBasicWrap>{
@@ -35,6 +36,7 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasicWrap>{
 		InterviewBasicWrap interviewBasicWrap = getItem(position);
 		InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
 		Interviewee interviewee = interviewBasicWrap.getInterviewee();
+		Interviewer interviewer = interviewBasicWrap.getInterviewer();
 		
 		//实例化一个view
 		View interviewView;
@@ -71,6 +73,13 @@ public class IntervieweeAdapter extends ArrayAdapter<InterviewBasicWrap>{
 			statusTV.setText("已结束");
 		}else if(interviewBasic.getStatus() == InterviewBasic.STATUS_DONE){
 			statusTV.setText("已完成");
+		}
+		
+		TextView dnaTV = (TextView)interviewView.findViewById(R.id.tv_interviewee_list_item_dna);
+		if(StringUtils.isEmpty(interviewee.getDna())){
+			dnaTV.setText("未上传");
+		}else{
+			dnaTV.setText("已上传");
 		}
 		
 		//绑定事件
