@@ -1,5 +1,10 @@
 package com.huasheng.sysq.activity;
 
+import java.io.File;
+import java.util.Date;
+import java.util.Map;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
@@ -22,7 +27,12 @@ import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 import com.huasheng.sysq.activity.settings.SettingsNavActivity;
 import com.huasheng.sysq.activity.usercenter.UserCenterNavActivity;
+import com.huasheng.sysq.service.InterviewService;
+import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.DialogUtils;
+import com.huasheng.sysq.util.NetworkUtils;
+import com.huasheng.sysq.util.PackageUtils;
+import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqConstants;
 import com.huasheng.sysq.util.SysqContext;
 import com.huasheng.sysq.util.update.UpdateConstants;
@@ -50,6 +60,7 @@ public class IndexActivity extends Activity implements OnClickListener{
 	private Handler updateHandler;
 	private AlertDialog updateDialog;
 	private String updateMsg;
+	private Handler checkUpdateHandler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +96,70 @@ public class IndexActivity extends Activity implements OnClickListener{
 		//处理消息
 		handleUploadMessage();
 		handleUpdateMessage();
+		handleCheckUpdateMessage();
+		
+		//检查更新
+		this.checkUpdate();
 	}
 	
+	/**
+	 * 检查版本更新
+	 */
+	private void checkUpdate(){
+		
+		if(NetworkUtils.isNetworkEnable(this)){//网络连接正常
+			
+			new Thread(new Runnable() {//开启新线程
+				
+				@Override
+				public void run() {
+					
+					try{
+						
+						//下载配置文件
+						File temConfigFile = new File(PathConstants.getTmpDir(),"version.properties"); 
+						NetworkUtils.download(UpdateConstants.CONFIG_ADDRESS+"?v="+new Date().getTime(),temConfigFile);
+						Map<String,String> versionMap = CommonUtils.readProperties(temConfigFile,"UTF-8");
+						FileUtils.deleteQuietly(temConfigFile);
+						
+						//版本比对
+						String msg = "";
+						int newAppVersion = Integer.parseInt(versionMap.get("app_version_code"));
+						int newInterviewVersion = Integer.parseInt(versionMap.get("interview_version_code"));
+						int curAppVersion = PackageUtils.getVersionCode(IndexActivity.this);
+						int curInterviewVersion = InterviewService.getCurInterviewVersion().getId();
+						if(newAppVersion > curAppVersion){
+							msg += "app有新版本了，请及时更新；";
+						}
+						if(newInterviewVersion > curInterviewVersion){
+							msg += "问卷有新版本了，请及时更新";
+						}
+						
+						//发送消息
+						if(!StringUtils.isEmpty(msg)){
+							Message checkMsg = new Message();
+							checkMsg.obj = msg;
+							IndexActivity.this.checkUpdateHandler.sendMessage(checkMsg);
+						}
+					}catch(Exception e){//统一异常处理
+						DialogUtils.showPromptDialog(IndexActivity.this, "版本检查", "版本检查出错：" + e.getMessage(), "知道了");
+					}
+				}
+			}).start();
+		}
+	}
+	
+	/**
+	 * 处理检查更新消息
+	 */
+	private void handleCheckUpdateMessage(){
+		this.checkUpdateHandler = new Handler(){
+			public void handleMessage(Message msg) {
+				DialogUtils.showPromptDialog(IndexActivity.this, "检查新版本",msg.obj.toString(), "知道了");
+			}
+		};
+	}
+
 	/**
 	 * 处理上传消息
 	 */
@@ -270,5 +343,9 @@ public class IndexActivity extends Activity implements OnClickListener{
 				IndexActivity.this.startActivity(loginIntent);
 			}
 		});
+	}
+
+	public static void main(String[] args) {
+		
 	}
 }
