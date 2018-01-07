@@ -2,6 +2,7 @@ package com.huasheng.sysq.activity;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -27,6 +28,10 @@ import com.huasheng.sysq.activity.report.ReportActivity;
 import com.huasheng.sysq.activity.reservation.ReservationListActivity;
 import com.huasheng.sysq.activity.settings.SettingsNavActivity;
 import com.huasheng.sysq.activity.usercenter.UserCenterNavActivity;
+import com.huasheng.sysq.model.InterviewBasic;
+import com.huasheng.sysq.model.InterviewBasicWrap;
+import com.huasheng.sysq.model.Interviewee;
+import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.DialogUtils;
@@ -280,31 +285,84 @@ public class IndexActivity extends Activity implements OnClickListener{
 	 */
 	private void update(){
 		
-		DialogUtils.showConfirmDialog(this, "升级系统前请您确定是否数据已经全部上传？", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
-				AlertDialog.Builder updateBuilder = new AlertDialog.Builder(IndexActivity.this);
-				updateBuilder.setTitle("系统更新");
-				TextView tv = new TextView(IndexActivity.this);
-				tv.setId(1);
-				tv.setTextSize(20);
-				updateBuilder.setView(tv);
-				updateBuilder.setPositiveButton("关闭", null);
-				updateDialog = updateBuilder.create();
-				updateDialog.setCancelable(false);
-				updateDialog.setCanceledOnTouchOutside(false);
-				updateDialog.show();
-				updateDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
-				
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						UpdateUtils.update(IndexActivity.this,updateHandler);
+		//检查数据是否同步
+		boolean isSync = true;
+		List<InterviewBasicWrap> allInterviewBasicWrapList = InterviewService.getAllInterviewBasic();//获取所有访谈
+		if(allInterviewBasicWrapList != null && allInterviewBasicWrapList.size() > 0){
+			for(InterviewBasicWrap interviewBasicWrap : allInterviewBasicWrapList){
+				InterviewBasic interviewBasic = interviewBasicWrap.getInterviewBasic();
+				if(interviewBasic.getIsTest() == InterviewBasic.TEST_NO){//真实访谈
+					if(interviewBasic.getStatus() == InterviewBasic.STATUS_DOING){//进行中的访谈
+						isSync = false;
+						break;
+					}else if(interviewBasic.getStatus() == InterviewBasic.STATUS_DONE 
+							|| interviewBasic.getStatus() == InterviewBasic.STATUS_BREAK){//已完成、已结束的访谈
+						if(interviewBasic.getUploadStatus() == UploadConstants.upload_status_not_upload 
+							|| interviewBasic.getUploadStatus() == UploadConstants.upload_status_modified){//未上传或上传后修改
+								isSync = false;
+								break;
+						}else{//已上传
+							
+							//病人数据未同步
+							Interviewee interviewee = interviewBasicWrap.getInterviewee();
+							if(interviewee.getUploadStatus() == UploadConstants.upload_status_not_upload 
+									|| interviewee.getUploadStatus() == UploadConstants.upload_status_modified){
+								isSync = false;
+								break;
+							}
+							
+							//医生数据未同步
+							Interviewer interviewer = interviewBasicWrap.getInterviewer();
+							if(interviewer.getUploadStatus() == UploadConstants.upload_status_not_upload 
+									|| interviewer.getUploadStatus() == UploadConstants.upload_status_modified){
+								isSync = false;
+								break;
+							}
+						}
 					}
-				}).start();
+				}
 			}
-		});
+		}
+		
+		//系统更新
+		if(isSync){
+			this.doUpdate();
+		}else{
+			
+			//弹出提示提醒
+			String promptMsg = "不能进行系统更新，可能原因如下：";
+			promptMsg += "\n1、存在进行中的访谈；";
+			promptMsg += "\n2、访谈已完成或终止，但是未上传或者修改后未上传；";
+			promptMsg += "\n3、访谈已上传，但是对应的病人或医生数据未上传；";
+			DialogUtils.showPromptDialog(this, "系统更新", promptMsg, "知道了");
+		}
+		
+	}
+	
+	/**
+	 * 系统更新
+	 */
+	private void doUpdate(){
+		
+		AlertDialog.Builder updateBuilder = new AlertDialog.Builder(IndexActivity.this);
+		updateBuilder.setTitle("系统更新");
+		TextView tv = new TextView(IndexActivity.this);
+		tv.setId(1);
+		tv.setTextSize(20);
+		updateBuilder.setView(tv);
+		updateBuilder.setPositiveButton("关闭", null);
+		updateDialog = updateBuilder.create();
+		updateDialog.setCancelable(false);
+		updateDialog.setCanceledOnTouchOutside(false);
+		updateDialog.show();
+		updateDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				UpdateUtils.update(IndexActivity.this,updateHandler);
+			}
+		}).start();
 	}
 	
 	/**
