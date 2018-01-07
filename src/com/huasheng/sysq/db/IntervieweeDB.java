@@ -33,6 +33,14 @@ public class IntervieweeDB {
 		return interviewee;
 	}
 	
+	/**
+	 * 删除：根据主键
+	 * @param id
+	 */
+	public static void delete(int id){
+		SysQOpenHelper.getDatabase().delete(DBConstants.TABLE_INTERVIEWEE, "id=?", new String[]{id+""});
+	}
+	
 	public static List<Interviewee> getList(){
 		List<Interviewee> intervieweeList = new ArrayList<Interviewee>();
 		Cursor cursor = SysQOpenHelper.getDatabase().query(DBConstants.TABLE_INTERVIEWEE, null, null, null, null, null,null);

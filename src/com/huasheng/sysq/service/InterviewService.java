@@ -922,6 +922,8 @@ public class InterviewService {
 	 */
 	public static void removeInterviewBasic(int interviewBasicId){
 		
+		InterviewBasic interviewBasic = InterviewBasicDB.selectById(interviewBasicId);
+		
 		//删除访谈数据
 		InterviewBasicDB.deleteById(interviewBasicId);
 		InterviewQuestionaireDB.delete(interviewBasicId);
@@ -933,5 +935,8 @@ public class InterviewService {
 		if(mediaDir.exists()){
 			FileUtils.deleteQuietly(mediaDir);
 		}
+		
+		//删除病人数据
+		IntervieweeDB.delete(interviewBasic.getIntervieweeId());
 	}
 }
