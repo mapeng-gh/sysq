@@ -61,4 +61,17 @@ public class PathConstants {
 		}
 		return tmpDir.getPath();
 	}
+	
+	/**
+	 * 获取备份目录
+	 * @param context
+	 * @return
+	 */
+	public static String getBackupDir() {
+		File backDir = new File(DeviceStorageUtils.getPrimaryStoragePath() + File.separator + "sysq" + File.separator + "backup");
+		if(!backDir.exists()){
+			backDir.mkdirs();
+		}
+		return backDir.getPath();
+	}
 }

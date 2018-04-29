@@ -3,8 +3,11 @@ package com.huasheng.sysq.activity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.provider.DocumentFile;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -12,6 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+
+import org.apache.commons.io.FileUtils;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
@@ -22,6 +29,7 @@ import com.huasheng.sysq.util.DialogUtils;
 import com.huasheng.sysq.util.MailUtils;
 import com.huasheng.sysq.util.NetworkUtils;
 import com.huasheng.sysq.util.RSAUtils;
+import com.huasheng.sysq.util.DeviceStorageUtils;
 import com.huasheng.sysq.util.SysqApplication;
 import com.huasheng.sysq.util.SysqConstants;
 import com.huasheng.sysq.util.SysqContext;
@@ -70,6 +78,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View view) {
+		
 		
 		if(view.getId() == R.id.login){//登录
 			this.login();
