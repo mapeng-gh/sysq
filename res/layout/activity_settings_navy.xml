@@ -179,26 +179,25 @@
                 
             </LinearLayout>
             
-            	<!-- 待定23 -->
+            	<!-- 数据备份 -->
             	<LinearLayout 
-	                android:id="@+id/settings_nav_23"
+	                android:id="@+id/settings_navy_backupLL"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:orientation="vertical"
-	                android:layout_marginLeft="150dp"
-	                android:visibility="invisible">
+	                android:layout_marginLeft="150dp">
                 
 	                 <ImageView 
 	            	    android:layout_width="wrap_content"
 	            	    android:layout_height="wrap_content"
 	            	    android:layout_gravity="center_horizontal"
-	            	    android:src="@drawable/settings_ftp"/>
+	            	    android:src="@drawable/settings_backup"/>
                     
                 	<TextView 
 	                    android:layout_width="wrap_content"
 	                    android:layout_height="wrap_content"
 	                    android:layout_gravity="center_horizontal"
-	                    android:text="FTP服务器"
+	                    android:text="数据备份"
 	                    android:textSize="20sp"/>
                 
             </LinearLayout>

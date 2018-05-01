@@ -53,6 +53,21 @@ public class DeviceStorageUtils {
         return null;
 	}
 	
+	
+	public static boolean checkStorageAvailable(Context context,String mountPoint) {
+		if (mountPoint == null) {
+	           return false;
+	    }
+       StorageManager storageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
+       try {
+           Method getVolumeState = storageManager.getClass().getMethod("getVolumeState", String.class);
+           String state = (String) getVolumeState.invoke(storageManager,mountPoint);
+           return Environment.MEDIA_MOUNTED.equals(state);
+       } catch (Exception e) {
+       }
+       return false;
+	}
+	
 	/**
 	 * 获取存剩余容量
 	 * @return

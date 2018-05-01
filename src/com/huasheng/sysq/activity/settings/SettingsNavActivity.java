@@ -1,19 +1,36 @@
 package com.huasheng.sysq.activity.settings;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.LinearLayout;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.huasheng.sysq.R;
 import com.huasheng.sysq.model.Interviewer;
 import com.huasheng.sysq.service.InterviewService;
 import com.huasheng.sysq.service.UserCenterService;
+import com.huasheng.sysq.util.DeviceStorageUtils;
 import com.huasheng.sysq.util.DialogUtils;
+import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqConstants;
+
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.provider.DocumentFile;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.LinearLayout;
 
 public class SettingsNavActivity extends Activity implements OnClickListener{
 	
@@ -23,6 +40,9 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 	private LinearLayout resetPwdLL;
 	private LinearLayout repaireLL;
 	private LinearLayout adminRepaireLL;
+	private LinearLayout backupLL;
+	
+	private static int REQUEST_CODE_OPEN_TREE = 42;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +62,8 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 		repaireLL.setOnClickListener(this);
 		adminRepaireLL = (LinearLayout)findViewById(R.id.settings_navy_admin_repaireLL);
 		adminRepaireLL.setOnClickListener(this);
+		backupLL = (LinearLayout)findViewById(R.id.settings_navy_backupLL);
+		backupLL.setOnClickListener(this);
 	}
 
 	@Override
@@ -75,7 +97,93 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 			}else{
 				DialogUtils.showLongToast(this, "帐号正常，无需修复");
 			}
+			
+		}else if(v.getId() == R.id.settings_navy_backupLL) {//多媒体数据备份
+			this.backup();
 		}
 	}
+	
+	/**
+	 * 多媒体数据备份
+	 */
+	private void backup() {
+		
+		//检查是否插入sd卡
+		String sdPath = DeviceStorageUtils.getExtStoragePath(this);
+		if(StringUtils.isEmpty(sdPath) || !DeviceStorageUtils.checkStorageAvailable(this, sdPath)) {
+			DialogUtils.showLongToast(this, "请先插入外部SD卡");
+			return;
+		}
+		
+		//sd卡容量检查
+		long sdAvailableBytes = DeviceStorageUtils.getStorageAvailableBytes(sdPath);
+		long backupSize = FileUtils.sizeOfDirectory(new File(PathConstants.getBackupDir()));
+		if(sdAvailableBytes < backupSize + 10 * 1024 * 1024) {//预留10M
+			DialogUtils.showLongToast(this, "外部SD卡存储容量不足");
+			return;
+		}
+		
+		//文件检查
+		File backupDir = new File(PathConstants.getBackupDir());
+		if(!backupDir.exists() || backupDir.listFiles() == null || backupDir.listFiles().length == 0) {
+			DialogUtils.showLongToast(this, "没有可备份的数据");
+			return;
+		}
+		
+		//数据迁移
+		Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE); 
+		super.startActivityForResult(intent, REQUEST_CODE_OPEN_TREE); 
+	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == RESULT_OK ) {
+			if(requestCode == REQUEST_CODE_OPEN_TREE) {
+				Uri treeUri = data.getData(); 
+				DocumentFile rootDir = DocumentFile.fromTreeUri(this, treeUri); 
+				
+				DocumentFile sysqDir = rootDir.findFile("sysq");
+				if(sysqDir == null || !sysqDir.exists()) {
+					sysqDir = rootDir.createDirectory("sysq");
+				}
+				
+				File backupDir = new File(PathConstants.getBackupDir());
+				for(File backupFile : backupDir.listFiles()) {
+					this.backupFile(sysqDir, backupFile);
+				}
+				
+				//清空备份目录
+				try {
+					FileUtils.cleanDirectory(new File(PathConstants.getBackupDir()));
+				}catch(Exception e) {
+				}
+				
+				DialogUtils.showLongToast(this, "数据备份成功");
+				
+			}
+		}
+	}
+	
+	private void backupFile(DocumentFile destDir,File srcFile) {
+		DocumentFile destFile = destDir.createFile(null, srcFile.getName());
+		
+		OutputStream output = null;
+		InputStream input = null;
+		try {
+			input = new FileInputStream(srcFile);
+			output = this.getContentResolver().openOutputStream(destFile.getUri());
+			IOUtils.copy(input, output);
+		} catch (Exception e) {
+		}finally {
+			try {
+				if(input != null) {
+					input.close();
+				}
+				if(output != null) {
+					output.close();
+				}
+			}catch(Exception e) {
+			}
+		}
+	}
 }
