@@ -63,6 +63,7 @@
          <activity android:name=".activity.usercenter.UserCenterNavActivity" android:screenOrientation="landscape"></activity>
          <activity android:name=".activity.usercenter.Usercenter4BasicActivity" android:screenOrientation="portrait"></activity>
          <activity android:name=".activity.usercenter.Usercenter4PasswordActivity" android:screenOrientation="portrait"></activity>
+         <activity android:name=".activity.usercenter.Usercenter4AboutActivity" android:screenOrientation="portrait"></activity>
          
          <!-- 受访者一览 -->
          <activity android:name=".activity.interviewee.IntervieweeActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateHidden"></activity>

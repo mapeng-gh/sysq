@@ -37,6 +37,21 @@ public class PackageUtils {
 	}
 	
 	/**
+	 * 获取app版本名称
+	 * @param context
+	 * @return
+	 */
+	public static String getVersionName(Context context) {
+		PackageManager pm = context.getPackageManager();
+		try{
+			PackageInfo pi = pm.getPackageInfo(getCurPackageName(context),0);
+			return pi.versionName;
+		}catch(NameNotFoundException e){
+			throw new RuntimeException("package[com.huasheng.sysq] not found", e);
+		}
+	}
+	
+	/**
 	 * 安装Apk
 	 * @param context
 	 * @param apkFile
