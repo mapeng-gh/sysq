@@ -2,8 +2,6 @@ package com.huasheng.sysq.activity.settings;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -21,7 +19,6 @@ import com.huasheng.sysq.util.PathConstants;
 import com.huasheng.sysq.util.SysqConstants;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -108,9 +105,16 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 	 */
 	private void backup() {
 		
+		//文件检查
+		File backupDir = new File(PathConstants.getBackupDir());
+		if(!backupDir.exists() || backupDir.listFiles() == null || backupDir.listFiles().length == 0) {
+			DialogUtils.showLongToast(this, "没有可备份的数据");
+			return;
+		}
+		
 		//检查是否插入sd卡
 		String sdPath = DeviceStorageUtils.getExtStoragePath(this);
-		if(StringUtils.isEmpty(sdPath) || !DeviceStorageUtils.checkStorageAvailable(this, sdPath)) {
+		if(StringUtils.isEmpty(sdPath) || !DeviceStorageUtils.checkExtStorageAvailable(this, sdPath)) {
 			DialogUtils.showLongToast(this, "请先插入外部SD卡");
 			return;
 		}
@@ -123,13 +127,6 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 			return;
 		}
 		
-		//文件检查
-		File backupDir = new File(PathConstants.getBackupDir());
-		if(!backupDir.exists() || backupDir.listFiles() == null || backupDir.listFiles().length == 0) {
-			DialogUtils.showLongToast(this, "没有可备份的数据");
-			return;
-		}
-		
 		//数据迁移
 		Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE); 
 		super.startActivityForResult(intent, REQUEST_CODE_OPEN_TREE); 
@@ -139,31 +136,45 @@ public class SettingsNavActivity extends Activity implements OnClickListener{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode == RESULT_OK ) {
 			if(requestCode == REQUEST_CODE_OPEN_TREE) {
-				Uri treeUri = data.getData(); 
-				DocumentFile rootDir = DocumentFile.fromTreeUri(this, treeUri); 
+				Uri selectedUri = data.getData(); 
+				Log.d("backup", selectedUri.toString());
 				
-				DocumentFile sysqDir = rootDir.findFile("sysq");
-				if(sysqDir == null || !sysqDir.exists()) {
-					sysqDir = rootDir.createDirectory("sysq");
+				//限制存储位置
+				if(selectedUri.toString().contains("primary")) {
+					DialogUtils.showLongToast(this, "请选择外置SD卡");
+					return;
+				}
+				if(!selectedUri.toString().endsWith("%3A")) {
+					DialogUtils.showLongToast(this, "请选择外置SD卡根目录");
+					
+					return;
 				}
 				
+				DocumentFile selectedDir = DocumentFile.fromTreeUri(this, selectedUri); 
+				
+				//创建目录
+				DocumentFile sysqDir = selectedDir.findFile("sysq");
+				if(sysqDir == null || !sysqDir.exists()) {
+					sysqDir = selectedDir.createDirectory("sysq");
+				}
+				
+				DialogUtils.showLongToast(this, "数据备份已开始，请稍后...");
+				
+				//备份数据
 				File backupDir = new File(PathConstants.getBackupDir());
 				for(File backupFile : backupDir.listFiles()) {
 					this.backupFile(sysqDir, backupFile);
-				}
-				
-				//清空备份目录
-				try {
-					FileUtils.cleanDirectory(new File(PathConstants.getBackupDir()));
-				}catch(Exception e) {
+					
+					//删除文件
+					FileUtils.deleteQuietly(backupFile);
 				}
 				
 				DialogUtils.showLongToast(this, "数据备份成功");
-				
 			}
 		}
 	}
 	
+	//文件拷贝
 	private void backupFile(DocumentFile destDir,File srcFile) {
 		DocumentFile destFile = destDir.createFile(null, srcFile.getName());
 		

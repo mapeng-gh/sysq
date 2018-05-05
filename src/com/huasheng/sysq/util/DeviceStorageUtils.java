@@ -53,8 +53,13 @@ public class DeviceStorageUtils {
         return null;
 	}
 	
-	
-	public static boolean checkStorageAvailable(Context context,String mountPoint) {
+	/**
+	 * 检测外部SD卡是否可用
+	 * @param context
+	 * @param mountPoint
+	 * @return
+	 */
+	public static boolean checkExtStorageAvailable(Context context,String mountPoint) {
 		if (mountPoint == null) {
 	           return false;
 	    }
