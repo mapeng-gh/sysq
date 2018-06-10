@@ -523,16 +523,12 @@ public class UploadUtils {
 							if( (audioDir.exists() && audioDir.listFiles().length > 0) || (photoDir.exists() && photoDir.listFiles().length > 0) ){
 								
 								//打包
-								File zipFile = new File(PathConstants.getTmpDir(),mediaDir.getName()+".zip");
+								File zipFile = new File(PathConstants.getTmpDir(),mediaDir.getName() + "_" + CommonUtils.getCustomDateTime("yyyyMMddHHmmss") +".zip");
 								ZipUtil.zip(mediaDir.getPath(), zipFile.getPath());
 								
 								//上传
 								InputStream zipIS = new FileInputStream(zipFile);
-								String filename = mediaDir.getName() + "_" + CommonUtils.getCustomDateTime("yyyyMMddHHmmss") + ".zip";
-								boolean isSuccess = ftpClient.storeFile(new String(filename.getBytes("UTF-8"),"ISO8859-1"),zipIS);
-								
-								//清空临时打包文件
-								zipFile.delete();
+								boolean isSuccess = ftpClient.storeFile(new String(zipFile.getName().getBytes("UTF-8"),"ISO8859-1"),zipIS);
 								
 								//关闭文件流
 								try{
@@ -541,6 +537,12 @@ public class UploadUtils {
 									}
 								}catch(Exception e){
 								}
+								
+								//备份
+								FileUtils.copyFileToDirectory(zipFile, new File(PathConstants.getBackupDir()));
+								
+								//清空临时打包文件
+								zipFile.delete();
 								
 								if(isSuccess){
 									//删除多媒体文件

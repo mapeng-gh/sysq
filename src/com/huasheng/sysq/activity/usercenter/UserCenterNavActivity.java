@@ -17,8 +17,8 @@ public class UserCenterNavActivity extends Activity implements OnClickListener{
 	
 	private LinearLayout basicLL;
 	private LinearLayout passwordLL;
-	
 	private LinearLayout logoutLL;
+	private LinearLayout aboutLL;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,8 @@ public class UserCenterNavActivity extends Activity implements OnClickListener{
 		passwordLL.setOnClickListener(this);
 		logoutLL = (LinearLayout)findViewById(R.id.usercenter_navy_logoutLL);
 		logoutLL.setOnClickListener(this);
+		aboutLL = (LinearLayout)findViewById(R.id.usercenter_navy_aboutLL);
+		aboutLL.setOnClickListener(this);
 	}
 
 	@Override
@@ -45,7 +47,11 @@ public class UserCenterNavActivity extends Activity implements OnClickListener{
 			this.startActivity(intent);
 			
 		}else if(v.getId() == R.id.usercenter_navy_logoutLL){//退出系统
-			logout();
+			this.logout();
+			
+		}else if(v.getId() == R.id.usercenter_navy_aboutLL) {//关于
+			Intent intent = new Intent(this,Usercenter4AboutActivity.class);
+			this.startActivity(intent);
 		}
 	}
 	

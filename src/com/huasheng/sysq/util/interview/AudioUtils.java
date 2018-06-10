@@ -3,29 +3,20 @@ package com.huasheng.sysq.util.interview;
 import java.io.File;
 import java.io.IOException;
 
-import android.media.MediaRecorder;
-import android.os.Environment;
-import android.os.StatFs;
-
 import com.huasheng.sysq.model.InterviewBasicWrap;
 import com.huasheng.sysq.model.Interviewee;
 import com.huasheng.sysq.util.CommonUtils;
 import com.huasheng.sysq.util.PathConstants;
+import com.huasheng.sysq.util.DeviceStorageUtils;
 import com.huasheng.sysq.util.SysqApplication;
+
+import android.media.MediaRecorder;
 
 public class AudioUtils {
 
 	private static MediaRecorder mediaRecorder;
 	private static boolean isStarted = false;
-	private static final long MIN_STORAGE_CAPABILITY = 200 * 1000 * 1000; // 200M
-	
-	
-	private static long getStorageCapability(){
-		File sdDir = Environment.getExternalStorageDirectory();
-		StatFs fs = new StatFs(sdDir.getAbsolutePath());
-		long available = fs.getAvailableBytes();
-		return available;
-	}
+	private static final long MIN_STORAGE_CAPABILITY = 500 * 1000 * 1000; // 500M
 	
 	private static String genFilePath(InterviewBasicWrap interviewBasicWrap){
 		
@@ -53,8 +44,8 @@ public class AudioUtils {
 			if(!isStarted){
 				
 				//手机存储容量不得小于200M
-				if(getStorageCapability() < MIN_STORAGE_CAPABILITY){
-					SysqApplication.showMessage("录音启动失败，手机存储容量不得小于200M");
+				if(DeviceStorageUtils.getStorageAvailableBytes(DeviceStorageUtils.getPrimaryStoragePath()) < MIN_STORAGE_CAPABILITY){
+					SysqApplication.showMessage("录音启动失败，手机存储容量不得小于500M");
 					isStarted = false;
 					return;
 				}
