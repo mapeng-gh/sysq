@@ -1,1 +1,1 @@
-insert into version (id,name,publish_date,remark,is_current) values (5,'版本5','2017/12/19','镇江培训2017-12-17',1);
+insert into version (id,name,publish_date,remark,is_current) values (6,'版本6','2018/6/24','2018年6月24日更新',1);
