@@ -115,17 +115,29 @@ public class LoginActivity extends Activity implements OnClickListener{
 						}
 						
 						//获取管理员密码
-						Interviewer adminInterviewer = UserCenterService.getUser(SysqConstants.ADMIN_LOGIN_NAME);
-						String adminPwd = adminInterviewer.getPassword();
+						Interviewer adminInterviewer = UserCenterService.getById(SysqConstants.ADMIN_ID);
 						
-						//加密
+						//密码加密
+						String adminPwd = adminInterviewer.getPassword();
 						String publicKeyStr = "30819f300d06092a864886f70d010101050003818d0030818902818100a5d2892a01182448da82ee00a1ffd95806f082a8d18371969538f8271d4d0f141fe1e301b1b931a8c12a0f4d9790e9bf9e3e9870af9f5d79469c983858a5c826c04d247e10eaa79e0998e2277a4a2fbb69451b48d8c876981afeae80deaf64f441890fbfe546b70bf26bbf7faaad13f4dd58b4f7956de10ba06c839ddfbe72ed0203010001";
 						String encryptAdminPwd = RSAUtils.encrypt(adminPwd, publicKeyStr);
 						
+						//邮件模板
+						StringBuffer mailTemp = new StringBuffer();
+						mailTemp.append("管理员忘记登录密码，需要您协助！");
+						mailTemp.append("<br/><br/>");
+						mailTemp.append("登录账号：%s<br/>");
+						mailTemp.append("登录密码：%s<br/>");
+						mailTemp.append("姓名：%s<br/>");
+						mailTemp.append("联系电话：%s<br/>");
+						mailTemp.append("电子邮箱：%s<br/>");
+						mailTemp.append("工作单位：%s<br/>");
+						mailTemp.append("<br/><br/>");
+						mailTemp.append("备注：登陆密码已进行加密处理，请安装解密器进行解密，解密器链接：http://o77m1ke38.bkt.clouddn.com/decryptor.apk");
+						
 						//发送邮件
 						try{
-							//崔老师邮箱：yuqingcui2012@163.com
-							MailUtils.send("yuqingcui2012@163.com", "找回密码",String.format("设备号：%s<br/>管理员密码：%s<br/>请使用解码app进行解密", CommonUtils.getMacAddress(LoginActivity.this),encryptAdminPwd));
+							MailUtils.send("找回密码",String.format(mailTemp.toString(), adminInterviewer.getLoginName(),encryptAdminPwd,adminInterviewer.getUsername(),adminInterviewer.getMobile(),adminInterviewer.getEmail(),adminInterviewer.getWorkingPlace()));
 							handler.post(new Runnable() {
 								@Override
 								public void run() {
