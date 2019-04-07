@@ -152,17 +152,28 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 		Interviewee interviewee = interviewBasicWrap.getInterviewee();
 		String dnas = interviewee.getDna();
 		
+		//检查DNA格式
+		if(StringUtils.isBlank(dna)) {
+			DialogUtils.showLongToast(this, "扫描结果为空，请重新扫码");
+			return;
+		}
+		if(!dna.startsWith("D")) {
+			DialogUtils.showLongToast(this, "您的扫码格式不正确，请重新扫码");
+			return;
+		}
+		
+		
 		//检查DNA是否重复
 		if(!StringUtils.isEmpty(dnas)){
 			if(!dnas.contains(",")){
 				if(dnas.equals(dna)){
-					SysqApplication.showMessage("该DNA已存在");
+					DialogUtils.showLongToast(this, "该DNA已存在");
 					return;
 				}
 			}else{
 				List<String> dnaList = Arrays.asList(dnas.split(","));
 				if(dnaList.contains(dna)){
-					SysqApplication.showMessage("该DNA已存在");
+					DialogUtils.showLongToast(this, "该DNA已存在");
 					return;
 				}
 			}
@@ -182,7 +193,7 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 		InterviewService.updateInterviewee(interviewee);
 		
 		//刷新列表
-		SysqApplication.showMessage("保存成功");
+		DialogUtils.showLongToast(this, "保存成功");
 		this.renderDNAList();
 	}
 
@@ -190,7 +201,6 @@ public class IntervieweePerson4DNAActivity extends Activity implements OnClickLi
 	public void onBackPressed() {
 		
 		//查询dna信息
-		List<String> data = new ArrayList<String>();
 		InterviewBasicWrap interviewBasicWrap = InterviewService.findInterviewBasicById(this.interviewBasicId);
 		String dnas = interviewBasicWrap.getInterviewee().getDna();
 		

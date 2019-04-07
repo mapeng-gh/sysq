@@ -5,7 +5,7 @@ public class UpdateConstants {
 	//版本配置文件
 	//product：http://o77m1ke38.bkt.clouddn.com/version.properties
 	//test：http://orqrpzbs4.bkt.clouddn.com/version.properties
-	public static final String CONFIG_ADDRESS = "http://o77m1ke38.bkt.clouddn.com/version.properties";
+	public static final String CONFIG_ADDRESS = "http://ccpl.psych.ac.cn:20050/version.properties";
 	
 	//消息
 	public static final int MSG_UPDATE_SHOW_INFOMATION = 1;	//显示信息
